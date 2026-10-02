@@ -1,0 +1,5 @@
+# Excecoes do conferir_publicacao.py -- uma por linha:
+#
+#     <sha10> | <motivo>
+#
+[14 more lines]

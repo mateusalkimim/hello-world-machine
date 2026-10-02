@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A vida de olá mundo — one-phrase-one-machine</title>
+<meta name="description" content="O que cada camada de abstração faz com o número: de uma frase dita no escuro até a luz na tela, um degrau por vez, com a passagem do livro que sustenta cada um.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: UMA tela por degrau (stepper controlado pelo leitor). No alto, a trilha do personagem "o": tudo que ele já virou fica visível, apagado; o atual, aceso. Abaixo: tese (≤25 palavras), figura com a palavra nova como rótulo DENTRO, parágrafo (≤60), e "mostrar a prova" fechado. Cores por token, claro e escuro. */
+:root{
+  --bg:#f3f5f9; --card:#ffffff; --linha:#d9e0ec;
+  --ink:#16233f; --ink2:#3f4d6b; --muted:#7c88a1;
+  --bronze:#a9713f; --bronze-soft:#c79b6e;
+  --azul:#1e3a6b; --azul-deep:#12244a;
+  --terracota:#b35430; --verde:#4e7a49; --rubro:#a84444; --roxo:#6d55a3;
+  --bit1:#1e3a6b; --bit0:#e4e9f2; --bit0-ink:#7c88a1;
+  --it-serif:"Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --it-sans:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --it-mono:"Spline Sans Mono", ui-monospace, "Cascadia Code", monospace;
+  --medida:31em;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0a1424; --card:#111d33; --linha:#243352;
+  --ink:#f0e4cc; --ink2:#c9c2b2; --muted:#8a93a8;
+  --bronze:#c9a266; --bronze-soft:#8b7045;
+  --azul:#7fa3dc; --azul-deep:#c7d6f0;
+  --terracota:#d98a68; --verde:#8dbb86; --rubro:#d98080; --roxo:#b9a7e6;
+  --bit1:#c9a266; --bit0:#1b2a45; --bit0-ink:#5f6b86;
+  color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0a1424; --card:#111d33; --linha:#243352;
+  --ink:#f0e4cc; --ink2:#c9c2b2; --muted:#8a93a8;
+  --bronze:#c9a266; --bronze-soft:#8b7045;
+  --azul:#7fa3dc; --azul-deep:#c7d6f0;
+  --terracota:#d98a68; --verde:#8dbb86; --rubro:#d98080; --roxo:#b9a7e6;
+  --bit1:#c9a266; --bit0:#1b2a45; --bit0-ink:#5f6b86;
+  color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--it-sans);font-size:17px;line-height:1.5;margin:0;padding-block:1.5rem 4rem;padding-inline:16px}
+.pagina{max-width:var(--medida);margin-inline:auto;min-width:0;display:grid;gap:1.25rem}
+h1,h2{font-family:var(--it-serif);font-weight:600;line-height:1.1;text-wrap:balance;margin:0}
+h1{font-size:1.6rem;color:var(--azul-deep)}
+h2{font-size:1.9rem;color:var(--ink)}
+p{margin:0}
+.eyebrow{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bronze);font-weight:600}
+.cab{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap}
+.cab .nota{font-size:.78rem;color:var(--muted)}
+.mono{font-family:var(--it-mono);font-variant-numeric:tabular-nums}
+.frase{font-family:var(--it-serif);font-style:italic;font-size:1.08em}
+
+/* trilha do personagem */
+.trilha{display:flex;gap:0;align-items:stretch;overflow-x:auto;padding:.6rem .4rem;background:var(--card);border:1px solid var(--linha);scrollbar-width:thin}
+.trilha .est{flex:1 0 auto;min-width:3.6rem;display:grid;grid-template-rows:auto auto;justify-items:center;gap:.25rem;padding:.2rem .35rem;position:relative;opacity:.35;transition:opacity .2s}
+.trilha .est + .est::before{content:"";position:absolute;left:-.3rem;top:1.05rem;width:.6rem;height:1px;background:var(--linha)}
+.trilha .est .tok{font-family:var(--it-mono);font-size:.9rem;line-height:1;color:var(--ink);height:1.3rem;display:flex;align-items:center}
+.trilha .est .tok.serif{font-family:var(--it-serif);font-style:italic;font-size:1.25rem}
+.trilha .est .nome{font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.trilha .est.passado{opacity:.7}
+.trilha .est.atual{opacity:1}
+.trilha .est.atual .tok{color:var(--bronze)}
+.trilha .est.atual .nome{color:var(--bronze);font-weight:600}
+.trilha .est.futuro .tok{color:var(--muted)}
+.trilha .px{display:grid;grid-template-columns:repeat(5,3px);gap:1px}
+.trilha .px i{width:3px;height:3px;background:var(--ink);display:block}
+.trilha .px i.v{background:transparent}
+.trilha .rl{display:flex;gap:2px}
+.trilha .rl i{width:5px;height:12px;display:block;background:var(--bit0)}
+.trilha .rl i.u{background:var(--bit1)}
+
+/* degrau */
+.degrau{display:grid;gap:1rem;min-width:0}
+.degrau header{display:grid;gap:.25rem}
+.regime{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.tese{font-family:var(--it-serif);font-size:1.35rem;line-height:1.3;color:var(--azul-deep)}
+.fig{background:var(--card);border:1px solid var(--linha);padding:.8rem;overflow-x:auto;min-width:0;position:relative}
+.fig svg{display:block;max-width:100%;height:auto}
+figure{margin:0}
+.origem{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:.5rem;display:flex;gap:.6rem;flex-wrap:wrap}
+.corpo{color:var(--ink2);font-size:1rem}
+.regua{display:flex;align-items:center;gap:.8rem;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+.regua::before,.regua::after{content:"";flex:1;height:2px;background:currentColor;opacity:.6}
+.regua.ouro{color:var(--bronze)} .regua.roxa{color:var(--roxo)} .regua.verde{color:var(--verde)}
+
+/* prova, fechada por padrão */
+details.prova{border-top:1px solid var(--linha);padding-top:.6rem;font-size:.88rem;color:var(--ink2)}
+details.prova summary{cursor:pointer;list-style:none;display:flex;gap:.6rem;align-items:center;color:var(--azul);font-weight:500}
+details.prova summary::-webkit-details-marker{display:none}
+details.prova summary::before{content:"▸";color:var(--bronze);font-size:.9em}
+details.prova[open] summary::before{content:"▾"}
+details.prova summary:focus-visible{outline:2px solid var(--bronze);outline-offset:3px}
+.prova-corpo{display:grid;gap:.6rem;padding-top:.6rem}
+.selo{font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;padding:.12rem .45rem;border:1px solid currentColor;border-radius:2px;white-space:nowrap}
+.selo.lida{color:var(--verde)} .selo.escada{color:var(--azul)} .selo.derivado{color:var(--muted)} .selo.aler{color:var(--terracota)} .selo.oficio{color:var(--bronze)}
+.fonte{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+blockquote{margin:0;padding:.55rem .8rem;background:var(--card);border:1px solid var(--linha);display:grid;gap:.35rem}
+blockquote .en{font-family:var(--it-serif);font-size:.98rem;line-height:1.35;color:var(--ink)}
+blockquote .pt{font-size:.85rem;color:var(--ink2)}
+blockquote cite{font-style:normal;font-size:.72rem;color:var(--muted)}
+
+/* navegação */
+nav.passo{display:grid;grid-template-columns:1fr auto 1fr;gap:.6rem;align-items:center;border-top:1px solid var(--linha);padding-top:.8rem}
+nav.passo button{font:inherit;font-size:.85rem;color:var(--azul);background:none;border:1px solid var(--linha);border-radius:3px;padding:.5rem .7rem;cursor:pointer;text-align:left;min-width:0;display:grid;gap:.1rem}
+nav.passo button:hover{border-color:var(--bronze)}
+nav.passo button:focus-visible{outline:2px solid var(--bronze);outline-offset:2px}
+nav.passo button:disabled{opacity:.35;cursor:default}
+nav.passo button small{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+nav.passo button span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
+nav.passo .prox{text-align:right}
+nav.passo .pos{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+@media (max-width:460px){nav.passo{grid-template-columns:1fr 1fr}nav.passo .pos{grid-column:1/-1;text-align:center;order:-1}}
+
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{text-align:left;padding:.4rem .5rem;border-bottom:1px solid var(--linha);vertical-align:top}
+th{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.tabela{overflow-x:auto}
+.bits{display:inline-grid;grid-auto-flow:column;gap:2px}
+.bits i{display:inline-block;width:1.15em;height:1.5em;line-height:1.5em;text-align:center;font-style:normal;font-family:var(--it-mono);font-size:.85rem;border-radius:2px}
+.bits i.u{background:var(--bit1);color:var(--card)} .bits i.z{background:var(--bit0);color:var(--bit0-ink)}
+.rotulo{font-size:.78rem;color:var(--ink2);font-weight:500}
+ul{margin:0;padding-left:1.2rem}
+li{margin-bottom:.35rem}
+.nota{font-size:.85rem;color:var(--muted)}
+a{color:var(--azul)}
+@media (prefers-reduced-motion: reduce){.trilha .est{transition:none}}
+
+</style>
+</head>
+<body>
+<div class="pagina">
+<div class="cab">
+  <div><p class="eyebrow">one-phrase-one-machine</p><h1>A vida de olá mundo</h1></div>
+  <p class="nota"><a href="../en/" lang="en" hreflang="en">English</a> · ← → no teclado; um degrau por tela</p>
+</div>
+<div class="trilha" id="trilha" aria-label="O que o o já virou"></div>
+<div id="degraus">
+<section class="degrau" id="d0" data-nome="A frase já é um código">
+  <header><p class="regime">0 · antes de qualquer máquina</p><h2>A frase já é um código</h2></header>
+  <p class="tese">Dizer <span class="frase">olá mundo</span> em voz alta é um código. Escrever é outro. Piscar uma lanterna é um terceiro.</p>
+  <figure class="fig">
+    <svg viewBox="0 0 520 130" role="img" aria-label="A mesma frase em três meios: voz, papel, lanterna">
+      <g font-family="Inter, sans-serif" font-size="11" fill="var(--bronze)" font-weight="600" letter-spacing="1">
+        <text x="20" y="18">CÓDIGO 1 · VOZ</text><text x="200" y="18">CÓDIGO 2 · PAPEL</text><text x="372" y="18">CÓDIGO 3 · LANTERNA</text>
+      </g>
+      <text x="20" y="60" font-family="Cormorant Garamond, serif" font-style="italic" font-size="24" fill="var(--ink)">olá mundo</text>
+      <text x="200" y="60" font-family="Inter, sans-serif" font-size="20" fill="var(--ink)">olá mundo</text>
+      <g fill="var(--bronze)">
+        <circle cx="380" cy="50" r="5"/><circle cx="396" cy="50" r="5"/><circle cx="412" cy="50" r="5"/><rect x="428" y="45" width="22" height="10" rx="5"/><circle cx="466" cy="50" r="5"/>
+        <rect x="380" y="68" width="22" height="10" rx="5"/><circle cx="420" cy="73" r="5"/><rect x="436" y="68" width="22" height="10" rx="5"/>
+      </g>
+      <g font-family="Inter, sans-serif" font-size="11" fill="var(--muted)">
+        <text x="20" y="110">som no ar</text><text x="200" y="110">traço na folha</text><text x="372" y="110">só dois sinais: curto e longo</text>
+      </g>
+      <g stroke="var(--linha)"><line x1="175" y1="8" x2="175" y2="118"/><line x1="350" y1="8" x2="350" y2="118"/></g>
+    </svg>
+    <div class="origem"><span>Petzold, cap. 1</span></div>
+  </figure>
+  <p class="corpo">Código aqui não é segredo: é um combinado sobre o que cada sinal quer dizer. Muda o meio, fica a mensagem. A lanterna já obriga a escolher: dois tipos de piscada, e nada mais.</p>
+  <details class="prova"><summary>mostrar a prova</summary><div class="prova-corpo"><div class="fonte"><span class="selo lida">lida no acervo</span> Charles Petzold cap. 1 — Best Friends</div><blockquote><span class="en">In this book, the word code usually means a system for transferring information among people, between people and computers, or within computers themselves.</span><span class="pt">Neste livro, a palavra código geralmente significa um sistema para transferir informação entre pessoas, entre pessoas e computadores, ou dentro dos próprios computadores. (tradução do autor)</span><cite>cap. 1 — Best Friends</cite></blockquote></div></details>
+</section>
+<section class="degrau" id="d1" data-nome="Cada letra recebe um número">
+  <header><p class="regime">1 · letra → número</p><h2>Cada letra recebe um número</h2></header>
+  <p class="tese">O <b>o</b> vale 111. O <b>l</b>, 108. O espaço também é uma letra: 32. A frase vira uma fila de nove números.</p>
+  <figure class="fig">
+    <p class="rotulo">tabela Unicode: o mesmo combinado em toda máquina do planeta</p>
+    <div class="tabela"><table class="mono">
+      <tr><th>letra</th><td>o</td><td>l</td><td>á</td><td>␣</td><td>m</td><td>u</td><td>n</td><td>d</td><td>o</td></tr>
+      <tr><th>número</th><td>111</td><td>108</td><td>225</td><td>32</td><td>109</td><td>117</td><td>110</td><td>100</td><td>111</td></tr>
+    </table></div>
+    <div class="origem"><span>Petzold, cap. 13</span><span>números: derivados, conferíveis</span></div>
+  </figure>
+  <p class="corpo">Não há nada de <b>o</b> no 111. É uma posição numa tabela que o mundo inteiro combinou usar. Por isso o mesmo <b>o</b> é 111 em qualquer máquina.</p>
+  <details class="prova"><summary>mostrar a prova</summary><div class="prova-corpo"><div class="fonte"><span class="selo lida">lida no acervo</span> Charles Petzold cap. 13 — From ASCII to Unicode <span class="selo derivado">derivado</span> os nove números, calculados pelo autor; qualquer tabela Unicode confere</div><blockquote><span class="en">The biggest advantage of UTF-8 is that it's backward compatible with ASCII. This means that a file consisting solely of 7-bit ASCII codes stored as bytes is automatically a UTF-8 file.</span><span class="pt">A maior vantagem do UTF-8 é ser compatível com o ASCII: um arquivo só de códigos ASCII de 7 bits, guardados como bytes, já é automaticamente um arquivo UTF-8. (tradução do autor)</span><cite>cap. 13 — From ASCII to Unicode</cite></blockquote><p class="nota">Buraco: A passagem que define a tabela ASCII em si está no mesmo capítulo e ainda não foi copiada.</p></div></details>
+</section>
+<section class="degrau" id="d2" data-nome="Cada número vira oito casas">
+  <header><p class="regime">2 · número → bits</p><h2>Cada número vira oito casas de sim ou não</h2></header>
+  <p class="tese">111 vira <span class="mono">01101111</span>. Oito casas, cada uma só 0 ou 1. Com oito casas cabem 256 coisas diferentes.</p>
+  <figure class="fig">
+    <svg viewBox="0 0 520 165" role="img" aria-label="O número 111 decomposto em oito casas que valem 128, 64, 32, 16, 8, 4, 2, 1">
+      <text x="24" y="14" font-family="Inter, sans-serif" font-size="11" fill="var(--bronze)" font-weight="600" letter-spacing="1">UM BYTE = OITO BITS · cada casa vale o dobro da vizinha</text>
+      <g font-family="Spline Sans Mono, monospace" font-size="13" fill="var(--muted)" text-anchor="middle">
+        <text x="48" y="36">128</text><text x="108" y="36">64</text><text x="168" y="36">32</text><text x="228" y="36">16</text><text x="288" y="36">8</text><text x="348" y="36">4</text><text x="408" y="36">2</text><text x="468" y="36">1</text>
+      </g>
+      <g font-family="Spline Sans Mono, monospace" font-size="26" text-anchor="middle">
+        <rect x="24" y="46" width="48" height="48" fill="var(--bit0)"/><text x="48" y="80" fill="var(--bit0-ink)">0</text>
+        <rect x="84" y="46" width="48" height="48" fill="var(--bit1)"/><text x="108" y="80" fill="var(--card)">1</text>
+        <rect x="144" y="46" width="48" height="48" fill="var(--bit1)"/><text x="168" y="80" fill="var(--card)">1</text>
+        <rect x="204" y="46" width="48" height="48" fill="var(--bit0)"/><text x="228" y="80" fill="var(--bit0-ink)">0</text>
+        <rect x="264" y="46" width="48" height="48" fill="var(--bit1)"/><text x="288" y="80" fill="var(--card)">1</text>
+        <rect x="324" y="46" width="48" height="48" fill="var(--bit1)"/><text x="348" y="80" fill="var(--card)">1</text>
+        <rect x="384" y="46" width="48" height="48" fill="var(--bit1)"/><text x="408" y="80" fill="var(--card)">1</text>
+        <rect x="444" y="46" width="48" height="48" fill="var(--bit1)"/><text x="468" y="80" fill="var(--card)">1</text>
+      </g>
+      <text x="260" y="128" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" fill="var(--ink)">64 + 32 + 8 + 4 + 2 + 1 = 111 = <tspan font-style="italic" font-family="Cormorant Garamond, serif" font-size="19">o</tspan></text>
+      <text x="260" y="152" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="var(--muted)">bit = uma casa · as casas pintadas somam, as vazias não contam</text>
+    </svg>
+    <div class="origem"><span>Petzold, caps. 11 e 12</span></div>
+  </figure>
+  <p class="corpo">É a mesma ideia de 111 = 100 + 10 + 1, só que cada casa vale o dobro da vizinha, não dez vezes. 256 é o número de combinações, não um tamanho.</p>
+  <details class="prova"><summary>mostrar a prova</summary><div class="prova-corpo"><div class="fonte"><span class="selo lida">lida no acervo</span> Charles Petzold cap. 11 — Bit by Bit by Bit · cap. 12 — Bytes and Hexadecimal</div><blockquote><span class="en">As an 8-bit quantity, a byte can take on values from 00000000 through 11111111, which can represent decimal numbers from 0 through 255, or one of 2<sup>8</sup>, or 256, different things.</span><span class="pt">Como quantidade de 8 bits, um byte vai de 00000000 a 11111111, o que representa os números de 0 a 255, ou uma entre 2⁸, isto é, 256, coisas diferentes. (tradução do autor)</span><cite>cap. 11 — Bit by Bit by Bit · cap. 12 — Bytes and Hexadecimal</cite></blockquote></div></details>
+</section>
+<section class="degrau" id="d3" data-nome="O á não cabe em um byte">
+  <header><p class="regime">2½ · o degrau que o personagem trouxe</p><h2>O á não cabe em um byte</h2></header>
+  <p class="tese">225 é maior que 127, e o combinado original só tinha 128 letras, sem acento. O <b>á</b> custa dois bytes.</p>
+  <figure class="fig">
+    <p class="rotulo">começar com 110 e 10 é a marca de "vem em dupla"; o 0 na frente do o diz "vem sozinho"</p>
+    <div class="tabela"><table class="mono">
+      <tr><th>letra</th><th>bytes</th><th>em bits</th></tr>
+      <tr><td>o</td><td>1</td><td><span class="bits"><i class="z">0</i><i class="u">1</i><i class="u">1</i><i class="z">0</i><i class="u">1</i><i class="u">1</i><i class="u">1</i><i class="u">1</i></span></td></tr>
+      <tr><td>l</td><td>1</td><td><span class="bits"><i class="z">0</i><i class="u">1</i><i class="u">1</i><i class="z">0</i><i class="u">1</i><i class="u">1</i><i class="z">0</i><i class="z">0</i></span></td></tr>
+      <tr><td>á</td><td>2</td><td><span class="bits"><i class="u">1</i><i class="u">1</i><i class="z">0</i><i class="z">0</i><i class="z">0</i><i class="z">0</i><i class="u">1</i><i class="u">1</i></span>&nbsp;<span class="bits"><i class="u">1</i><i class="z">0</i><i class="u">1</i><i class="z">0</i><i class="z">0</i><i class="z">0</i><i class="z">0</i><i class="u">1</i></span></td></tr>
+    </table></div>
+    <div class="origem"><span>Petzold, cap. 13</span><span>bytes do á: derivados pela mesma regra</span></div>
+  </figure>
+  <p class="corpo">Nove letras, dez bytes. Byte não é letra: uma letra pode custar um, dois, três ou quatro. Quem conta bytes para contar letras erra, e a web inteira já errou isso.</p>
+  <details class="prova"><summary>mostrar a prova</summary><div class="prova-corpo"><div class="fonte"><span class="selo lida">lida no acervo</span> Charles Petzold cap. 13, com o £ (U+00A3) como exemplo; o á (U+00E1) está na mesma faixa <span class="selo derivado">derivado</span> C3 A1, pela regra da segunda linha da tabela do cap. 13</div><blockquote><span class="en">Thus, in UTF-8 the two bytes C2h and A3h represent the British £ sign. It seems a shame to require 2 bytes to encode what is essentially just 1 byte of information, but it's necessary for the rest of UTF-8 to work.</span><span class="pt">Assim, em UTF-8 os dois bytes C2 e A3 representam o sinal de libra. Parece pena gastar 2 bytes para codificar o que é essencialmente 1 byte de informação, mas é necessário para o resto do UTF-8 funcionar. (tradução do autor)</span><cite>cap. 13, com o £ (U+00A3) como exemplo; o á (U+00E1) está na mesma faixa</cite></blockquote></div></details>
+</section>
+<section class="degrau" id="d4" data-nome="Cada casa vira corrente">
+  <header><div class="regua ouro">aqui deixa de ser escrita e passa a ser eletricidade</div><p class="regime">3 · bit → corrente</p><h2>Cada casa vira corrente num relé</h2></header>
+  <p class="tese">O 1 é corrente passando; o 0 é corrente parada. Oito relés enfileirados seguram o <b>o</b>; oitenta seguram a frase.</p>
+  <figure class="fig">
+    <svg viewBox="0 0 520 100" role="img" aria-label="Oito relés, um por bit do o">
+      <text x="20" y="14" font-family="Inter, sans-serif" font-size="11" fill="var(--bronze)" font-weight="600" letter-spacing="1">RELÉ · chave fechada = corrente = 1 · chave aberta = 0</text>
+      <g font-family="Spline Sans Mono, monospace" font-size="12" text-anchor="middle">
+        <g transform="translate(20,24)"><rect width="48" height="40" fill="var(--bit0)" stroke="var(--linha)"/><line x1="8" y1="30" x2="28" y2="14" stroke="var(--bit0-ink)" stroke-width="2"/><circle cx="8" cy="30" r="3" fill="var(--bit0-ink)"/><circle cx="40" cy="30" r="3" fill="var(--bit0-ink)"/><text x="24" y="64" fill="var(--muted)">0</text></g>
+        <g transform="translate(80,24)"><rect width="48" height="40" fill="var(--card)" stroke="var(--bit1)"/><line x1="8" y1="30" x2="40" y2="30" stroke="var(--bit1)" stroke-width="2"/><circle cx="8" cy="30" r="3" fill="var(--bit1)"/><circle cx="40" cy="30" r="3" fill="var(--bit1)"/><text x="24" y="64" fill="var(--ink)">1</text></g>
+        <g transform="translate(140,24)"><rect width="48" height="40" fill="var(--card)" stroke="var(--bit1)"/><line x1="8" y1="30" x2="40" y2="30" stroke="var(--bit1)" stroke-width="2"/><circle cx="8" cy="30" r="3" fill="var(--bit1)"/><circle cx="40" cy="30" r="3" fill="var(--bit1)"/><text x="24" y="64" fill="var(--ink)">1</text></g>
+        <g transform="translate(200,24)"><rect width="48" height="40" fill="var(--bit0)" stroke="var(--linha)"/><line x1="8" y1="30" x2="28" y2="14" stroke="var(--bit0-ink)" stroke-width="2"/><circle cx="8" cy="30" r="3" fill="var(--bit0-ink)"/><circle cx="40" cy="30" r="3" fill="var(--bit0-ink)"/><text x="24" y="64" fill="var(--muted)">0</text></g>
+        <g transform="translate(260,24)"><rect width="48" height="40" fill="var(--card)" stroke="var(--bit1)"/><line x1="8" y1="30" x2="40" y2="30" stroke="var(--bit1)" stroke-width="2"/><circle cx="8" cy="30" r="3" fill="var(--bit1)"/><circle cx="40" cy="30" r="3" fill="var(--bit1)"/><text x="24" y="64" fill="var(--ink)">1</text></g>
+        <g transform="translate(320,24)"><rect width="48" height="40" fill="var(--card)" stroke="var(--bit1)"/><line x1="8" y1="30" x2="40" y2="30" stroke="var(--bit1)" stroke-width="2"/><circle cx="8" cy="30" r="3" fill="var(--bit1)"/><circle cx="40" cy="30" r="3" fill="var(--bit1)"/><text x="24" y="64" fill="var(--ink)">1</text></g>
+        <g transform="translate(380,24)"><rect width="48" height="40" fill="var(--card)" stroke="var(--bit1)"/><line x1="8" y1="30" x2="40" y2="30" stroke="var(--bit1)" stroke-width="2"/><circle cx="8" cy="30" r="3" fill="var(--bit1)"/><circle cx="40" cy="30" r="3" fill="var(--bit1)"/><text x="24" y="64" fill="var(--ink)">1</text></g>
+        <g transform="translate(440,24)"><rect width="48" height="40" fill="var(--card)" stroke="var(--bit1)"/><line x1="8" y1="30" x2="40" y2="30" stroke="var(--bit1)" stroke-width="2"/><circle cx="8" cy="30" r="3" fill="var(--bit1)"/><circle cx="40" cy="30" r="3" fill="var(--bit1)"/><text x="24" y="64" fill="var(--ink)">1</text></g>
+      </g>
+    </svg>
+    <div class="origem"><span>Petzold, caps. 7 e 8</span><span>já na escada: eletroímã → relé → porta</span></div>
+  </figure>
+  <p class="corpo">O número não está no relé. O relé só sabe passar ou não passar; somos nós que combinamos que passar vale 1. Daqui para cima, a escada que já existe sobe com citação e instrumento.</p>
+  <details class="prova"><summary>mostrar a prova</summary><div class="prova-corpo"><div class="fonte"><span class="selo escada">já na escada</span> abstraction-ladder — a escada de abstrações eletroímã → relé (Petzold cap. 7) · relé → porta lógica (cap. 8), com o instrumento “dois relés viram uma porta”</div><blockquote><span class="en">These two relays wired in series are known as an AND gate because it is performing a Boolean AND operation.</span><span class="pt">Esses dois relés ligados em série são conhecidos como porta AND, porque executam a operação booleana E. (tradução do autor)</span><cite>eletroímã → relé (Petzold cap. 7) · relé → porta lógica (cap. 8), com o instrumento “dois relés viram uma porta”</cite></blockquote></div></details>
+</section>
+<section class="degrau" id="d5" data-nome="Os bits somam e ficam parados">
+  <header><p class="regime">4 · corrente → conta e lembrança</p><h2>Os bits aprendem a somar e a ficar parados</h2></header>
+  <p class="tese">Portas ligadas de um jeito somam dois bytes. Ligadas de outro, seguram um bit depois que a entrada some.</p>
+  <figure class="fig">
+    <svg viewBox="0 0 520 110" role="img" aria-label="Dois arranjos de portas: o somador e o flip-flop">
+      <g font-family="Inter, sans-serif" font-size="13" fill="var(--ink)">
+        <rect x="20" y="14" width="220" height="82" fill="var(--card)" stroke="var(--bronze)"/>
+        <text x="30" y="34" font-size="11" fill="var(--bronze)" font-weight="600" letter-spacing="1">SOMADOR · faz conta</text>
+        <text x="130" y="60" text-anchor="middle" font-family="Spline Sans Mono, monospace" font-size="13">01101111 + 00000001</text>
+        <text x="130" y="82" text-anchor="middle" font-family="Spline Sans Mono, monospace" font-size="13" fill="var(--bronze)">= 01110000 = p</text>
+        <rect x="280" y="14" width="220" height="82" fill="var(--card)" stroke="var(--azul)"/>
+        <text x="290" y="34" font-size="11" fill="var(--azul)" font-weight="600" letter-spacing="1">FLIP-FLOP · lembra</text>
+        <text x="390" y="60" text-anchor="middle" font-size="12" fill="var(--ink2)">entrou 1, a entrada sumiu,</text>
+        <text x="390" y="82" text-anchor="middle" font-size="12" fill="var(--azul)">a saída continua 1</text>
+      </g>
+    </svg>
+    <div class="origem"><span>Petzold, caps. 14, 17, 19 a 21</span><span>já na escada, com cinco instrumentos</span></div>
+  </figure>
+  <p class="corpo">Somar 1 ao <b>o</b> dá <b>p</b>, a letra seguinte: a tabela foi feita para isso funcionar. Agora o número pode ser operado e pode esperar. Lembrar é o que permite o próximo degrau.</p>
+  <details class="prova"><summary>mostrar a prova</summary><div class="prova-corpo"><div class="fonte"><span class="selo escada">já na escada</span> abstraction-ladder — a escada de abstrações porta → somador (cap. 14) · porta → flip-flop (caps. 17 e 19) · flip-flop de borda → contador e registrador (cap. 20) · somador → ULA (cap. 21)</div><blockquote><span class="en">A half adder is an XOR gate and an AND gate</span><span class="pt">Um meio-somador é uma porta XOR e uma porta AND. (tradução do autor)</span><cite>porta → somador (cap. 14) · porta → flip-flop (caps. 17 e 19) · flip-flop de borda → contador e registrador (cap. 20) · somador → ULA (cap. 21)</cite></blockquote></div></details>
+</section>
+<section class="degrau" id="d6" data-nome="Cada byte ganha um endereço">
+  <header><p class="regime">5 · byte → endereço</p><h2>Cada byte ganha um lugar com número</h2></header>
+  <p class="tese">Memória é uma fileira de gavetas, cada uma com um número na porta. O <b>o</b> fica na gaveta 0109; o <b>l</b>, na 010A.</p>
+  <figure class="fig">
+    <svg viewBox="0 0 520 128" role="img" aria-label="Dez gavetas de memória: conteúdo em cima, endereço embaixo">
+      <text x="10" y="12" font-family="Inter, sans-serif" font-size="11" fill="var(--bronze)" font-weight="600" letter-spacing="1">GAVETA · dentro, o conteúdo · na porta, o endereço</text>
+      <g font-family="Spline Sans Mono, monospace" font-size="12" text-anchor="middle">
+        <g transform="translate(10,20)"><rect width="46" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="23" y="29" font-size="16" fill="var(--ink)">6F</text><text x="23" y="62" fill="var(--muted)">0109</text><text x="23" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">o</text></g>
+        <g transform="translate(60,20)"><rect width="46" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="23" y="29" font-size="16" fill="var(--ink)">6C</text><text x="23" y="62" fill="var(--muted)">010A</text><text x="23" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">l</text></g>
+        <g transform="translate(110,20)"><rect width="46" height="46" fill="var(--card)" stroke="var(--bronze)"/><text x="23" y="29" font-size="16" fill="var(--ink)">C3</text><text x="23" y="62" fill="var(--muted)">010B</text><text x="23" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">á</text></g>
+        <g transform="translate(160,20)"><rect width="46" height="46" fill="var(--card)" stroke="var(--bronze)"/><text x="23" y="29" font-size="16" fill="var(--ink)">A1</text><text x="23" y="62" fill="var(--muted)">010C</text><text x="23" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">·</text></g>
+        <g transform="translate(210,20)"><rect width="46" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="23" y="29" font-size="16" fill="var(--ink)">20</text><text x="23" y="62" fill="var(--muted)">010D</text><text x="23" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">␣</text></g>
+        <g transform="translate(260,20)"><rect width="46" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="23" y="29" font-size="16" fill="var(--ink)">6D</text><text x="23" y="62" fill="var(--muted)">010E</text><text x="23" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">m</text></g>
+        <g transform="translate(310,20)"><rect width="46" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="23" y="29" font-size="16" fill="var(--ink)">75</text><text x="23" y="62" fill="var(--muted)">010F</text><text x="23" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">u</text></g>
+        <g transform="translate(360,20)"><rect width="46" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="23" y="29" font-size="16" fill="var(--ink)">6E</text><text x="23" y="62" fill="var(--muted)">0110</text><text x="23" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">n</text></g>
+        <g transform="translate(410,20)"><rect width="46" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="23" y="29" font-size="16" fill="var(--ink)">64</text><text x="23" y="62" fill="var(--muted)">0111</text><text x="23" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">d</text></g>
+        <g transform="translate(460,20)"><rect width="46" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="23" y="29" font-size="16" fill="var(--ink)">6F</text><text x="23" y="62" fill="var(--muted)">0112</text><text x="23" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">o</text></g>
+      </g>
+      <text x="260" y="122" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="var(--muted)">6F é o 111 em hexadecimal: oito bits abreviados em dois símbolos · o á ocupa duas gavetas vizinhas</text>
+    </svg>
+    <div class="origem"><span>Petzold, cap. 19</span><span>endereços: derivados do programa do cap. 27</span></div>
+  </figure>
+  <p class="corpo">Agora há dois números por letra: o que ela vale e onde ela está. A ordem das letras virou ordem de endereços. Ler a frase é percorrer gavetas vizinhas.</p>
+  <details class="prova"><summary>mostrar a prova</summary><div class="prova-corpo"><div class="fonte"><span class="selo lida">lida no acervo</span> Charles Petzold cap. 19 — An Assemblage of Memory <span class="selo derivado">derivado</span> os endereços seguem o programa do cap. 27, deslocado para a nossa frase</div><blockquote><span class="en">That's called writing to memory, and the value of Data In is said to be stored in memory at the address 010.</span><span class="pt">Isso se chama escrever na memória, e diz-se que o valor da entrada fica guardado na memória no endereço 010. (tradução do autor)</span><cite>cap. 19 — An Assemblage of Memory</cite></blockquote></div></details>
+</section>
+<section class="degrau" id="d7" data-nome="Um número é lido como ordem">
+  <header><div class="regua roxa">aqui deixa de ser circuito e passa a ser linguagem</div><p class="regime">6 · número → ordem</p><h2>Um número é lido como ordem, não como quantidade</h2></header>
+  <p class="tese">Na mesma memória, ao lado das letras, moram outros bytes. <span class="mono">CD</span> não é letra: é a ordem “chame”. <span class="mono">C9</span> é “volte”.</p>
+  <figure class="fig">
+    <svg viewBox="0 0 520 150" role="img" aria-label="Os dezesseis bytes do programa Hello do Petzold: nove ordens e sete letras na mesma memória">
+      <g font-family="Inter, sans-serif" font-size="11" font-weight="600" letter-spacing="1">
+        <text x="10" y="14" fill="var(--azul)">ORDENS · 9 bytes</text><text x="304" y="14" fill="var(--bronze)">LETRAS · 7 bytes</text>
+      </g>
+      <g font-family="Spline Sans Mono, monospace" font-size="13" text-anchor="middle">
+        <rect x="10" y="22" width="286" height="40" fill="var(--card)" stroke="var(--azul)"/>
+        <text x="153" y="47" fill="var(--azul)">11 09 01  0E 09  CD 05 00  C9</text>
+        <rect x="304" y="22" width="206" height="40" fill="var(--card)" stroke="var(--bronze)"/>
+        <text x="407" y="47" fill="var(--bronze)">48 65 6C 6C 6F 21 24</text>
+      </g>
+      <g font-family="Inter, sans-serif" font-size="12" fill="var(--muted)" text-anchor="middle">
+        <text x="153" y="82">carregue · mova · chame · volte</text>
+        <text x="407" y="82">H e l l o ! $</text>
+      </g>
+      <path d="M 30 125 L 30 105 L 290 105" fill="none" stroke="var(--azul)" stroke-width="1.5"/>
+      <path d="M 286 101 L 294 105 L 286 109 Z" fill="var(--azul)"/>
+      <text x="40" y="140" font-family="Inter, sans-serif" font-size="12" fill="var(--ink2)">CONTADOR DE PROGRAMA: percorre só o lado azul; o lado bronze ele aponta, como dado</text>
+    </svg>
+    <div class="origem"><span>Petzold, caps. 23 e 27</span><span>programa real, para um Intel 8080 de 1978</span></div>
+  </figure>
+  <p class="corpo">Nada no byte diz se ele é letra ou ordem. O que decide é para onde o contador de programa aponta, e esse contador também é um número guardado na máquina. A máquina se governa com a mesma matéria que governa.</p>
+  <details class="prova"><summary>mostrar a prova</summary><div class="prova-corpo"><div class="fonte"><span class="selo lida">lida no acervo</span> Charles Petzold cap. 27 — Coding · cap. 23 — CPU Control Signals</div><blockquote><span class="en">The first 3 bytes are the LXI instruction, the next 2 are the MVI instruction, the next 3 are the CALL instruction, and the next is the RET instruction. The last 7 bytes are the ASCII characters for the five letters of “Hello,” the exclamation point, and the dollar sign.</span><span class="pt">Os 3 primeiros bytes são a instrução LXI, os 2 seguintes a MVI, os 3 seguintes a CALL, e o próximo a RET. Os últimos 7 bytes são os caracteres ASCII das cinco letras de “Hello”, o ponto de exclamação e o cifrão. (tradução do autor)</span><cite>cap. 27 — Coding · cap. 23 — CPU Control Signals</cite></blockquote><blockquote><span class="en">A value called the program counter. This is the 16-bit value that accesses instructions. It starts at 0000h and sequentially increases until a HLT instruction.</span><span class="pt">Um valor chamado contador de programa. É o valor de 16 bits que acessa as instruções. Começa em 0000 e cresce em sequência até uma instrução HLT. (tradução do autor)</span><cite>cap. 27 — Coding · cap. 23 — CPU Control Signals</cite></blockquote><p class="nota">Buraco: O programa do livro é de antes do Unicode; um CP/M real não mostraria o á. A versão com “olá mundo” nas gavetas é adaptação do autor.</p></div></details>
+</section>
+<section class="degrau" id="d8" data-nome="As ordens são escritas com palavras">
+  <header><p class="regime">7 · palavras → ordens</p><h2>Alguém escreve as ordens com palavras</h2></header>
+  <p class="tese">Ninguém decora que “chame” é <span class="mono">CD</span>. Escreve-se <span class="mono">CALL 5</span> num texto, e o montador troca cada palavra pelo byte certo.</p>
+  <figure class="fig">
+    <p class="rotulo">montador: uma linha, uma ordem</p>
+    <div class="tabela"><table>
+      <tr><th>o que a pessoa escreve</th><th>o que vira</th><th>o que faz</th></tr>
+      <tr><td class="mono">LXI DE,Text</td><td class="mono">11 09 01</td><td>aponte para a frase</td></tr>
+      <tr><td class="mono">MVI C,9</td><td class="mono">0E 09</td><td>peça o serviço 9: mostrar texto</td></tr>
+      <tr><td class="mono">CALL 5</td><td class="mono">CD 05 00</td><td>chame o sistema</td></tr>
+      <tr><td class="mono">RET</td><td class="mono">C9</td><td>volte</td></tr>
+      <tr><td class="mono">DB 'Hello!$'</td><td class="mono">48 65 6C 6C 6F 21 24</td><td>a frase, byte a byte</td></tr>
+    </table></div>
+    <div class="origem"><span>Petzold, cap. 27</span><span>já na escada: máquina → assembler, avaliador, compilador</span></div>
+  </figure>
+  <p class="corpo">É aqui que a delegação começa: a pessoa escreve a intenção, a máquina executa. O sistema operacional já sabe fazer serviços, como mostrar texto, para que cada programa não precise saber.</p>
+  <details class="prova"><summary>mostrar a prova</summary><div class="prova-corpo"><div class="fonte"><span class="selo lida">lida no acervo</span> Charles Petzold cap. 27 — Coding</div><blockquote><span class="en">An assembler such as ASM.COM reads an assembly-language program (often called a source-code file) and writes out to a file containing machine code—an executable file.</span><span class="pt">Um montador como o ASM.COM lê um programa em linguagem de montagem (o chamado arquivo-fonte) e escreve um arquivo com código de máquina: um executável. (tradução do autor)</span><cite>cap. 27 — Coding</cite></blockquote></div></details>
+</section>
+<section class="degrau" id="d9" data-nome="A ordem vira pontos de luz">
+  <header><div class="regua verde">aqui deixa de ser número e volta a ser luz</div><p class="regime">8 · execução → tela</p><h2>A ordem vira pontos de luz</h2></header>
+  <p class="tese">A tela também é memória: cada três bytes são um ponto colorido. Mostrar o <b>o</b> é escrever números nas gavetas certas desse bloco.</p>
+  <figure class="fig">
+    <svg viewBox="0 0 520 175" role="img" aria-label="A letra o desenhada numa grade de pixels; cada pixel tem três bytes">
+      <text x="20" y="12" font-family="Inter, sans-serif" font-size="11" fill="var(--bronze)" font-weight="600" letter-spacing="1">PIXEL · um ponto da tela · três bytes: vermelho, verde, azul</text>
+      <g transform="translate(0,8)">
+        <rect x="20" y="10" width="150" height="150" fill="var(--card)" stroke="var(--linha)"/>
+        <g fill="var(--ink)">
+          <rect x="65" y="25" width="15" height="15"/><rect x="80" y="25" width="15" height="15"/><rect x="95" y="25" width="15" height="15"/><rect x="110" y="25" width="15" height="15"/>
+          <rect x="50" y="40" width="15" height="15"/><rect x="125" y="40" width="15" height="15"/>
+          <rect x="35" y="55" width="15" height="15"/><rect x="140" y="55" width="15" height="15"/>
+          <rect x="35" y="70" width="15" height="15"/><rect x="140" y="70" width="15" height="15"/>
+          <rect x="35" y="85" width="15" height="15"/><rect x="140" y="85" width="15" height="15"/>
+          <rect x="35" y="100" width="15" height="15"/><rect x="140" y="100" width="15" height="15"/>
+          <rect x="50" y="115" width="15" height="15"/><rect x="125" y="115" width="15" height="15"/>
+          <rect x="65" y="130" width="15" height="15"/><rect x="80" y="130" width="15" height="15"/><rect x="95" y="130" width="15" height="15"/><rect x="110" y="130" width="15" height="15"/>
+        </g>
+        <g stroke="var(--linha)" stroke-width=".5" opacity=".7">
+          <line x1="35" y1="10" x2="35" y2="160"/><line x1="50" y1="10" x2="50" y2="160"/><line x1="65" y1="10" x2="65" y2="160"/><line x1="80" y1="10" x2="80" y2="160"/><line x1="95" y1="10" x2="95" y2="160"/><line x1="110" y1="10" x2="110" y2="160"/><line x1="125" y1="10" x2="125" y2="160"/><line x1="140" y1="10" x2="140" y2="160"/><line x1="155" y1="10" x2="155" y2="160"/>
+          <line x1="20" y1="25" x2="170" y2="25"/><line x1="20" y1="40" x2="170" y2="40"/><line x1="20" y1="55" x2="170" y2="55"/><line x1="20" y1="70" x2="170" y2="70"/><line x1="20" y1="85" x2="170" y2="85"/><line x1="20" y1="100" x2="170" y2="100"/><line x1="20" y1="115" x2="170" y2="115"/><line x1="20" y1="130" x2="170" y2="130"/><line x1="20" y1="145" x2="170" y2="145"/>
+        </g>
+        <rect x="35" y="55" width="15" height="15" fill="none" stroke="var(--bronze)" stroke-width="2"/>
+        <path d="M 50 62 L 200 62" stroke="var(--bronze)" stroke-width="1.2" fill="none"/>
+        <g font-family="Inter, sans-serif" font-size="13" fill="var(--ink)">
+          <text x="210" y="56" font-weight="600">este pixel</text>
+          <text x="210" y="76" font-family="Spline Sans Mono, monospace">16 23 3F</text>
+          <text x="210" y="94" fill="var(--muted)" font-size="12">cada um de 0 a 255</text>
+          <text x="210" y="124" fill="var(--ink2)" font-size="12">tela de 1920 × 1080 pontos</text>
+          <text x="210" y="142" font-family="Spline Sans Mono, monospace" font-size="12">1920 × 1080 × 3 = 6 220 800 bytes</text>
+          <text x="210" y="160" fill="var(--muted)" font-size="12">lidos 60 vezes por segundo</text>
+        </g>
+      </g>
+    </svg>
+    <div class="origem"><span>Petzold, caps. 12 e 25</span><span>do 111 ao desenho do o: a ler</span></div>
+  </figure>
+  <p class="corpo">Sessenta vezes por segundo a tela lê o bloco e acende. <span class="frase">olá mundo</span> volta a ser coisa que a gente lê, feita de números. Como o 111 vira o desenho do <b>o</b> é o buraco declarado deste mapa.</p>
+  <details class="prova"><summary>mostrar a prova</summary><div class="prova-corpo"><div class="fonte"><span class="selo lida">lida no acervo</span> Charles Petzold cap. 25 — Peripherals · cap. 12 (pixel = três bytes)</div><blockquote><span class="en">The contents of the display are stored in a special block of memory, and the individual pixels of the display are refreshed sequentially, starting left to right with the row at the top, and continuing down the display.</span><span class="pt">O conteúdo da tela fica guardado num bloco especial de memória, e os pixels são atualizados em sequência, da esquerda para a direita a partir da linha de cima, descendo pela tela. (tradução do autor)</span><cite>cap. 25 — Peripherals · cap. 12 (pixel = três bytes)</cite></blockquote><blockquote><span class="en">For a 1920 × 1080 display, each of the 2 million pixels requires 3 bytes for the red, green, and blue components, for a total of 6 million bytes, or 6 megabytes.</span><span class="pt">Numa tela de 1920 × 1080, cada um dos 2 milhões de pixels precisa de 3 bytes, para o vermelho, o verde e o azul: 6 milhões de bytes, ou 6 megabytes. (tradução do autor)</span><cite>cap. 25 — Peripherals · cap. 12 (pixel = três bytes)</cite></blockquote><p class="nota">Buraco: Fonte tipográfica e rasterização (do 111 ao desenho do o): o Petzold não cobre. Buraco declarado.</p></div></details>
+</section>
+<section class="degrau" id="d10" data-nome="O laço">
+  <header><p class="regime">fecho</p><h2>Em cada degrau, uma coisa se conserva e uma se esquece</h2></header>
+  <p class="tese">A matemática se refere ao mundo por aquilo que se conserva. Cada camada é uma promessa: “pode esquecer o resto, isto eu garanto”.</p>
+  <figure class="fig">
+    <div class="tabela"><table>
+      <tr><th>degrau</th><th>conserva</th><th>esquece</th><th>fonte</th></tr>
+      <tr><td>0 código</td><td>a mensagem</td><td>o meio</td><td>cap. 1</td></tr><tr><td>1 letra → número</td><td>qual letra é</td><td>forma e som</td><td>cap. 13</td></tr><tr><td>2 número → bits</td><td>o número exato</td><td>a base dez</td><td>caps. 11, 12</td></tr><tr><td>2½ o á</td><td>a letra e as 128 antigas</td><td>“um byte, uma letra”</td><td>cap. 13</td></tr><tr><td>3 bit → corrente</td><td>0 e 1</td><td>a física</td><td>escada</td></tr><tr><td>4 conta e lembrança</td><td>a aritmética</td><td>os relés</td><td>escada</td></tr><tr><td>5 endereço</td><td>a ordem das letras</td><td>o tempo</td><td>cap. 19</td></tr><tr><td>6 número → ordem</td><td>a matéria comum</td><td>“o que fazer” e “sobre o quê”</td><td>caps. 23, 27</td></tr><tr><td>7 palavras → ordens</td><td>o significado</td><td>as palavras</td><td>cap. 27</td></tr><tr><td>8 ordem → luz</td><td>a forma reconhecível</td><td>o número</td><td>caps. 12, 25</td></tr>
+    </table></div>
+    <div class="origem"><span>régua: a tese “matemática como linguagem”</span></div>
+  </figure>
+  <p class="corpo">A escada inteira é a cadeia dessas promessas, e a execução é o que sobra quando todas foram cumpridas.</p>
+  <details class="prova"><summary>buracos declarados</summary><div class="prova-corpo">
+    <ul><li><b>do 111 ao desenho do o</b> (fonte tipográfica e rasterização): sem passagem no Petzold; outro livro, ou ofício do autor, datado</li><li><b>do teclado ao número</b> (Petzold cap. 25 — Peripherals): deve cobrir; não copiado ainda</li><li><b>a tabela ASCII em si</b> (Petzold cap. 13): está no capítulo e não foi copiada; os números do degrau 1 são derivados</li><li><b>o á em 1978</b> (Petzold cap. 27): o programa é de antes do Unicode; a versão com “olá mundo” é adaptação do autor</li><li><b>da tela à web</b> (Petzold cap. 27): o capítulo termina com a mesma frase em JavaScript numa página; ainda não lido</li></ul>
+    <p class="nota">Mapa que esconde o que falta mente sobre o próprio tamanho. Estes são os buracos que este mapa sabe ter.</p>
+  </div></details>
+</section>
+</div>
+<nav class="passo" aria-label="Navegação entre degraus">
+  <button id="ant" type="button"><small>anterior</small><span></span></button>
+  <p class="pos" id="pos"></p>
+  <button id="prox" type="button" class="prox"><small>próximo</small><span></span></button>
+</nav>
+<footer class="rodape">
+  <p class="nota">Texto e figuras: CC BY-SA 4.0 · código: MIT · as passagens citadas pertencem aos seus autores e aparecem sob direito de citação, com fonte e capítulo. <a href="https://github.com/mateusalkimim/one-phrase-one-machine">repositório</a></p>
+</footer>
+</div>
+<script>
+(function(){
+  var secs=[].slice.call(document.querySelectorAll('.degrau'));
+  var N=secs.length;
+  // a trilha: o que o "o" já virou em cada degrau
+  var est=[{tok:"<span class="tok serif">o</span>",nome:"frase"},{tok:"<span class="tok">111</span>",nome:"número"},{tok:"<span class="tok">01101111</span>",nome:"bits"},{tok:"<span class="tok">C3 A1</span>",nome:"o á"},{tok:"<span class="tok"><span class="rl"><i></i><i class="u"></i><i class="u"></i><i></i><i class="u"></i><i class="u"></i><i class="u"></i><i class="u"></i></span></span>",nome:"relés"},{tok:"<span class="tok">+1 = p</span>",nome:"conta"},{tok:"<span class="tok">0109</span>",nome:"endereço"},{tok:"<span class="tok">CD 05 00</span>",nome:"ordem"},{tok:"<span class="tok">CALL 5</span>",nome:"palavra"},{tok:"<span class="tok"><span class="px"><i class="v"></i><i></i><i></i><i></i><i class="v"></i><i></i><i class="v"></i><i class="v"></i><i class="v"></i><i></i><i></i><i class="v"></i><i class="v"></i><i class="v"></i><i></i><i></i><i class="v"></i><i class="v"></i><i class="v"></i><i></i><i class="v"></i><i></i><i></i><i></i><i class="v"></i></span></span>",nome:"luz"},{tok:"<span class="tok serif">∞</span>",nome:"laço"}];
+  var trilha=document.getElementById('trilha');
+  var ant=document.getElementById('ant'),prox=document.getElementById('prox'),pos=document.getElementById('pos');
+  var atual=0;
+  function desenharTrilha(k){
+    var h='';
+    for(var i=0;i<est.length;i++){
+      var cls=i<k?'passado':(i===k?'atual':'futuro');
+      h+='<div class="est '+cls+'" data-i="'+i+'">'+est[i].tok+'<span class="nome">'+est[i].nome+'</span></div>';
+    }
+    trilha.innerHTML=h;
+    var a=trilha.querySelector('.atual'); if(a&&a.scrollIntoView){try{a.scrollIntoView({block:'nearest',inline:'center'});}catch(e){}}
+  }
+  function ir(k,foco){
+    if(k<0||k>=N)return;
+    atual=k;
+    secs.forEach(function(s,i){s.hidden=(i!==k);});
+    desenharTrilha(k);
+    var ultimo=(k===N-1);
+    pos.textContent= ultimo?'fecho':'degrau '+(k+1)+' de '+(N-1);
+    ant.disabled=(k===0); ant.querySelector('span').textContent=k>0?secs[k-1].dataset.nome:'';
+    prox.disabled=ultimo; prox.querySelector('span').textContent=!ultimo?secs[k+1].dataset.nome:'';
+    try{location.hash=secs[k].id;}catch(e){}
+    try{localStorage.setItem('om-degrau',String(k));}catch(e){}
+    if(foco){window.scrollTo({top:0,behavior:'auto'});}
+  }
+  ant.addEventListener('click',function(){ir(atual-1,true);});
+  prox.addEventListener('click',function(){ir(atual+1,true);});
+  trilha.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('.est');if(t)ir(+t.dataset.i,true);});
+  document.addEventListener('keydown',function(e){
+    if(e.target&&/^(INPUT|TEXTAREA)$/.test(e.target.tagName))return;
+    if(e.key==='ArrowRight')ir(atual+1,true);
+    if(e.key==='ArrowLeft')ir(atual-1,true);
+  });
+  var k0=0;
+  var m=/^#d(\d+)$/.exec(location.hash||'');
+  if(m){k0=Math.min(N-1,+m[1]);}
+  else{try{var s=localStorage.getItem('om-degrau');if(s!==null)k0=Math.min(N-1,+s);}catch(e){}}
+  ir(k0,false);
+})();
+
+</script>
+</body>
+</html>
