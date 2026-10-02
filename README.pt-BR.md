@@ -92,7 +92,7 @@ conferir_idioma.py    cada página está no idioma da pasta em que mora
 conferir_publicacao.py  o que não pode sair numa superfície pública
 i18n.py, gerar_en.py, gerar_porta.py   a máquina bilíngue, para quem clonar
 traducao/             a tabela pt→en, chaveada por hash do original
-pesquisa/             por que um degrau tem esta forma, e não outra
+pesquisa/             a tese do material, a forma de um degrau, e a placa mínima do instrumento
 docs/INSTALACAO.md    passo a passo
 LICENSE               MIT, para o código
 LICENSE-CONTENT       CC BY-SA 4.0, para o conteúdo
@@ -130,6 +130,25 @@ regras que mais pesaram:
   figura, nunca glossário ao lado;
 - o leitor controla o passo; nada roda sozinho;
 - a prova existe, mas fica fechada por padrão.
+
+## A tese
+
+O que importa aqui não é a eletrônica de cada camada (isso é profundidade, e
+mora na escada). É responder três perguntas: como corrente elétrica vira dado;
+como o dado navega em forma de corrente; e o que cada camada de abstração
+significa matematicamente. A espinha, degrau a degrau, está em
+[`pesquisa/espinha-matematica.md`](pesquisa/espinha-matematica.md). Dois
+pontos pesam mais: a corrente vira dado por **limiar** (um intervalo inteiro
+de tensões vira um símbolo só, e o ruído some na equivalência), e o dado
+viaja como **onda de estados**, não como coisa que anda.
+
+## O instrumento que vem
+
+Um jogo de blocos que cai, jogável, e acima dele uma placa virtual em que se
+vê a cor da peça sair do registrador, atravessar o barramento e chegar à
+memória de vídeo. A pesquisa que define a placa mínima, os dois relógios e as
+regras de legibilidade está em
+[`pesquisa/placa-minima-e-dado-visivel.md`](pesquisa/placa-minima-e-dado-visivel.md).
 
 ## O lugar no ciclo maior
 
@@ -171,6 +190,9 @@ gerada da fonte, inglês derivado do português) e as mesmas duas fontes.
   preencher;
 - os degraus 3 e 4 citam a escada; o instrumento próprio deste repositório
   (virar um bit e ver o número mudar) ainda não existe;
+- cada degrau ainda não traz a linha "a matemática daqui" com a leitura em
+  voz alta, nem a folha de convenções antes do primeiro símbolo;
+- o instrumento da placa virtual está pesquisado e não construído;
 - os cinco buracos declarados.
 
 ## Licença
