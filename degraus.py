@@ -28,6 +28,7 @@ FONTES = {
 
 # A trilha: o que o "o" já virou em cada degrau. `tok` é HTML curto.
 TRILHA = [
+    ("símbolos", '<span class="tok serif">lê-se</span>'),
     ("frase",    '<span class="tok serif">o</span>'),
     ("número",   '<span class="tok">111</span>'),
     ("bits",     '<span class="tok">01101111</span>'),
@@ -63,6 +64,11 @@ DEGRAUS = [
             "Neste livro, a palavra código geralmente significa um sistema para "
             "transferir informação entre pessoas, entre pessoas e computadores, "
             "ou dentro dos próprios computadores.")],
+        objeto='correspondência um a um',
+        matematica=[
+            ('<span class="nome">código</span>: sinais → significados',
+             'código leva cada sinal num significado só, e dá para voltar'),
+        ],
         notas=[], derivado=None,
     ),
     dict(
@@ -82,6 +88,11 @@ DEGRAUS = [
             "A maior vantagem do UTF-8 é ser compatível com o ASCII: um arquivo só "
             "de códigos ASCII de 7 bits, guardados como bytes, já é automaticamente "
             "um arquivo UTF-8.")],
+        objeto='correspondência um a um entre letras e números',
+        matematica=[
+            ('<span class="nome">número</span>(o) = 111',
+             'número de o é igual a cento e onze'),
+        ],
         notas=["A passagem que define a tabela ASCII em si está no mesmo capítulo "
                "e ainda não foi copiada."],
         derivado="os nove números, calculados pelo autor; qualquer tabela Unicode confere",
@@ -103,6 +114,13 @@ DEGRAUS = [
             "Como quantidade de 8 bits, um byte vai de 00000000 a 11111111, o que "
             "representa os números de 0 a 255, ou uma entre 2⁸, isto é, 256, "
             "coisas diferentes.")],
+        objeto='notação posicional na base dois',
+        matematica=[
+            ('111 = 64 + 32 + 8 + 4 + 2 + 1',
+             'cento e onze é igual a sessenta e quatro, mais trinta e dois, mais oito, mais quatro, mais dois, mais um'),
+            ('2<sup>8</sup> = 256',
+             'dois elevado a oito é igual a duzentos e cinquenta e seis: o tamanho do conjunto das listas de oito zeros ou uns'),
+        ],
         notas=[], derivado=None,
     ),
     dict(
@@ -123,6 +141,11 @@ DEGRAUS = [
             "Assim, em UTF-8 os dois bytes C2 e A3 representam o sinal de libra. "
             "Parece pena gastar 2 bytes para codificar o que é essencialmente 1 byte "
             "de informação, mas é necessário para o resto do UTF-8 funcionar.")],
+        objeto='código de comprimento variável, sem palavra que seja começo de outra',
+        matematica=[
+            ('<span class="nome">bytes</span>(o) = 1, <span class="nome">bytes</span>(á) = 2',
+             'bytes de o é igual a um; bytes de á é igual a dois'),
+        ],
         notas=[], derivado="C3 A1, pela regra da segunda linha da tabela do cap. 13",
     ),
     dict(
@@ -142,6 +165,11 @@ DEGRAUS = [
             "performing a Boolean AND operation.",
             "Esses dois relés ligados em série são conhecidos como porta AND, porque "
             "executam a operação booleana E.")],
+        objeto='limiar: um intervalo inteiro de tensões vira um símbolo só',
+        matematica=[
+            ('<span class="nome">bit</span>(<i>v</i>) = 1 se <i>v</i> ≥ 2 volts, e 0 se <i>v</i> ≤ 0,8 volt',
+             'bit de vê é igual a um se vê é maior ou igual a dois volts, e igual a zero se vê é menor ou igual a zero vírgula oito volt'),
+        ],
         notas=[], derivado=None,
     ),
     dict(
@@ -158,6 +186,13 @@ DEGRAUS = [
         citacoes=[(
             "A half adder is an XOR gate and an AND gate",
             "Um meio-somador é uma porta XOR e uma porta AND.")],
+        objeto='aritmética módulo 256, e estado que depende do anterior',
+        matematica=[
+            ('(111 + 1) <span class="nome">mod</span> 256 = 112',
+             'cento e onze mais um, módulo duzentos e cinquenta e seis, é igual a cento e doze'),
+            ('<i>s</i><sub><i>t</i>+1</sub> = <span class="nome">f</span>(<i>s</i><sub><i>t</i></sub>, <i>x</i><sub><i>t</i></sub>)',
+             'o estado no instante tê mais um é f de: o estado no instante tê, e a entrada no instante tê'),
+        ],
         notas=[], derivado=None,
     ),
     dict(
@@ -175,6 +210,11 @@ DEGRAUS = [
             "be stored in memory at the address 010.",
             "Isso se chama escrever na memória, e diz-se que o valor da entrada fica "
             "guardado na memória no endereço 010.")],
+        objeto='a memória é uma regra que leva cada endereço num byte',
+        matematica=[
+            ('<span class="nome">mem</span>(0109) = 6F',
+             'mem de zero, um, zero, nove é igual a seis-efe, que vale cento e onze'),
+        ],
         notas=[], derivado="os endereços seguem o programa do cap. 27, deslocado para a nossa frase",
     ),
     dict(
@@ -206,6 +246,11 @@ DEGRAUS = [
              "as instruções. Começa em 0000 e cresce em sequência até uma instrução "
              "HLT."),
         ],
+        objeto='a máquina é uma regra de passo: do estado de agora para o próximo',
+        matematica=[
+            ('próximo = <span class="nome">passo</span>(<i>PC</i>, <i>A</i>, mem)',
+             'o próximo estado é passo de: o contador de programa, o registrador A, e a memória'),
+        ],
         notas=["O programa do livro é de antes do Unicode; um CP/M real não "
                "mostraria o á. A versão com “olá mundo” nas gavetas é adaptação "
                "do autor."],
@@ -229,6 +274,11 @@ DEGRAUS = [
             "Um montador como o ASM.COM lê um programa em linguagem de montagem (o "
             "chamado arquivo-fonte) e escreve um arquivo com código de máquina: um "
             "executável.")],
+        objeto='tradução que preserva significado',
+        matematica=[
+            ('<span class="nome">roda</span>(<span class="nome">montar</span>(texto)) = <span class="nome">significado</span>(texto)',
+             'rodar o que foi montado do texto dá o mesmo que o significado do texto'),
+        ],
         notas=[], derivado=None,
     ),
     dict(
@@ -258,10 +308,41 @@ DEGRAUS = [
              "bytes, para o vermelho, o verde e o azul: 6 milhões de bytes, ou 6 "
              "megabytes."),
         ],
+        objeto='regra que leva cada ponto da grade numa cor',
+        matematica=[
+            ('<span class="nome">cor</span>(3, 4) = 16 23 3F',
+             'cor de três e quatro é igual a um-seis, dois-três, três-efe: vermelho, verde e azul'),
+        ],
         notas=["Fonte tipográfica e rasterização (do 111 ao desenho do o): o "
                "Petzold não cobre. Buraco declarado."],
         derivado=None,
     ),
+]
+
+# A folha de convenções: antecede o primeiro símbolo. Ensina a CLASSE do
+# sinal, nunca o verbete. Formato: classe · o que é aqui · exemplo · lê-se.
+CONVENCOES = [
+    ("nome em letras retas, com parênteses",
+     "uma regra com nome, aplicada ao que está entre parênteses",
+     '<span class="nome">número</span>(o)', "número de o"),
+    ("letra inclinada minúscula",
+     "uma quantidade que varia",
+     '<i>v</i>, <i>t</i>', "vê, tê"),
+    ("índice embaixo",
+     "em qual instante, ou em qual posição",
+     '<i>s</i><sub><i>t</i></sub>', "o estado no instante tê"),
+    ("número pequeno em cima",
+     "quantas vezes multiplicar o número por ele mesmo",
+     '2<sup>8</sup>', "dois elevado a oito"),
+    ('<span class="nome">mod</span>',
+     "o resto da divisão por",
+     '(111 + 1) <span class="nome">mod</span> 256', "cento e onze mais um, módulo duzentos e cinquenta e seis"),
+    ("seta entre dois conjuntos",
+     "uma regra que leva cada coisa da esquerda numa coisa da direita",
+     'sinais → significados', "leva sinais em significados"),
+    ("número em hexadecimal",
+     "um byte escrito com dois símbolos; de A a F valem de 10 a 15",
+     '6F', "seis-efe, que vale cento e onze"),
 ]
 
 # O fecho: a tabela do que cada degrau conserva e esquece. Não é degrau — é a

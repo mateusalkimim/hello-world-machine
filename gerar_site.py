@@ -12,7 +12,9 @@ O gerador ABORTA se:
   - um selo alegar fonte (`lida`, `escada`) sem trazer passagem EN + tradução;
   - um degrau apontar figura que não existe;
   - a tese passar de 25 palavras ou o corpo de 60 (o orçamento da folha em branco);
-  - sobrar inglês no corpo visível (a prova fica fechada; o corpo é pt-BR).
+  - sobrar inglês no corpo visível (a prova fica fechada; o corpo é pt-BR);
+  - uma expressão matemática vier sem a leitura em voz alta ("lê-se"), ou um
+    degrau vier sem o seu objeto matemático declarado.
 """
 import html
 import os
@@ -24,7 +26,7 @@ sys.path.insert(0, AQUI)
 import degraus as D   # noqa: E402
 import figuras as F   # noqa: E402
 
-TESE_MAX, CORPO_MAX = 25, 60
+TESE_MAX, CORPO_MAX, LESE_MAX = 25, 60, 32
 SELOS = {
     "lida": ("lida", "lida no acervo"),
     "escada": ("escada", "já na escada"),
@@ -63,6 +65,13 @@ def conferir(d):
     n = palavras(d["corpo"])
     if n > CORPO_MAX:
         abortar(f"{d['id']}: corpo com {n} palavras (máx. {CORPO_MAX})")
+    if not d.get("objeto", "").strip():
+        abortar(f"{d['id']}: sem objeto matemático declarado")
+    for expr, lese in d.get("matematica", []):
+        if not expr.strip() or not lese.strip():
+            abortar(f"{d['id']}: expressão sem leitura em voz alta — toda expressão visível carrega lê-se")
+        if palavras(lese) > LESE_MAX:
+            abortar(f"{d['id']}: lê-se com {palavras(lese)} palavras (máx. {LESE_MAX})")
     for campo in ("tese", "corpo"):
         if EN_SINAL.search(html.unescape(re.sub(r"<[^>]+>", " ", d[campo]))):
             abortar(f"{d['id']}: inglês no {campo} visível — a prova fica na prova")
@@ -89,6 +98,33 @@ def prova(d):
             '<div class="prova-corpo">' + "".join(partes) + "</div></details>")
 
 
+def matematica(d):
+    linhas = "".join(
+        f'<p class="expr">{e}</p><p class="leitura"><b>lê-se:</b> {l}.</p>'
+        for e, l in d["matematica"])
+    return (f'<div class="mat"><p class="obj">a matemática daqui · <b>{d["objeto"]}</b></p>'
+            f'{linhas}</div>')
+
+
+def convencoes():
+    linhas = "".join(
+        f'<tr><td>{c}</td><td>{o}</td><td class="expr">{e}</td><td class="leitura">{l}</td></tr>'
+        for c, o, e, l in D.CONVENCOES)
+    return f"""
+<section class="degrau" id="conv" data-nome="Como ler os símbolos">
+  <header><p class="regime">antes de tudo · como ler os símbolos desta página</p><h2>Sete sinais, e como cada um se lê</h2></header>
+  <p class="tese">Cada expressão desta página vem com a leitura em voz alta logo abaixo. Esta folha diz o que cada tipo de sinal é.</p>
+  <figure class="fig">
+    <div class="tabela"><table class="simbolos">
+      <tr><th>classe</th><th>o que é aqui</th><th>exemplo desta página</th><th>lê-se</th></tr>
+      {linhas}
+    </table></div>
+    <div class="origem"><span>a classe vem antes do símbolo</span></div>
+  </figure>
+  <p class="corpo">Nenhum sinal aparece antes de estar nesta folha. Letra grega não é o assunto de nenhum degrau. Onde o símbolo é mais curto que a frase, a frase vence.</p>
+</section>"""
+
+
 def degrau(d):
     regua = ""
     if d["regua"]:
@@ -104,6 +140,7 @@ def degrau(d):
     <div class="origem">{origem}</div>
   </figure>
   <p class="corpo">{d['corpo']}</p>
+  {matematica(d)}
   {prova(d)}
 </section>"""
 
@@ -143,11 +180,11 @@ def trilha_js():
 def pagina():
     for d in D.DEGRAUS:
         conferir(d)
-    if len(D.TRILHA) != len(D.DEGRAUS) + 1:
-        abortar(f"trilha com {len(D.TRILHA)} estações para {len(D.DEGRAUS)} degraus + fecho")
+    if len(D.TRILHA) != len(D.DEGRAUS) + 2:
+        abortar(f"trilha com {len(D.TRILHA)} estações para convenções + {len(D.DEGRAUS)} degraus + fecho")
     css = open(os.path.join(AQUI, "pele.css"), encoding="utf-8").read()
     js = open(os.path.join(AQUI, "visor.js"), encoding="utf-8").read().replace("__TRILHA__", trilha_js())
-    corpo = "".join(degrau(d) for d in D.DEGRAUS) + fecho(D.FECHO)
+    corpo = convencoes() + "".join(degrau(d) for d in D.DEGRAUS) + fecho(D.FECHO)
     return f"""<!doctype html>
 <html lang="pt-BR">
 <head>
@@ -194,7 +231,8 @@ def main():
         f.write(h)
     n = len(D.DEGRAUS)
     cit = sum(len(d["citacoes"]) for d in D.DEGRAUS)
-    print(f"pt/index.html: {n} degraus + fecho, {cit} passagens, {len(D.A_LER)} buracos declarados, {len(h)} bytes")
+    ex = sum(len(d["matematica"]) for d in D.DEGRAUS)
+    print(f"pt/index.html: convenções + {n} degraus + fecho, {cit} passagens, {ex} expressões com lê-se, {len(D.A_LER)} buracos declarados, {len(h)} bytes")
 
 
 if __name__ == "__main__":

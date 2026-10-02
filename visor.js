@@ -21,7 +21,7 @@
     secs.forEach(function(s,i){s.hidden=(i!==k);});
     desenharTrilha(k);
     var ultimo=(k===N-1);
-    pos.textContent= ultimo?'fecho':'degrau '+(k+1)+' de '+(N-1);
+    pos.textContent= k===0?'antes de tudo':(ultimo?'fecho':'degrau '+k+' de '+(N-2));
     ant.disabled=(k===0); ant.querySelector('span').textContent=k>0?secs[k-1].dataset.nome:'';
     prox.disabled=ultimo; prox.querySelector('span').textContent=!ultimo?secs[k+1].dataset.nome:'';
     try{location.hash=secs[k].id;}catch(e){}

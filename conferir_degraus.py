@@ -30,6 +30,8 @@ DEFEITOS = [
     ("tese acima do orçamento",
      lambda s: s.replace("tese='Dizer <span class=\"frase\">olá mundo</span>",
                          "tese='" + "palavra " * 26 + "<span class=\"frase\">olá mundo</span>", 1)),
+    ("expressão sem lê-se",
+     lambda s: s.replace("'código leva cada sinal num significado só, e dá para voltar'", "''", 1)),
     ("inglês no corpo visível",
      lambda s: s.replace("corpo='Código aqui não é segredo",
                          "corpo='The code is not a secret. Código aqui não é segredo", 1)),
