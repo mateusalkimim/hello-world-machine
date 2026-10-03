@@ -88,6 +88,11 @@ figuras.py            uma figura por degrau, com a palavra nova como rótulo
 pele.css, visor.js    a pele e o visor: um degrau por tela, trilha no alto
 gerar_site.py         o gerador, que aborta se faltar warrant
 conferir_degraus.py   o controle negativo do gerador: planta o defeito e exige o aborto
+maquina/              a máquina: a CPU do Petzold com tela e teclado mapeados em memória
+  maquina.py            o emulador, que conta cada ciclo e grava o traço (a fonte da animação)
+  montar.py             o montador: linguagem de montagem → bytes
+  programas/            os programas, a começar por Olá, Mundo!
+  conferir_maquina.py   montador = mão; a tela diz a frase; o caminho de cada letra; controle negativo
 conferir_idioma.py    cada página está no idioma da pasta em que mora
 conferir_publicacao.py  o que não pode sair numa superfície pública
 i18n.py, gerar_en.py, gerar_porta.py   a máquina bilíngue, para quem clonar
@@ -109,6 +114,10 @@ conferência que nunca reprovou não provou nada.
 - **`conferir_degraus.py`** planta cada um desses defeitos numa cópia e exige
   que o gerador aborte. Se ele aceitar um degrau sem citação, a conferência
   reprova;
+- **`maquina/conferir_maquina.py`** prova que o montador e a montagem à mão
+  concordam byte a byte, que a tela diz a frase, que cada letra chegou por um
+  ciclo de escrita vindo do Instruction Latch 2 com o endereço em HL, e que um
+  programa com um opcode trocado **não** produz a frase;
 - **`conferir_idioma.py`** mede o texto, nunca o nome do arquivo: a página de
   `en/` tem de estar em inglês e a de `pt/` em português;
 - **`conferir_publicacao.py`** lê as superfícies públicas, inclusive as
@@ -192,7 +201,9 @@ gerada da fonte, inglês derivado do português) e as mesmas duas fontes.
   (virar um bit e ver o número mudar) ainda não existe;
 - cada degrau ainda não traz a linha "a matemática daqui" com a leitura em
   voz alta, nem a folha de convenções antes do primeiro símbolo;
-- o instrumento da placa virtual está pesquisado e não construído;
+- a máquina existe como especificação executável (`maquina/`): o emulador
+  roda Olá, Mundo! e grava o traço por ciclo; a placa desenhada em canvas, que
+  reproduz esse traço, ainda não existe;
 - os cinco buracos declarados.
 
 ## Licença
