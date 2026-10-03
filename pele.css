@@ -41,24 +41,16 @@ p{margin:0}
 .mono{font-family:var(--it-mono);font-variant-numeric:tabular-nums}
 .frase{font-family:var(--it-serif);font-style:italic;font-size:1.08em}
 
-/* trilha do personagem */
-.trilha{display:flex;flex-wrap:wrap;gap:.2rem 0;align-items:stretch;padding:.5rem .4rem;background:var(--card);border:1px solid var(--linha)}
-.trilha .est{flex:1 0 auto;min-width:3.4rem;display:grid;grid-template-rows:auto auto;justify-items:center;gap:.25rem;padding:.2rem .35rem;position:relative;opacity:.35;transition:opacity .2s}
-.trilha .est + .est::before{content:"";position:absolute;left:-.3rem;top:1.05rem;width:.6rem;height:1px;background:var(--linha)}
-.trilha .est .tok{font-family:var(--it-mono);font-size:.9rem;line-height:1;color:var(--ink);height:1.3rem;display:flex;align-items:center}
-.trilha .est .tok.serif{font-family:var(--it-serif);font-style:italic;font-size:1.25rem}
-.trilha .est .nome{font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+/* trilha: o nome do degrau, e embaixo o que o O já virou. "Você está aqui" com dois sinais: cor e fundo. */
+.trilha{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;padding:.4rem .3rem;background:var(--card);border:1px solid var(--linha);border-radius:7px}
+.trilha .est{display:grid;justify-items:center;gap:3px;padding:.3rem .2rem;opacity:.4;cursor:pointer;border-radius:5px;min-width:0}
+@media (max-width:420px){.trilha{grid-template-columns:repeat(5,1fr)}}
+.trilha .est .tok{font-family:var(--it-serif);font-size:1.1rem;line-height:1;color:var(--ink)}
+.trilha .est .nome{font-family:var(--it-mono);font-size:.62rem;letter-spacing:.04em;color:var(--muted);white-space:nowrap}
 .trilha .est.passado{opacity:.7}
-.trilha .est.atual{opacity:1}
-.trilha .est.atual .tok{color:var(--bronze)}
-.trilha .est.atual .nome{color:var(--bronze);font-weight:600}
-.trilha .est.futuro .tok{color:var(--muted)}
-.trilha .px{display:grid;grid-template-columns:repeat(5,3px);gap:1px}
-.trilha .px i{width:3px;height:3px;background:var(--ink);display:block}
-.trilha .px i.v{background:transparent}
-.trilha .rl{display:flex;gap:2px}
-.trilha .rl i{width:5px;height:12px;display:block;background:var(--bit0)}
-.trilha .rl i.u{background:var(--bit1)}
+.trilha .est.atual{opacity:1;background:var(--atual,rgba(128,128,128,.12))}
+.trilha .est.atual .tok,.trilha .est.atual .nome{color:var(--bronze)}
+.trilha .est.atual .nome{font-weight:600}
 
 /* degrau */
 .degrau{display:grid;gap:1rem;min-width:0}

@@ -10,7 +10,7 @@
     var h='';
     for(var i=0;i<est.length;i++){
       var cls=i<k?'passado':(i===k?'atual':'futuro');
-      h+='<div class="est '+cls+'" data-i="'+i+'">'+est[i].tok+'<span class="nome">'+est[i].nome+'</span></div>';
+      h+='<div class="est '+cls+'" data-i="'+i+'"><span class="tok">'+est[i].nome+'</span><span class="nome">'+est[i].tok+'</span></div>';
     }
     trilha.innerHTML=h;
     var a=trilha.querySelector('.atual'); if(a&&a.scrollIntoView){try{a.scrollIntoView({block:'nearest',inline:'center'});}catch(e){}}

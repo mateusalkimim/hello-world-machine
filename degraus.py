@@ -32,21 +32,22 @@ FONTES = {
                "https://github.com/mateusalkimim/abstraction-ladder"),
 }
 
-# A trilha: o que o "o" já virou em cada degrau. `tok` é HTML curto.
+# A trilha: o nome de cada degrau e, embaixo, em texto, o que o "O" já virou.
+# Só palavras: ícone na trilha é enfeite que concorre com o conteúdo.
 TRILHA = [
-    ("símbolos", '<span class="tok serif">lê-se</span>'),
-    ("frase",    '<span class="tok serif">O</span>'),
-    ("tecla",    '<span class="tok">⌨ 79</span>'),
-    ("número",   '<span class="tok">79</span>'),
-    ("bits",     '<span class="tok">01001111</span>'),
-    ("o á",      '<span class="tok">C3 A1</span>'),
-    ("relés",    '<span class="tok"><span class="rl"><i></i><i class="u"></i><i></i><i></i><i class="u"></i><i class="u"></i><i class="u"></i><i class="u"></i></span></span>'),
-    ("conta",    '<span class="tok">+1 = P</span>'),
-    ("endereço", '<span class="tok">0109</span>'),
-    ("ordem",    '<span class="tok">CD 05 00</span>'),
-    ("palavra",  '<span class="tok">CALL 5</span>'),
-    ("luz",      '<span class="tok"><span class="px"><i class="v"></i><i></i><i></i><i></i><i class="v"></i><i></i><i class="v"></i><i class="v"></i><i class="v"></i><i></i><i></i><i class="v"></i><i class="v"></i><i class="v"></i><i></i><i></i><i class="v"></i><i class="v"></i><i class="v"></i><i></i><i class="v"></i><i></i><i></i><i></i><i class="v"></i></span></span>'),
-    ("laço",     '<span class="tok serif">∞</span>'),
+    ("lê-se",    "sinais"),
+    ("frase",    "O"),
+    ("tecla",    "79"),
+    ("número",   "79"),
+    ("bits",     "01001111"),
+    ("o á",      "C3 A1"),
+    ("relés",    "oito chaves"),
+    ("conta",    "+1 = P"),
+    ("endereço", "0109"),
+    ("ordem",    "CD 05 00"),
+    ("palavra",  "CALL 5"),
+    ("luz",      "pontos"),
+    ("laço",     "conserva"),
 ]
 
 # Cada degrau: dict com

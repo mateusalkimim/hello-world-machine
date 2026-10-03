@@ -111,3 +111,18 @@ O que mudou, pela mesma régua da escada:
 
 Duas palavras saíram da lista por serem de todo dia: "sinal" (a folha de
 sinais vem antes de tudo) e "ordem" (a ordem das letras, no degrau 5).
+
+### A trilha, corrigida pelo domínio (2026-10-03)
+
+A trilha do alto nasceu da regra 1 (Victor: o concreto continua visível) como
+treze ícones e símbolos ligados por traços. O domínio da casa sobre instrumentos
+didáticos (`pharo/dominio-instrumento-didatico-interativo.md`) manda o
+contrário em três pontos: cortar o que não é conteúdo (Mayer, coerência 0,86);
+cerca de quatro objetos de uma vez (Pylyshyn); e "você está aqui" com dois
+sinais (NN/g). A trilha passou a ser só palavras, como a da escada: o nome do
+degrau em serifa e, embaixo, em texto, o que o "O" já virou (79, 01001111,
+C3 A1, 0109, CD 05 00). O atual tem cor e fundo. Grade de sete colunas em duas
+linhas, porque a medida da página é de 31 em e treze nomes não cabem numa só.
+
+A lição de método: a regra 1 era da linhagem `(c)` e o domínio é `(a)`; a
+trilha errada saiu de uma rodada em que o domínio não foi reaberto.
