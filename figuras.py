@@ -17,7 +17,7 @@ FIGURAS = {
         <line x1="30" y1="24" x2="62" y2="24" stroke="var(--bit1)" stroke-width="2"/>
         <circle cx="62" cy="24" r="3" fill="var(--bit1)"/>
         <line x1="62" y1="24" x2="92" y2="24" stroke="var(--bit1)" stroke-width="2"/>
-        <text x="46" y="60" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="var(--muted)">chave fechada = corrente</text>
+        <text x="46" y="60" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="var(--muted)">chave fechada = passa</text>
       </g>
       <g transform="translate(236,34)">
         <rect x="0" y="0" width="110" height="46" fill="var(--card)" stroke="var(--bronze)"/>
@@ -30,9 +30,9 @@ FIGURAS = {
         <rect x="0" y="0" width="90" height="46" fill="var(--card)" stroke="var(--linha)"/>
         <text x="45" y="20" text-anchor="middle" font-family="Spline Sans Mono, monospace" font-size="12" fill="var(--muted)">A</text>
         <text x="45" y="38" text-anchor="middle" font-family="Spline Sans Mono, monospace" font-size="16" fill="var(--ink)">4F</text>
-        <text x="45" y="90" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="var(--muted)">o acumulador</text>
+        <text x="45" y="90" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="var(--muted)">dentro da máquina</text>
       </g>
-      <text x="260" y="140" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="var(--muted)">79 é o O; 0 é “ninguém apertou”. O programa pergunta à gaveta o tempo todo: polling.</text>
+      <text x="260" y="140" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="var(--muted)">79 é o O; 0 é “ninguém apertou”. A máquina olha a gaveta o tempo todo: consultar o teclado.</text>
     </svg>""",
 
     "tres_meios": r"""<svg viewBox="0 0 520 130" role="img" aria-label="A mesma frase em três meios: voz, papel, lanterna">
@@ -51,7 +51,7 @@ FIGURAS = {
       <g stroke="var(--linha)"><line x1="175" y1="8" x2="175" y2="118"/><line x1="350" y1="8" x2="350" y2="118"/></g>
     </svg>""",
 
-    "tabela_numeros": r"""<p class="rotulo">tabela Unicode: o mesmo combinado em toda máquina do planeta</p>
+    "tabela_numeros": r"""<p class="rotulo">a tabela: o mesmo combinado em toda máquina do planeta</p>
     <div class="tabela"><table class="mono">
       <tr><th>letra</th><td>O</td><td>l</td><td>á</td><td>,</td><td>␣</td><td>M</td><td>u</td><td>n</td><td>d</td><td>o</td><td>!</td></tr>
       <tr><th>número</th><td>79</td><td>108</td><td>225</td><td>44</td><td>32</td><td>77</td><td>117</td><td>110</td><td>100</td><td>111</td><td>33</td></tr>
@@ -105,7 +105,7 @@ FIGURAS = {
         <text x="130" y="60" text-anchor="middle" font-family="Spline Sans Mono, monospace" font-size="13">01001111 + 00000001</text>
         <text x="130" y="82" text-anchor="middle" font-family="Spline Sans Mono, monospace" font-size="13" fill="var(--bronze)">= 01010000 = P</text>
         <rect x="280" y="14" width="220" height="82" fill="var(--card)" stroke="var(--azul)"/>
-        <text x="290" y="34" font-size="11" fill="var(--azul)" font-weight="600" letter-spacing="1">FLIP-FLOP · lembra</text>
+        <text x="290" y="34" font-size="11" fill="var(--azul)" font-weight="600" letter-spacing="1">A PEÇA QUE LEMBRA</text>
         <text x="390" y="60" text-anchor="middle" font-size="12" fill="var(--ink2)">entrou 1, a entrada sumiu,</text>
         <text x="390" y="82" text-anchor="middle" font-size="12" fill="var(--azul)">a saída continua 1</text>
       </g>

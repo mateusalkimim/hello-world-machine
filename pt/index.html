@@ -147,6 +147,15 @@ table.simbolos .expr{font-size:1.05rem}
 /* a seção escondida some de verdade: .degrau{display:grid} vencia o [hidden] do navegador; o visor do artefato mascarava isso com a regra dele */
 .degrau[hidden]{display:none}
 
+/* as palavras de cada degrau: nome em cor, e abaixo os dois itens, sem número */
+.palavras{margin:.2rem 0 .6rem}
+.palavras .rot{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bronze);margin:0 0 .25rem}
+.item{margin:.45rem 0 0;max-width:760px}
+.nome-item{margin:0;font-size:1rem;color:var(--bronze);font-weight:600}
+.item ul{margin:.15rem 0 0;padding-left:1.2em;font-size:.95rem;line-height:1.55;color:var(--ink2)}
+.item ul li{margin:.1rem 0} .item i{font-style:normal;color:var(--muted);font-size:.78rem;letter-spacing:.04em}
+details.prova .fonte{font-size:.8rem;color:var(--muted)}
+
 </style>
 </head>
 <body>
@@ -163,15 +172,16 @@ table.simbolos .expr{font-size:1.05rem}
   <figure class="fig">
     <div class="tabela"><table class="simbolos">
       <tr><th>classe</th><th>o que é aqui</th><th>exemplo desta página</th><th>lê-se</th></tr>
-      <tr><td>nome em letras retas, com parênteses</td><td>uma regra com nome, aplicada ao que está entre parênteses</td><td class="expr"><span class="nome">número</span>(o)</td><td class="leitura">número de o</td></tr><tr><td>letra inclinada minúscula</td><td>uma quantidade que varia</td><td class="expr"><i>v</i>, <i>t</i></td><td class="leitura">vê, tê</td></tr><tr><td>índice embaixo</td><td>em qual instante, ou em qual posição</td><td class="expr"><i>s</i><sub><i>t</i></sub></td><td class="leitura">o estado no instante tê</td></tr><tr><td>número pequeno em cima</td><td>quantas vezes multiplicar o número por ele mesmo</td><td class="expr">2<sup>8</sup></td><td class="leitura">dois elevado a oito</td></tr><tr><td><span class="nome">mod</span></td><td>o resto da divisão por</td><td class="expr">(79 + 1) <span class="nome">mod</span> 256</td><td class="leitura">setenta e nove mais um, módulo duzentos e cinquenta e seis</td></tr><tr><td>seta entre dois conjuntos</td><td>uma regra que leva cada coisa da esquerda numa coisa da direita</td><td class="expr">sinais → significados</td><td class="leitura">leva sinais em significados</td></tr><tr><td>número em hexadecimal</td><td>um byte escrito com dois símbolos; de A a F valem de 10 a 15</td><td class="expr">4F</td><td class="leitura">quatro-efe, que vale setenta e nove</td></tr>
+      <tr><td>nome em letras retas, com parênteses</td><td>uma regra com nome, aplicada ao que está entre parênteses</td><td class="expr"><span class="nome">número</span>(o)</td><td class="leitura">número de o</td></tr><tr><td>letra inclinada minúscula</td><td>uma quantidade que varia</td><td class="expr"><i>v</i>, <i>t</i></td><td class="leitura">vê, tê</td></tr><tr><td>índice embaixo</td><td>em qual instante, ou em qual posição</td><td class="expr"><i>s</i><sub><i>t</i></sub></td><td class="leitura">ésse no instante tê</td></tr><tr><td>número pequeno em cima</td><td>quantas vezes multiplicar o número por ele mesmo</td><td class="expr">2<sup>8</sup></td><td class="leitura">dois elevado a oito</td></tr><tr><td><span class="nome">mod</span></td><td>o resto da divisão por</td><td class="expr">(79 + 1) <span class="nome">mod</span> 256</td><td class="leitura">setenta e nove mais um, módulo duzentos e cinquenta e seis</td></tr><tr><td>seta entre dois conjuntos</td><td>uma regra que leva cada coisa da esquerda numa coisa da direita</td><td class="expr">sinais → significados</td><td class="leitura">leva sinais em significados</td></tr><tr><td>número em hexadecimal</td><td>um número escrito com os algarismos de 0 a 9 e as letras de A a F, que valem de 10 a 15</td><td class="expr">4F</td><td class="leitura">quatro-efe, que vale setenta e nove</td></tr>
     </table></div>
     <div class="origem"><span>a classe vem antes do símbolo</span></div>
   </figure>
-  <p class="corpo">Nenhum sinal aparece antes de estar nesta folha. Letra grega não é o assunto de nenhum degrau. Onde o símbolo é mais curto que a frase, a frase vence.</p>
+  <p class="corpo">Nenhum sinal aparece antes de estar nesta folha. Em cada degrau, as palavras novas vêm explicadas antes de aparecerem. Onde o símbolo é mais curto que a frase, a frase vence.</p>
 </section>
 <section class="degrau" id="d0" data-nome="A frase já é um código">
   <header><p class="regime">0 · antes de qualquer máquina</p><h2>A frase já é um código</h2></header>
   <p class="tese">Dizer <span class="frase">Olá, Mundo!</span> em voz alta é um código. Escrever é outro. Piscar uma lanterna é um terceiro.</p>
+  <div class="palavras"><p class="rot">antes, as palavras deste degrau</p><div class="item"><p class="nome-item">sinal</p><ul><li><i>O que é:</i> qualquer coisa que dá para perceber: um som, uma marca no papel, uma luz acesa.</li><li><i>Por que existe:</i> é o que viaja de quem fala até quem ouve; a mensagem em si não viaja sozinha.</li></ul></div><div class="item"><p class="nome-item">código</p><ul><li><i>O que é:</i> um combinado sobre o que cada sinal quer dizer.</li><li><i>Por que existe:</i> para a mensagem atravessar um meio que não é a voz: o papel, a luz, o fio.</li></ul></div></div>
   <figure class="fig">
     <svg viewBox="0 0 520 130" role="img" aria-label="A mesma frase em três meios: voz, papel, lanterna">
       <g font-family="Inter, sans-serif" font-size="11" fill="var(--bronze)" font-weight="600" letter-spacing="1">
@@ -191,13 +201,14 @@ table.simbolos .expr{font-size:1.05rem}
     <div class="origem"><span>Petzold, cap. 1</span></div>
   </figure>
   <p class="corpo">Código aqui não é segredo: é um combinado sobre o que cada sinal quer dizer. Muda o meio, fica a mensagem. A lanterna já obriga a escolher: dois tipos de piscada, e nada mais.</p>
-  <p class="verplaca"><a href="placa.html#ola-mundo-c1">ver na placa →</a> <span>ola-mundo, ciclo 1: o primeiro ciclo: o PC põe 0000h no barramento e a RAM entrega o primeiro byte</span></p>
+  <p class="verplaca"><a href="placa.html#ola-mundo-c1">ver na placa →</a> <span>ola-mundo, ciclo 1: o primeiro passo: a máquina acorda e vai buscar o que tem de fazer</span></p>
   <div class="mat"><p class="obj">a matemática daqui · <b>correspondência um a um</b></p><p class="expr"><span class="nome">código</span>: sinais → significados</p><p class="leitura"><b>lê-se:</b> código leva cada sinal num significado só, e dá para voltar.</p></div>
-  <details class="prova"><summary>mostrar a prova</summary><div class="prova-corpo"><div class="fonte"><span class="selo lida">lida no acervo</span> Charles Petzold cap. 1 — Best Friends</div><blockquote><span class="en">In this book, the word code usually means a system for transferring information among people, between people and computers, or within computers themselves.</span><span class="pt">Neste livro, a palavra código geralmente significa um sistema para transferir informação entre pessoas, entre pessoas e computadores, ou dentro dos próprios computadores. (tradução do autor)</span><cite>cap. 1 — Best Friends</cite></blockquote></div></details>
+  <details class="prova"><summary>de onde isto vem</summary><div class="prova-corpo"><div class="fonte">Charles Petzold · cap. 1 — Best Friends</div><blockquote><span class="en" lang="en">In this book, the word code usually means a system for transferring information among people, between people and computers, or within computers themselves.</span><span class="pt">Neste livro, a palavra código geralmente significa um sistema para transferir informação entre pessoas, entre pessoas e computadores, ou dentro dos próprios computadores.</span><cite>cap. 1 — Best Friends</cite></blockquote></div></details>
 </section>
 <section class="degrau" id="d0b" data-nome="A tecla vira número">
   <header><p class="regime">½ · tecla → número</p><h2>A tecla vira número</h2></header>
-  <p class="tese">Apertar a tecla O fecha uma chave. A máquina lê uma gaveta especial, 8200h, e encontra 79. A tecla virou número.</p>
+  <p class="tese">Apertar a tecla O fecha uma chave. A máquina olha uma gaveta especial, a de número 8200, e encontra 79. A tecla virou número.</p>
+  <div class="palavras"><p class="rot">antes, as palavras deste degrau</p><div class="item"><p class="nome-item">chave</p><ul><li><i>O que é:</i> uma peça que abre ou fecha um caminho. O interruptor da luz é uma chave; cada tecla também.</li><li><i>Por que existe:</i> para ligar e desligar alguma coisa com um toque.</li></ul></div><div class="item"><p class="nome-item">gaveta</p><ul><li><i>O que é:</i> um lugar dentro da máquina onde cabe um número, com um número na porta para ser achado de novo.</li><li><i>Por que existe:</i> a máquina não enxerga a tecla; ela só sabe olhar gavetas. O teclado deixa o seu número numa delas.</li></ul></div></div>
   <figure class="fig">
     <svg viewBox="0 0 520 150" role="img" aria-label="A tecla O fecha uma chave; a gaveta 8200h passa a valer 4F; o acumulador lê 4F">
       <text x="20" y="14" font-family="Inter, sans-serif" font-size="11" fill="var(--bronze)" font-weight="600" letter-spacing="1">TECLA · uma chave que o dedo fecha · a gaveta 8200h guarda o código</text>
@@ -212,7 +223,7 @@ table.simbolos .expr{font-size:1.05rem}
         <line x1="30" y1="24" x2="62" y2="24" stroke="var(--bit1)" stroke-width="2"/>
         <circle cx="62" cy="24" r="3" fill="var(--bit1)"/>
         <line x1="62" y1="24" x2="92" y2="24" stroke="var(--bit1)" stroke-width="2"/>
-        <text x="46" y="60" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="var(--muted)">chave fechada = corrente</text>
+        <text x="46" y="60" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="var(--muted)">chave fechada = passa</text>
       </g>
       <g transform="translate(236,34)">
         <rect x="0" y="0" width="110" height="46" fill="var(--card)" stroke="var(--bronze)"/>
@@ -225,36 +236,38 @@ table.simbolos .expr{font-size:1.05rem}
         <rect x="0" y="0" width="90" height="46" fill="var(--card)" stroke="var(--linha)"/>
         <text x="45" y="20" text-anchor="middle" font-family="Spline Sans Mono, monospace" font-size="12" fill="var(--muted)">A</text>
         <text x="45" y="38" text-anchor="middle" font-family="Spline Sans Mono, monospace" font-size="16" fill="var(--ink)">4F</text>
-        <text x="45" y="90" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="var(--muted)">o acumulador</text>
+        <text x="45" y="90" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="var(--muted)">dentro da máquina</text>
       </g>
-      <text x="260" y="140" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="var(--muted)">79 é o O; 0 é “ninguém apertou”. O programa pergunta à gaveta o tempo todo: polling.</text>
+      <text x="260" y="140" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="var(--muted)">79 é o O; 0 é “ninguém apertou”. A máquina olha a gaveta o tempo todo: consultar o teclado.</text>
     </svg>
-    <div class="origem"><span>Petzold, cap. 25</span><span>o código da tecla: decisão nossa, declarada</span></div>
+    <div class="origem"><span>Petzold, cap. 25</span></div>
   </figure>
-  <p class="corpo">O programa pergunta à gaveta o tempo todo e quase sempre encontra zero: ninguém apertou. É o polling do livro. Quando encontra 79, copia para a tela e zera a gaveta, pronto para a próxima tecla.</p>
-  <p class="verplaca"><a href="placa.html#eco-c22">ver na placa →</a> <span>eco, ciclo 22: a gaveta 8200h entrega 79 ao acumulador; dez ciclos depois o byte está na tela</span></p>
+  <p class="corpo">A máquina olha a gaveta o tempo todo e quase sempre encontra zero: ninguém apertou. O livro chama isso de consultar o teclado. Quando encontra 79, copia para a tela e zera a gaveta, pronta para a próxima tecla.</p>
+  <p class="verplaca"><a href="placa.html#eco-c22">ver na placa →</a> <span>eco, ciclo 22: a gaveta 8200 entrega o 79 à máquina; dez passos depois ele está na tela</span></p>
   <div class="mat"><p class="obj">a matemática daqui · <b>uma regra do tempo nos números: 0 enquanto solta, o código enquanto apertada</b></p><p class="expr"><span class="nome">tecla</span>(<i>t</i>) = 79 enquanto o O está apertado, e 0 depois</p><p class="leitura"><b>lê-se:</b> tecla de tê é igual a setenta e nove enquanto o O está apertado, e zero depois.</p></div>
-  <details class="prova"><summary>mostrar a prova</summary><div class="prova-corpo"><div class="fonte"><span class="selo lida">lida no acervo</span> Charles Petzold cap. 25 — Peripherals</div><blockquote><span class="en">The accumulator would then contain a code indicating what key has been pressed.</span><span class="pt">O acumulador passaria então a conter um código indicando qual tecla foi apertada. (tradução do autor)</span><cite>cap. 25 — Peripherals</cite></blockquote><blockquote><span class="en">It's tempting to assume that this code is the ASCII code for the key. But it's neither practical nor desirable to design hardware that figures out the ASCII code.</span><span class="pt">É tentador supor que esse código é o código ASCII da tecla. Mas não é prático nem desejável projetar hardware que descubra o código ASCII. (tradução do autor)</span><cite>cap. 25 — Peripherals</cite></blockquote><blockquote><span class="en">One approach is for the program to check the keyboard very frequently. This approach is called polling.</span><span class="pt">Uma abordagem é o programa consultar o teclado com muita frequência. Isso se chama polling. (tradução do autor)</span><cite>cap. 25 — Peripherals</cite></blockquote><p class="nota">Buraco: Nesta máquina a gaveta 8200h entrega direto o número da letra, porque o navegador já fez a conta. Num teclado de verdade o código é da tecla, não da letra, e um programa pequeno faz a tradução: o livro avisa. Decisão nossa, declarada.</p></div></details>
+  <details class="prova"><summary>de onde isto vem</summary><div class="prova-corpo"><div class="fonte">Charles Petzold · cap. 25 — Peripherals</div><blockquote><span class="en" lang="en">The accumulator would then contain a code indicating what key has been pressed.</span><span class="pt">O acumulador passaria então a conter um código indicando qual tecla foi apertada.</span><cite>cap. 25 — Peripherals</cite></blockquote><blockquote><span class="en" lang="en">It's tempting to assume that this code is the ASCII code for the key. But it's neither practical nor desirable to design hardware that figures out the ASCII code.</span><span class="pt">É tentador supor que esse código é o código ASCII da tecla. Mas não é prático nem desejável projetar hardware que descubra o código ASCII.</span><cite>cap. 25 — Peripherals</cite></blockquote><blockquote><span class="en" lang="en">One approach is for the program to check the keyboard very frequently. This approach is called polling.</span><span class="pt">Uma abordagem é o programa consultar o teclado com muita frequência. Isso se chama polling.</span><cite>cap. 25 — Peripherals</cite></blockquote></div></details>
 </section>
 <section class="degrau" id="d1" data-nome="Cada letra recebe um número">
   <header><p class="regime">1 · letra → número</p><h2>Cada letra recebe um número</h2></header>
   <p class="tese">O <b>O</b> vale 79. O <b>l</b>, 108. A vírgula vale 44 e o espaço, 32. A frase vira uma fila de onze números.</p>
+  <div class="palavras"><p class="rot">antes, as palavras deste degrau</p><div class="item"><p class="nome-item">tabela</p><ul><li><i>O que é:</i> uma lista em que cada letra tem o seu número ao lado, como uma lista de chamada.</li><li><i>Por que existe:</i> a máquina só guarda números; a tabela é o combinado que diz qual número é qual letra.</li></ul></div></div>
   <figure class="fig">
-    <p class="rotulo">tabela Unicode: o mesmo combinado em toda máquina do planeta</p>
+    <p class="rotulo">a tabela: o mesmo combinado em toda máquina do planeta</p>
     <div class="tabela"><table class="mono">
       <tr><th>letra</th><td>O</td><td>l</td><td>á</td><td>,</td><td>␣</td><td>M</td><td>u</td><td>n</td><td>d</td><td>o</td><td>!</td></tr>
       <tr><th>número</th><td>79</td><td>108</td><td>225</td><td>44</td><td>32</td><td>77</td><td>117</td><td>110</td><td>100</td><td>111</td><td>33</td></tr>
     </table></div>
-    <div class="origem"><span>Petzold, cap. 13</span><span>números: derivados, conferíveis</span></div>
+    <div class="origem"><span>Petzold, cap. 13</span></div>
   </figure>
   <p class="corpo">Não há nada de <b>O</b> no 79. É uma posição numa tabela que o mundo inteiro combinou usar. Por isso o mesmo <b>O</b> é 79 em qualquer máquina.</p>
-  <p class="verplaca"><a href="placa.html#ola-mundo-c8">ver na placa →</a> <span>ola-mundo, ciclo 8: o byte 4F, que é a letra O, chega ao Instruction Latch 2</span></p>
+  <p class="verplaca"><a href="placa.html#ola-mundo-c8">ver na placa →</a> <span>ola-mundo, ciclo 8: o número 79, escrito 4F, que é a letra O, chega à máquina</span></p>
   <div class="mat"><p class="obj">a matemática daqui · <b>correspondência um a um entre letras e números</b></p><p class="expr"><span class="nome">número</span>(O) = 79</p><p class="leitura"><b>lê-se:</b> número de O é igual a setenta e nove.</p></div>
-  <details class="prova"><summary>mostrar a prova</summary><div class="prova-corpo"><div class="fonte"><span class="selo lida">lida no acervo</span> Charles Petzold cap. 13 — From ASCII to Unicode <span class="selo derivado">derivado</span> os onze números, calculados pelo autor; qualquer tabela Unicode confere</div><blockquote><span class="en">The biggest advantage of UTF-8 is that it's backward compatible with ASCII. This means that a file consisting solely of 7-bit ASCII codes stored as bytes is automatically a UTF-8 file.</span><span class="pt">A maior vantagem do UTF-8 é ser compatível com o ASCII: um arquivo só de códigos ASCII de 7 bits, guardados como bytes, já é automaticamente um arquivo UTF-8. (tradução do autor)</span><cite>cap. 13 — From ASCII to Unicode</cite></blockquote><p class="nota">Buraco: A passagem que define a tabela ASCII em si está no mesmo capítulo e ainda não foi copiada.</p></div></details>
+  <details class="prova"><summary>de onde isto vem</summary><div class="prova-corpo"><div class="fonte">Charles Petzold · cap. 13 — From ASCII to Unicode</div><blockquote><span class="en" lang="en">The biggest advantage of UTF-8 is that it's backward compatible with ASCII. This means that a file consisting solely of 7-bit ASCII codes stored as bytes is automatically a UTF-8 file.</span><span class="pt">A maior vantagem do UTF-8 é ser compatível com o ASCII: um arquivo só de códigos ASCII de 7 bits, guardados como bytes, já é automaticamente um arquivo UTF-8.</span><cite>cap. 13 — From ASCII to Unicode</cite></blockquote></div></details>
 </section>
 <section class="degrau" id="d2" data-nome="Cada número vira oito casas">
   <header><p class="regime">2 · número → bits</p><h2>Cada número vira oito casas de sim ou não</h2></header>
   <p class="tese">79 vira <span class="mono">01001111</span>. Oito casas, cada uma só 0 ou 1. Com oito casas cabem 256 coisas diferentes.</p>
+  <div class="palavras"><p class="rot">antes, as palavras deste degrau</p><div class="item"><p class="nome-item">casa</p><ul><li><i>O que é:</i> uma posição na escrita de um número. Em 79, o 7 está numa casa e o 9 na outra.</li><li><i>Por que existe:</i> é a casa que diz quanto cada algarismo vale: o 7 de 79 vale setenta.</li></ul></div><div class="item"><p class="nome-item">bit</p><ul><li><i>O que é:</i> uma casa que só aceita 0 ou 1.</li><li><i>Por que existe:</i> é a menor quantidade de informação que existe, e é o que uma chave sabe guardar: desligada ou ligada.</li></ul></div><div class="item"><p class="nome-item">byte</p><ul><li><i>O que é:</i> oito bits lado a lado.</li><li><i>Por que existe:</i> é o tamanho de uma letra, e o pedaço que a máquina move de cada vez.</li></ul></div></div>
   <figure class="fig">
     <svg viewBox="0 0 520 165" role="img" aria-label="O número 79 decomposto em oito casas que valem 128, 64, 32, 16, 8, 4, 2, 1">
       <text x="24" y="14" font-family="Inter, sans-serif" font-size="11" fill="var(--bronze)" font-weight="600" letter-spacing="1">UM BYTE = OITO BITS · cada casa vale o dobro da vizinha</text>
@@ -277,13 +290,14 @@ table.simbolos .expr{font-size:1.05rem}
     <div class="origem"><span>Petzold, caps. 11 e 12</span></div>
   </figure>
   <p class="corpo">É a mesma ideia de 79 = 70 + 9, só que cada casa vale o dobro da vizinha, não dez vezes. 256 é o número de combinações, não um tamanho.</p>
-  <p class="verplaca"><a href="placa.html#ola-mundo-c9">ver na placa →</a> <span>ola-mundo, ciclo 9: os oito pontos do barramento de dados: 0 1 0 0 1 1 1 1</span></p>
+  <p class="verplaca"><a href="placa.html#ola-mundo-c9">ver na placa →</a> <span>ola-mundo, ciclo 9: os oito pontos da fileira de dados, acesos e apagados: 0 1 0 0 1 1 1 1</span></p>
   <div class="mat"><p class="obj">a matemática daqui · <b>notação posicional na base dois</b></p><p class="expr">79 = 64 + 8 + 4 + 2 + 1</p><p class="leitura"><b>lê-se:</b> setenta e nove é igual a sessenta e quatro, mais oito, mais quatro, mais dois, mais um.</p><p class="expr">2<sup>8</sup> = 256</p><p class="leitura"><b>lê-se:</b> dois elevado a oito é igual a duzentos e cinquenta e seis: o tamanho do conjunto das listas de oito zeros ou uns.</p></div>
-  <details class="prova"><summary>mostrar a prova</summary><div class="prova-corpo"><div class="fonte"><span class="selo lida">lida no acervo</span> Charles Petzold cap. 11 — Bit by Bit by Bit · cap. 12 — Bytes and Hexadecimal</div><blockquote><span class="en">As an 8-bit quantity, a byte can take on values from 00000000 through 11111111, which can represent decimal numbers from 0 through 255, or one of 2<sup>8</sup>, or 256, different things.</span><span class="pt">Como quantidade de 8 bits, um byte vai de 00000000 a 11111111, o que representa os números de 0 a 255, ou uma entre 2⁸, isto é, 256, coisas diferentes. (tradução do autor)</span><cite>cap. 11 — Bit by Bit by Bit · cap. 12 — Bytes and Hexadecimal</cite></blockquote></div></details>
+  <details class="prova"><summary>de onde isto vem</summary><div class="prova-corpo"><div class="fonte">Charles Petzold · cap. 11 — Bit by Bit by Bit · cap. 12 — Bytes and Hexadecimal</div><blockquote><span class="en" lang="en">As an 8-bit quantity, a byte can take on values from 00000000 through 11111111, which can represent decimal numbers from 0 through 255, or one of 2<sup>8</sup>, or 256, different things.</span><span class="pt">Como quantidade de 8 bits, um byte vai de 00000000 a 11111111, o que representa os números de 0 a 255, ou uma entre 2⁸, isto é, 256, coisas diferentes.</span><cite>cap. 11 — Bit by Bit by Bit · cap. 12 — Bytes and Hexadecimal</cite></blockquote></div></details>
 </section>
 <section class="degrau" id="d3" data-nome="O á não cabe em um byte">
   <header><p class="regime">2½ · o degrau que o personagem trouxe</p><h2>O á não cabe em um byte</h2></header>
   <p class="tese">225 é maior que 127, e o combinado original só tinha 128 letras, sem acento. O <b>á</b> custa dois bytes.</p>
+  
   <figure class="fig">
     <p class="rotulo">começar com 110 e 10 é a marca de "vem em dupla"; o 0 na frente do o diz "vem sozinho"</p>
     <div class="tabela"><table class="mono">
@@ -292,16 +306,17 @@ table.simbolos .expr{font-size:1.05rem}
       <tr><td>l</td><td>1</td><td><span class="bits"><i class="z">0</i><i class="u">1</i><i class="u">1</i><i class="z">0</i><i class="u">1</i><i class="u">1</i><i class="z">0</i><i class="z">0</i></span></td></tr>
       <tr><td>á</td><td>2</td><td><span class="bits"><i class="u">1</i><i class="u">1</i><i class="z">0</i><i class="z">0</i><i class="z">0</i><i class="z">0</i><i class="u">1</i><i class="u">1</i></span>&nbsp;<span class="bits"><i class="u">1</i><i class="z">0</i><i class="u">1</i><i class="z">0</i><i class="z">0</i><i class="z">0</i><i class="z">0</i><i class="u">1</i></span></td></tr>
     </table></div>
-    <div class="origem"><span>Petzold, cap. 13</span><span>bytes do á: derivados pela mesma regra</span></div>
+    <div class="origem"><span>Petzold, cap. 13</span></div>
   </figure>
   <p class="corpo">Onze letras, doze bytes. Byte não é letra: uma letra pode custar um, dois, três ou quatro. Quem conta bytes para contar letras erra, e a web inteira já errou isso.</p>
-  <p class="verplaca"><a href="placa.html#ola-mundo-c19">ver na placa →</a> <span>ola-mundo, ciclo 19: o á entra na tela como um byte só, E1: a célula é nossa, o UTF-8 é do arquivo</span></p>
+  <p class="verplaca"><a href="placa.html#ola-mundo-c19">ver na placa →</a> <span>ola-mundo, ciclo 19: na tela desta máquina o á cabe num byte só, E1; os dois bytes são do arquivo</span></p>
   <div class="mat"><p class="obj">a matemática daqui · <b>código de comprimento variável, sem palavra que seja começo de outra</b></p><p class="expr"><span class="nome">bytes</span>(o) = 1, <span class="nome">bytes</span>(á) = 2</p><p class="leitura"><b>lê-se:</b> bytes de o é igual a um; bytes de á é igual a dois.</p></div>
-  <details class="prova"><summary>mostrar a prova</summary><div class="prova-corpo"><div class="fonte"><span class="selo lida">lida no acervo</span> Charles Petzold cap. 13, com o £ (U+00A3) como exemplo; o á (U+00E1) está na mesma faixa <span class="selo derivado">derivado</span> C3 A1, pela regra da segunda linha da tabela do cap. 13</div><blockquote><span class="en">Thus, in UTF-8 the two bytes C2h and A3h represent the British £ sign. It seems a shame to require 2 bytes to encode what is essentially just 1 byte of information, but it's necessary for the rest of UTF-8 to work.</span><span class="pt">Assim, em UTF-8 os dois bytes C2 e A3 representam o sinal de libra. Parece pena gastar 2 bytes para codificar o que é essencialmente 1 byte de informação, mas é necessário para o resto do UTF-8 funcionar. (tradução do autor)</span><cite>cap. 13, com o £ (U+00A3) como exemplo; o á (U+00E1) está na mesma faixa</cite></blockquote></div></details>
+  <details class="prova"><summary>de onde isto vem</summary><div class="prova-corpo"><div class="fonte">Charles Petzold · cap. 13, com o £ (U+00A3) como exemplo; o á (U+00E1) está na mesma faixa</div><blockquote><span class="en" lang="en">Thus, in UTF-8 the two bytes C2h and A3h represent the British £ sign. It seems a shame to require 2 bytes to encode what is essentially just 1 byte of information, but it's necessary for the rest of UTF-8 to work.</span><span class="pt">Assim, em UTF-8 os dois bytes C2 e A3 representam o sinal de libra. Parece pena gastar 2 bytes para codificar o que é essencialmente 1 byte de informação, mas é necessário para o resto do UTF-8 funcionar.</span><cite>cap. 13, com o £ (U+00A3) como exemplo; o á (U+00E1) está na mesma faixa</cite></blockquote></div></details>
 </section>
 <section class="degrau" id="d4" data-nome="Cada casa vira corrente">
   <header><div class="regua ouro">aqui deixa de ser escrita e passa a ser eletricidade</div><p class="regime">3 · bit → corrente</p><h2>Cada casa vira corrente num relé</h2></header>
   <p class="tese">O 1 é corrente passando; o 0 é corrente parada. Oito relés enfileirados seguram o <b>O</b>; noventa e seis seguram a frase.</p>
+  <div class="palavras"><p class="rot">antes, as palavras deste degrau</p><div class="item"><p class="nome-item">corrente</p><ul><li><i>O que é:</i> eletricidade andando por dentro de um fio, como água andando por um cano.</li><li><i>Por que existe:</i> é ela que faz a lâmpada acender e, aqui, a chave virar.</li></ul></div><div class="item"><p class="nome-item">relé</p><ul><li><i>O que é:</i> uma chave que uma corrente aciona: a corrente de um fio fecha o caminho de outro.</li><li><i>Por que existe:</i> é a primeira peça que deixa uma corrente mandar em outra, sem dedo nenhum.</li></ul></div><div class="item"><p class="nome-item">limiar</p><ul><li><i>O que é:</i> a linha que separa pouco de muito. Acima dela a corrente conta como 1; abaixo, como 0.</li><li><i>Por que existe:</i> a corrente nunca é exatamente igual; a linha é o que faz dois valores diferentes virarem o mesmo sinal.</li></ul></div></div>
   <figure class="fig">
     <svg viewBox="0 0 520 100" role="img" aria-label="Oito relés, um por bit do O">
       <text x="20" y="14" font-family="Inter, sans-serif" font-size="11" fill="var(--bronze)" font-weight="600" letter-spacing="1">RELÉ · chave fechada = corrente = 1 · chave aberta = 0</text>
@@ -316,16 +331,17 @@ table.simbolos .expr{font-size:1.05rem}
         <g transform="translate(440,24)"><rect width="48" height="40" fill="var(--card)" stroke="var(--bit1)"/><line x1="8" y1="30" x2="40" y2="30" stroke="var(--bit1)" stroke-width="2"/><circle cx="8" cy="30" r="3" fill="var(--bit1)"/><circle cx="40" cy="30" r="3" fill="var(--bit1)"/><text x="24" y="64" fill="var(--ink)">1</text></g>
       </g>
     </svg>
-    <div class="origem"><span>Petzold, caps. 7 e 8</span><span>já na escada: eletroímã → relé → porta</span></div>
+    <div class="origem"><span>Petzold, caps. 7 e 8</span></div>
   </figure>
-  <p class="corpo">O número não está no relé. O relé só sabe passar ou não passar; somos nós que combinamos que passar vale 1. Daqui para cima, a escada que já existe sobe com citação e instrumento.</p>
-  <p class="verplaca"><a href="placa.html#ola-mundo-c9">ver na placa →</a> <span>ola-mundo, ciclo 9: cada ponto aceso no barramento é um fio com corrente; o medidor de limiar ainda vem</span></p>
+  <p class="corpo">O número não está no relé. O relé só sabe passar ou não passar; somos nós que combinamos que passar vale 1. Oito relés, oito casas: o <b>O</b> inteiro cabe numa fileira. Como relés viram portas e contas é a história da outra página, a escada.</p>
+  <p class="verplaca"><a href="placa.html#ola-mundo-c9">ver na placa →</a> <span>ola-mundo, ciclo 9: cada ponto aceso na fileira é um fio com corrente passando</span></p>
   <div class="mat"><p class="obj">a matemática daqui · <b>limiar: um intervalo inteiro de tensões vira um símbolo só</b></p><p class="expr"><span class="nome">bit</span>(<i>v</i>) = 1 se <i>v</i> ≥ 2 volts, e 0 se <i>v</i> ≤ 0,8 volt</p><p class="leitura"><b>lê-se:</b> bit de vê é igual a um se vê é maior ou igual a dois volts, e igual a zero se vê é menor ou igual a zero vírgula oito volt.</p></div>
-  <details class="prova"><summary>mostrar a prova</summary><div class="prova-corpo"><div class="fonte"><span class="selo escada">já na escada</span> abstraction-ladder — a escada de abstrações eletroímã → relé (Petzold cap. 7) · relé → porta lógica (cap. 8), com o instrumento “dois relés viram uma porta”</div><blockquote><span class="en">These two relays wired in series are known as an AND gate because it is performing a Boolean AND operation.</span><span class="pt">Esses dois relés ligados em série são conhecidos como porta AND, porque executam a operação booleana E. (tradução do autor)</span><cite>eletroímã → relé (Petzold cap. 7) · relé → porta lógica (cap. 8), com o instrumento “dois relés viram uma porta”</cite></blockquote></div></details>
+  <details class="prova"><summary>de onde isto vem</summary><div class="prova-corpo"><div class="fonte">abstraction-ladder — a escada de abstrações · eletroímã → relé (Petzold cap. 7) · relé → porta lógica (cap. 8), com o instrumento “dois relés viram uma porta”</div><blockquote><span class="en" lang="en">These two relays wired in series are known as an AND gate because it is performing a Boolean AND operation.</span><span class="pt">Esses dois relés ligados em série são conhecidos como porta AND, porque executam a operação booleana E.</span><cite>eletroímã → relé (Petzold cap. 7) · relé → porta lógica (cap. 8), com o instrumento “dois relés viram uma porta”</cite></blockquote></div></details>
 </section>
 <section class="degrau" id="d5" data-nome="Os bits somam e ficam parados">
   <header><p class="regime">4 · corrente → conta e lembrança</p><h2>Os bits aprendem a somar e a ficar parados</h2></header>
   <p class="tese">Portas ligadas de um jeito somam dois bytes. Ligadas de outro, seguram um bit depois que a entrada some.</p>
+  <div class="palavras"><p class="rot">antes, as palavras deste degrau</p><div class="item"><p class="nome-item">porta lógica</p><ul><li><i>O que é:</i> uma peça feita de chaves que responde sim ou não ao que chega nela. Duas chaves em fila só passam corrente com as duas fechadas: é uma porta.</li><li><i>Por que existe:</i> é com perguntas de sim ou não, ligadas umas às outras, que se monta uma conta.</li></ul></div><div class="item"><p class="nome-item">estado</p><ul><li><i>O que é:</i> o jeito em que uma peça está agora: o que ela guarda neste instante.</li><li><i>Por que existe:</i> uma peça que lembra tem estado; uma que só responde não tem.</li></ul></div></div>
   <figure class="fig">
     <svg viewBox="0 0 520 110" role="img" aria-label="Dois arranjos de portas: o somador e o flip-flop">
       <g font-family="Inter, sans-serif" font-size="13" fill="var(--ink)">
@@ -334,21 +350,22 @@ table.simbolos .expr{font-size:1.05rem}
         <text x="130" y="60" text-anchor="middle" font-family="Spline Sans Mono, monospace" font-size="13">01001111 + 00000001</text>
         <text x="130" y="82" text-anchor="middle" font-family="Spline Sans Mono, monospace" font-size="13" fill="var(--bronze)">= 01010000 = P</text>
         <rect x="280" y="14" width="220" height="82" fill="var(--card)" stroke="var(--azul)"/>
-        <text x="290" y="34" font-size="11" fill="var(--azul)" font-weight="600" letter-spacing="1">FLIP-FLOP · lembra</text>
+        <text x="290" y="34" font-size="11" fill="var(--azul)" font-weight="600" letter-spacing="1">A PEÇA QUE LEMBRA</text>
         <text x="390" y="60" text-anchor="middle" font-size="12" fill="var(--ink2)">entrou 1, a entrada sumiu,</text>
         <text x="390" y="82" text-anchor="middle" font-size="12" fill="var(--azul)">a saída continua 1</text>
       </g>
     </svg>
-    <div class="origem"><span>Petzold, caps. 14, 17, 19 a 21</span><span>já na escada, com cinco instrumentos</span></div>
+    <div class="origem"><span>Petzold, caps. 14, 17, 19 a 21</span></div>
   </figure>
   <p class="corpo">Somar 1 ao <b>O</b> dá <b>P</b>, a letra seguinte: a tabela foi feita para isso funcionar. Agora o número pode ser operado e pode esperar. Lembrar é o que permite o próximo degrau.</p>
-  <p class="verplaca"><a href="placa.html#ola-mundo-c11">ver na placa →</a> <span>ola-mundo, ciclo 11: HL guarda o endereço e o incrementador soma 1: lembrar e contar</span></p>
+  <p class="verplaca"><a href="placa.html#ola-mundo-c11">ver na placa →</a> <span>ola-mundo, ciclo 11: uma peça guarda onde a máquina está e outra soma 1: lembrar e contar</span></p>
   <div class="mat"><p class="obj">a matemática daqui · <b>aritmética módulo 256, e estado que depende do anterior</b></p><p class="expr">(79 + 1) <span class="nome">mod</span> 256 = 80</p><p class="leitura"><b>lê-se:</b> setenta e nove mais um, módulo duzentos e cinquenta e seis, é igual a oitenta.</p><p class="expr"><i>s</i><sub><i>t</i>+1</sub> = <span class="nome">f</span>(<i>s</i><sub><i>t</i></sub>, <i>x</i><sub><i>t</i></sub>)</p><p class="leitura"><b>lê-se:</b> o estado no instante tê mais um é f de: o estado no instante tê, e a entrada no instante tê.</p></div>
-  <details class="prova"><summary>mostrar a prova</summary><div class="prova-corpo"><div class="fonte"><span class="selo escada">já na escada</span> abstraction-ladder — a escada de abstrações porta → somador (cap. 14) · porta → flip-flop (caps. 17 e 19) · flip-flop de borda → contador e registrador (cap. 20) · somador → ULA (cap. 21)</div><blockquote><span class="en">A half adder is an XOR gate and an AND gate</span><span class="pt">Um meio-somador é uma porta XOR e uma porta AND. (tradução do autor)</span><cite>porta → somador (cap. 14) · porta → flip-flop (caps. 17 e 19) · flip-flop de borda → contador e registrador (cap. 20) · somador → ULA (cap. 21)</cite></blockquote></div></details>
+  <details class="prova"><summary>de onde isto vem</summary><div class="prova-corpo"><div class="fonte">abstraction-ladder — a escada de abstrações · porta → somador (cap. 14) · porta → flip-flop (caps. 17 e 19) · flip-flop de borda → contador e registrador (cap. 20) · somador → ULA (cap. 21)</div><blockquote><span class="en" lang="en">A half adder is an XOR gate and an AND gate</span><span class="pt">Um meio-somador é uma porta XOR e uma porta AND.</span><cite>porta → somador (cap. 14) · porta → flip-flop (caps. 17 e 19) · flip-flop de borda → contador e registrador (cap. 20) · somador → ULA (cap. 21)</cite></blockquote></div></details>
 </section>
 <section class="degrau" id="d6" data-nome="Cada byte ganha um endereço">
   <header><p class="regime">5 · byte → endereço</p><h2>Cada byte ganha um lugar com número</h2></header>
   <p class="tese">Memória é uma fileira de gavetas, cada uma com um número na porta. O <b>O</b> fica na gaveta 0109; o <b>l</b>, na 010A.</p>
+  <div class="palavras"><p class="rot">antes, as palavras deste degrau</p><div class="item"><p class="nome-item">memória</p><ul><li><i>O que é:</i> muitas gavetas em fileira, cada uma com um byte dentro.</li><li><i>Por que existe:</i> para a frase inteira ficar guardada enquanto a máquina trabalha nela, uma letra por gaveta.</li></ul></div><div class="item"><p class="nome-item">endereço</p><ul><li><i>O que é:</i> o número na porta de uma gaveta.</li><li><i>Por que existe:</i> para achar de novo o que foi guardado, sem procurar gaveta por gaveta.</li></ul></div></div>
   <figure class="fig">
     <svg viewBox="0 0 520 128" role="img" aria-label="Doze gavetas de memória: conteúdo em cima, endereço embaixo">
       <text x="8" y="12" font-family="Inter, sans-serif" font-size="11" fill="var(--bronze)" font-weight="600" letter-spacing="1">GAVETA · dentro, o conteúdo · na porta, o endereço</text>
@@ -368,16 +385,17 @@ table.simbolos .expr{font-size:1.05rem}
       </g>
       <text x="260" y="122" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="var(--muted)">4F é o 79 em hexadecimal: oito bits abreviados em dois símbolos · o á ocupa duas gavetas vizinhas</text>
     </svg>
-    <div class="origem"><span>Petzold, cap. 19</span><span>endereços: derivados do programa do cap. 27</span></div>
+    <div class="origem"><span>Petzold, cap. 19</span></div>
   </figure>
   <p class="corpo">Agora há dois números por letra: o que ela vale e onde ela está. A ordem das letras virou ordem de endereços. Ler a frase é percorrer gavetas vizinhas.</p>
-  <p class="verplaca"><a href="placa.html#ola-mundo-c9">ver na placa →</a> <span>ola-mundo, ciclo 9: HL põe 8000h no barramento de endereços e a RAM guarda o 4F nessa gaveta</span></p>
+  <p class="verplaca"><a href="placa.html#ola-mundo-c9">ver na placa →</a> <span>ola-mundo, ciclo 9: a máquina aponta a gaveta 8000 e guarda nela o 4F</span></p>
   <div class="mat"><p class="obj">a matemática daqui · <b>a memória é uma regra que leva cada endereço num byte</b></p><p class="expr"><span class="nome">mem</span>(0109) = 4F</p><p class="leitura"><b>lê-se:</b> mem de zero, um, zero, nove é igual a quatro-efe, que vale setenta e nove.</p></div>
-  <details class="prova"><summary>mostrar a prova</summary><div class="prova-corpo"><div class="fonte"><span class="selo lida">lida no acervo</span> Charles Petzold cap. 19 — An Assemblage of Memory <span class="selo derivado">derivado</span> os endereços seguem o programa do cap. 27, deslocado para a nossa frase</div><blockquote><span class="en">That's called writing to memory, and the value of Data In is said to be stored in memory at the address 010.</span><span class="pt">Isso se chama escrever na memória, e diz-se que o valor da entrada fica guardado na memória no endereço 010. (tradução do autor)</span><cite>cap. 19 — An Assemblage of Memory</cite></blockquote></div></details>
+  <details class="prova"><summary>de onde isto vem</summary><div class="prova-corpo"><div class="fonte">Charles Petzold · cap. 19 — An Assemblage of Memory</div><blockquote><span class="en" lang="en">That's called writing to memory, and the value of Data In is said to be stored in memory at the address 010.</span><span class="pt">Isso se chama escrever na memória, e diz-se que o valor da entrada fica guardado na memória no endereço 010.</span><cite>cap. 19 — An Assemblage of Memory</cite></blockquote></div></details>
 </section>
 <section class="degrau" id="d7" data-nome="Um número é lido como ordem">
   <header><div class="regua roxa">aqui deixa de ser circuito e passa a ser linguagem</div><p class="regime">6 · número → ordem</p><h2>Um número é lido como ordem, não como quantidade</h2></header>
   <p class="tese">Na mesma memória, ao lado das letras, moram outros bytes. <span class="mono">CD</span> não é letra: é a ordem “chame”. <span class="mono">C9</span> é “volte”.</p>
+  <div class="palavras"><p class="rot">antes, as palavras deste degrau</p><div class="item"><p class="nome-item">ordem</p><ul><li><i>O que é:</i> um número que a máquina lê como “faça isto”: some, copie, guarde, chame, volte. O livro chama de instrução.</li><li><i>Por que existe:</i> sem ordens a máquina só guardaria números; é a ordem que a põe a fazer alguma coisa com eles.</li></ul></div><div class="item"><p class="nome-item">programa</p><ul><li><i>O que é:</i> uma fila de ordens, uma depois da outra, guardada na memória como qualquer outra coisa.</li><li><i>Por que existe:</i> é como uma pessoa diz à máquina o que fazer, de uma vez, para a máquina fazer sozinha.</li></ul></div><div class="item"><p class="nome-item">contador de programa</p><ul><li><i>O que é:</i> uma gaveta especial da máquina que guarda o endereço da próxima ordem.</li><li><i>Por que existe:</i> para a máquina saber qual byte ler como ordem agora, e qual vem depois.</li></ul></div></div>
   <figure class="fig">
     <svg viewBox="0 0 520 150" role="img" aria-label="Os dezesseis bytes do programa Hello do Petzold: nove ordens e sete letras na mesma memória">
       <g font-family="Inter, sans-serif" font-size="11" font-weight="600" letter-spacing="1">
@@ -397,16 +415,17 @@ table.simbolos .expr{font-size:1.05rem}
       <path d="M 286 101 L 294 105 L 286 109 Z" fill="var(--azul)"/>
       <text x="40" y="140" font-family="Inter, sans-serif" font-size="12" fill="var(--ink2)">CONTADOR DE PROGRAMA: percorre só o lado azul; o lado bronze ele aponta, como dado</text>
     </svg>
-    <div class="origem"><span>Petzold, caps. 23 e 27</span><span>programa real, para um Intel 8080 de 1978</span></div>
+    <div class="origem"><span>Petzold, caps. 23 e 27</span></div>
   </figure>
   <p class="corpo">Nada no byte diz se ele é letra ou ordem. O que decide é para onde o contador de programa aponta, e esse contador também é um número guardado na máquina. A máquina se governa com a mesma matéria que governa.</p>
-  <p class="verplaca"><a href="placa.html#ola-mundo-c7">ver na placa →</a> <span>ola-mundo, ciclo 7: o PC aponta 0004h e o byte 36 é lido como ordem: escreva em [HL]</span></p>
-  <div class="mat"><p class="obj">a matemática daqui · <b>a máquina é uma regra de passo: do estado de agora para o próximo</b></p><p class="expr">próximo = <span class="nome">passo</span>(<i>PC</i>, <i>A</i>, mem)</p><p class="leitura"><b>lê-se:</b> o próximo estado é passo de: o contador de programa, o registrador A, e a memória.</p></div>
-  <details class="prova"><summary>mostrar a prova</summary><div class="prova-corpo"><div class="fonte"><span class="selo lida">lida no acervo</span> Charles Petzold cap. 27 — Coding · cap. 23 — CPU Control Signals</div><blockquote><span class="en">The first 3 bytes are the LXI instruction, the next 2 are the MVI instruction, the next 3 are the CALL instruction, and the next is the RET instruction. The last 7 bytes are the ASCII characters for the five letters of “Hello,” the exclamation point, and the dollar sign.</span><span class="pt">Os 3 primeiros bytes são a instrução LXI, os 2 seguintes a MVI, os 3 seguintes a CALL, e o próximo a RET. Os últimos 7 bytes são os caracteres ASCII das cinco letras de “Hello”, o ponto de exclamação e o cifrão. (tradução do autor)</span><cite>cap. 27 — Coding · cap. 23 — CPU Control Signals</cite></blockquote><blockquote><span class="en">A value called the program counter. This is the 16-bit value that accesses instructions. It starts at 0000h and sequentially increases until a HLT instruction.</span><span class="pt">Um valor chamado contador de programa. É o valor de 16 bits que acessa as instruções. Começa em 0000 e cresce em sequência até uma instrução HLT. (tradução do autor)</span><cite>cap. 27 — Coding · cap. 23 — CPU Control Signals</cite></blockquote><p class="nota">Buraco: O programa do livro é de antes do Unicode; um CP/M real não mostraria o á. A versão com “Olá, Mundo!” nas gavetas é adaptação do autor.</p></div></details>
+  <p class="verplaca"><a href="placa.html#ola-mundo-c7">ver na placa →</a> <span>ola-mundo, ciclo 7: o contador de programa aponta a gaveta 0004 e o byte 36 é lido como ordem: guarde a letra</span></p>
+  <div class="mat"><p class="obj">a matemática daqui · <b>a máquina é uma regra de passo: do estado de agora para o próximo</b></p><p class="expr">próximo = <span class="nome">passo</span>(<i>contador</i>, <i>A</i>, mem)</p><p class="leitura"><b>lê-se:</b> o próximo estado é passo de: o contador de programa, o número guardado em A, e a memória.</p></div>
+  <details class="prova"><summary>de onde isto vem</summary><div class="prova-corpo"><div class="fonte">Charles Petzold · cap. 27 — Coding · cap. 23 — CPU Control Signals</div><blockquote><span class="en" lang="en">The first 3 bytes are the LXI instruction, the next 2 are the MVI instruction, the next 3 are the CALL instruction, and the next is the RET instruction. The last 7 bytes are the ASCII characters for the five letters of “Hello,” the exclamation point, and the dollar sign.</span><span class="pt">Os 3 primeiros bytes são a instrução LXI, os 2 seguintes a MVI, os 3 seguintes a CALL, e o próximo a RET. Os últimos 7 bytes são os caracteres ASCII das cinco letras de “Hello”, o ponto de exclamação e o cifrão.</span><cite>cap. 27 — Coding · cap. 23 — CPU Control Signals</cite></blockquote><blockquote><span class="en" lang="en">A value called the program counter. This is the 16-bit value that accesses instructions. It starts at 0000h and sequentially increases until a HLT instruction.</span><span class="pt">Um valor chamado contador de programa. É o valor de 16 bits que acessa as instruções. Começa em 0000 e cresce em sequência até uma instrução HLT.</span><cite>cap. 27 — Coding · cap. 23 — CPU Control Signals</cite></blockquote></div></details>
 </section>
 <section class="degrau" id="d8" data-nome="As ordens são escritas com palavras">
   <header><p class="regime">7 · palavras → ordens</p><h2>Alguém escreve as ordens com palavras</h2></header>
   <p class="tese">Ninguém decora que “chame” é <span class="mono">CD</span>. Escreve-se <span class="mono">CALL 5</span> num texto, e o montador troca cada palavra pelo byte certo.</p>
+  <div class="palavras"><p class="rot">antes, as palavras deste degrau</p><div class="item"><p class="nome-item">montador</p><ul><li><i>O que é:</i> um programa que lê um texto com as ordens escritas em palavras e troca cada palavra pelo byte certo.</li><li><i>Por que existe:</i> porque pessoa lembra palavra, e máquina só lê número. Alguém tem de fazer a troca, e um programa faz sem errar.</li></ul></div><div class="item"><p class="nome-item">sistema operacional</p><ul><li><i>O que é:</i> um programa que já mora na máquina e faz serviços para os outros programas, como mostrar texto na tela.</li><li><i>Por que existe:</i> para cada programa novo não precisar saber como a tela funciona.</li></ul></div></div>
   <figure class="fig">
     <p class="rotulo">montador: uma linha, uma ordem</p>
     <div class="tabela"><table>
@@ -417,16 +436,17 @@ table.simbolos .expr{font-size:1.05rem}
       <tr><td class="mono">RET</td><td class="mono">C9</td><td>volte</td></tr>
       <tr><td class="mono">DB 'Hello!$'</td><td class="mono">48 65 6C 6C 6F 21 24</td><td>a frase, byte a byte</td></tr>
     </table></div>
-    <div class="origem"><span>Petzold, cap. 27</span><span>já na escada: máquina → assembler, avaliador, compilador</span></div>
+    <div class="origem"><span>Petzold, cap. 27</span></div>
   </figure>
   <p class="corpo">É aqui que a delegação começa: a pessoa escreve a intenção, a máquina executa. O sistema operacional já sabe fazer serviços, como mostrar texto, para que cada programa não precise saber.</p>
   <p class="verplaca"><a href="placa.html#ola-mundo-c7">ver na placa →</a> <span>ola-mundo, ciclo 7: na listagem ao lado, MVI M, 'O' virou 36 4F; a máquina só vê os bytes</span></p>
   <div class="mat"><p class="obj">a matemática daqui · <b>tradução que preserva significado</b></p><p class="expr"><span class="nome">roda</span>(<span class="nome">montar</span>(texto)) = <span class="nome">significado</span>(texto)</p><p class="leitura"><b>lê-se:</b> rodar o que foi montado do texto dá o mesmo que o significado do texto.</p></div>
-  <details class="prova"><summary>mostrar a prova</summary><div class="prova-corpo"><div class="fonte"><span class="selo lida">lida no acervo</span> Charles Petzold cap. 27 — Coding</div><blockquote><span class="en">An assembler such as ASM.COM reads an assembly-language program (often called a source-code file) and writes out to a file containing machine code—an executable file.</span><span class="pt">Um montador como o ASM.COM lê um programa em linguagem de montagem (o chamado arquivo-fonte) e escreve um arquivo com código de máquina: um executável. (tradução do autor)</span><cite>cap. 27 — Coding</cite></blockquote></div></details>
+  <details class="prova"><summary>de onde isto vem</summary><div class="prova-corpo"><div class="fonte">Charles Petzold · cap. 27 — Coding</div><blockquote><span class="en" lang="en">An assembler such as ASM.COM reads an assembly-language program (often called a source-code file) and writes out to a file containing machine code—an executable file.</span><span class="pt">Um montador como o ASM.COM lê um programa em linguagem de montagem (o chamado arquivo-fonte) e escreve um arquivo com código de máquina: um executável.</span><cite>cap. 27 — Coding</cite></blockquote></div></details>
 </section>
 <section class="degrau" id="d9" data-nome="A ordem vira pontos de luz">
   <header><div class="regua verde">aqui deixa de ser número e volta a ser luz</div><p class="regime">8 · execução → tela</p><h2>A ordem vira pontos de luz</h2></header>
   <p class="tese">A tela também é memória: cada três bytes são um ponto colorido. Mostrar o <b>o</b> é escrever números nas gavetas certas desse bloco.</p>
+  <div class="palavras"><p class="rot">antes, as palavras deste degrau</p><div class="item"><p class="nome-item">pixel</p><ul><li><i>O que é:</i> um ponto da tela, pequeno demais para ver sozinho, com uma cor só.</li><li><i>Por que existe:</i> a tela não desenha letras; ela acende pontos, e a letra é o que os pontos formam juntos.</li></ul></div></div>
   <figure class="fig">
     <svg viewBox="0 0 520 175" role="img" aria-label="A letra O desenhada numa grade de pixels; cada pixel tem três bytes">
       <text x="20" y="12" font-family="Inter, sans-serif" font-size="11" fill="var(--bronze)" font-weight="600" letter-spacing="1">PIXEL · um ponto da tela · três bytes: vermelho, verde, azul</text>
@@ -458,28 +478,24 @@ table.simbolos .expr{font-size:1.05rem}
         </g>
       </g>
     </svg>
-    <div class="origem"><span>Petzold, caps. 12 e 25</span><span>do 79 ao desenho do O: a ler</span></div>
+    <div class="origem"><span>Petzold, caps. 12 e 25</span></div>
   </figure>
-  <p class="corpo">Sessenta vezes por segundo a tela lê o bloco e acende. <span class="frase">Olá, Mundo!</span> volta a ser coisa que a gente lê, feita de números. Como o 79 vira o desenho do <b>O</b> é o buraco declarado deste mapa.</p>
+  <p class="corpo">Sessenta vezes por segundo a tela lê o bloco e acende. <span class="frase">Olá, Mundo!</span> volta a ser coisa que a gente lê, feita de números. Como o 79 vira o desenho do <b>O</b> é a próxima pergunta, ainda sem resposta nesta página.</p>
   <p class="verplaca"><a href="placa.html#ola-mundo-c59">ver na placa →</a> <span>ola-mundo, ciclo 59: a última letra entra na tela e a frase inteira está lá, feita de números</span></p>
   <div class="mat"><p class="obj">a matemática daqui · <b>regra que leva cada ponto da grade numa cor</b></p><p class="expr"><span class="nome">cor</span>(3, 4) = 16 23 3F</p><p class="leitura"><b>lê-se:</b> cor de três e quatro é igual a um-seis, dois-três, três-efe: vermelho, verde e azul.</p></div>
-  <details class="prova"><summary>mostrar a prova</summary><div class="prova-corpo"><div class="fonte"><span class="selo lida">lida no acervo</span> Charles Petzold cap. 25 — Peripherals · cap. 12 (pixel = três bytes)</div><blockquote><span class="en">The contents of the display are stored in a special block of memory, and the individual pixels of the display are refreshed sequentially, starting left to right with the row at the top, and continuing down the display.</span><span class="pt">O conteúdo da tela fica guardado num bloco especial de memória, e os pixels são atualizados em sequência, da esquerda para a direita a partir da linha de cima, descendo pela tela. (tradução do autor)</span><cite>cap. 25 — Peripherals · cap. 12 (pixel = três bytes)</cite></blockquote><blockquote><span class="en">For a 1920 × 1080 display, each of the 2 million pixels requires 3 bytes for the red, green, and blue components, for a total of 6 million bytes, or 6 megabytes.</span><span class="pt">Numa tela de 1920 × 1080, cada um dos 2 milhões de pixels precisa de 3 bytes, para o vermelho, o verde e o azul: 6 milhões de bytes, ou 6 megabytes. (tradução do autor)</span><cite>cap. 25 — Peripherals · cap. 12 (pixel = três bytes)</cite></blockquote><p class="nota">Buraco: Fonte tipográfica e rasterização (do 79 ao desenho do O): o Petzold não cobre. Buraco declarado.</p></div></details>
+  <details class="prova"><summary>de onde isto vem</summary><div class="prova-corpo"><div class="fonte">Charles Petzold · cap. 25 — Peripherals · cap. 12 (pixel = três bytes)</div><blockquote><span class="en" lang="en">The contents of the display are stored in a special block of memory, and the individual pixels of the display are refreshed sequentially, starting left to right with the row at the top, and continuing down the display.</span><span class="pt">O conteúdo da tela fica guardado num bloco especial de memória, e os pixels são atualizados em sequência, da esquerda para a direita a partir da linha de cima, descendo pela tela.</span><cite>cap. 25 — Peripherals · cap. 12 (pixel = três bytes)</cite></blockquote><blockquote><span class="en" lang="en">For a 1920 × 1080 display, each of the 2 million pixels requires 3 bytes for the red, green, and blue components, for a total of 6 million bytes, or 6 megabytes.</span><span class="pt">Numa tela de 1920 × 1080, cada um dos 2 milhões de pixels precisa de 3 bytes, para o vermelho, o verde e o azul: 6 milhões de bytes, ou 6 megabytes.</span><cite>cap. 25 — Peripherals · cap. 12 (pixel = três bytes)</cite></blockquote></div></details>
 </section>
 <section class="degrau" id="d10" data-nome="O laço">
   <header><p class="regime">fecho</p><h2>Em cada degrau, uma coisa se conserva e uma se esquece</h2></header>
   <p class="tese">A matemática se refere ao mundo por aquilo que se conserva. Cada camada é uma promessa: “pode esquecer o resto, isto eu garanto”.</p>
   <figure class="fig">
     <div class="tabela"><table>
-      <tr><th>degrau</th><th>conserva</th><th>esquece</th><th>fonte</th></tr>
-      <tr><td>0 código</td><td>a mensagem</td><td>o meio</td><td>cap. 1</td></tr><tr><td>½ tecla → número</td><td>o código da letra</td><td>a chave, o dedo</td><td>cap. 25</td></tr><tr><td>1 letra → número</td><td>qual letra é</td><td>forma e som</td><td>cap. 13</td></tr><tr><td>2 número → bits</td><td>o número exato</td><td>a base dez</td><td>caps. 11, 12</td></tr><tr><td>2½ o á</td><td>a letra e as 128 antigas</td><td>“um byte, uma letra”</td><td>cap. 13</td></tr><tr><td>3 bit → corrente</td><td>0 e 1</td><td>a física</td><td>escada</td></tr><tr><td>4 conta e lembrança</td><td>a aritmética</td><td>os relés</td><td>escada</td></tr><tr><td>5 endereço</td><td>a ordem das letras</td><td>o tempo</td><td>cap. 19</td></tr><tr><td>6 número → ordem</td><td>a matéria comum</td><td>“o que fazer” e “sobre o quê”</td><td>caps. 23, 27</td></tr><tr><td>7 palavras → ordens</td><td>o significado</td><td>as palavras</td><td>cap. 27</td></tr><tr><td>8 ordem → luz</td><td>a forma reconhecível</td><td>o número</td><td>caps. 12, 25</td></tr>
+      <tr><th>degrau</th><th>conserva</th><th>esquece</th></tr>
+      <tr><td>0 código</td><td>a mensagem</td><td>o meio</td></tr><tr><td>½ tecla → número</td><td>o código da letra</td><td>a chave, o dedo</td></tr><tr><td>1 letra → número</td><td>qual letra é</td><td>forma e som</td></tr><tr><td>2 número → bits</td><td>o número exato</td><td>a base dez</td></tr><tr><td>2½ o á</td><td>a letra e as 128 antigas</td><td>“um byte, uma letra”</td></tr><tr><td>3 bit → corrente</td><td>0 e 1</td><td>a física</td></tr><tr><td>4 conta e lembrança</td><td>a aritmética</td><td>os relés</td></tr><tr><td>5 endereço</td><td>a ordem das letras</td><td>o tempo</td></tr><tr><td>6 número → ordem</td><td>a matéria comum</td><td>“o que fazer” e “sobre o quê”</td></tr><tr><td>7 palavras → ordens</td><td>o significado</td><td>as palavras</td></tr><tr><td>8 ordem → luz</td><td>a forma reconhecível</td><td>o número</td></tr>
     </table></div>
-    <div class="origem"><span>régua: a tese “matemática como linguagem”</span></div>
+    <div class="origem"></div>
   </figure>
   <p class="corpo">A escada inteira é a cadeia dessas promessas, e a execução é o que sobra quando todas foram cumpridas.</p>
-  <details class="prova"><summary>buracos declarados</summary><div class="prova-corpo">
-    <ul><li><b>do 79 ao desenho do O</b> (fonte tipográfica e rasterização): sem passagem no Petzold; outro livro, ou ofício do autor, datado</li><li><b>a tabela ASCII em si</b> (Petzold cap. 13): está no capítulo e não foi copiada; os números do degrau 1 são derivados</li><li><b>o á em 1978</b> (Petzold cap. 27): o programa é de antes do Unicode; a versão com “Olá, Mundo!” é adaptação do autor</li><li><b>da tela à web</b> (Petzold cap. 27): o capítulo termina com a mesma frase em JavaScript numa página; ainda não lido</li></ul>
-    <p class="nota">Mapa que esconde o que falta mente sobre o próprio tamanho. Estes são os buracos que este mapa sabe ter.</p>
-  </div></details>
 </section>
 </div>
 <nav class="passo" aria-label="Navegação entre degraus">
@@ -488,7 +504,7 @@ table.simbolos .expr{font-size:1.05rem}
   <button id="prox" type="button" class="prox"><small>próximo</small><span></span></button>
 </nav>
 <footer class="rodape">
-  <p class="nota">Texto e figuras: CC BY-SA 4.0 · código: MIT · as passagens citadas pertencem aos seus autores e aparecem sob direito de citação, com fonte e capítulo. <a href="https://github.com/mateusalkimim/hello-world-machine">repositório</a></p>
+  <p class="nota">Texto e figuras: CC BY-SA 4.0 · código: MIT · as frases dos livros pertencem aos seus autores e aparecem com fonte e capítulo. <a href="https://github.com/mateusalkimim/hello-world-machine">hello-world-machine</a></p>
 </footer>
 </div>
 <script>

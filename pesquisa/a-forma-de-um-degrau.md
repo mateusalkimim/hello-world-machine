@@ -83,3 +83,31 @@ e quatro blocos fixos, que já funcionava com o mesmo leitor.
 
 Se sim às três, o material é denso pelo motivo errado: não por ter muito a
 dizer, mas por dizer tudo no mesmo lugar.
+
+## A terceira forma: a página para quem não sabe nada (2026-10-03)
+
+A segunda forma passou nas conferências e reprovou na leitura, pelo mesmo
+motivo que a escada de abstrações reprovou no mesmo dia: a página falava de
+método ("mostrar a prova", "lida no acervo", "tradução do autor", "buraco
+declarado", "decisão nossa, declarada", rótulos de procedência nas figuras) e
+usava palavras nunca explicadas: a fileira de dados, a memória e o contador
+de programa apareciam no degrau 0, com os nomes de dentro da máquina.
+
+O que mudou, pela mesma régua da escada:
+
+- **duas superfícies**: a página é só para quem não sabe nada; selos, notas,
+  buracos e a fonte de cada linha do fecho vão para `pesquisa/o-que-falta.md`,
+  gerado pelo gerador;
+- **cada palavra nova é explicada antes de ser usada**, em texto corrido, com
+  duas perguntas e só duas: o que é, por que existe (21 palavras em 10
+  degraus; o degrau do á não precisou de nenhuma);
+- **as linhas "ver na placa" falam a língua da página**: "a máquina aponta a
+  gaveta 8000 e guarda nela o 4F", e não os nomes dos pinos;
+- **a folha em branco é propriedade de construção**: lista fechada de palavras
+  técnicas com o degrau em que cada uma nasce, e lista de palavras de método;
+  o gerador aborta nas duas, e o controle negativo planta um defeito de cada.
+  Na primeira rodada ele barrou doze coisas, quase todas em rótulos de figura
+  e em linhas da placa, onde a sonda de texto do corpo nunca olhava.
+
+Duas palavras saíram da lista por serem de todo dia: "sinal" (a folha de
+sinais vem antes de tudo) e "ordem" (a ordem das letras, no degrau 5).

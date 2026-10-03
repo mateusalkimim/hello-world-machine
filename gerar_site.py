@@ -16,7 +16,13 @@ O gerador ABORTA se:
   - uma expressão matemática vier sem a leitura em voz alta ("lê-se"), ou um
     degrau vier sem o seu objeto matemático declarado;
   - o ciclo que o degrau aponta na placa não existir no traço do Olá, Mundo!,
-    ou não mostrar o que o degrau diz que mostra.
+    ou não mostrar o que o degrau diz que mostra;
+  - uma palavra técnica aparecer antes do degrau que a explica (TECNICAS), ou
+    uma palavra de método aparecer em qualquer lugar visível da página
+    (PROCESSO): a folha em branco é propriedade de construção.
+
+A página é para quem não sabe nada. Selos, notas e buracos são DADO do
+catálogo e vão para pesquisa/o-que-falta.md, gerado aqui; nunca para a página.
 """
 import html
 import json
@@ -58,6 +64,30 @@ SELOS = {
     "a_ler": ("aler", "a ler"),
 }
 EN_SINAL = re.compile(r"\b(the|and|of|is|with|that)\b")
+
+# Palavras de método: conversa de quem fez a página com quem a audita. Nenhuma
+# cabe na página, que é para quem não sabe nada.
+PROCESSO = ["selo", "ofício", "oficio", "warrant", "prova", "confirmado", "versão", "amostra",
+            "testemunha", "tradução do autor", "citação", "síntese", "procedência", "2026-",
+            "ratific", "modelo de linguagem", "gerador", "buraco", "decisão nossa", "declarad",
+            "a ler", "acervo", "derivad", "régua", "portão"]
+
+# Palavra técnica → o degrau em que ela é explicada (None = nunca aparece).
+TECNICAS = {
+    "código": "d0",
+    "chave": "d0b", "gaveta": "d0b", "tecla": "d0b",
+    "tabela": "d1",
+    "casa": "d2", "bit": "d2", "byte": "d2",
+    "corrente": "d4", "relé": "d4", "limiar": "d4", "volt": "d4",
+    "porta lógica": "d5", "estado": "d5",
+    "memória": "d6", "endereço": "d6",
+    "instrução": "d7", "programa": "d7", "contador de programa": "d7",
+    "montador": "d8", "sistema operacional": "d8",
+    "pixel": "d9",
+    "barramento": None, "RAM": None, "PC": None, "acumulador": None, "latch": None, "polling": None,
+    "opcode": None, "registrador": None, "flip-flop": None, "ULA": None, "CPU": None,
+    "ASCII": None, "Unicode": None, "UTF-8": None, "hardware": None, "processador": None,
+}
 
 
 def palavras(h):
@@ -116,24 +146,81 @@ def conferir(d):
             abortar(f"{d['id']}: inglês no {campo} visível — a prova fica na prova")
 
 
+def texto_visivel(h):
+    """O que o leitor vê sem clicar: sem <details>, sem script, sem estilo."""
+    h = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", h, flags=re.S)
+    h = re.sub(r"<details.*?</details>", " ", h, flags=re.S)
+    return html.unescape(re.sub(r"<[^>]+>", " ", h))
+
+
+def portao_de_vocabulario(did, visivel):
+    baixo = visivel.lower()
+    for termo in PROCESSO:
+        if termo in baixo:
+            abortar(f"{did}: palavra de método na página: '{termo}'")
+    ordem = [d["id"] for d in D.DEGRAUS]
+    aqui = ordem.index(did) if did in ordem else (-1 if did == "conv" else len(ordem))
+    for palavra, tela in TECNICAS.items():
+        if re.search(r"(?<![\w-])" + re.escape(palavra.lower()) + r"(s|es)?(?![\w-])", baixo):
+            if tela is None:
+                abortar(f"{did}: '{palavra}' não é explicada em degrau nenhum")
+                continue
+            if ordem.index(tela) > aqui:
+                abortar(f"{did}: '{palavra}' aparece antes do degrau que a explica ({tela})")
+
+
+def linha_palavra(w):
+    return (f'<div class="item"><p class="nome-item">{w["palavra"]}</p><ul>'
+            f'<li><i>O que é:</i> {w["o_que_e"]}</li>'
+            f'<li><i>Por que existe:</i> {w["por_que"]}</li></ul></div>')
+
+
+def palavras_de(d):
+    if not d.get("palavras"):
+        return ""
+    return ('<div class="palavras"><p class="rot">antes, as palavras deste degrau</p>'
+            + "".join(linha_palavra(w) for w in d["palavras"]) + "</div>")
+
+
+def o_que_falta():
+    """pesquisa/o-que-falta.md: selos, notas e buracos, para quem audita."""
+    L = ["# O que a página não mostra, e por quê", "",
+         "Gerado por `gerar_site.py`. A página é para quem não sabe nada e não carrega isto.", "",
+         "## Procedência de cada degrau", "",
+         "| degrau | selo | fonte | derivado |", "|---|---|---|---|"]
+    for d in D.DEGRAUS:
+        L.append(f"| {d['numero']} {d['nome']} | {d['selo']} | {re.sub('<[^>]+>', '', d['ref'])} | {d.get('derivado') or ''} |")
+    L += ["", "## Notas dos degraus", ""]
+    for d in D.DEGRAUS:
+        for n in d.get("notas", []):
+            L.append(f"- **{d['numero']} {d['nome']}**: {n}")
+    L += ["", "## Buracos declarados", "",
+          "Mapa que esconde o que falta mente sobre o próprio tamanho. Estes são os buracos que este mapa sabe ter.", ""]
+    for a, b, c in D.A_LER:
+        L.append(f"- **{a}** ({b}): {c}")
+    L += ["", "## O que cada degrau conserva e esquece, com a fonte", "",
+          "| degrau | conserva | esquece | fonte |", "|---|---|---|---|"]
+    for a, b, c, d in D.FECHO["linhas"]:
+        L.append(f"| {a} | {b} | {c} | {d} |")
+    os.makedirs(os.path.join(AQUI, "pesquisa"), exist_ok=True)
+    open(os.path.join(AQUI, "pesquisa", "o-que-falta.md"), "w", encoding="utf-8").write("\n".join(L) + "\n")
+
+
 def selo(chave):
     cls, rot = SELOS[chave]
     return f'<span class="selo {cls}">{rot}</span>'
 
 
 def prova(d):
-    partes = [f'<div class="fonte">{selo(d["selo"])} {D.FONTES[d["fonte"]].split(",")[0]} {html.escape(d["ref"])}']
-    if d.get("derivado"):
-        partes[0] += f' {selo("derivado")} {html.escape(d["derivado"])}'
-    partes[0] += "</div>"
+    """De onde isto vem: a passagem, em inglês e em português, e o capítulo.
+    Selo, nota e buraco ficam fora da página (pesquisa/o-que-falta.md)."""
+    partes = [f'<div class="fonte">{D.FONTES[d["fonte"]].split(",")[0]} · {html.escape(d["ref"])}</div>']
     for en, pt in d["citacoes"]:
         partes.append(
-            f'<blockquote><span class="en">{en}</span>'
-            f'<span class="pt">{pt} (tradução do autor)</span>'
+            f'<blockquote><span class="en" lang="en">{en}</span>'
+            f'<span class="pt">{pt}</span>'
             f'<cite>{html.escape(d["ref"])}</cite></blockquote>')
-    for n in d.get("notas", []):
-        partes.append(f'<p class="nota">Buraco: {n}</p>')
-    return ('<details class="prova"><summary>mostrar a prova</summary>'
+    return ('<details class="prova"><summary>de onde isto vem</summary>'
             '<div class="prova-corpo">' + "".join(partes) + "</div></details>")
 
 
@@ -160,7 +247,7 @@ def convencoes():
     </table></div>
     <div class="origem"><span>a classe vem antes do símbolo</span></div>
   </figure>
-  <p class="corpo">Nenhum sinal aparece antes de estar nesta folha. Letra grega não é o assunto de nenhum degrau. Onde o símbolo é mais curto que a frase, a frase vence.</p>
+  <p class="corpo">Nenhum sinal aparece antes de estar nesta folha. Em cada degrau, as palavras novas vêm explicadas antes de aparecerem. Onde o símbolo é mais curto que a frase, a frase vence.</p>
 </section>"""
 
 
@@ -174,6 +261,7 @@ def degrau(d):
 <section class="degrau" id="{d['id']}" data-nome="{html.escape(d['nome'])}">
   <header>{regua}<p class="regime">{d['numero']} · {d['regime']}</p><h2>{d['titulo']}</h2></header>
   <p class="tese">{d['tese']}</p>
+  {palavras_de(d)}
   <figure class="fig">
     {F.FIGURAS[d['figura']]}
     <div class="origem">{origem}</div>
@@ -187,9 +275,7 @@ def degrau(d):
 
 def fecho(f):
     linhas = "".join(
-        f"<tr><td>{a}</td><td>{b}</td><td>{c}</td><td>{d}</td></tr>" for a, b, c, d in f["linhas"])
-    buracos = "".join(
-        f"<li><b>{html.escape(a)}</b> ({html.escape(b)}): {html.escape(c)}</li>" for a, b, c in D.A_LER)
+        f"<tr><td>{a}</td><td>{b}</td><td>{c}</td></tr>" for a, b, c, _fonte in f["linhas"])
     origem = "".join(f"<span>{html.escape(o)}</span>" for o in f["origem"])
     return f"""
 <section class="degrau" id="{f['id']}" data-nome="{html.escape(f['nome'])}">
@@ -197,16 +283,12 @@ def fecho(f):
   <p class="tese">{f['tese']}</p>
   <figure class="fig">
     <div class="tabela"><table>
-      <tr><th>degrau</th><th>conserva</th><th>esquece</th><th>fonte</th></tr>
+      <tr><th>degrau</th><th>conserva</th><th>esquece</th></tr>
       {linhas}
     </table></div>
     <div class="origem">{origem}</div>
   </figure>
   <p class="corpo">{f['corpo']}</p>
-  <details class="prova"><summary>buracos declarados</summary><div class="prova-corpo">
-    <ul>{buracos}</ul>
-    <p class="nota">Mapa que esconde o que falta mente sobre o próprio tamanho. Estes são os buracos que este mapa sabe ter.</p>
-  </div></details>
 </section>"""
 
 
@@ -223,8 +305,12 @@ def pagina():
         abortar(f"trilha com {len(D.TRILHA)} estações para convenções + {len(D.DEGRAUS)} degraus + fecho")
     css = open(os.path.join(AQUI, "pele.css"), encoding="utf-8").read()
     js = open(os.path.join(AQUI, "visor.js"), encoding="utf-8").read().replace("__TRILHA__", trilha_js())
+    portao_de_vocabulario("conv", texto_visivel(convencoes()))
+    for d in D.DEGRAUS:
+        portao_de_vocabulario(d["id"], texto_visivel(degrau(d)))
+    portao_de_vocabulario("d10", texto_visivel(fecho(D.FECHO)))
     corpo = convencoes() + "".join(degrau(d) for d in D.DEGRAUS) + fecho(D.FECHO)
-    return f"""<!doctype html>
+    pag = f"""<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -251,7 +337,7 @@ def pagina():
   <button id="prox" type="button" class="prox"><small>próximo</small><span></span></button>
 </nav>
 <footer class="rodape">
-  <p class="nota">Texto e figuras: CC BY-SA 4.0 · código: MIT · as passagens citadas pertencem aos seus autores e aparecem sob direito de citação, com fonte e capítulo. <a href="https://github.com/mateusalkimim/hello-world-machine">repositório</a></p>
+  <p class="nota">Texto e figuras: CC BY-SA 4.0 · código: MIT · as frases dos livros pertencem aos seus autores e aparecem com fonte e capítulo. <a href="https://github.com/mateusalkimim/hello-world-machine">hello-world-machine</a></p>
 </footer>
 </div>
 <script>
@@ -260,6 +346,8 @@ def pagina():
 </body>
 </html>
 """
+    portao_de_vocabulario("d10", texto_visivel(pag))
+    return pag
 
 
 def main():
@@ -268,10 +356,12 @@ def main():
     h = pagina()
     with open(saida, "w", encoding="utf-8") as f:
         f.write(h)
+    o_que_falta()
     n = len(D.DEGRAUS)
     cit = sum(len(d["citacoes"]) for d in D.DEGRAUS)
     ex = sum(len(d["matematica"]) for d in D.DEGRAUS)
-    print(f"pt/index.html: convenções + {n} degraus + fecho, {cit} passagens, {ex} expressões com lê-se, {len(D.A_LER)} buracos declarados, {len(h)} bytes")
+    pal = sum(len(d.get("palavras", [])) for d in D.DEGRAUS)
+    print(f"pt/index.html: convenções + {n} degraus + fecho, {pal} palavras explicadas, {cit} passagens, {ex} expressões com lê-se, {len(h)} bytes; pesquisa/o-que-falta.md atualizado")
 
 
 if __name__ == "__main__":

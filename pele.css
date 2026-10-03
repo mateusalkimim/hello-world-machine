@@ -137,3 +137,12 @@ table.simbolos .expr{font-size:1.05rem}
 
 /* a seção escondida some de verdade: .degrau{display:grid} vencia o [hidden] do navegador; o visor do artefato mascarava isso com a regra dele */
 .degrau[hidden]{display:none}
+
+/* as palavras de cada degrau: nome em cor, e abaixo os dois itens, sem número */
+.palavras{margin:.2rem 0 .6rem}
+.palavras .rot{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bronze);margin:0 0 .25rem}
+.item{margin:.45rem 0 0;max-width:760px}
+.nome-item{margin:0;font-size:1rem;color:var(--bronze);font-weight:600}
+.item ul{margin:.15rem 0 0;padding-left:1.2em;font-size:.95rem;line-height:1.55;color:var(--ink2)}
+.item ul li{margin:.1rem 0} .item i{font-style:normal;color:var(--muted);font-size:.78rem;letter-spacing:.04em}
+details.prova .fonte{font-size:.8rem;color:var(--muted)}

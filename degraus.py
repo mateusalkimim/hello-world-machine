@@ -11,6 +11,12 @@ Cada degrau responde UMA pergunta: o que esta camada faz com o número. O
 personagem é a frase "Olá, Mundo!" (onze letras, doze bytes), e a letra "O" é
 seguida na trilha do alto da página, degrau a degrau.
 
+A página é para quem não sabe nada. Cada degrau traz, ANTES de usar, as
+palavras novas que vai usar (`palavras`: o que é, por que existe). Selo, nota
+e buraco são DADO do catálogo: moram no README e em pesquisa/o-que-falta.md
+(gerado), nunca na página. O gerador recusa palavra técnica antes do degrau
+que a explica, e qualquer palavra de método na página.
+
 Selos de procedência (campo `selo`):
   lida      — passagem copiada da fonte, conferível caractere a caractere;
   escada    — aresta que o abstraction-ladder já sustenta com citação lida;
@@ -58,6 +64,14 @@ DEGRAUS = [
         corpo='Código aqui não é segredo: é um combinado sobre o que cada sinal '
               'quer dizer. Muda o meio, fica a mensagem. A lanterna já obriga a '
               'escolher: dois tipos de piscada, e nada mais.',
+        palavras=[
+            dict(palavra="sinal",
+                 o_que_e="qualquer coisa que dá para perceber: um som, uma marca no papel, uma luz acesa.",
+                 por_que="é o que viaja de quem fala até quem ouve; a mensagem em si não viaja sozinha."),
+            dict(palavra="código",
+                 o_que_e="um combinado sobre o que cada sinal quer dizer.",
+                 por_que="para a mensagem atravessar um meio que não é a voz: o papel, a luz, o fio."),
+        ],
         figura="tres_meios", origem=["Petzold, cap. 1"], regua=None,
         selo="lida", fonte="petzold", ref="cap. 1 — Best Friends",
         citacoes=[(
@@ -72,19 +86,28 @@ DEGRAUS = [
             ('<span class="nome">código</span>: sinais → significados',
              'código leva cada sinal num significado só, e dá para voltar'),
         ],
-        placa=dict(ciclo=1, diz='o primeiro ciclo: o PC põe 0000h no barramento e a RAM entrega o primeiro byte',
+        placa=dict(ciclo=1, diz='o primeiro passo: a máquina acorda e vai buscar o que tem de fazer',
                    espera={'fase': 'busca', 'endereco': 0}),
         notas=[], derivado=None,
     ),
     dict(
         id="d0b", numero="½", regime="tecla → número",
         nome="A tecla vira número", titulo="A tecla vira número",
-        tese='Apertar a tecla O fecha uma chave. A máquina lê uma gaveta especial, '
-             '8200h, e encontra 79. A tecla virou número.',
-        corpo='O programa pergunta à gaveta o tempo todo e quase sempre encontra zero: '
-              'ninguém apertou. É o polling do livro. Quando encontra 79, copia para '
-              'a tela e zera a gaveta, pronto para a próxima tecla.',
-        figura="tecla_vira_numero", origem=["Petzold, cap. 25", "o código da tecla: decisão nossa, declarada"],
+        tese='Apertar a tecla O fecha uma chave. A máquina olha uma gaveta especial, '
+             'a de número 8200, e encontra 79. A tecla virou número.',
+        palavras=[
+            dict(palavra="chave",
+                 o_que_e="uma peça que abre ou fecha um caminho. O interruptor da luz é uma chave; cada tecla também.",
+                 por_que="para ligar e desligar alguma coisa com um toque."),
+            dict(palavra="gaveta",
+                 o_que_e="um lugar dentro da máquina onde cabe um número, com um número na porta para ser achado de novo.",
+                 por_que="a máquina não enxerga a tecla; ela só sabe olhar gavetas. O teclado deixa o seu número numa delas."),
+        ],
+        corpo='A máquina olha a gaveta o tempo todo e quase sempre encontra zero: '
+              'ninguém apertou. O livro chama isso de consultar o teclado. Quando '
+              'encontra 79, copia para a tela e zera a gaveta, pronta para a '
+              'próxima tecla.',
+        figura="tecla_vira_numero", origem=["Petzold, cap. 25"],
         regua=None, selo="lida", fonte="petzold", ref="cap. 25 — Peripherals",
         citacoes=[
             ("The accumulator would then contain a code indicating what key has "
@@ -106,7 +129,7 @@ DEGRAUS = [
             ('<span class="nome">tecla</span>(<i>t</i>) = 79 enquanto o O está apertado, e 0 depois',
              'tecla de tê é igual a setenta e nove enquanto o O está apertado, e zero depois'),
         ],
-        placa=dict(programa="eco", ciclo=22, diz="a gaveta 8200h entrega 79 ao acumulador; dez ciclos depois o byte está na tela",
+        placa=dict(programa="eco", ciclo=22, diz="a gaveta 8200 entrega o 79 à máquina; dez passos depois ele está na tela",
                    espera=dict(dado_de="teclado", dado=0x4F)),
         notas=["Nesta máquina a gaveta 8200h entrega direto o número da letra, porque o "
                "navegador já fez a conta. Num teclado de verdade o código é da tecla, "
@@ -122,7 +145,12 @@ DEGRAUS = [
         corpo='Não há nada de <b>O</b> no 79. É uma posição numa tabela que o '
               'mundo inteiro combinou usar. Por isso o mesmo <b>O</b> é 79 em '
               'qualquer máquina.',
-        figura="tabela_numeros", origem=["Petzold, cap. 13", "números: derivados, conferíveis"],
+        palavras=[
+            dict(palavra="tabela",
+                 o_que_e="uma lista em que cada letra tem o seu número ao lado, como uma lista de chamada.",
+                 por_que="a máquina só guarda números; a tabela é o combinado que diz qual número é qual letra."),
+        ],
+        figura="tabela_numeros", origem=["Petzold, cap. 13"],
         regua=None, selo="lida", fonte="petzold", ref="cap. 13 — From ASCII to Unicode",
         citacoes=[(
             "The biggest advantage of UTF-8 is that it's backward compatible with "
@@ -136,7 +164,7 @@ DEGRAUS = [
             ('<span class="nome">número</span>(O) = 79',
              'número de O é igual a setenta e nove'),
         ],
-        placa=dict(ciclo=8, diz='o byte 4F, que é a letra O, chega ao Instruction Latch 2',
+        placa=dict(ciclo=8, diz='o número 79, escrito 4F, que é a letra O, chega à máquina',
                    espera={'dado_para': 'IL2', 'dado': 79}),
         notas=["A passagem que define a tabela ASCII em si está no mesmo capítulo "
                "e ainda não foi copiada."],
@@ -150,6 +178,17 @@ DEGRAUS = [
         corpo='É a mesma ideia de 79 = 70 + 9, só que cada casa vale o dobro da '
               'vizinha, não dez vezes. 256 é o número de combinações, não um '
               'tamanho.',
+        palavras=[
+            dict(palavra="casa",
+                 o_que_e="uma posição na escrita de um número. Em 79, o 7 está numa casa e o 9 na outra.",
+                 por_que="é a casa que diz quanto cada algarismo vale: o 7 de 79 vale setenta."),
+            dict(palavra="bit",
+                 o_que_e="uma casa que só aceita 0 ou 1.",
+                 por_que="é a menor quantidade de informação que existe, e é o que uma chave sabe guardar: desligada ou ligada."),
+            dict(palavra="byte",
+                 o_que_e="oito bits lado a lado.",
+                 por_que="é o tamanho de uma letra, e o pedaço que a máquina move de cada vez."),
+        ],
         figura="byte_79", origem=["Petzold, caps. 11 e 12"], regua=None,
         selo="lida", fonte="petzold", ref="cap. 11 — Bit by Bit by Bit · cap. 12 — Bytes and Hexadecimal",
         citacoes=[(
@@ -166,7 +205,7 @@ DEGRAUS = [
             ('2<sup>8</sup> = 256',
              'dois elevado a oito é igual a duzentos e cinquenta e seis: o tamanho do conjunto das listas de oito zeros ou uns'),
         ],
-        placa=dict(ciclo=9, diz='os oito pontos do barramento de dados: 0 1 0 0 1 1 1 1',
+        placa=dict(ciclo=9, diz='os oito pontos da fileira de dados, acesos e apagados: 0 1 0 0 1 1 1 1',
                    espera={'dado': 79, 'dado_para': 'RAM'}),
         notas=[], derivado=None,
     ),
@@ -178,7 +217,7 @@ DEGRAUS = [
         corpo='Onze letras, doze bytes. Byte não é letra: uma letra pode custar um, '
               'dois, três ou quatro. Quem conta bytes para contar letras erra, e a '
               'web inteira já errou isso.',
-        figura="bits_do_a", origem=["Petzold, cap. 13", "bytes do á: derivados pela mesma regra"],
+        figura="bits_do_a", origem=["Petzold, cap. 13"],
         regua=None, selo="lida", fonte="petzold",
         ref="cap. 13, com o £ (U+00A3) como exemplo; o á (U+00E1) está na mesma faixa",
         citacoes=[(
@@ -193,7 +232,7 @@ DEGRAUS = [
             ('<span class="nome">bytes</span>(o) = 1, <span class="nome">bytes</span>(á) = 2',
              'bytes de o é igual a um; bytes de á é igual a dois'),
         ],
-        placa=dict(ciclo=19, diz='o á entra na tela como um byte só, E1: a célula é nossa, o UTF-8 é do arquivo',
+        placa=dict(ciclo=19, diz='na tela desta máquina o á cabe num byte só, E1; os dois bytes são do arquivo',
                    espera={'dado': 225, 'dado_para': 'RAM'}),
         notas=[], derivado="C3 A1, pela regra da segunda linha da tabela do cap. 13",
     ),
@@ -202,10 +241,22 @@ DEGRAUS = [
         nome="Cada casa vira corrente", titulo="Cada casa vira corrente num relé",
         tese='O 1 é corrente passando; o 0 é corrente parada. Oito relés '
              'enfileirados seguram o <b>O</b>; noventa e seis seguram a frase.',
+        palavras=[
+            dict(palavra="corrente",
+                 o_que_e="eletricidade andando por dentro de um fio, como água andando por um cano.",
+                 por_que="é ela que faz a lâmpada acender e, aqui, a chave virar."),
+            dict(palavra="relé",
+                 o_que_e="uma chave que uma corrente aciona: a corrente de um fio fecha o caminho de outro.",
+                 por_que="é a primeira peça que deixa uma corrente mandar em outra, sem dedo nenhum."),
+            dict(palavra="limiar",
+                 o_que_e="a linha que separa pouco de muito. Acima dela a corrente conta como 1; abaixo, como 0.",
+                 por_que="a corrente nunca é exatamente igual; a linha é o que faz dois valores diferentes virarem o mesmo sinal."),
+        ],
         corpo='O número não está no relé. O relé só sabe passar ou não passar; '
-              'somos nós que combinamos que passar vale 1. Daqui para cima, a '
-              'escada que já existe sobe com citação e instrumento.',
-        figura="oito_reles", origem=["Petzold, caps. 7 e 8", "já na escada: eletroímã → relé → porta"],
+              'somos nós que combinamos que passar vale 1. Oito relés, oito '
+              'casas: o <b>O</b> inteiro cabe numa fileira. Como relés viram '
+              'portas e contas é a história da outra página, a escada.',
+        figura="oito_reles", origem=["Petzold, caps. 7 e 8"],
         regua=("ouro", "aqui deixa de ser escrita e passa a ser eletricidade"),
         selo="escada", fonte="ladder",
         ref="eletroímã → relé (Petzold cap. 7) · relé → porta lógica (cap. 8), com o instrumento “dois relés viram uma porta”",
@@ -219,7 +270,7 @@ DEGRAUS = [
             ('<span class="nome">bit</span>(<i>v</i>) = 1 se <i>v</i> ≥ 2 volts, e 0 se <i>v</i> ≤ 0,8 volt',
              'bit de vê é igual a um se vê é maior ou igual a dois volts, e igual a zero se vê é menor ou igual a zero vírgula oito volt'),
         ],
-        placa=dict(ciclo=9, diz='cada ponto aceso no barramento é um fio com corrente; o medidor de limiar ainda vem',
+        placa=dict(ciclo=9, diz='cada ponto aceso na fileira é um fio com corrente passando',
                    espera={'dado': 79}),
         notas=[], derivado=None,
     ),
@@ -228,10 +279,18 @@ DEGRAUS = [
         nome="Os bits somam e ficam parados", titulo="Os bits aprendem a somar e a ficar parados",
         tese='Portas ligadas de um jeito somam dois bytes. Ligadas de outro, '
              'seguram um bit depois que a entrada some.',
+        palavras=[
+            dict(palavra="porta lógica",
+                 o_que_e="uma peça feita de chaves que responde sim ou não ao que chega nela. Duas chaves em fila só passam corrente com as duas fechadas: é uma porta.",
+                 por_que="é com perguntas de sim ou não, ligadas umas às outras, que se monta uma conta."),
+            dict(palavra="estado",
+                 o_que_e="o jeito em que uma peça está agora: o que ela guarda neste instante.",
+                 por_que="uma peça que lembra tem estado; uma que só responde não tem."),
+        ],
         corpo='Somar 1 ao <b>O</b> dá <b>P</b>, a letra seguinte: a tabela foi '
               'feita para isso funcionar. Agora o número pode ser operado e pode '
               'esperar. Lembrar é o que permite o próximo degrau.',
-        figura="somador_flipflop", origem=["Petzold, caps. 14, 17, 19 a 21", "já na escada, com cinco instrumentos"],
+        figura="somador_flipflop", origem=["Petzold, caps. 14, 17, 19 a 21"],
         regua=None, selo="escada", fonte="ladder",
         ref="porta → somador (cap. 14) · porta → flip-flop (caps. 17 e 19) · flip-flop de borda → contador e registrador (cap. 20) · somador → ULA (cap. 21)",
         citacoes=[(
@@ -244,7 +303,7 @@ DEGRAUS = [
             ('<i>s</i><sub><i>t</i>+1</sub> = <span class="nome">f</span>(<i>s</i><sub><i>t</i></sub>, <i>x</i><sub><i>t</i></sub>)',
              'o estado no instante tê mais um é f de: o estado no instante tê, e a entrada no instante tê'),
         ],
-        placa=dict(ciclo=11, diz='HL guarda o endereço e o incrementador soma 1: lembrar e contar',
+        placa=dict(ciclo=11, diz='uma peça guarda onde a máquina está e outra soma 1: lembrar e contar',
                    espera={'nota_comeca': 'INX'}),
         notas=[], derivado=None,
     ),
@@ -256,7 +315,15 @@ DEGRAUS = [
         corpo='Agora há dois números por letra: o que ela vale e onde ela está. A '
               'ordem das letras virou ordem de endereços. Ler a frase é percorrer '
               'gavetas vizinhas.',
-        figura="gavetas", origem=["Petzold, cap. 19", "endereços: derivados do programa do cap. 27"],
+        palavras=[
+            dict(palavra="memória",
+                 o_que_e="muitas gavetas em fileira, cada uma com um byte dentro.",
+                 por_que="para a frase inteira ficar guardada enquanto a máquina trabalha nela, uma letra por gaveta."),
+            dict(palavra="endereço",
+                 o_que_e="o número na porta de uma gaveta.",
+                 por_que="para achar de novo o que foi guardado, sem procurar gaveta por gaveta."),
+        ],
+        figura="gavetas", origem=["Petzold, cap. 19"],
         regua=None, selo="lida", fonte="petzold", ref="cap. 19 — An Assemblage of Memory",
         citacoes=[(
             "That's called writing to memory, and the value of Data In is said to "
@@ -268,7 +335,7 @@ DEGRAUS = [
             ('<span class="nome">mem</span>(0109) = 4F',
              'mem de zero, um, zero, nove é igual a quatro-efe, que vale setenta e nove'),
         ],
-        placa=dict(ciclo=9, diz='HL põe 8000h no barramento de endereços e a RAM guarda o 4F nessa gaveta',
+        placa=dict(ciclo=9, diz='a máquina aponta a gaveta 8000 e guarda nela o 4F',
                    espera={'endereco': 32768, 'endereco_de': 'HL', 'dado_para': 'RAM'}),
         notas=[], derivado="os endereços seguem o programa do cap. 27, deslocado para a nossa frase",
     ),
@@ -278,11 +345,22 @@ DEGRAUS = [
         tese='Na mesma memória, ao lado das letras, moram outros bytes. '
              '<span class="mono">CD</span> não é letra: é a ordem “chame”. '
              '<span class="mono">C9</span> é “volte”.',
+        palavras=[
+            dict(palavra="ordem",
+                 o_que_e="um número que a máquina lê como “faça isto”: some, copie, guarde, chame, volte. O livro chama de instrução.",
+                 por_que="sem ordens a máquina só guardaria números; é a ordem que a põe a fazer alguma coisa com eles."),
+            dict(palavra="programa",
+                 o_que_e="uma fila de ordens, uma depois da outra, guardada na memória como qualquer outra coisa.",
+                 por_que="é como uma pessoa diz à máquina o que fazer, de uma vez, para a máquina fazer sozinha."),
+            dict(palavra="contador de programa",
+                 o_que_e="uma gaveta especial da máquina que guarda o endereço da próxima ordem.",
+                 por_que="para a máquina saber qual byte ler como ordem agora, e qual vem depois."),
+        ],
         corpo='Nada no byte diz se ele é letra ou ordem. O que decide é para onde o '
               'contador de programa aponta, e esse contador também é um número '
               'guardado na máquina. A máquina se governa com a mesma matéria que '
               'governa.',
-        figura="dezesseis_bytes", origem=["Petzold, caps. 23 e 27", "programa real, para um Intel 8080 de 1978"],
+        figura="dezesseis_bytes", origem=["Petzold, caps. 23 e 27"],
         regua=("roxa", "aqui deixa de ser circuito e passa a ser linguagem"),
         selo="lida", fonte="petzold", ref="cap. 27 — Coding · cap. 23 — CPU Control Signals",
         citacoes=[
@@ -303,10 +381,10 @@ DEGRAUS = [
         ],
         objeto='a máquina é uma regra de passo: do estado de agora para o próximo',
         matematica=[
-            ('próximo = <span class="nome">passo</span>(<i>PC</i>, <i>A</i>, mem)',
-             'o próximo estado é passo de: o contador de programa, o registrador A, e a memória'),
+            ('próximo = <span class="nome">passo</span>(<i>contador</i>, <i>A</i>, mem)',
+             'o próximo estado é passo de: o contador de programa, o número guardado em A, e a memória'),
         ],
-        placa=dict(ciclo=7, diz='o PC aponta 0004h e o byte 36 é lido como ordem: escreva em [HL]',
+        placa=dict(ciclo=7, diz='o contador de programa aponta a gaveta 0004 e o byte 36 é lido como ordem: guarde a letra',
                    espera={'dado': 54, 'dado_para': 'IL1'}),
         notas=["O programa do livro é de antes do Unicode; um CP/M real não "
                "mostraria o á. A versão com “Olá, Mundo!” nas gavetas é adaptação "
@@ -319,10 +397,18 @@ DEGRAUS = [
         tese='Ninguém decora que “chame” é <span class="mono">CD</span>. Escreve-se '
              '<span class="mono">CALL 5</span> num texto, e o montador troca cada '
              'palavra pelo byte certo.',
+        palavras=[
+            dict(palavra="montador",
+                 o_que_e="um programa que lê um texto com as ordens escritas em palavras e troca cada palavra pelo byte certo.",
+                 por_que="porque pessoa lembra palavra, e máquina só lê número. Alguém tem de fazer a troca, e um programa faz sem errar."),
+            dict(palavra="sistema operacional",
+                 o_que_e="um programa que já mora na máquina e faz serviços para os outros programas, como mostrar texto na tela.",
+                 por_que="para cada programa novo não precisar saber como a tela funciona."),
+        ],
         corpo='É aqui que a delegação começa: a pessoa escreve a intenção, a máquina '
               'executa. O sistema operacional já sabe fazer serviços, como mostrar '
               'texto, para que cada programa não precise saber.',
-        figura="montador", origem=["Petzold, cap. 27", "já na escada: máquina → assembler, avaliador, compilador"],
+        figura="montador", origem=["Petzold, cap. 27"],
         regua=None, selo="lida", fonte="petzold", ref="cap. 27 — Coding",
         citacoes=[(
             "An assembler such as ASM.COM reads an assembly-language program (often "
@@ -345,11 +431,16 @@ DEGRAUS = [
         nome="A ordem vira pontos de luz", titulo="A ordem vira pontos de luz",
         tese='A tela também é memória: cada três bytes são um ponto colorido. '
              'Mostrar o <b>o</b> é escrever números nas gavetas certas desse bloco.',
+        palavras=[
+            dict(palavra="pixel",
+                 o_que_e="um ponto da tela, pequeno demais para ver sozinho, com uma cor só.",
+                 por_que="a tela não desenha letras; ela acende pontos, e a letra é o que os pontos formam juntos."),
+        ],
         corpo='Sessenta vezes por segundo a tela lê o bloco e acende. '
               '<span class="frase">Olá, Mundo!</span> volta a ser coisa que a gente '
-              'lê, feita de números. Como o 79 vira o desenho do <b>O</b> é o '
-              'buraco declarado deste mapa.',
-        figura="pixels", origem=["Petzold, caps. 12 e 25", "do 79 ao desenho do O: a ler"],
+              'lê, feita de números. Como o 79 vira o desenho do <b>O</b> é a '
+              'próxima pergunta, ainda sem resposta nesta página.',
+        figura="pixels", origem=["Petzold, caps. 12 e 25"],
         regua=("verde", "aqui deixa de ser número e volta a ser luz"),
         selo="lida", fonte="petzold", ref="cap. 25 — Peripherals · cap. 12 (pixel = três bytes)",
         citacoes=[
@@ -391,7 +482,7 @@ CONVENCOES = [
      '<i>v</i>, <i>t</i>', "vê, tê"),
     ("índice embaixo",
      "em qual instante, ou em qual posição",
-     '<i>s</i><sub><i>t</i></sub>', "o estado no instante tê"),
+     '<i>s</i><sub><i>t</i></sub>', "ésse no instante tê"),
     ("número pequeno em cima",
      "quantas vezes multiplicar o número por ele mesmo",
      '2<sup>8</sup>', "dois elevado a oito"),
@@ -402,7 +493,7 @@ CONVENCOES = [
      "uma regra que leva cada coisa da esquerda numa coisa da direita",
      'sinais → significados', "leva sinais em significados"),
     ("número em hexadecimal",
-     "um byte escrito com dois símbolos; de A a F valem de 10 a 15",
+     "um número escrito com os algarismos de 0 a 9 e as letras de A a F, que valem de 10 a 15",
      '4F', "quatro-efe, que vale setenta e nove"),
 ]
 
@@ -416,7 +507,7 @@ FECHO = dict(
          'é uma promessa: “pode esquecer o resto, isto eu garanto”.',
     corpo='A escada inteira é a cadeia dessas promessas, e a execução é o que '
           'sobra quando todas foram cumpridas.',
-    origem=["régua: a tese “matemática como linguagem”"],
+    origem=[],
     linhas=[
         ("0 código", "a mensagem", "o meio", "cap. 1"),
         ("½ tecla → número", "o código da letra", "a chave, o dedo", "cap. 25"),

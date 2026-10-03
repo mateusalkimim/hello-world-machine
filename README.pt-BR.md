@@ -11,8 +11,17 @@ do livro que sustenta o que foi dito. Nenhum degrau entrou por plausibilidade:
 **o gerador aborta** se faltar a citação.
 
 É material para quem não sabe nada. A régua é a folha em branco: uma tese de
-até 25 palavras, uma figura com a palavra nova dentro dela, um parágrafo de até
-60, e a prova guardada atrás de um clique.
+até 25 palavras; **as palavras novas explicadas antes de aparecerem** (o que é,
+por que existe); uma figura com a palavra nova dentro dela; um parágrafo de até
+60; e a passagem do livro atrás de um clique, em "de onde isto vem".
+
+**A página não fala de método.** Selos de procedência, notas, buracos
+declarados e a fonte de cada linha do fecho moram aqui e em
+[`pesquisa/o-que-falta.md`](pesquisa/o-que-falta.md), gerado pelo gerador; o
+leitor da página não precisa deles para aprender. E a folha em branco é
+propriedade de construção: o gerador recusa uma palavra técnica antes do degrau
+que a explica (a lista fechada, com o degrau de cada uma, está nele) e qualquer
+palavra de método na página.
 
 No ar em <https://mateusalkimim.github.io/hello-world-machine/> — em
 [inglês](https://mateusalkimim.github.io/hello-world-machine/en/) e em
