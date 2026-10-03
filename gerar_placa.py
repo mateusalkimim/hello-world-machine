@@ -19,7 +19,7 @@ def main():
     extra = """
 .placa-wrap{display:grid;gap:1rem}
 .quadro{background:var(--card);border:1px solid var(--linha);padding:.6rem;min-width:0;overflow-x:auto}
-canvas#placa{display:block;max-width:100%;height:auto}
+canvas#placa{display:block;height:auto}
 .controles{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
 .controles button{font:inherit;font-size:.85rem;color:var(--azul);background:none;border:1px solid var(--linha);border-radius:3px;padding:.45rem .8rem;cursor:pointer}
 .controles button:hover{border-color:var(--bronze)}
