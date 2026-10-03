@@ -235,7 +235,7 @@ def matematica(d):
 def convencoes():
     itens = "".join(
         f'<div class="sinal"><p class="expr">{e}</p>'
-        f'<p><b>{c}</b>: {o}. <i>lê-se:</i> {l}.</p></div>'
+        f'<p><b>{c}</b>: {o}. <span class="lese">lê-se:</span> {l}.</p></div>'
         for c, o, e, l in D.CONVENCOES)
     return f"""
 <section class="degrau" id="conv" data-nome="Como ler os símbolos">
