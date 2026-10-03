@@ -12,11 +12,11 @@ offline em qualquer navegador moderno.
 **Windows** — baixe (Code → Download ZIP, ou `git clone`), extraia, e dê duplo
 clique em `index.html`.
 
-**Linux** — `git clone … && cd one-phrase-one-machine && xdg-open index.html`
+**Linux** — `git clone … && cd hello-world-machine && xdg-open index.html`
 
 **macOS** — o mesmo, com `open index.html`.
 
-**Sem baixar** — <https://mateusalkimim.github.io/one-phrase-one-machine/>
+**Sem baixar** — <https://mateusalkimim.github.io/hello-world-machine/>
 
 Na página: ← e → no teclado, ou os botões com o nome do degrau vizinho. Clicar
 numa estação da trilha do alto leva ao degrau. A página lembra onde você parou.

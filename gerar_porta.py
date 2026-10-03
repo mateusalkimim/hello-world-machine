@@ -32,7 +32,7 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 
 DETECTOR = """(function(){
   var d='en';
-  try{ var f=localStorage.getItem('opom-lang'); if(f==='pt'||f==='en'){ %s } }catch(e){}
+  try{ var f=localStorage.getItem('hwm-lang'); if(f==='pt'||f==='en'){ %s } }catch(e){}
   var L=(navigator.languages&&navigator.languages.length)?navigator.languages
         :[navigator.language||''];
   for(var i=0;i<L.length;i++){ if(/^pt/i.test(L[i])){ d='pt'; break; } }
@@ -44,7 +44,7 @@ PORTA = """<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>One Phrase, One Machine — A vida de olá mundo</title>
+<title>Hello World Machine — A vida de olá mundo</title>
 <link rel="alternate" hreflang="pt-BR" href="pt/">
 <link rel="alternate" hreflang="en" href="en/">
 <link rel="alternate" hreflang="x-default" href="en/">
@@ -64,7 +64,7 @@ PORTA = """<!doctype html>
 </head>
 <body>
 <div class="p">
-  <h1>One Phrase, One Machine</h1>
+  <h1>Hello World Machine</h1>
   <p class="s">A vida de olá mundo &middot; The life of hello world</p>
   <a href="pt/">Ler em portugues</a>
   <a href="en/">Read in English</a>

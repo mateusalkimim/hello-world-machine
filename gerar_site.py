@@ -190,7 +190,7 @@ def pagina():
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A vida de olá mundo — one-phrase-one-machine</title>
+<title>A vida de olá mundo — hello-world-machine</title>
 <meta name="description" content="O que cada camada de abstração faz com o número: de uma frase dita no escuro até a luz na tela, um degrau por vez, com a passagem do livro que sustenta cada um.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
 <style>
@@ -200,7 +200,7 @@ def pagina():
 <body>
 <div class="pagina">
 <div class="cab">
-  <div><p class="eyebrow">one-phrase-one-machine</p><h1>A vida de olá mundo</h1></div>
+  <div><p class="eyebrow">hello-world-machine</p><h1>A vida de olá mundo</h1></div>
   <p class="nota"><a href="../en/" lang="en" hreflang="en">English</a> · ← → no teclado; um degrau por tela</p>
 </div>
 <div class="trilha" id="trilha" aria-label="O que o o já virou"></div>
@@ -212,7 +212,7 @@ def pagina():
   <button id="prox" type="button" class="prox"><small>próximo</small><span></span></button>
 </nav>
 <footer class="rodape">
-  <p class="nota">Texto e figuras: CC BY-SA 4.0 · código: MIT · as passagens citadas pertencem aos seus autores e aparecem sob direito de citação, com fonte e capítulo. <a href="https://github.com/mateusalkimim/one-phrase-one-machine">repositório</a></p>
+  <p class="nota">Texto e figuras: CC BY-SA 4.0 · código: MIT · as passagens citadas pertencem aos seus autores e aparecem sob direito de citação, com fonte e capítulo. <a href="https://github.com/mateusalkimim/hello-world-machine">repositório</a></p>
 </footer>
 </div>
 <script>

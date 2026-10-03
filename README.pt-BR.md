@@ -2,7 +2,7 @@
 > [!NOTE]
 > ### 🌍 **[Read this page in English →](README.md)**
 
-# Uma frase, uma máquina — `one-phrase-one-machine`
+# A máquina do olá, mundo — `hello-world-machine`
 
 **O que cada camada de abstração faz com o número, seguindo uma frase só: de
 "olá mundo" dito no escuro até a luz que o devolve na tela.** Um degrau por
@@ -14,9 +14,9 @@ do livro que sustenta o que foi dito. Nenhum degrau entrou por plausibilidade:
 até 25 palavras, uma figura com a palavra nova dentro dela, um parágrafo de até
 60, e a prova guardada atrás de um clique.
 
-No ar em <https://mateusalkimim.github.io/one-phrase-one-machine/> — em
-[inglês](https://mateusalkimim.github.io/one-phrase-one-machine/en/) e em
-[português](https://mateusalkimim.github.io/one-phrase-one-machine/pt/).
+No ar em <https://mateusalkimim.github.io/hello-world-machine/> — em
+[inglês](https://mateusalkimim.github.io/hello-world-machine/en/) e em
+[português](https://mateusalkimim.github.io/hello-world-machine/pt/).
 
 ## O personagem
 
@@ -62,12 +62,12 @@ com instrumento que monta a peça na tela.
 ## Início rápido
 
 ```bash
-git clone https://github.com/mateusalkimim/one-phrase-one-machine.git
-cd one-phrase-one-machine
+git clone https://github.com/mateusalkimim/hello-world-machine.git
+cd hello-world-machine
 xdg-open pt/index.html        # no Windows, duplo clique
 ```
 
-Ou <https://mateusalkimim.github.io/one-phrase-one-machine/>. Para regerar a
+Ou <https://mateusalkimim.github.io/hello-world-machine/>. Para regerar a
 página (só Python 3, biblioteca padrão):
 
 ```bash
