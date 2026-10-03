@@ -20,7 +20,7 @@ cumpridas.
 |---|---|---|---|
 | 0 código | sinal ↔ significado | função com inversa (bijeção) | distinguir uma mensagem da outra |
 | 1 letra → número | tabela Unicode | bijeção do alfabeto nos números | qual letra é |
-| 2 número → bits | 111 = 64 + 32 + 8 + 4 + 2 + 1 | notação posicional, soma de potências de 2; 256 é o tamanho de {0,1}⁸ | o número exato |
+| 2 número → bits | 79 = 64 + 8 + 4 + 2 + 1 | notação posicional, soma de potências de 2; 256 é o tamanho de {0,1}⁸ | o número exato |
 | 2½ o á | dois bytes | código de comprimento variável, livre de prefixo | a letra, sem ambiguidade |
 | 3 corrente → bit | tensão vira 0 ou 1 | **limiar: um intervalo inteiro de tensões vira um símbolo só** | o símbolo, apesar do ruído |
 | 4 portas e soma | AND, OR, somador | álgebra de Boole; aritmética módulo 256 | a conta dá o mesmo que no papel |

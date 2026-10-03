@@ -8,8 +8,8 @@ FIGURAS = {
       <g font-family="Inter, sans-serif" font-size="11" fill="var(--bronze)" font-weight="600" letter-spacing="1">
         <text x="20" y="18">CÓDIGO 1 · VOZ</text><text x="200" y="18">CÓDIGO 2 · PAPEL</text><text x="372" y="18">CÓDIGO 3 · LANTERNA</text>
       </g>
-      <text x="20" y="60" font-family="Cormorant Garamond, serif" font-style="italic" font-size="24" fill="var(--ink)">olá mundo</text>
-      <text x="200" y="60" font-family="Inter, sans-serif" font-size="20" fill="var(--ink)">olá mundo</text>
+      <text x="20" y="60" font-family="Cormorant Garamond, serif" font-style="italic" font-size="24" fill="var(--ink)">Olá, Mundo!</text>
+      <text x="200" y="60" font-family="Inter, sans-serif" font-size="20" fill="var(--ink)">Olá, Mundo!</text>
       <g fill="var(--bronze)">
         <circle cx="380" cy="50" r="5"/><circle cx="396" cy="50" r="5"/><circle cx="412" cy="50" r="5"/><rect x="428" y="45" width="22" height="10" rx="5"/><circle cx="466" cy="50" r="5"/>
         <rect x="380" y="68" width="22" height="10" rx="5"/><circle cx="420" cy="73" r="5"/><rect x="436" y="68" width="22" height="10" rx="5"/>
@@ -22,11 +22,11 @@ FIGURAS = {
 
     "tabela_numeros": r"""<p class="rotulo">tabela Unicode: o mesmo combinado em toda máquina do planeta</p>
     <div class="tabela"><table class="mono">
-      <tr><th>letra</th><td>o</td><td>l</td><td>á</td><td>␣</td><td>m</td><td>u</td><td>n</td><td>d</td><td>o</td></tr>
-      <tr><th>número</th><td>111</td><td>108</td><td>225</td><td>32</td><td>109</td><td>117</td><td>110</td><td>100</td><td>111</td></tr>
+      <tr><th>letra</th><td>O</td><td>l</td><td>á</td><td>,</td><td>␣</td><td>M</td><td>u</td><td>n</td><td>d</td><td>o</td><td>!</td></tr>
+      <tr><th>número</th><td>79</td><td>108</td><td>225</td><td>44</td><td>32</td><td>77</td><td>117</td><td>110</td><td>100</td><td>111</td><td>33</td></tr>
     </table></div>""",
 
-    "byte_111": r"""<svg viewBox="0 0 520 165" role="img" aria-label="O número 111 decomposto em oito casas que valem 128, 64, 32, 16, 8, 4, 2, 1">
+    "byte_79": r"""<svg viewBox="0 0 520 165" role="img" aria-label="O número 79 decomposto em oito casas que valem 128, 64, 32, 16, 8, 4, 2, 1">
       <text x="24" y="14" font-family="Inter, sans-serif" font-size="11" fill="var(--bronze)" font-weight="600" letter-spacing="1">UM BYTE = OITO BITS · cada casa vale o dobro da vizinha</text>
       <g font-family="Spline Sans Mono, monospace" font-size="13" fill="var(--muted)" text-anchor="middle">
         <text x="48" y="36">128</text><text x="108" y="36">64</text><text x="168" y="36">32</text><text x="228" y="36">16</text><text x="288" y="36">8</text><text x="348" y="36">4</text><text x="408" y="36">2</text><text x="468" y="36">1</text>
@@ -34,31 +34,31 @@ FIGURAS = {
       <g font-family="Spline Sans Mono, monospace" font-size="26" text-anchor="middle">
         <rect x="24" y="46" width="48" height="48" fill="var(--bit0)"/><text x="48" y="80" fill="var(--bit0-ink)">0</text>
         <rect x="84" y="46" width="48" height="48" fill="var(--bit1)"/><text x="108" y="80" fill="var(--card)">1</text>
-        <rect x="144" y="46" width="48" height="48" fill="var(--bit1)"/><text x="168" y="80" fill="var(--card)">1</text>
+        <rect x="144" y="46" width="48" height="48" fill="var(--bit0)"/><text x="168" y="80" fill="var(--bit0-ink)">0</text>
         <rect x="204" y="46" width="48" height="48" fill="var(--bit0)"/><text x="228" y="80" fill="var(--bit0-ink)">0</text>
         <rect x="264" y="46" width="48" height="48" fill="var(--bit1)"/><text x="288" y="80" fill="var(--card)">1</text>
         <rect x="324" y="46" width="48" height="48" fill="var(--bit1)"/><text x="348" y="80" fill="var(--card)">1</text>
         <rect x="384" y="46" width="48" height="48" fill="var(--bit1)"/><text x="408" y="80" fill="var(--card)">1</text>
         <rect x="444" y="46" width="48" height="48" fill="var(--bit1)"/><text x="468" y="80" fill="var(--card)">1</text>
       </g>
-      <text x="260" y="128" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" fill="var(--ink)">64 + 32 + 8 + 4 + 2 + 1 = 111 = <tspan font-style="italic" font-family="Cormorant Garamond, serif" font-size="19">o</tspan></text>
+      <text x="260" y="128" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" fill="var(--ink)">64 + 8 + 4 + 2 + 1 = 79 = <tspan font-family="Cormorant Garamond, serif" font-size="19">O</tspan></text>
       <text x="260" y="152" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="var(--muted)">bit = uma casa · as casas pintadas somam, as vazias não contam</text>
     </svg>""",
 
     "bits_do_a": r"""<p class="rotulo">começar com 110 e 10 é a marca de "vem em dupla"; o 0 na frente do o diz "vem sozinho"</p>
     <div class="tabela"><table class="mono">
       <tr><th>letra</th><th>bytes</th><th>em bits</th></tr>
-      <tr><td>o</td><td>1</td><td><span class="bits"><i class="z">0</i><i class="u">1</i><i class="u">1</i><i class="z">0</i><i class="u">1</i><i class="u">1</i><i class="u">1</i><i class="u">1</i></span></td></tr>
+      <tr><td>O</td><td>1</td><td><span class="bits"><i class="z">0</i><i class="u">1</i><i class="z">0</i><i class="z">0</i><i class="u">1</i><i class="u">1</i><i class="u">1</i><i class="u">1</i></span></td></tr>
       <tr><td>l</td><td>1</td><td><span class="bits"><i class="z">0</i><i class="u">1</i><i class="u">1</i><i class="z">0</i><i class="u">1</i><i class="u">1</i><i class="z">0</i><i class="z">0</i></span></td></tr>
       <tr><td>á</td><td>2</td><td><span class="bits"><i class="u">1</i><i class="u">1</i><i class="z">0</i><i class="z">0</i><i class="z">0</i><i class="z">0</i><i class="u">1</i><i class="u">1</i></span>&nbsp;<span class="bits"><i class="u">1</i><i class="z">0</i><i class="u">1</i><i class="z">0</i><i class="z">0</i><i class="z">0</i><i class="z">0</i><i class="u">1</i></span></td></tr>
     </table></div>""",
 
-    "oito_reles": r"""<svg viewBox="0 0 520 100" role="img" aria-label="Oito relés, um por bit do o">
+    "oito_reles": r"""<svg viewBox="0 0 520 100" role="img" aria-label="Oito relés, um por bit do O">
       <text x="20" y="14" font-family="Inter, sans-serif" font-size="11" fill="var(--bronze)" font-weight="600" letter-spacing="1">RELÉ · chave fechada = corrente = 1 · chave aberta = 0</text>
       <g font-family="Spline Sans Mono, monospace" font-size="12" text-anchor="middle">
         <g transform="translate(20,24)"><rect width="48" height="40" fill="var(--bit0)" stroke="var(--linha)"/><line x1="8" y1="30" x2="28" y2="14" stroke="var(--bit0-ink)" stroke-width="2"/><circle cx="8" cy="30" r="3" fill="var(--bit0-ink)"/><circle cx="40" cy="30" r="3" fill="var(--bit0-ink)"/><text x="24" y="64" fill="var(--muted)">0</text></g>
         <g transform="translate(80,24)"><rect width="48" height="40" fill="var(--card)" stroke="var(--bit1)"/><line x1="8" y1="30" x2="40" y2="30" stroke="var(--bit1)" stroke-width="2"/><circle cx="8" cy="30" r="3" fill="var(--bit1)"/><circle cx="40" cy="30" r="3" fill="var(--bit1)"/><text x="24" y="64" fill="var(--ink)">1</text></g>
-        <g transform="translate(140,24)"><rect width="48" height="40" fill="var(--card)" stroke="var(--bit1)"/><line x1="8" y1="30" x2="40" y2="30" stroke="var(--bit1)" stroke-width="2"/><circle cx="8" cy="30" r="3" fill="var(--bit1)"/><circle cx="40" cy="30" r="3" fill="var(--bit1)"/><text x="24" y="64" fill="var(--ink)">1</text></g>
+        <g transform="translate(140,24)"><rect width="48" height="40" fill="var(--bit0)" stroke="var(--linha)"/><line x1="8" y1="30" x2="28" y2="14" stroke="var(--bit0-ink)" stroke-width="2"/><circle cx="8" cy="30" r="3" fill="var(--bit0-ink)"/><circle cx="40" cy="30" r="3" fill="var(--bit0-ink)"/><text x="24" y="64" fill="var(--muted)">0</text></g>
         <g transform="translate(200,24)"><rect width="48" height="40" fill="var(--bit0)" stroke="var(--linha)"/><line x1="8" y1="30" x2="28" y2="14" stroke="var(--bit0-ink)" stroke-width="2"/><circle cx="8" cy="30" r="3" fill="var(--bit0-ink)"/><circle cx="40" cy="30" r="3" fill="var(--bit0-ink)"/><text x="24" y="64" fill="var(--muted)">0</text></g>
         <g transform="translate(260,24)"><rect width="48" height="40" fill="var(--card)" stroke="var(--bit1)"/><line x1="8" y1="30" x2="40" y2="30" stroke="var(--bit1)" stroke-width="2"/><circle cx="8" cy="30" r="3" fill="var(--bit1)"/><circle cx="40" cy="30" r="3" fill="var(--bit1)"/><text x="24" y="64" fill="var(--ink)">1</text></g>
         <g transform="translate(320,24)"><rect width="48" height="40" fill="var(--card)" stroke="var(--bit1)"/><line x1="8" y1="30" x2="40" y2="30" stroke="var(--bit1)" stroke-width="2"/><circle cx="8" cy="30" r="3" fill="var(--bit1)"/><circle cx="40" cy="30" r="3" fill="var(--bit1)"/><text x="24" y="64" fill="var(--ink)">1</text></g>
@@ -71,8 +71,8 @@ FIGURAS = {
       <g font-family="Inter, sans-serif" font-size="13" fill="var(--ink)">
         <rect x="20" y="14" width="220" height="82" fill="var(--card)" stroke="var(--bronze)"/>
         <text x="30" y="34" font-size="11" fill="var(--bronze)" font-weight="600" letter-spacing="1">SOMADOR · faz conta</text>
-        <text x="130" y="60" text-anchor="middle" font-family="Spline Sans Mono, monospace" font-size="13">01101111 + 00000001</text>
-        <text x="130" y="82" text-anchor="middle" font-family="Spline Sans Mono, monospace" font-size="13" fill="var(--bronze)">= 01110000 = p</text>
+        <text x="130" y="60" text-anchor="middle" font-family="Spline Sans Mono, monospace" font-size="13">01001111 + 00000001</text>
+        <text x="130" y="82" text-anchor="middle" font-family="Spline Sans Mono, monospace" font-size="13" fill="var(--bronze)">= 01010000 = P</text>
         <rect x="280" y="14" width="220" height="82" fill="var(--card)" stroke="var(--azul)"/>
         <text x="290" y="34" font-size="11" fill="var(--azul)" font-weight="600" letter-spacing="1">FLIP-FLOP · lembra</text>
         <text x="390" y="60" text-anchor="middle" font-size="12" fill="var(--ink2)">entrou 1, a entrada sumiu,</text>
@@ -80,21 +80,23 @@ FIGURAS = {
       </g>
     </svg>""",
 
-    "gavetas": r"""<svg viewBox="0 0 520 128" role="img" aria-label="Dez gavetas de memória: conteúdo em cima, endereço embaixo">
-      <text x="10" y="12" font-family="Inter, sans-serif" font-size="11" fill="var(--bronze)" font-weight="600" letter-spacing="1">GAVETA · dentro, o conteúdo · na porta, o endereço</text>
+    "gavetas": r"""<svg viewBox="0 0 520 128" role="img" aria-label="Doze gavetas de memória: conteúdo em cima, endereço embaixo">
+      <text x="8" y="12" font-family="Inter, sans-serif" font-size="11" fill="var(--bronze)" font-weight="600" letter-spacing="1">GAVETA · dentro, o conteúdo · na porta, o endereço</text>
       <g font-family="Spline Sans Mono, monospace" font-size="12" text-anchor="middle">
-        <g transform="translate(10,20)"><rect width="46" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="23" y="29" font-size="16" fill="var(--ink)">6F</text><text x="23" y="62" fill="var(--muted)">0109</text><text x="23" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">o</text></g>
-        <g transform="translate(60,20)"><rect width="46" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="23" y="29" font-size="16" fill="var(--ink)">6C</text><text x="23" y="62" fill="var(--muted)">010A</text><text x="23" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">l</text></g>
-        <g transform="translate(110,20)"><rect width="46" height="46" fill="var(--card)" stroke="var(--bronze)"/><text x="23" y="29" font-size="16" fill="var(--ink)">C3</text><text x="23" y="62" fill="var(--muted)">010B</text><text x="23" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">á</text></g>
-        <g transform="translate(160,20)"><rect width="46" height="46" fill="var(--card)" stroke="var(--bronze)"/><text x="23" y="29" font-size="16" fill="var(--ink)">A1</text><text x="23" y="62" fill="var(--muted)">010C</text><text x="23" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">·</text></g>
-        <g transform="translate(210,20)"><rect width="46" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="23" y="29" font-size="16" fill="var(--ink)">20</text><text x="23" y="62" fill="var(--muted)">010D</text><text x="23" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">␣</text></g>
-        <g transform="translate(260,20)"><rect width="46" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="23" y="29" font-size="16" fill="var(--ink)">6D</text><text x="23" y="62" fill="var(--muted)">010E</text><text x="23" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">m</text></g>
-        <g transform="translate(310,20)"><rect width="46" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="23" y="29" font-size="16" fill="var(--ink)">75</text><text x="23" y="62" fill="var(--muted)">010F</text><text x="23" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">u</text></g>
-        <g transform="translate(360,20)"><rect width="46" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="23" y="29" font-size="16" fill="var(--ink)">6E</text><text x="23" y="62" fill="var(--muted)">0110</text><text x="23" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">n</text></g>
-        <g transform="translate(410,20)"><rect width="46" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="23" y="29" font-size="16" fill="var(--ink)">64</text><text x="23" y="62" fill="var(--muted)">0111</text><text x="23" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">d</text></g>
-        <g transform="translate(460,20)"><rect width="46" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="23" y="29" font-size="16" fill="var(--ink)">6F</text><text x="23" y="62" fill="var(--muted)">0112</text><text x="23" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">o</text></g>
+        <g transform="translate(8,20)"><rect width="40" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="20" y="29" font-size="15" fill="var(--ink)">4F</text><text x="20" y="62" font-size="11" fill="var(--muted)">0109</text><text x="20" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">O</text></g>
+        <g transform="translate(50,20)"><rect width="40" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="20" y="29" font-size="15" fill="var(--ink)">6C</text><text x="20" y="62" font-size="11" fill="var(--muted)">010A</text><text x="20" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">l</text></g>
+        <g transform="translate(92,20)"><rect width="40" height="46" fill="var(--card)" stroke="var(--bronze)"/><text x="20" y="29" font-size="15" fill="var(--ink)">C3</text><text x="20" y="62" font-size="11" fill="var(--muted)">010B</text><text x="20" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">á</text></g>
+        <g transform="translate(134,20)"><rect width="40" height="46" fill="var(--card)" stroke="var(--bronze)"/><text x="20" y="29" font-size="15" fill="var(--ink)">A1</text><text x="20" y="62" font-size="11" fill="var(--muted)">010C</text><text x="20" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">·</text></g>
+        <g transform="translate(176,20)"><rect width="40" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="20" y="29" font-size="15" fill="var(--ink)">2C</text><text x="20" y="62" font-size="11" fill="var(--muted)">010D</text><text x="20" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">,</text></g>
+        <g transform="translate(218,20)"><rect width="40" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="20" y="29" font-size="15" fill="var(--ink)">20</text><text x="20" y="62" font-size="11" fill="var(--muted)">010E</text><text x="20" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">␣</text></g>
+        <g transform="translate(260,20)"><rect width="40" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="20" y="29" font-size="15" fill="var(--ink)">4D</text><text x="20" y="62" font-size="11" fill="var(--muted)">010F</text><text x="20" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">M</text></g>
+        <g transform="translate(302,20)"><rect width="40" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="20" y="29" font-size="15" fill="var(--ink)">75</text><text x="20" y="62" font-size="11" fill="var(--muted)">0110</text><text x="20" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">u</text></g>
+        <g transform="translate(344,20)"><rect width="40" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="20" y="29" font-size="15" fill="var(--ink)">6E</text><text x="20" y="62" font-size="11" fill="var(--muted)">0111</text><text x="20" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">n</text></g>
+        <g transform="translate(386,20)"><rect width="40" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="20" y="29" font-size="15" fill="var(--ink)">64</text><text x="20" y="62" font-size="11" fill="var(--muted)">0112</text><text x="20" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">d</text></g>
+        <g transform="translate(428,20)"><rect width="40" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="20" y="29" font-size="15" fill="var(--ink)">6F</text><text x="20" y="62" font-size="11" fill="var(--muted)">0113</text><text x="20" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">o</text></g>
+        <g transform="translate(470,20)"><rect width="40" height="46" fill="var(--card)" stroke="var(--linha)"/><text x="20" y="29" font-size="15" fill="var(--ink)">21</text><text x="20" y="62" font-size="11" fill="var(--muted)">0114</text><text x="20" y="84" font-family="Cormorant Garamond, serif" font-size="18" fill="var(--bronze)">!</text></g>
       </g>
-      <text x="260" y="122" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="var(--muted)">6F é o 111 em hexadecimal: oito bits abreviados em dois símbolos · o á ocupa duas gavetas vizinhas</text>
+      <text x="260" y="122" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="var(--muted)">4F é o 79 em hexadecimal: oito bits abreviados em dois símbolos · o á ocupa duas gavetas vizinhas</text>
     </svg>""",
 
     "dezesseis_bytes": r"""<svg viewBox="0 0 520 150" role="img" aria-label="Os dezesseis bytes do programa Hello do Petzold: nove ordens e sete letras na mesma memória">
@@ -126,7 +128,7 @@ FIGURAS = {
       <tr><td class="mono">DB 'Hello!$'</td><td class="mono">48 65 6C 6C 6F 21 24</td><td>a frase, byte a byte</td></tr>
     </table></div>""",
 
-    "pixels": r"""<svg viewBox="0 0 520 175" role="img" aria-label="A letra o desenhada numa grade de pixels; cada pixel tem três bytes">
+    "pixels": r"""<svg viewBox="0 0 520 175" role="img" aria-label="A letra O desenhada numa grade de pixels; cada pixel tem três bytes">
       <text x="20" y="12" font-family="Inter, sans-serif" font-size="11" fill="var(--bronze)" font-weight="600" letter-spacing="1">PIXEL · um ponto da tela · três bytes: vermelho, verde, azul</text>
       <g transform="translate(0,8)">
         <rect x="20" y="10" width="150" height="150" fill="var(--card)" stroke="var(--linha)"/>

@@ -21,7 +21,7 @@ figura já mostra prejudica.
 1. **O nível novo aparece com o anterior ainda visível.** Bret Victor, *Up and
    Down the Ladder of Abstraction*: o abstrato só se sustenta se o concreto
    continua desenhado sobre ele. Aqui é a trilha do alto da página: o "o" fica
-   ao lado do 111, do 01101111, dos oito relés, da gaveta 0109. Ben Eater faz o
+   ao lado do 79, do 01001111, dos oito relés, da gaveta 0109. Ben Eater faz o
    mesmo com um LED em cada fio do seu computador de 8 bits.
    <http://worrydream.com/LadderOfAbstraction/> · <https://eater.net/8bit>
 
@@ -58,7 +58,7 @@ figura já mostra prejudica.
    <https://codehiddenlanguage.com/>
 
 8. **Um personagem com um problema puxa cada código.** Petzold abre com dois
-   amigos e lanternas; aqui, "olá mundo" quer chegar à tela.
+   amigos e lanternas; aqui, "Olá, Mundo!" quer chegar à tela.
 
 9. **Cor semântica constante** do texto à figura ao número (Patel; Mayer,
    sinalização). O bronze é sempre a letra; o azul, sempre a ordem.

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Os degraus da vida de "olá mundo", e as passagens que alguém LEU.
+"""Os degraus da vida de "Olá, Mundo!", e as passagens que alguém LEU.
 
 Regra dura deste repositório, herdada do abstraction-ladder: **um degrau só
 entra com a passagem que o sustenta**, copiada da fonte, com capítulo. Não há
@@ -8,7 +8,7 @@ um modelo. O gerador aborta se um degrau vier sem citação, ou se um selo
 alegar fonte e não trouxer a passagem.
 
 Cada degrau responde UMA pergunta: o que esta camada faz com o número. O
-personagem é a frase "olá mundo" (nove letras, dez bytes), e a letra "o" é
+personagem é a frase "Olá, Mundo!" (onze letras, doze bytes), e a letra "O" é
 seguida na trilha do alto da página, degrau a degrau.
 
 Selos de procedência (campo `selo`):
@@ -29,12 +29,12 @@ FONTES = {
 # A trilha: o que o "o" já virou em cada degrau. `tok` é HTML curto.
 TRILHA = [
     ("símbolos", '<span class="tok serif">lê-se</span>'),
-    ("frase",    '<span class="tok serif">o</span>'),
-    ("número",   '<span class="tok">111</span>'),
-    ("bits",     '<span class="tok">01101111</span>'),
+    ("frase",    '<span class="tok serif">O</span>'),
+    ("número",   '<span class="tok">79</span>'),
+    ("bits",     '<span class="tok">01001111</span>'),
     ("o á",      '<span class="tok">C3 A1</span>'),
-    ("relés",    '<span class="tok"><span class="rl"><i></i><i class="u"></i><i class="u"></i><i></i><i class="u"></i><i class="u"></i><i class="u"></i><i class="u"></i></span></span>'),
-    ("conta",    '<span class="tok">+1 = p</span>'),
+    ("relés",    '<span class="tok"><span class="rl"><i></i><i class="u"></i><i></i><i></i><i class="u"></i><i class="u"></i><i class="u"></i><i class="u"></i></span></span>'),
+    ("conta",    '<span class="tok">+1 = P</span>'),
     ("endereço", '<span class="tok">0109</span>'),
     ("ordem",    '<span class="tok">CD 05 00</span>'),
     ("palavra",  '<span class="tok">CALL 5</span>'),
@@ -50,7 +50,7 @@ DEGRAUS = [
     dict(
         id="d0", numero="0", regime="antes de qualquer máquina",
         nome="A frase já é um código", titulo="A frase já é um código",
-        tese='Dizer <span class="frase">olá mundo</span> em voz alta é um código. '
+        tese='Dizer <span class="frase">Olá, Mundo!</span> em voz alta é um código. '
              'Escrever é outro. Piscar uma lanterna é um terceiro.',
         corpo='Código aqui não é segredo: é um combinado sobre o que cada sinal '
               'quer dizer. Muda o meio, fica a mensagem. A lanterna já obriga a '
@@ -74,10 +74,10 @@ DEGRAUS = [
     dict(
         id="d1", numero="1", regime="letra → número",
         nome="Cada letra recebe um número", titulo="Cada letra recebe um número",
-        tese='O <b>o</b> vale 111. O <b>l</b>, 108. O espaço também é uma letra: '
-             '32. A frase vira uma fila de nove números.',
-        corpo='Não há nada de <b>o</b> no 111. É uma posição numa tabela que o '
-              'mundo inteiro combinou usar. Por isso o mesmo <b>o</b> é 111 em '
+        tese='O <b>O</b> vale 79. O <b>l</b>, 108. A vírgula vale 44 e o espaço, '
+             '32. A frase vira uma fila de onze números.',
+        corpo='Não há nada de <b>O</b> no 79. É uma posição numa tabela que o '
+              'mundo inteiro combinou usar. Por isso o mesmo <b>O</b> é 79 em '
               'qualquer máquina.',
         figura="tabela_numeros", origem=["Petzold, cap. 13", "números: derivados, conferíveis"],
         regua=None, selo="lida", fonte="petzold", ref="cap. 13 — From ASCII to Unicode",
@@ -90,22 +90,22 @@ DEGRAUS = [
             "um arquivo UTF-8.")],
         objeto='correspondência um a um entre letras e números',
         matematica=[
-            ('<span class="nome">número</span>(o) = 111',
-             'número de o é igual a cento e onze'),
+            ('<span class="nome">número</span>(O) = 79',
+             'número de O é igual a setenta e nove'),
         ],
         notas=["A passagem que define a tabela ASCII em si está no mesmo capítulo "
                "e ainda não foi copiada."],
-        derivado="os nove números, calculados pelo autor; qualquer tabela Unicode confere",
+        derivado="os onze números, calculados pelo autor; qualquer tabela Unicode confere",
     ),
     dict(
         id="d2", numero="2", regime="número → bits",
         nome="Cada número vira oito casas", titulo="Cada número vira oito casas de sim ou não",
-        tese='111 vira <span class="mono">01101111</span>. Oito casas, cada uma só '
+        tese='79 vira <span class="mono">01001111</span>. Oito casas, cada uma só '
              '0 ou 1. Com oito casas cabem 256 coisas diferentes.',
-        corpo='É a mesma ideia de 111 = 100 + 10 + 1, só que cada casa vale o dobro '
-              'da vizinha, não dez vezes. 256 é o número de combinações, não um '
+        corpo='É a mesma ideia de 79 = 70 + 9, só que cada casa vale o dobro da '
+              'vizinha, não dez vezes. 256 é o número de combinações, não um '
               'tamanho.',
-        figura="byte_111", origem=["Petzold, caps. 11 e 12"], regua=None,
+        figura="byte_79", origem=["Petzold, caps. 11 e 12"], regua=None,
         selo="lida", fonte="petzold", ref="cap. 11 — Bit by Bit by Bit · cap. 12 — Bytes and Hexadecimal",
         citacoes=[(
             "As an 8-bit quantity, a byte can take on values from 00000000 through "
@@ -116,8 +116,8 @@ DEGRAUS = [
             "coisas diferentes.")],
         objeto='notação posicional na base dois',
         matematica=[
-            ('111 = 64 + 32 + 8 + 4 + 2 + 1',
-             'cento e onze é igual a sessenta e quatro, mais trinta e dois, mais oito, mais quatro, mais dois, mais um'),
+            ('79 = 64 + 8 + 4 + 2 + 1',
+             'setenta e nove é igual a sessenta e quatro, mais oito, mais quatro, mais dois, mais um'),
             ('2<sup>8</sup> = 256',
              'dois elevado a oito é igual a duzentos e cinquenta e seis: o tamanho do conjunto das listas de oito zeros ou uns'),
         ],
@@ -128,7 +128,7 @@ DEGRAUS = [
         nome="O á não cabe em um byte", titulo="O á não cabe em um byte",
         tese='225 é maior que 127, e o combinado original só tinha 128 letras, sem '
              'acento. O <b>á</b> custa dois bytes.',
-        corpo='Nove letras, dez bytes. Byte não é letra: uma letra pode custar um, '
+        corpo='Onze letras, doze bytes. Byte não é letra: uma letra pode custar um, '
               'dois, três ou quatro. Quem conta bytes para contar letras erra, e a '
               'web inteira já errou isso.',
         figura="bits_do_a", origem=["Petzold, cap. 13", "bytes do á: derivados pela mesma regra"],
@@ -152,7 +152,7 @@ DEGRAUS = [
         id="d4", numero="3", regime="bit → corrente",
         nome="Cada casa vira corrente", titulo="Cada casa vira corrente num relé",
         tese='O 1 é corrente passando; o 0 é corrente parada. Oito relés '
-             'enfileirados seguram o <b>o</b>; oitenta seguram a frase.',
+             'enfileirados seguram o <b>O</b>; noventa e seis seguram a frase.',
         corpo='O número não está no relé. O relé só sabe passar ou não passar; '
               'somos nós que combinamos que passar vale 1. Daqui para cima, a '
               'escada que já existe sobe com citação e instrumento.',
@@ -177,7 +177,7 @@ DEGRAUS = [
         nome="Os bits somam e ficam parados", titulo="Os bits aprendem a somar e a ficar parados",
         tese='Portas ligadas de um jeito somam dois bytes. Ligadas de outro, '
              'seguram um bit depois que a entrada some.',
-        corpo='Somar 1 ao <b>o</b> dá <b>p</b>, a letra seguinte: a tabela foi '
+        corpo='Somar 1 ao <b>O</b> dá <b>P</b>, a letra seguinte: a tabela foi '
               'feita para isso funcionar. Agora o número pode ser operado e pode '
               'esperar. Lembrar é o que permite o próximo degrau.',
         figura="somador_flipflop", origem=["Petzold, caps. 14, 17, 19 a 21", "já na escada, com cinco instrumentos"],
@@ -188,8 +188,8 @@ DEGRAUS = [
             "Um meio-somador é uma porta XOR e uma porta AND.")],
         objeto='aritmética módulo 256, e estado que depende do anterior',
         matematica=[
-            ('(111 + 1) <span class="nome">mod</span> 256 = 112',
-             'cento e onze mais um, módulo duzentos e cinquenta e seis, é igual a cento e doze'),
+            ('(79 + 1) <span class="nome">mod</span> 256 = 80',
+             'setenta e nove mais um, módulo duzentos e cinquenta e seis, é igual a oitenta'),
             ('<i>s</i><sub><i>t</i>+1</sub> = <span class="nome">f</span>(<i>s</i><sub><i>t</i></sub>, <i>x</i><sub><i>t</i></sub>)',
              'o estado no instante tê mais um é f de: o estado no instante tê, e a entrada no instante tê'),
         ],
@@ -199,7 +199,7 @@ DEGRAUS = [
         id="d6", numero="5", regime="byte → endereço",
         nome="Cada byte ganha um endereço", titulo="Cada byte ganha um lugar com número",
         tese='Memória é uma fileira de gavetas, cada uma com um número na porta. '
-             'O <b>o</b> fica na gaveta 0109; o <b>l</b>, na 010A.',
+             'O <b>O</b> fica na gaveta 0109; o <b>l</b>, na 010A.',
         corpo='Agora há dois números por letra: o que ela vale e onde ela está. A '
               'ordem das letras virou ordem de endereços. Ler a frase é percorrer '
               'gavetas vizinhas.',
@@ -212,8 +212,8 @@ DEGRAUS = [
             "guardado na memória no endereço 010.")],
         objeto='a memória é uma regra que leva cada endereço num byte',
         matematica=[
-            ('<span class="nome">mem</span>(0109) = 6F',
-             'mem de zero, um, zero, nove é igual a seis-efe, que vale cento e onze'),
+            ('<span class="nome">mem</span>(0109) = 4F',
+             'mem de zero, um, zero, nove é igual a quatro-efe, que vale setenta e nove'),
         ],
         notas=[], derivado="os endereços seguem o programa do cap. 27, deslocado para a nossa frase",
     ),
@@ -252,7 +252,7 @@ DEGRAUS = [
              'o próximo estado é passo de: o contador de programa, o registrador A, e a memória'),
         ],
         notas=["O programa do livro é de antes do Unicode; um CP/M real não "
-               "mostraria o á. A versão com “olá mundo” nas gavetas é adaptação "
+               "mostraria o á. A versão com “Olá, Mundo!” nas gavetas é adaptação "
                "do autor."],
         derivado=None,
     ),
@@ -287,10 +287,10 @@ DEGRAUS = [
         tese='A tela também é memória: cada três bytes são um ponto colorido. '
              'Mostrar o <b>o</b> é escrever números nas gavetas certas desse bloco.',
         corpo='Sessenta vezes por segundo a tela lê o bloco e acende. '
-              '<span class="frase">olá mundo</span> volta a ser coisa que a gente '
-              'lê, feita de números. Como o 111 vira o desenho do <b>o</b> é o '
+              '<span class="frase">Olá, Mundo!</span> volta a ser coisa que a gente '
+              'lê, feita de números. Como o 79 vira o desenho do <b>O</b> é o '
               'buraco declarado deste mapa.',
-        figura="pixels", origem=["Petzold, caps. 12 e 25", "do 111 ao desenho do o: a ler"],
+        figura="pixels", origem=["Petzold, caps. 12 e 25", "do 79 ao desenho do O: a ler"],
         regua=("verde", "aqui deixa de ser número e volta a ser luz"),
         selo="lida", fonte="petzold", ref="cap. 25 — Peripherals · cap. 12 (pixel = três bytes)",
         citacoes=[
@@ -313,7 +313,7 @@ DEGRAUS = [
             ('<span class="nome">cor</span>(3, 4) = 16 23 3F',
              'cor de três e quatro é igual a um-seis, dois-três, três-efe: vermelho, verde e azul'),
         ],
-        notas=["Fonte tipográfica e rasterização (do 111 ao desenho do o): o "
+        notas=["Fonte tipográfica e rasterização (do 79 ao desenho do O): o "
                "Petzold não cobre. Buraco declarado."],
         derivado=None,
     ),
@@ -336,13 +336,13 @@ CONVENCOES = [
      '2<sup>8</sup>', "dois elevado a oito"),
     ('<span class="nome">mod</span>',
      "o resto da divisão por",
-     '(111 + 1) <span class="nome">mod</span> 256', "cento e onze mais um, módulo duzentos e cinquenta e seis"),
+     '(79 + 1) <span class="nome">mod</span> 256', "setenta e nove mais um, módulo duzentos e cinquenta e seis"),
     ("seta entre dois conjuntos",
      "uma regra que leva cada coisa da esquerda numa coisa da direita",
      'sinais → significados', "leva sinais em significados"),
     ("número em hexadecimal",
      "um byte escrito com dois símbolos; de A a F valem de 10 a 15",
-     '6F', "seis-efe, que vale cento e onze"),
+     '4F', "quatro-efe, que vale setenta e nove"),
 ]
 
 # O fecho: a tabela do que cada degrau conserva e esquece. Não é degrau — é a
@@ -373,14 +373,14 @@ FECHO = dict(
 # Buracos declarados: o que o mapa sabe que falta e ainda não abriu. Mapa que
 # esconde o que falta mente sobre o próprio tamanho.
 A_LER = [
-    ("do 111 ao desenho do o", "fonte tipográfica e rasterização",
+    ("do 79 ao desenho do O", "fonte tipográfica e rasterização",
      "sem passagem no Petzold; outro livro, ou ofício do autor, datado"),
     ("do teclado ao número", "Petzold cap. 25 — Peripherals",
      "deve cobrir; não copiado ainda"),
     ("a tabela ASCII em si", "Petzold cap. 13",
      "está no capítulo e não foi copiada; os números do degrau 1 são derivados"),
     ("o á em 1978", "Petzold cap. 27",
-     "o programa é de antes do Unicode; a versão com “olá mundo” é adaptação do autor"),
+     "o programa é de antes do Unicode; a versão com “Olá, Mundo!” é adaptação do autor"),
     ("da tela à web", "Petzold cap. 27",
      "o capítulo termina com a mesma frase em JavaScript numa página; ainda não lido"),
 ]

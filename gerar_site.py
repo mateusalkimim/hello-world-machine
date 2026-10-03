@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Gera pt/index.html — a vida de "olá mundo", um degrau por tela.
+"""Gera pt/index.html — a vida de "Olá, Mundo!", um degrau por tela.
 
 Só biblioteca padrão. A página sai de três fontes: degraus.py (o conteúdo e as
 passagens que o sustentam), figuras.py (uma figura por degrau) e a pele
@@ -190,7 +190,7 @@ def pagina():
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A vida de olá mundo — hello-world-machine</title>
+<title>A vida de Olá, Mundo! — hello-world-machine</title>
 <meta name="description" content="O que cada camada de abstração faz com o número: de uma frase dita no escuro até a luz na tela, um degrau por vez, com a passagem do livro que sustenta cada um.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
 <style>
@@ -200,7 +200,7 @@ def pagina():
 <body>
 <div class="pagina">
 <div class="cab">
-  <div><p class="eyebrow">hello-world-machine</p><h1>A vida de olá mundo</h1></div>
+  <div><p class="eyebrow">hello-world-machine</p><h1>A vida de Olá, Mundo!</h1></div>
   <p class="nota"><a href="../en/" lang="en" hreflang="en">English</a> · ← → no teclado; um degrau por tela</p>
 </div>
 <div class="trilha" id="trilha" aria-label="O que o o já virou"></div>

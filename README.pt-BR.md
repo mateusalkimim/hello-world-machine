@@ -5,7 +5,7 @@
 # A máquina do olá, mundo — `hello-world-machine`
 
 **O que cada camada de abstração faz com o número, seguindo uma frase só: de
-"olá mundo" dito no escuro até a luz que o devolve na tela.** Um degrau por
+"Olá, Mundo!" dito no escuro até a luz que o devolve na tela.** Um degrau por
 tela; em cada um, o que esta camada faz com a frase, uma figura, e a passagem
 do livro que sustenta o que foi dito. Nenhum degrau entrou por plausibilidade:
 **o gerador aborta** se faltar a citação.
@@ -20,7 +20,7 @@ No ar em <https://mateusalkimim.github.io/hello-world-machine/> — em
 
 ## O personagem
 
-"olá mundo": nove letras, **dez bytes**. O acento custa um byte a mais, e esse
+"Olá, Mundo!": onze letras, **doze bytes**. O acento custa um byte a mais, e esse
 detalhe é a aula inteira em miniatura: byte não é letra, e o número cresce por
 vizinhos, não por ser maior.
 
@@ -39,8 +39,8 @@ já virou fica visível, apagado; o atual, aceso.
 | | degrau | o que a camada faz com o número | fonte |
 |---|---|---|---|
 | 0 | a frase já é um código | troca o meio, conserva a mensagem | Petzold, cap. 1 |
-| 1 | cada letra recebe um número | o **o** vale 111; a frase vira nove números | cap. 13 |
-| 2 | cada número vira oito casas | 111 vira 01101111; em oito casas cabem 256 coisas | caps. 11, 12 |
+| 1 | cada letra recebe um número | o **O** vale 79; a frase vira onze números | cap. 13 |
+| 2 | cada número vira oito casas | 79 vira 01001111; em oito casas cabem 256 coisas | caps. 11, 12 |
 | 2½ | o á não cabe em um byte | 225 passa de 127; o **á** custa dois bytes | cap. 13 |
 | 3 | cada casa vira corrente | 1 é corrente passando num relé; 0, parada | caps. 7, 8 |
 | 4 | os bits somam e ficam parados | somador e flip-flop: o número é operado e espera | caps. 14 a 21 |
@@ -184,14 +184,14 @@ gerada da fonte, inglês derivado do português) e as mesmas duas fontes.
 - **Dez degraus, doze passagens**, cada uma com o original em inglês e a
   tradução do autor ao lado, para que a tradução também possa ser conferida.
 - **Cinco buracos declarados**, listados no fecho da página e em `A_LER`: o que
-  este mapa sabe que falta e ainda não abriu (como o 111 vira o desenho do "o";
+  este mapa sabe que falta e ainda não abriu (como o 79 vira o desenho do "O";
   como a tecla vira o número; a tabela ASCII em si; o acento num programa de
   1978; da tela à web). Mapa que esconde o que falta mente sobre o próprio
   tamanho.
 - **Dois degraus se apoiam no abstraction-ladder**, e dizem isso com um selo
   próprio. A aresta está lá, com a citação lida e o instrumento.
 - **Os números do personagem são derivados**, e marcados assim: os códigos das
-  nove letras e os dois bytes do á saem da regra do capítulo 13, e qualquer
+  onze letras e os dois bytes do á saem da regra do capítulo 13, e qualquer
   tabela Unicode os confere.
 - **A tradução tem dono.** O inglês é derivado do português bloco a bloco, com
   a tabela chaveada por hash do original. Onde a máquina não decidiu, decidiu
