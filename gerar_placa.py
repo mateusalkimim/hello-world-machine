@@ -57,7 +57,7 @@ ol#listagem li.atual{background:var(--card);color:var(--ink);box-shadow:inset 3p
 <div class="pagina" style="max-width:62em">
 <div class="cab">
   <div><p class="eyebrow">hello-world-machine · instrumento</p><h1>Olá, Mundo! na placa</h1></div>
-  <p class="nota"><a href="index.html">← os degraus</a> · ← → anda um ciclo · espaço toca e pausa</p>
+  <p class="nota"><a href="index.html">← os degraus</a> · ← → anda um ciclo · espaço toca e pausa · clicar num módulo abre o degrau que o explica</p>
 </div>
 <p class="tese">A máquina já rodou o programa inteiro. O que você toca é o traço: em cada ciclo, a origem acende, o barramento mostra o padrão, o destino recebe. Nada anda. O padrão se copia.</p>
 <div class="placa-wrap">

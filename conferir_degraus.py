@@ -17,6 +17,7 @@ import tempfile
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 ARQUIVOS = ["gerar_site.py", "degraus.py", "figuras.py", "pele.css", "visor.js"]
+PASTAS = ["maquina"]
 
 # (nome do defeito, função que muta o texto de degraus.py)
 DEFEITOS = [
@@ -32,6 +33,10 @@ DEFEITOS = [
                          "tese='" + "palavra " * 26 + "<span class=\"frase\">Olá, Mundo!</span>", 1)),
     ("expressão sem lê-se",
      lambda s: s.replace("'código leva cada sinal num significado só, e dá para voltar'", "''", 1)),
+    ("ciclo da placa que não mostra o que promete",
+     lambda s: s.replace("placa=dict(ciclo=8, diz=", "placa=dict(ciclo=9, diz=", 1)),
+    ("ciclo da placa fora do traço",
+     lambda s: s.replace("placa=dict(ciclo=1, diz=", "placa=dict(ciclo=999, diz=", 1)),
     ("inglês no corpo visível",
      lambda s: s.replace("corpo='Código aqui não é segredo",
                          "corpo='The code is not a secret. Código aqui não é segredo", 1)),
@@ -50,6 +55,8 @@ def main():
     with tempfile.TemporaryDirectory() as tmp:
         for a in ARQUIVOS:
             shutil.copy(os.path.join(AQUI, a), tmp)
+        for d in PASTAS:
+            shutil.copytree(os.path.join(AQUI, d), os.path.join(tmp, d), ignore=shutil.ignore_patterns("__pycache__"))
         rc, err = roda(tmp)
         if rc != 0:
             print("REPROVADO: o gerador falha nos dados ÍNTEGROS:\n" + err)

@@ -115,7 +115,9 @@ conferência que nunca reprovou não provou nada.
 
 - **`gerar_site.py`** aborta por conta própria: degrau com selo de leitura e
   sem passagem; passagem sem tradução; figura inexistente; tese acima de 25
-  palavras ou parágrafo acima de 60; inglês no texto visível;
+  palavras ou parágrafo acima de 60; inglês no texto visível; expressão sem
+  "lê-se"; e ciclo da placa que não existe no traço ou não mostra o que o
+  degrau promete (o gerador roda a máquina e confere o registro);
 - **`conferir_degraus.py`** planta cada um desses defeitos numa cópia e exige
   que o gerador aborte. Se ele aceitar um degrau sem citação, a conferência
   reprova;
@@ -223,8 +225,9 @@ gerada da fonte, inglês derivado do português) e as mesmas duas fontes.
   voz alta, nem a folha de convenções antes do primeiro símbolo;
 - a máquina existe como especificação executável (`maquina/`), em Python e em
   JavaScript, com os dois traços idênticos ciclo a ciclo, e a placa em planta
-  (`pt/placa.html`) toca o traço do Olá, Mundo! ciclo a ciclo; faltam o botão
-  "ver na placa" em cada degrau e o medidor de limiar num fio;
+  (`pt/placa.html`) toca o traço do Olá, Mundo! ciclo a ciclo; cada degrau
+  tem o botão "ver na placa", que abre o ciclo que o mostra, e cada módulo da
+  placa abre o degrau que o explica; falta o medidor de limiar num fio;
 - os cinco buracos declarados.
 
 ## Licença

@@ -14,7 +14,9 @@ O gerador ABORTA se:
   - a tese passar de 25 palavras ou o corpo de 60 (o orçamento da folha em branco);
   - sobrar inglês no corpo visível (a prova fica fechada; o corpo é pt-BR);
   - uma expressão matemática vier sem a leitura em voz alta ("lê-se"), ou um
-    degrau vier sem o seu objeto matemático declarado.
+    degrau vier sem o seu objeto matemático declarado;
+  - o ciclo que o degrau aponta na placa não existir no traço do Olá, Mundo!,
+    ou não mostrar o que o degrau diz que mostra.
 """
 import html
 import os
@@ -25,6 +27,19 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
 import degraus as D   # noqa: E402
 import figuras as F   # noqa: E402
+sys.path.insert(0, os.path.join(AQUI, "maquina"))
+import montar         # noqa: E402
+import maquina        # noqa: E402
+
+
+def traco_ola_mundo():
+    fonte = open(os.path.join(AQUI, "maquina", "programas", "ola-mundo.asm"), encoding="utf-8").read()
+    m = maquina.Maquina(montar.binario(montar.montar(fonte)[0]), traco=True)
+    m.rodar(100_000)
+    return m.traco
+
+
+TRACO = traco_ola_mundo()
 
 TESE_MAX, CORPO_MAX, LESE_MAX = 25, 60, 32
 SELOS = {
@@ -72,6 +87,19 @@ def conferir(d):
             abortar(f"{d['id']}: expressão sem leitura em voz alta — toda expressão visível carrega lê-se")
         if palavras(lese) > LESE_MAX:
             abortar(f"{d['id']}: lê-se com {palavras(lese)} palavras (máx. {LESE_MAX})")
+    pl = d.get("placa")
+    if not pl:
+        abortar(f"{d['id']}: sem ciclo na placa (placa=dict(ciclo, diz, espera))")
+    if not 1 <= pl["ciclo"] <= len(TRACO):
+        abortar(f"{d['id']}: ciclo {pl['ciclo']} não existe no traço ({len(TRACO)} ciclos)")
+    reg = TRACO[pl["ciclo"] - 1]
+    for chave, valor in pl["espera"].items():
+        if chave == "nota_comeca":
+            ok = reg["nota"].startswith(valor)
+        else:
+            ok = reg.get(chave) == valor
+        if not ok:
+            abortar(f"{d['id']}: o ciclo {pl['ciclo']} não mostra {chave}={valor!r} (tem {reg.get(chave) if chave != 'nota_comeca' else reg['nota']!r})")
     for campo in ("tese", "corpo"):
         if EN_SINAL.search(html.unescape(re.sub(r"<[^>]+>", " ", d[campo]))):
             abortar(f"{d['id']}: inglês no {campo} visível — a prova fica na prova")
@@ -140,6 +168,7 @@ def degrau(d):
     <div class="origem">{origem}</div>
   </figure>
   <p class="corpo">{d['corpo']}</p>
+  <p class="verplaca"><a href="placa.html#c{d['placa']['ciclo']}">ver na placa →</a> <span>ciclo {d['placa']['ciclo']}: {d['placa']['diz']}</span></p>
   {matematica(d)}
   {prova(d)}
 </section>"""

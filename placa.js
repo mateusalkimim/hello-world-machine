@@ -47,7 +47,10 @@
     return m;
   }
 
-  var PLACA = { MODULOS: MODULOS, moduloDe: moduloDe, mapear: mapear };
+  // de cada módulo ao degrau da página que o explica (a tabela §9 de a-maquina.md)
+  var DEGRAU_DO_MODULO = { il: "d1", pc: "d7", inc: "d5", reg: "d5", ula: "d5", ram: "d6", tela: "d9" };
+
+  var PLACA = { MODULOS: MODULOS, moduloDe: moduloDe, mapear: mapear, DEGRAU_DO_MODULO: DEGRAU_DO_MODULO };
 
   if (typeof module !== "undefined" && module.exports) { module.exports = PLACA; return; }
   raiz.HWM_PLACA = PLACA;
@@ -283,7 +286,18 @@
   });
   window.addEventListener("resize", redimensionar);
   if (window.matchMedia) { window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function () { desenhar(); }); }
+  // clicar num módulo abre o degrau que o explica
+  function moduloEm(ev) {
+    var r = canvas.getBoundingClientRect(), x = (ev.clientX - r.left) * LARG / r.width, y = (ev.clientY - r.top) * ALT / (r.width * ALT / LARG), id;
+    for (id in MODULOS) { var m = MODULOS[id]; if (x >= m.x && x <= m.x + m.w && y >= m.y && y <= m.y + m.h) return id; }
+    return null;
+  }
+  canvas.addEventListener("click", function (ev) { var id = moduloEm(ev); if (id) location.href = "index.html#" + DEGRAU_DO_MODULO[id]; });
+  canvas.addEventListener("mousemove", function (ev) { canvas.style.cursor = moduloEm(ev) ? "pointer" : "default"; });
   redimensionar();
+  // #cN abre no ciclo N (o botão "ver na placa" de cada degrau chega por aqui)
+  var mh = /^#c(\d+)$/.exec(location.hash || "");
+  if (mh) ir(+mh[1] - 1);
   var ultimoCiclo = traco[N - 1];
   document.getElementById("resumo").textContent = maquina.instrucoes + " instruções, " + N + " ciclos, " +
     (maquina.parada ? "a máquina parou em HLT" : "a máquina não parou") + " · a tela diz “" + maquina.tela()[0].replace(/·+$/, "") + "”";

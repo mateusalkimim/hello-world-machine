@@ -45,7 +45,9 @@ TRILHA = [
 # Cada degrau: dict com
 #   id, numero, regime, nome, titulo, tese, corpo, figura (chave em figuras.py),
 #   origem (etiqueta curta na figura), regua (None | ("ouro"|"roxa"|"verde", texto)),
-#   selo, fonte, ref, citacoes = [(en, pt)], notas = [str], derivado = str|None
+#   selo, fonte, ref, citacoes = [(en, pt)], notas = [str], derivado = str|None,
+#   placa = dict(ciclo, diz, espera): o ciclo do traço do Olá, Mundo! que mostra
+#   este degrau na placa, e o que o gerador confere nesse ciclo antes de ligar
 DEGRAUS = [
     dict(
         id="d0", numero="0", regime="antes de qualquer máquina",
@@ -69,6 +71,8 @@ DEGRAUS = [
             ('<span class="nome">código</span>: sinais → significados',
              'código leva cada sinal num significado só, e dá para voltar'),
         ],
+        placa=dict(ciclo=1, diz='o primeiro ciclo: o PC põe 0000h no barramento e a RAM entrega o primeiro byte',
+                   espera={'fase': 'busca', 'endereco': 0}),
         notas=[], derivado=None,
     ),
     dict(
@@ -93,6 +97,8 @@ DEGRAUS = [
             ('<span class="nome">número</span>(O) = 79',
              'número de O é igual a setenta e nove'),
         ],
+        placa=dict(ciclo=8, diz='o byte 4F, que é a letra O, chega ao Instruction Latch 2',
+                   espera={'dado_para': 'IL2', 'dado': 79}),
         notas=["A passagem que define a tabela ASCII em si está no mesmo capítulo "
                "e ainda não foi copiada."],
         derivado="os onze números, calculados pelo autor; qualquer tabela Unicode confere",
@@ -121,6 +127,8 @@ DEGRAUS = [
             ('2<sup>8</sup> = 256',
              'dois elevado a oito é igual a duzentos e cinquenta e seis: o tamanho do conjunto das listas de oito zeros ou uns'),
         ],
+        placa=dict(ciclo=9, diz='os oito pontos do barramento de dados: 0 1 0 0 1 1 1 1',
+                   espera={'dado': 79, 'dado_para': 'RAM'}),
         notas=[], derivado=None,
     ),
     dict(
@@ -146,6 +154,8 @@ DEGRAUS = [
             ('<span class="nome">bytes</span>(o) = 1, <span class="nome">bytes</span>(á) = 2',
              'bytes de o é igual a um; bytes de á é igual a dois'),
         ],
+        placa=dict(ciclo=19, diz='o á entra na tela como um byte só, E1: a célula é nossa, o UTF-8 é do arquivo',
+                   espera={'dado': 225, 'dado_para': 'RAM'}),
         notas=[], derivado="C3 A1, pela regra da segunda linha da tabela do cap. 13",
     ),
     dict(
@@ -170,6 +180,8 @@ DEGRAUS = [
             ('<span class="nome">bit</span>(<i>v</i>) = 1 se <i>v</i> ≥ 2 volts, e 0 se <i>v</i> ≤ 0,8 volt',
              'bit de vê é igual a um se vê é maior ou igual a dois volts, e igual a zero se vê é menor ou igual a zero vírgula oito volt'),
         ],
+        placa=dict(ciclo=9, diz='cada ponto aceso no barramento é um fio com corrente; o medidor de limiar ainda vem',
+                   espera={'dado': 79}),
         notas=[], derivado=None,
     ),
     dict(
@@ -193,6 +205,8 @@ DEGRAUS = [
             ('<i>s</i><sub><i>t</i>+1</sub> = <span class="nome">f</span>(<i>s</i><sub><i>t</i></sub>, <i>x</i><sub><i>t</i></sub>)',
              'o estado no instante tê mais um é f de: o estado no instante tê, e a entrada no instante tê'),
         ],
+        placa=dict(ciclo=11, diz='HL guarda o endereço e o incrementador soma 1: lembrar e contar',
+                   espera={'nota_comeca': 'INX'}),
         notas=[], derivado=None,
     ),
     dict(
@@ -215,6 +229,8 @@ DEGRAUS = [
             ('<span class="nome">mem</span>(0109) = 4F',
              'mem de zero, um, zero, nove é igual a quatro-efe, que vale setenta e nove'),
         ],
+        placa=dict(ciclo=9, diz='HL põe 8000h no barramento de endereços e a RAM guarda o 4F nessa gaveta',
+                   espera={'endereco': 32768, 'endereco_de': 'HL', 'dado_para': 'RAM'}),
         notas=[], derivado="os endereços seguem o programa do cap. 27, deslocado para a nossa frase",
     ),
     dict(
@@ -251,6 +267,8 @@ DEGRAUS = [
             ('próximo = <span class="nome">passo</span>(<i>PC</i>, <i>A</i>, mem)',
              'o próximo estado é passo de: o contador de programa, o registrador A, e a memória'),
         ],
+        placa=dict(ciclo=7, diz='o PC aponta 0004h e o byte 36 é lido como ordem: escreva em [HL]',
+                   espera={'dado': 54, 'dado_para': 'IL1'}),
         notas=["O programa do livro é de antes do Unicode; um CP/M real não "
                "mostraria o á. A versão com “Olá, Mundo!” nas gavetas é adaptação "
                "do autor."],
@@ -279,6 +297,8 @@ DEGRAUS = [
             ('<span class="nome">roda</span>(<span class="nome">montar</span>(texto)) = <span class="nome">significado</span>(texto)',
              'rodar o que foi montado do texto dá o mesmo que o significado do texto'),
         ],
+        placa=dict(ciclo=7, diz="na listagem ao lado, MVI M, 'O' virou 36 4F; a máquina só vê os bytes",
+                   espera={'dado': 54, 'dado_para': 'IL1'}),
         notas=[], derivado=None,
     ),
     dict(
@@ -313,6 +333,8 @@ DEGRAUS = [
             ('<span class="nome">cor</span>(3, 4) = 16 23 3F',
              'cor de três e quatro é igual a um-seis, dois-três, três-efe: vermelho, verde e azul'),
         ],
+        placa=dict(ciclo=59, diz='a última letra entra na tela e a frase inteira está lá, feita de números',
+                   espera={'dado': 33, 'dado_para': 'RAM'}),
         notas=["Fonte tipográfica e rasterização (do 79 ao desenho do O): o "
                "Petzold não cobre. Buraco declarado."],
         derivado=None,
