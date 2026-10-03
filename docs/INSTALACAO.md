@@ -27,7 +27,8 @@ Só quem for **editar** precisa disto. Python 3, biblioteca padrão, nenhum
 pacote.
 
 ```bash
-python3 gerar_site.py
+python3 gerar_site.py        # pt/index.html, os degraus
+python3 gerar_placa.py       # pt/placa.html, o instrumento
 ```
 
 O `pt/index.html` é **derivado** de `degraus.py`, `figuras.py`, `pele.css` e

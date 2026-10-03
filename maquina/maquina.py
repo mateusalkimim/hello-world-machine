@@ -72,7 +72,8 @@ class Maquina:
                 n=self.ciclos, instrucao=self.instrucoes, fase=fase,
                 endereco=end, endereco_de=end_de,
                 dado=dado, dado_de=dado_de, dado_para=dado_para,
-                pc=self.pc, a=self.reg["A"], hl=self.hl,
+                pc=self.pc, a=self.reg["A"], b=self.reg["B"], c=self.reg["C"],
+                d=self.reg["D"], e=self.reg["E"], hl=self.hl,
                 flags=f"{'C' if self.cy else '-'}{'Z' if self.z else '-'}{'S' if self.s else '-'}",
                 nota=nota))
 

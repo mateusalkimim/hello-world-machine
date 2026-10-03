@@ -243,7 +243,7 @@ Cada ciclo grava um registro com: número do ciclo; número da instrução; fase
 (busca ou execução); o endereço no barramento de endereços e **de onde veio**
 (PC, HL, IL2+IL3); o dado no barramento de dados, **de onde veio** e **para
 onde foi** (RAM, IL1, IL2, um registrador, a entrada B da ULA, a saída da
-ULA); PC, A, HL e os flags depois do ciclo; e uma nota [S].
+ULA); PC, os sete registradores, HL e os flags depois do ciclo; e uma nota [S].
 
 Os dois relógios: o jogo roda no emulador em velocidade cheia e o traço fica
 num anel de memória. Ao pausar, a placa reproduz do traço, um ciclo por

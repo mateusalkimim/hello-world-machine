@@ -55,7 +55,7 @@
         n: this.ciclos, instrucao: this.instrucoes, fase: fase,
         endereco: end, endereco_de: endDe,
         dado: dado, dado_de: dadoDe, dado_para: dadoPara,
-        pc: this.pc, a: this.reg.A, hl: this.hl(),
+        pc: this.pc, a: this.reg.A, b: this.reg.B, c: this.reg.C, d: this.reg.D, e: this.reg.E, hl: this.hl(),
         flags: this.flags(), nota: nota || ""
       });
     }

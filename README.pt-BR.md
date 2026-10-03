@@ -82,6 +82,10 @@ Passo a passo em [`docs/INSTALACAO.md`](docs/INSTALACAO.md).
 ```
 index.html            a porta — encaminha por idioma
 pt/index.html         a página, em português — GERADA, não editar à mão
+pt/placa.html         Olá, Mundo! na placa: o instrumento — GERADO por gerar_placa.py
+placa.js              a placa em planta: desenha a máquina e toca o traço, um ciclo por vez
+gerar_placa.py        o gerador da página do instrumento
+conferir_placa.py     todo nome do traço tem módulo desenhado; nome inventado é recusado
 en/index.html         a mesma página em inglês — DERIVADA de pt/ + traducao/
 degraus.py            os degraus, as teses, e as PASSAGENS que os sustentam
 figuras.py            uma figura por degrau, com a palavra nova como rótulo
@@ -119,6 +123,9 @@ conferência que nunca reprovou não provou nada.
   concordam byte a byte, que a tela diz a frase, que cada letra chegou por um
   ciclo de escrita vindo do Instruction Latch 2 com o endereço em HL, e que um
   programa com um opcode trocado **não** produz a frase;
+- **`conferir_placa.py`** exige que todo nome de origem e destino que apareça
+  no traço de cada programa tenha um módulo desenhado na placa, que o roteiro
+  passe na sintaxe do node, e que um nome inventado seja recusado;
 - **`maquina/conferir_equivalencia.py`** roda cada programa nas duas máquinas,
   Python e JavaScript, e exige o mesmo traço campo a campo, inclusive para um
   programa quebrado; os dois montadores têm de dar os mesmos bytes e recusar
@@ -158,11 +165,17 @@ pontos pesam mais: a corrente vira dado por **limiar** (um intervalo inteiro
 de tensões vira um símbolo só, e o ruído some na equivalência), e o dado
 viaja como **onda de estados**, não como coisa que anda.
 
-## O instrumento que vem
+## O instrumento
 
-Um jogo de blocos que cai, jogável, e acima dele uma placa virtual em que se
-vê a cor da peça sair do registrador, atravessar o barramento e chegar à
-memória de vídeo. A pesquisa que define a placa mínima, os dois relógios e as
+A máquina desenhada em planta, em `pt/placa.html`: dois barramentos, os
+módulos entre eles, a tela ao lado, e o traço do Olá, Mundo! tocado ciclo a
+ciclo. Em cada ciclo acendem no máximo quatro coisas: a origem do dado, os
+oito bits no barramento, o destino, e o endereço. A especificação do desenho
+está em [`pesquisa/a-placa-em-planta.md`](pesquisa/a-placa-em-planta.md); a
+da máquina, em [`pesquisa/a-maquina.md`](pesquisa/a-maquina.md). O que vem
+depois é um jogo de blocos que cai, jogável, na mesma placa, em que se vê a
+cor da peça sair do registrador, atravessar o barramento e chegar à memória
+de vídeo. A pesquisa que define a placa mínima, os dois relógios e as
 regras de legibilidade está em
 [`pesquisa/placa-minima-e-dado-visivel.md`](pesquisa/placa-minima-e-dado-visivel.md).
 
@@ -209,8 +222,9 @@ gerada da fonte, inglês derivado do português) e as mesmas duas fontes.
 - cada degrau ainda não traz a linha "a matemática daqui" com a leitura em
   voz alta, nem a folha de convenções antes do primeiro símbolo;
 - a máquina existe como especificação executável (`maquina/`), em Python e em
-  JavaScript, com os dois traços idênticos ciclo a ciclo; a placa desenhada em
-  canvas, que reproduz esse traço no navegador, ainda não existe;
+  JavaScript, com os dois traços idênticos ciclo a ciclo, e a placa em planta
+  (`pt/placa.html`) toca o traço do Olá, Mundo! ciclo a ciclo; faltam o botão
+  "ver na placa" em cada degrau e o medidor de limiar num fio;
 - os cinco buracos declarados.
 
 ## Licença
