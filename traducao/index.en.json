@@ -171,12 +171,13 @@
    "tipo": "prosa"
   },
   "10e04c3040": {
-   "en": "<div class=\"est",
-   "modelo": "phi-4",
+   "en": "<div class=\"est ",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<div class=\"est ",
    "qa": "ok",
-   "tipo": "js"
+   "tipo": "js",
+   "decisao": "literal de script: nome de classe não se traduz; espaço de borda é parte do texto"
   },
   "114f82e7ed": {
    "en": "4 count and memory",
@@ -728,12 +729,13 @@
    "tipo": "prosa"
   },
   "4b31e882ca": {
-   "en": "past",
-   "modelo": "phi-4",
+   "en": "passado",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "passado",
    "qa": "ok",
-   "tipo": "js"
+   "tipo": "js",
+   "decisao": "literal de script: nome de classe não se traduz; espaço de borda é parte do texto"
   },
   "4b8e633479": {
    "en": "<span>Petzold, cap. 1</span>",
@@ -958,12 +960,13 @@
    "decisao": "referência: só cap. vira ch."
   },
   "600ccd1b71": {
-   "en": "of",
-   "modelo": "phi-4",
+   "en": " of ",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": " de ",
    "qa": "ok",
-   "tipo": "js"
+   "tipo": "js",
+   "decisao": "literal de script: nome de classe não se traduz; espaço de borda é parte do texto"
   },
   "614a4c476b": {
    "en": "abstraction-ladder — the abstraction ladder · gate → adder (cap. 14) · gate → flip-flop (caps. 17 and 19) · edge-triggered flip-flop → counter and register (cap. 20) · adder → ALU (cap. 21)",
@@ -2230,12 +2233,13 @@
    "tipo": "prosa"
   },
   "daa24f3311": {
-   "en": "future",
-   "modelo": "phi-4",
+   "en": "futuro",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "futuro",
    "qa": "ok",
-   "tipo": "js"
+   "tipo": "js",
+   "decisao": "literal de script: nome de classe não se traduz; espaço de borda é parte do texto"
   },
   "daec1182fb": {
    "en": "2 · number → bits",
@@ -2414,12 +2418,13 @@
    "tipo": "prosa"
   },
   "e55a227216": {
-   "en": "step",
-   "modelo": "phi-4",
+   "en": "step ",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "degrau ",
    "qa": "ok",
-   "tipo": "js"
+   "tipo": "js",
+   "decisao": "literal de script: nome de classe não se traduz; espaço de borda é parte do texto"
   },
   "e5e48d9cf8": {
    "en": "conserves <b>the letter's code</b>; forgets <b>the switch, the finger</b>.",
@@ -2768,6 +2773,78 @@
    "qa": "ok",
    "tipo": "prosa",
    "decisao": "passagem: o original já é inglês; a tradução pt fica oculta na página en por CSS"
+  },
+  "0227077c9f": {
+   "pt": "Como ler os símbolos",
+   "tipo": "attr:data-nome",
+   "orfao": false,
+   "en": "How to read the symbols",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "nome curto do degrau, a mão em 2026-10-03"
+  },
+  "66fdfbc1a6": {
+   "pt": "Cada número vira oito casas",
+   "tipo": "attr:data-nome",
+   "orfao": false,
+   "en": "Each number becomes eight places",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "nome curto do degrau, a mão em 2026-10-03"
+  },
+  "3c7c4baa61": {
+   "pt": "Cada casa vira corrente",
+   "tipo": "attr:data-nome",
+   "orfao": false,
+   "en": "Each place becomes current",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "nome curto do degrau, a mão em 2026-10-03"
+  },
+  "76e8a6503e": {
+   "pt": "Os bits somam e ficam parados",
+   "tipo": "attr:data-nome",
+   "orfao": false,
+   "en": "The bits add up and stay put",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "nome curto do degrau, a mão em 2026-10-03"
+  },
+  "117327cff9": {
+   "pt": "Cada byte ganha um endereço",
+   "tipo": "attr:data-nome",
+   "orfao": false,
+   "en": "Each byte gets an address",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "nome curto do degrau, a mão em 2026-10-03"
+  },
+  "1e1b1e0556": {
+   "pt": "Um número é lido como ordem",
+   "tipo": "attr:data-nome",
+   "orfao": false,
+   "en": "A number is read as an order",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "nome curto do degrau, a mão em 2026-10-03"
+  },
+  "aa2ee6c320": {
+   "pt": "As ordens são escritas com palavras",
+   "tipo": "attr:data-nome",
+   "orfao": false,
+   "en": "The orders are written in words",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "nome curto do degrau, a mão em 2026-10-03"
+  },
+  "d781cf2c3c": {
+   "pt": "O laço",
+   "tipo": "attr:data-nome",
+   "orfao": false,
+   "en": "The loop",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "nome curto do degrau, a mão em 2026-10-03"
   }
  },
  "fatia": "index",

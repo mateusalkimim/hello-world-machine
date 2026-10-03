@@ -44,7 +44,7 @@ BLOCOS = {"p", "li", "blockquote", "figcaption", "dt", "dd", "caption",
           "footer", "header", "aside", "section", "article", "div", "pre"}
 # Inline dentro de prosa, bloco quando solto -- ver a nota em handle_starttag.
 INLINE_SOLTO = {"a", "span"}
-ATRIBUTOS = ("alt", "title", "aria-label", "placeholder")
+ATRIBUTOS = ("alt", "title", "aria-label", "placeholder", "data-nome")
 SEM_LETRA = re.compile(r"^[\W\d\s]*$")
 
 # NOTACAO, nao traducao -- a lista e a do figuras_en.py da Hipatia. `sen` e a
