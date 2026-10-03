@@ -42,4 +42,5 @@
   if(alvo>=0){k0=alvo;}
   else{try{var s=localStorage.getItem('om-degrau');if(s!==null)k0=Math.min(N-1,+s);}catch(e){}}
   ir(k0,false);
+  window.addEventListener('hashchange',function(){ var a=-1; secs.forEach(function(s,i){ if('#'+s.id===location.hash) a=i; }); if(a>=0&&a!==atual) ir(a,true); });
 })();
