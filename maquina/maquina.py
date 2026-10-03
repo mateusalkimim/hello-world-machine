@@ -6,7 +6,7 @@ com uma tela e um teclado mapeados em memória (cap. 25).
 Este emulador é a ESPECIFICAÇÃO EXECUTÁVEL. Ele não corre rápido; ele conta
 tudo. Cada ciclo de máquina registra o que esteve no barramento de endereços,
 o que esteve no barramento de dados, de onde veio e para onde foi — porque o
-instrumento desta casa precisa mostrar o dado em trânsito, e o traço é a fonte
+instrumento deste repositório precisa mostrar o dado em trânsito, e o traço é a fonte
 da animação (os dois relógios: o jogo roda cheio, a placa reproduz do traço).
 
 O modelo de ciclo segue o cap. 23: a busca de cada byte de instrução é um
