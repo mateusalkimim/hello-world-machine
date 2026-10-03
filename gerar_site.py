@@ -308,7 +308,7 @@ def pagina():
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A vida de Olá, Mundo! — hello-world-machine</title>
-<meta name="description" content="O que cada camada de abstração faz com o número: de uma frase dita no escuro até a luz na tela, um degrau por vez, com a passagem do livro que sustenta cada um.">
+<meta name="description" content="Tudo o que se vê, se lê e se ouve num computador passa por um circuito que só sabe se há corrente ou não. Uma frase só, Olá, Mundo!, seguida da saudação dita no escuro até a luz na tela, um degrau por vez, com a matemática de cada passo e a passagem do livro que o sustenta.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
 <style>
 {css}

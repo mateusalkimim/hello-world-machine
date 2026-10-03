@@ -1,5 +1,5 @@
 {
- "atualizado_em": "2026-10-03 16:06:48",
+ "atualizado_em": "2026-10-03 17:20:06",
  "blocos": {
   "00ce7d8739": {
    "en": "<i>Por que existe:</i> to find again what was stored, without searching drawer by drawer.",
@@ -8,6 +8,15 @@
    "pt": "<i>Por que existe:</i> para achar de novo o que foi guardado, sem procurar gaveta por gaveta.",
    "qa": "ok",
    "tipo": "prosa"
+  },
+  "0227077c9f": {
+   "decisao": "nome curto do degrau, a mão em 2026-10-03",
+   "en": "How to read the symbols",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "Como ler os símbolos",
+   "qa": "ok",
+   "tipo": "attr:data-nome"
   },
   "0250f9ff14": {
    "en": "Ports connected in one way sum two bytes. Connected in another, hold a bit after the input sums.",
@@ -30,6 +39,15 @@
    "modelo": "phi-4",
    "orfao": false,
    "pt": "bit",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "0299736ba3": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "<span class=\"tok\">the á</span><span class=\"nome\">C3 A1</span>",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "<span class=\"tok\">o á</span><span class=\"nome\">C3 A1</span>",
    "qa": "ok",
    "tipo": "prosa"
   },
@@ -72,6 +90,15 @@
    "pt": "TECLA · uma chave que o dedo fecha · a gaveta 8200h guarda o código",
    "qa": "ok",
    "tipo": "svg"
+  },
+  "0569ae912e": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "bits",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "bits",
+   "qa": "ok",
+   "tipo": "prosa"
   },
   "057344f86c": {
    "en": "what the person writes",
@@ -138,13 +165,22 @@
    "tipo": "prosa"
   },
   "0a5dadc882": {
+   "decisao": "referência: só cap. vira ch.",
    "en": "Charles Petzold · ch. 13, com o £ (U+00A3) como exemplo; o á (U+00E1) está na mesma faixa",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "Charles Petzold · cap. 13, com o £ (U+00A3) como exemplo; o á (U+00E1) está na mesma faixa",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "referência: só cap. vira ch."
+   "tipo": "prosa"
+  },
+  "0b47ce0b5a": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "<span class=\"tok\">bits</span><span class=\"nome\">01001111</span>",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "<span class=\"tok\">bits</span><span class=\"nome\">01001111</span>",
+   "qa": "ok",
+   "tipo": "prosa"
   },
   "0bcc5d8c0b": {
    "en": "MVI C,9",
@@ -170,14 +206,23 @@
    "qa": "ok",
    "tipo": "prosa"
   },
+  "103d0f4ca1": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "<span class=\"tok\">number</span><span class=\"nome\">79</span>",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "<span class=\"tok\">número</span><span class=\"nome\">79</span>",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
   "10e04c3040": {
+   "decisao": "literal de script: nome de classe não se traduz; espaço de borda é parte do texto",
    "en": "<div class=\"est ",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<div class=\"est ",
    "qa": "ok",
-   "tipo": "js",
-   "decisao": "literal de script: nome de classe não se traduz; espaço de borda é parte do texto"
+   "tipo": "js"
   },
   "114f82e7ed": {
    "en": "4 count and memory",
@@ -186,6 +231,15 @@
    "pt": "4 conta e lembrança",
    "qa": "ok",
    "tipo": "prosa"
+  },
+  "117327cff9": {
+   "decisao": "nome curto do degrau, a mão em 2026-10-03",
+   "en": "Each byte gets an address",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "Cada byte ganha um endereço",
+   "qa": "ok",
+   "tipo": "attr:data-nome"
   },
   "11f457c6ca": {
    "en": "<a href=\"placa.html#eco-c22\">see on the board →</a> <span>echo, cycle 22: the drawer 8200 delivers the 79 to the machine; ten steps later it is on the screen</span>",
@@ -200,6 +254,15 @@
    "modelo": "phi-4",
    "orfao": false,
    "pt": "<i>O que é:</i> uma lista em que cada letra tem o seu número ao lado, como uma lista de chamada.",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "14cc5bca3a": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "<span class=\"tok\">relays</span><span class=\"nome\">eight switches</span>",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "<span class=\"tok\">relés</span><span class=\"nome\">oito chaves</span>",
    "qa": "ok",
    "tipo": "prosa"
   },
@@ -236,76 +299,94 @@
    "tipo": "prosa"
   },
   "177aa87e69": {
+   "decisao": "passagem: o original já é inglês; a tradução pt fica oculta na página en por CSS",
    "en": "<span class=\"en\" lang=\"en\">One approach is for the program to check the keyboard very frequently. This approach is called polling.</span><span class=\"pt\">Uma abordagem é o programa consultar o teclado com muita frequência. Isso se chama polling.</span><cite>cap. 25 — Peripherals</cite>",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span class=\"en\" lang=\"en\">One approach is for the program to check the keyboard very frequently. This approach is called polling.</span><span class=\"pt\">Uma abordagem é o programa consultar o teclado com muita frequência. Isso se chama polling.</span><cite>cap. 25 — Peripherals</cite>",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "passagem: o original já é inglês; a tradução pt fica oculta na página en por CSS"
+   "tipo": "prosa"
   },
   "17a7aa752d": {
+   "decisao": "passagem: o original já é inglês; a tradução pt fica oculta na página en por CSS",
    "en": "<span class=\"en\" lang=\"en\">The contents of the display are stored in a special block of memory, and the individual pixels of the display are refreshed sequentially, starting left to right with the row at the top, and continuing down the display.</span><span class=\"pt\">O conteúdo da tela fica guardado num bloco especial de memória, e os pixels são atualizados em sequência, da esquerda para a direita a partir da linha de cima, descendo pela tela.</span><cite>cap. 25 — Peripherals · cap. 12 (pixel = três bytes)</cite>",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span class=\"en\" lang=\"en\">The contents of the display are stored in a special block of memory, and the individual pixels of the display are refreshed sequentially, starting left to right with the row at the top, and continuing down the display.</span><span class=\"pt\">O conteúdo da tela fica guardado num bloco especial de memória, e os pixels são atualizados em sequência, da esquerda para a direita a partir da linha de cima, descendo pela tela.</span><cite>cap. 25 — Peripherals · cap. 12 (pixel = três bytes)</cite>",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "passagem: o original já é inglês; a tradução pt fica oculta na página en por CSS"
+   "tipo": "prosa"
   },
   "17d0104768": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<i>Why it exists:</i> so the machine knows which byte to read as an order now, and which comes next.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<i>Por que existe:</i> para a máquina saber qual byte ler como ordem agora, e qual vem depois.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "1a8b440182": {
+   "decisao": "referência: só cap. vira ch.",
    "en": "Charles Petzold · ch. 1 — Best Friends",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "Charles Petzold · cap. 1 — Best Friends",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "referência: só cap. vira ch."
+   "tipo": "prosa"
   },
   "1adddcbc3a": {
+   "decisao": "a mão em 2026-10-03",
    "en": "sound in the air",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "som no ar",
    "qa": "ok",
-   "tipo": "svg",
-   "decisao": "a mão em 2026-10-03"
+   "tipo": "svg"
+  },
+  "1b7f278997": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "<span class=\"tok\">loop</span><span class=\"nome\">conserves</span>",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "<span class=\"tok\">laço</span><span class=\"nome\">conserva</span>",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "1e1b1e0556": {
+   "decisao": "nome curto do degrau, a mão em 2026-10-03",
+   "en": "A number is read as an order",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "Um número é lido como ordem",
+   "qa": "ok",
+   "tipo": "attr:data-nome"
   },
   "1e455faea0": {
+   "decisao": "referência: só cap. vira ch.",
    "en": "Charles Petzold · ch. 11 — Bit by Bit by Bit · ch. 12 — Bytes and Hexadecimal",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "Charles Petzold · cap. 11 — Bit by Bit by Bit · cap. 12 — Bytes and Hexadecimal",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "referência: só cap. vira ch."
+   "tipo": "prosa"
   },
   "1f2e782ec8": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "the output stays 1",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "a saída continua 1",
    "qa": "ok",
-   "tipo": "svg",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "svg"
   },
   "1fd0fbe20a": {
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão",
    "en": "<span>Petzold, ch. 27</span>",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span>Petzold, cap. 27</span>",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
+   "tipo": "prosa"
   },
   "20234a2659": {
    "en": "CD 05 00",
@@ -324,103 +405,103 @@
    "tipo": "svg"
   },
   "22016be879": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "Each place becomes current in a relay",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "Cada casa vira corrente num relé",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "2209aa8450": {
+   "decisao": "a mão em 2026-10-03",
    "en": "Navigation between steps",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "Navegação entre degraus",
    "qa": "ok",
-   "tipo": "attr:aria-label",
-   "decisao": "a mão em 2026-10-03"
+   "tipo": "attr:aria-label"
   },
   "22931572e3": {
+   "decisao": "a mão em 2026-10-03",
    "en": "<i>What it is:</i> eight bits side by side.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<i>O que é:</i> oito bits lado a lado.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "a mão em 2026-10-03"
+   "tipo": "prosa"
   },
   "23b573a39e": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<b>small number on top</b>: how many times to multiply the number by itself. <span class=\"lese\">read as:</span> two to the eighth.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<b>número pequeno em cima</b>: quantas vezes multiplicar o número por ele mesmo. <span class=\"lese\">lê-se:</span> dois elevado a oito.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "23ffec5528": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<i>Why it exists:</i> it is what makes the lamp light up, the motor turn and, here, the switch flip.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<i>Por que existe:</i> é ela que faz a lâmpada acender e, aqui, a chave virar.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "249c32fd82": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<i>What it is:</i> a number the machine reads as “do this”: add, copy, store, call, return. The book calls it an instruction.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<i>O que é:</i> um número que a máquina lê como “faça isto”: some, copie, guarde, chame, volte. O livro chama de instrução.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "25a7745da4": {
+   "decisao": "a mão em 2026-10-03",
    "en": "load · move · call · return",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "carregue · mova · chame · volte",
    "qa": "ok",
-   "tipo": "svg",
-   "decisao": "a mão em 2026-10-03"
+   "tipo": "svg"
   },
   "262563bb07": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "the mathematics here · <b>a rule that takes each point of the grid to a color</b>",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "a matemática daqui · <b>regra que leva cada ponto da grade numa cor</b>",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "26e30096d7": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<b>read as:</b> bytes of o equals one; bytes of á equals two.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<b>lê-se:</b> bytes de o é igual a um; bytes de á é igual a dois.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "26e63640ab": {
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão",
    "en": "this pixel",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "este pixel",
    "qa": "ok",
-   "tipo": "svg",
-   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
+   "tipo": "svg"
   },
   "271208bfc3": {
+   "decisao": "a mão em 2026-10-03",
    "en": "Someone writes the orders in words",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "Alguém escreve as ordens com palavras",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "a mão em 2026-10-03"
+   "tipo": "prosa"
   },
   "293f48f08a": {
    "en": "conserves <b>common matter</b>; forgets <b>“what to do” and “about what”</b>.",
@@ -455,13 +536,13 @@
    "tipo": "prosa"
   },
   "2b9cc8d86a": {
+   "decisao": "a mão em 2026-10-03; nome próprio ou o personagem, fica igual",
    "en": "á",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "á",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "a mão em 2026-10-03; nome próprio ou o personagem, fica igual"
+   "tipo": "prosa"
   },
   "2c9edea004": {
    "en": "<i>Why it exists:</i> with yes-or-no questions linked together, you build a calculation.",
@@ -503,6 +584,15 @@
    "qa": "ok",
    "tipo": "prosa"
   },
+  "30e5039c1d": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "+1 = P",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "+1 = P",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
   "3159b2186c": {
    "en": "<small>previous</small><span></span>",
    "modelo": "phi-4",
@@ -511,14 +601,23 @@
    "qa": "ok",
    "tipo": "prosa"
   },
+  "3165ca0dc3": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "<span class=\"tok\">word</span><span class=\"nome\">CALL 5</span>",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "<span class=\"tok\">palavra</span><span class=\"nome\">CALL 5</span>",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
   "32031e1cef": {
+   "decisao": "passagem: o original já é inglês; a tradução pt fica oculta na página en por CSS",
    "en": "<span class=\"en\" lang=\"en\">For a 1920 × 1080 display, each of the 2 million pixels requires 3 bytes for the red, green, and blue components, for a total of 6 million bytes, or 6 megabytes.</span><span class=\"pt\">Numa tela de 1920 × 1080, cada um dos 2 milhões de pixels precisa de 3 bytes, para o vermelho, o verde e o azul: 6 milhões de bytes, ou 6 megabytes.</span><cite>cap. 25 — Peripherals · cap. 12 (pixel = três bytes)</cite>",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span class=\"en\" lang=\"en\">For a 1920 × 1080 display, each of the 2 million pixels requires 3 bytes for the red, green, and blue components, for a total of 6 million bytes, or 6 megabytes.</span><span class=\"pt\">Numa tela de 1920 × 1080, cada um dos 2 milhões de pixels precisa de 3 bytes, para o vermelho, o verde e o azul: 6 milhões de bytes, ou 6 megabytes.</span><cite>cap. 25 — Peripherals · cap. 12 (pixel = três bytes)</cite>",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "passagem: o original já é inglês; a tradução pt fica oculta na página en por CSS"
+   "tipo": "prosa"
   },
   "3484426063": {
    "en": "loop",
@@ -553,13 +652,13 @@
    "tipo": "prosa"
   },
   "3754610ed7": {
+   "decisao": "referência: só cap. vira ch.",
    "en": "Charles Petzold · ch. 27 — Coding",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "Charles Petzold · cap. 27 — Coding",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "referência: só cap. vira ch."
+   "tipo": "prosa"
   },
   "38be50a31d": {
    "en": "hashchange",
@@ -601,6 +700,15 @@
    "qa": "ok",
    "tipo": "prosa"
   },
+  "3c7c4baa61": {
+   "decisao": "nome curto do degrau, a mão em 2026-10-03",
+   "en": "Each place becomes current",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "Cada casa vira corrente",
+   "qa": "ok",
+   "tipo": "attr:data-nome"
+  },
   "3ee96423ed": {
    "en": "<a href=\"placa.html#ola-mundo-c9\">view on the board →</a> <span>ola-mundo, cycle 9: each lit point in the row is a wire with current passing</span>",
    "modelo": "phi-4",
@@ -622,6 +730,15 @@
    "ja_en": true,
    "orfao": false,
    "pt": "<span class=\"en\" lang=\"en\">That's called writing to memory, and the value of Data In is said to be stored in memory at the address 010.</span><span class=\"pt\">Isso se chama escrever na memória, e diz-se que o valor da entrada fica guardado na memória no endereço 010.</span><cite>cap. 19 — An Assemblage of Memory</cite>",
+   "tipo": "prosa"
+  },
+  "404ff36767": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "<span class=\"tok\">key</span><span class=\"nome\">79</span>",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "<span class=\"tok\">tecla</span><span class=\"nome\">79</span>",
+   "qa": "ok",
    "tipo": "prosa"
   },
   "4084d5839b": {
@@ -649,13 +766,13 @@
    "tipo": "prosa"
   },
   "412c818a12": {
+   "decisao": "passagem: o original já é inglês; a tradução pt fica oculta na página en por CSS",
    "en": "<span class=\"en\" lang=\"en\">A value called the program counter. This is the 16-bit value that accesses instructions. It starts at 0000h and sequentially increases until a HLT instruction.</span><span class=\"pt\">Um valor chamado contador de programa. É o valor de 16 bits que acessa as instruções. Começa em 0000 e cresce em sequência até uma instrução HLT.</span><cite>cap. 27 — Coding · cap. 23 — CPU Control Signals</cite>",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span class=\"en\" lang=\"en\">A value called the program counter. This is the 16-bit value that accesses instructions. It starts at 0000h and sequentially increases until a HLT instruction.</span><span class=\"pt\">Um valor chamado contador de programa. É o valor de 16 bits que acessa as instruções. Começa em 0000 e cresce em sequência até uma instrução HLT.</span><cite>cap. 27 — Coding · cap. 23 — CPU Control Signals</cite>",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "passagem: o original já é inglês; a tradução pt fica oculta na página en por CSS"
+   "tipo": "prosa"
   },
   "413b54cff6": {
    "en": "number",
@@ -698,13 +815,22 @@
    "tipo": "prosa"
   },
   "461a2fb134": {
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão",
    "en": "<span>Petzold, ch. 13</span>",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span>Petzold, cap. 13</span>",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
+   "tipo": "prosa"
+  },
+  "46f187391f": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "C3 A1",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "C3 A1",
+   "qa": "ok",
+   "tipo": "prosa"
   },
   "481f745385": {
    "en": "the math here · <b>one-to-one correspondence between letters and numbers</b>",
@@ -715,13 +841,13 @@
    "tipo": "prosa"
   },
   "4a751d3f2b": {
+   "decisao": "referência: só cap. vira ch.",
    "en": "Charles Petzold · ch. 25 — Peripherals · ch. 12 (pixel = três bytes)",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "Charles Petzold · cap. 25 — Peripherals · cap. 12 (pixel = três bytes)",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "referência: só cap. vira ch."
+   "tipo": "prosa"
   },
   "4abb9a49a5": {
    "en": "<i>What it is:</i> a piece made of switches that responds yes or no to what comes to it. Two switches in a row only allow current with both closed: it's a gate.",
@@ -732,22 +858,22 @@
    "tipo": "prosa"
   },
   "4b31e882ca": {
+   "decisao": "literal de script: nome de classe não se traduz; espaço de borda é parte do texto",
    "en": "passado",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "passado",
    "qa": "ok",
-   "tipo": "js",
-   "decisao": "literal de script: nome de classe não se traduz; espaço de borda é parte do texto"
+   "tipo": "js"
   },
   "4b8e633479": {
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão",
    "en": "<span>Petzold, ch. 1</span>",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span>Petzold, cap. 1</span>",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
+   "tipo": "prosa"
   },
   "4bb73815a3": {
    "en": "key",
@@ -782,13 +908,13 @@
    "tipo": "prosa"
   },
   "4ecc75fa62": {
+   "decisao": "passagem: o original já é inglês; a tradução pt fica oculta na página en por CSS",
    "en": "<span class=\"en\" lang=\"en\">As an 8-bit quantity, a byte can take on values from 00000000 through 11111111, which can represent decimal numbers from 0 through 255, or one of 2<sup>8</sup>, or 256, different things.</span><span class=\"pt\">Como quantidade de 8 bits, um byte vai de 00000000 a 11111111, o que representa os números de 0 a 255, ou uma entre 2⁸, isto é, 256, coisas diferentes.</span><cite>cap. 11 — Bit by Bit by Bit · cap. 12 — Bytes and Hexadecimal</cite>",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span class=\"en\" lang=\"en\">As an 8-bit quantity, a byte can take on values from 00000000 through 11111111, which can represent decimal numbers from 0 through 255, or one of 2<sup>8</sup>, or 256, different things.</span><span class=\"pt\">Como quantidade de 8 bits, um byte vai de 00000000 a 11111111, o que representa os números de 0 a 255, ou uma entre 2⁸, isto é, 256, coisas diferentes.</span><cite>cap. 11 — Bit by Bit by Bit · cap. 12 — Bytes and Hexadecimal</cite>",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "passagem: o original já é inglês; a tradução pt fica oculta na página en por CSS"
+   "tipo": "prosa"
   },
   "4efc988a71": {
    "en": "1 · letter → number",
@@ -815,13 +941,13 @@
    "tipo": "prosa"
   },
   "5084ec8dd0": {
+   "decisao": "referência: só cap. vira ch.",
    "en": "Charles Petzold · ch. 13 — From ASCII to Unicode",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "Charles Petzold · cap. 13 — From ASCII to Unicode",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "referência: só cap. vira ch."
+   "tipo": "prosa"
   },
   "51594af306": {
    "en": "Eleven letters, twelve bytes. Byte is not a letter: a letter can cost one, two, three, or four. Whoever counts bytes to count letters makes a mistake, and the whole web has already made this mistake.",
@@ -860,6 +986,15 @@
    "modelo": "phi-4",
    "orfao": false,
    "pt": "Dizer <span class=\"frase\">Olá, Mundo!</span> em voz alta é um código. Escrever é outro. Piscar uma lanterna é um terceiro.",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "54b6c54f86": {
+   "decisao": "a mão em 2026-10-03",
+   "en": "← → on the keyboard; one step per screen",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "← → no teclado; um degrau por tela",
    "qa": "ok",
    "tipo": "prosa"
   },
@@ -912,13 +1047,13 @@
    "tipo": "prosa"
   },
   "5951092c9e": {
+   "decisao": "referência: só cap. vira ch.",
    "en": "Charles Petzold · ch. 27 — Coding · ch. 23 — CPU Control Signals",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "Charles Petzold · cap. 27 — Coding · cap. 23 — CPU Control Signals",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "referência: só cap. vira ch."
+   "tipo": "prosa"
   },
   "5a760c4537": {
    "en": "<small>next</small><span></span>",
@@ -937,14 +1072,14 @@
    "tipo": "prosa"
   },
   "5b4d62bd79": {
+   "decisao": "nome do projeto: fica como está (§7)",
    "en": "hello-world-machine",
+   "ja_en": true,
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "hello-world-machine",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "nome do projeto: fica como está (§7)",
-   "ja_en": true
+   "tipo": "prosa"
   },
   "5bb16b2c1b": {
    "en": "<b>read as:</b> seventy-nine plus one, modulo two hundred and fifty-six, is equal to eighty.",
@@ -955,22 +1090,31 @@
    "tipo": "prosa"
   },
   "5bd952b861": {
+   "decisao": "referência: só cap. vira ch.",
    "en": "Charles Petzold · ch. 19 — An Assemblage of Memory",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "Charles Petzold · cap. 19 — An Assemblage of Memory",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "referência: só cap. vira ch."
+   "tipo": "prosa"
+  },
+  "5dcfa45d7e": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "<span class=\"tok\">read as</span><span class=\"nome\">signs</span>",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "<span class=\"tok\">lê-se</span><span class=\"nome\">sinais</span>",
+   "qa": "ok",
+   "tipo": "prosa"
   },
   "600ccd1b71": {
+   "decisao": "literal de script: nome de classe não se traduz; espaço de borda é parte do texto",
    "en": " of ",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": " de ",
    "qa": "ok",
-   "tipo": "js",
-   "decisao": "literal de script: nome de classe não se traduz; espaço de borda é parte do texto"
+   "tipo": "js"
   },
   "614a4c476b": {
    "en": "abstraction-ladder — the abstraction ladder · gate → adder (cap. 14) · gate → flip-flop (caps. 17 and 19) · edge-triggered flip-flop → counter and register (cap. 20) · adder → ALU (cap. 21)",
@@ -996,6 +1140,15 @@
    "qa": "ok",
    "tipo": "svg"
   },
+  "628925973a": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "<span class=\"tok\">address</span><span class=\"nome\">0109</span>",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "<span class=\"tok\">endereço</span><span class=\"nome\">0109</span>",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
   "62b0fe4917": {
    "en": "return",
    "modelo": "phi-4",
@@ -1005,13 +1158,13 @@
    "tipo": "prosa"
   },
   "643df48659": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<b>read as:</b> key of tee equals seventy-nine while the O is pressed, and zero afterwards.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<b>lê-se:</b> tecla de tê é igual a setenta e nove enquanto o O está apertado, e zero depois.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "64c95e8745": {
    "en": "<i>What it is:</i> a switch that a current activates: the current of one wire closes the path of another.",
@@ -1046,19 +1199,37 @@
    "tipo": "prosa"
   },
   "66a5879fd6": {
+   "decisao": "passagem: o original já é inglês; a tradução pt fica oculta na página en por CSS",
    "en": "<span class=\"en\" lang=\"en\">These two relays wired in series are known as an AND gate because it is performing a Boolean AND operation.</span><span class=\"pt\">Esses dois relés ligados em série são conhecidos como porta AND, porque executam a operação booleana E.</span><cite>eletroímã → relé (Petzold cap. 7) · relé → porta lógica (cap. 8), com o instrumento “dois relés viram uma porta”</cite>",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span class=\"en\" lang=\"en\">These two relays wired in series are known as an AND gate because it is performing a Boolean AND operation.</span><span class=\"pt\">Esses dois relés ligados em série são conhecidos como porta AND, porque executam a operação booleana E.</span><cite>eletroímã → relé (Petzold cap. 7) · relé → porta lógica (cap. 8), com o instrumento “dois relés viram uma porta”</cite>",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "passagem: o original já é inglês; a tradução pt fica oculta na página en por CSS"
+   "tipo": "prosa"
   },
   "66d0f40b30": {
    "en": "where this comes from",
    "modelo": "phi-4",
    "orfao": false,
    "pt": "de onde isto vem",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "66fdfbc1a6": {
+   "decisao": "nome curto do degrau, a mão em 2026-10-03",
+   "en": "Each number becomes eight places",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "Cada número vira oito casas",
+   "qa": "ok",
+   "tipo": "attr:data-nome"
+  },
+  "67d0dd5332": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "01001111",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "01001111",
    "qa": "ok",
    "tipo": "prosa"
   },
@@ -1118,13 +1289,13 @@
    "tipo": "svg"
   },
   "702bf13444": {
+   "decisao": "a ordem citada vai em inglês",
    "en": "No one memorizes that “call” is <span class=\"mono\">CD</span>. You write <span class=\"mono\">CALL 5</span> in text, and the assembler replaces each word with the correct byte.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "Ninguém decora que “chame” é <span class=\"mono\">CD</span>. Escreve-se <span class=\"mono\">CALL 5</span> num texto, e o montador troca cada palavra pelo byte certo.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "a ordem citada vai em inglês"
+   "tipo": "prosa"
   },
   "70af4c1b9e": {
    "en": "current",
@@ -1199,13 +1370,13 @@
    "tipo": "prosa"
   },
   "75cf961963": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<i>What it is:</i> the line that separates little from much. Above it the current counts as 1; below it, as 0.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<i>O que é:</i> a linha que separa pouco de muito. Acima dela a corrente conta como 1; abaixo, como 0.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "7606a8c7aa": {
    "en": "0E 09",
@@ -1214,6 +1385,15 @@
    "pt": "0E 09",
    "qa": "ok",
    "tipo": "prosa"
+  },
+  "7607d631fc": {
+   "decisao": "abertura reescrita pela tese do autor (ida e volta; morse), 2026-10-03, à mão",
+   "en": "Everything you see, read or hear on a computer goes through a circuit that only knows whether current is flowing or not. One sentence, Olá, Mundo!, followed from the greeting said in the dark to the light on the screen, one step at a time, with the mathematics of each step and the passage from the book that supports it.",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "Tudo o que se vê, se lê e se ouve num computador passa por um circuito que só sabe se há corrente ou não. Uma frase só, Olá, Mundo!, seguida da saudação dita no escuro até a luz na tela, um degrau por vez, com a matemática de cada passo e a passagem do livro que o sustenta.",
+   "qa": "ok",
+   "tipo": "attr:content"
   },
   "76116ea745": {
    "en": "</span><span class=\"nome\">",
@@ -1230,6 +1410,15 @@
    "pt": "a gaveta do teclado",
    "qa": "ok",
    "tipo": "svg"
+  },
+  "76e8a6503e": {
+   "decisao": "nome curto do degrau, a mão em 2026-10-03",
+   "en": "The bits add up and stay put",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "Os bits somam e ficam parados",
+   "qa": "ok",
+   "tipo": "attr:data-nome"
   },
   "76fba5152f": {
    "en": "points",
@@ -1248,13 +1437,13 @@
    "tipo": "prosa"
   },
   "79a9260528": {
+   "decisao": "a mão em 2026-10-03; nome próprio ou o personagem, fica igual",
    "en": "Olá, Mundo!",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "Olá, Mundo!",
    "qa": "ok",
-   "tipo": "svg",
-   "decisao": "a mão em 2026-10-03; nome próprio ou o personagem, fica igual"
+   "tipo": "svg"
   },
   "7a0208c1a3": {
    "en": "0 code",
@@ -1375,6 +1564,15 @@
    "pt": "<span class=\"en\" lang=\"en\">The first 3 bytes are the LXI instruction, the next 2 are the MVI instruction, the next 3 are the CALL instruction, and the next is the RET instruction. The last 7 bytes are the ASCII characters for the five letters of “Hello,” the exclamation point, and the dollar sign.</span><span class=\"pt\">Os 3 primeiros bytes são a instrução LXI, os 2 seguintes a MVI, os 3 seguintes a CALL, e o próximo a RET. Os últimos 7 bytes são os caracteres ASCII das cinco letras de “Hello”, o ponto de exclamação e o cifrão.</span><cite>cap. 27 — Coding · cap. 23 — CPU Control Signals</cite>",
    "tipo": "prosa"
   },
+  "82ba661836": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "<span class=\"tok\">count</span><span class=\"nome\">+1 = P</span>",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "<span class=\"tok\">conta</span><span class=\"nome\">+1 = P</span>",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
   "82ca2f9953": {
    "en": "<a href=\"placa.html#ola-mundo-c9\">see on the board →</a> <span>ola-mundo, cycle 9: the eight points of the data row, lit and unlit: 0 1 0 0 1 1 1 1</span>",
    "modelo": "phi-4",
@@ -1384,13 +1582,13 @@
    "tipo": "prosa"
   },
   "83661a4a68": {
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão",
    "en": "<span>Petzold, chs. 7 and 8</span>",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span>Petzold, caps. 7 e 8</span>",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
+   "tipo": "prosa"
   },
   "84a5734592": {
    "en": "<b>slanted lowercase letter</b>: a quantity that varies. <span class=\"lese\">read as:</span> see, have.",
@@ -1405,6 +1603,15 @@
    "modelo": "phi-4",
    "orfao": false,
    "pt": "aqui deixa de ser número e volta a ser luz",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "86631f2b67": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "<span class=\"tok\">order</span><span class=\"nome\">CD 05 00</span>",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "<span class=\"tok\">ordem</span><span class=\"nome\">CD 05 00</span>",
    "qa": "ok",
    "tipo": "prosa"
   },
@@ -1641,85 +1848,94 @@
    "tipo": "prosa"
   },
   "a0062dd548": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<i>What it is:</i> a dot on the screen, too small to see on its own, with a single color.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<i>O que é:</i> um ponto da tela, pequeno demais para ver sozinho, com uma cor só.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "a04f5b83e2": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "½ · key → number",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "½ · tecla → número",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "a1bd4ba5f2": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "A 1 is current flowing; a 0 is current stopped. Eight relays in a row hold the <b>O</b>; ninety-six hold the phrase.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "O 1 é corrente passando; o 0 é corrente parada. Oito relés enfileirados seguram o <b>O</b>; noventa e seis seguram a frase.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "a24dc50628": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<i>What it is:</i> a place that only accepts 0 or 1.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<i>O que é:</i> uma casa que só aceita 0 ou 1.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "a5c2713a7f": {
+   "decisao": "referência: só cap. vira ch.",
    "en": "Charles Petzold · ch. 25 — Peripherals",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "Charles Petzold · cap. 25 — Peripherals",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "referência: só cap. vira ch."
+   "tipo": "prosa"
   },
   "a640e9fce8": {
+   "decisao": "passagem: o original já é inglês; a tradução pt fica oculta na página en por CSS",
    "en": "<span class=\"en\" lang=\"en\">An assembler such as ASM.COM reads an assembly-language program (often called a source-code file) and writes out to a file containing machine code—an executable file.</span><span class=\"pt\">Um montador como o ASM.COM lê um programa em linguagem de montagem (o chamado arquivo-fonte) e escreve um arquivo com código de máquina: um executável.</span><cite>cap. 27 — Coding</cite>",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span class=\"en\" lang=\"en\">An assembler such as ASM.COM reads an assembly-language program (often called a source-code file) and writes out to a file containing machine code—an executable file.</span><span class=\"pt\">Um montador como o ASM.COM lê um programa em linguagem de montagem (o chamado arquivo-fonte) e escreve um arquivo com código de máquina: um executável.</span><cite>cap. 27 — Coding</cite>",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "passagem: o original já é inglês; a tradução pt fica oculta na página en por CSS"
+   "tipo": "prosa"
   },
   "a67002fc7b": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "1 letter → number",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "1 letra → número",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
+  },
+  "a6db13485e": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "signs",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "sinais",
+   "qa": "ok",
+   "tipo": "prosa"
   },
   "a90f0b9bd6": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<i>Why it exists:</i> the current is never exactly the same; the line is what makes two different values become the same signal.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<i>Por que existe:</i> a corrente nunca é exatamente igual; a linha é o que faz dois valores diferentes virarem o mesmo sinal.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "a9c3dace08": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<a href=\"placa.html#ola-mundo-c1\">see it on the board →</a> <span>ola-mundo, cycle 1: the first step: the machine wakes up and goes to fetch what it has to do</span>",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<a href=\"placa.html#ola-mundo-c1\">ver na placa →</a> <span>ola-mundo, ciclo 1: o primeiro passo: a máquina acorda e vai buscar o que tem de fazer</span>",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "a9d6e45e08": {
    "en": "48 65 6C 6C 6F 21 24",
@@ -1730,64 +1946,82 @@
    "tipo": "prosa"
   },
   "a9f69111d1": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "read as",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "lê-se",
    "qa": "ok",
-   "tipo": "js",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "js"
+  },
+  "aa2ee6c320": {
+   "decisao": "nome curto do degrau, a mão em 2026-10-03",
+   "en": "The orders are written in words",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "As ordens são escritas com palavras",
+   "qa": "ok",
+   "tipo": "attr:data-nome"
   },
   "ac34d9bde1": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "In the same memory, next to the letters, live other bytes. <span class=\"mono\">CD</span> is not a letter: it is the order “call”. <span class=\"mono\">C9</span> is “return”.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "Na mesma memória, ao lado das letras, moram outros bytes. <span class=\"mono\">CD</span> não é letra: é a ordem “chame”. <span class=\"mono\">C9</span> é “volte”.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "ac46463894": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "It is the same idea as 79 = 70 + 9, except that each place is worth double its neighbor, not ten times. 256 is the number of combinations, not a size.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "É a mesma ideia de 79 = 70 + 9, só que cada casa vale o dobro da vizinha, não dez vezes. 256 é o número de combinações, não um tamanho.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "acd94d6b20": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<i>Why it exists:</i> it is the smallest amount of information there is, and it is what a switch can hold: off or on.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<i>Por que existe:</i> é a menor quantidade de informação que existe, e é o que uma chave sabe guardar: desligada ou ligada.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "ad603cac1c": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "8 · execution → screen",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "8 · execução → tela",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "ad7770fa6f": {
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão",
    "en": "7 · words → orders",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "7 · palavras → ordens",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
+   "tipo": "prosa"
   },
   "adc17eb740": {
    "en": "<i>s</i><sub><i>t</i>+1</sub> = <span class=\"nome\">f</span>(<i>s</i><sub><i>t</i></sub>, <i>x</i><sub><i>t</i></sub>)",
    "modelo": "phi-4",
    "orfao": false,
    "pt": "<i>s</i><sub><i>t</i>+1</sub> = <span class=\"nome\">f</span>(<i>s</i><sub><i>t</i></sub>, <i>x</i><sub><i>t</i></sub>)",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "add97daefa": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "0109",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "0109",
    "qa": "ok",
    "tipo": "prosa"
   },
@@ -1800,49 +2034,49 @@
    "tipo": "prosa"
   },
   "af0bbb50c4": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<a href=\"placa.html#ola-mundo-c59\">see it on the board →</a> <span>ola-mundo, cycle 59: the last letter enters the screen and the whole phrase is there, made of numbers</span>",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<a href=\"placa.html#ola-mundo-c59\">ver na placa →</a> <span>ola-mundo, ciclo 59: a última letra entra na tela e a frase inteira está lá, feita de números</span>",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "af1f6c2d13": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "keeps <b>the recognisable shape</b>; forgets <b>the number</b>.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "conserva <b>a forma reconhecível</b>; esquece <b>o número</b>.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "af5331cea8": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "ask for service 9: show text",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "peça o serviço 9: mostrar texto",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "afafd5d89f": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "The key becomes a number",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "A tecla vira número",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "afce9a1c5f": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "what it becomes",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "o que vira",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "afe328bc7b": {
    "en": "om-degrau",
@@ -1853,31 +2087,31 @@
    "tipo": "js"
   },
   "aff64cfac9": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "PROGRAM COUNTER: walks only the blue side; the bronze side it points to, as data",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "CONTADOR DE PROGRAMA: percorre só o lado azul; o lado bronze ele aponta, como dado",
    "qa": "ok",
-   "tipo": "svg",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "svg"
   },
   "b11503653c": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "Each byte gets a place with a number",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "Cada byte ganha um lugar com número",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "b2536ab8d4": {
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão",
    "en": "the key",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "a tecla",
    "qa": "ok",
-   "tipo": "svg",
-   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
+   "tipo": "svg"
   },
   "b31f0373a7": {
    "en": "C9",
@@ -1888,94 +2122,103 @@
    "tipo": "prosa"
   },
   "b4bddfdc8a": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<a href=\"placa.html#ola-mundo-c9\">see it on the board →</a> <span>ola-mundo, cycle 9: the machine points to drawer 8000 and stores the 4F in it</span>",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<a href=\"placa.html#ola-mundo-c9\">ver na placa →</a> <span>ola-mundo, ciclo 9: a máquina aponta a gaveta 8000 e guarda nela o 4F</span>",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "b5372ae3d7": {
+   "decisao": "a mão em 2026-10-03",
    "en": "The life of Olá, Mundo! — hello-world-machine",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "A vida de Olá, Mundo! — hello-world-machine",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "a mão em 2026-10-03"
+   "tipo": "prosa"
   },
   "b553fde2e1": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "The number is not in the relay. The relay only knows how to pass or not pass; we are the ones who agreed that passing is worth 1. Eight relays, eight places: the whole <b>O</b> fits in one row. How relays become gates and arithmetic is the story of the other page, the ladder.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "O número não está no relé. O relé só sabe passar ou não passar; somos nós que combinamos que passar vale 1. Oito relés, oito casas: o <b>O</b> inteiro cabe numa fileira. Como relés viram portas e contas é a história da outra página, a escada.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "b562ed1937": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<a href=\"placa.html#ola-mundo-c11\">see it on the board →</a> <span>ola-mundo, cycle 11: one part holds where the machine is and another adds 1: remembering and counting</span>",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<a href=\"placa.html#ola-mundo-c11\">ver na placa →</a> <span>ola-mundo, ciclo 11: uma peça guarda onde a máquina está e outra soma 1: lembrar e contar</span>",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "b59ca474b2": {
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão",
    "en": "<span class=\"nome\">bit</span>(<i>v</i>) = 1 if <i>v</i> ≥ 2 volts, and 0 if <i>v</i> ≤ 0.8 volt",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span class=\"nome\">bit</span>(<i>v</i>) = 1 se <i>v</i> ≥ 2 volts, e 0 se <i>v</i> ≤ 0,8 volt",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
+   "tipo": "prosa"
   },
   "b672d0a863": {
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão",
    "en": "closing",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "fecho",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
+   "tipo": "prosa"
   },
   "b7176af68b": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<b>read as:</b> seventy-nine equals sixty-four, plus eight, plus four, plus two, plus one.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<b>lê-se:</b> setenta e nove é igual a sessenta e quatro, mais oito, mais quatro, mais dois, mais um.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
+  },
+  "b74f5ee946": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "79",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "79",
+   "qa": "ok",
+   "tipo": "prosa"
   },
   "b794f41804": {
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão",
    "en": "LETTERS · 7 bytes",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "LETRAS · 7 bytes",
    "qa": "ok",
-   "tipo": "svg",
-   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
+   "tipo": "svg"
   },
   "ba220ad95d": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "4F is 79 in hexadecimal: eight bits shortened to two symbols · the á takes two neighboring drawers",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "4F é o 79 em hexadecimal: oito bits abreviados em dois símbolos · o á ocupa duas gavetas vizinhas",
    "qa": "ok",
-   "tipo": "svg",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "svg"
   },
   "ba45f2072a": {
+   "decisao": "a mão em 2026-10-03",
    "en": "ONE BYTE = EIGHT BITS · each place is worth double its neighbor",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "UM BYTE = OITO BITS · cada casa vale o dobro da vizinha",
    "qa": "ok",
-   "tipo": "svg",
-   "decisao": "a mão em 2026-10-03"
+   "tipo": "svg"
   },
   "ba5ca79fb1": {
    "en": null,
@@ -1985,49 +2228,49 @@
    "tipo": "prosa"
   },
   "bb0c27d958": {
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão",
    "en": "call the system",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "chame o sistema",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
+   "tipo": "prosa"
   },
   "bbc5dace2a": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "79 becomes <span class=\"mono\">01001111</span>. Eight places, each one only 0 or 1. Eight places can hold 256 different things.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "79 vira <span class=\"mono\">01001111</span>. Oito casas, cada uma só 0 ou 1. Com oito casas cabem 256 coisas diferentes.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "bcce9dd423": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<a href=\"placa.html#ola-mundo-c19\">see it on the board →</a> <span>ola-mundo, cycle 19: on this machine’s screen the á fits in a single byte, E1; the two bytes belong to the file</span>",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<a href=\"placa.html#ola-mundo-c19\">ver na placa →</a> <span>ola-mundo, ciclo 19: na tela desta máquina o á cabe num byte só, E1; os dois bytes são do arquivo</span>",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "bcd06fc154": {
+   "decisao": "a mão em 2026-10-03",
    "en": "in bits",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "em bits",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "a mão em 2026-10-03"
+   "tipo": "prosa"
   },
   "bf7a66039d": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<i>What it is:</i> a part that opens or closes a path. The light switch is a switch; so is every key.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<i>O que é:</i> uma peça que abre ou fecha um caminho. O interruptor da luz é uma chave; cada tecla também.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "c0a51f8d7f": {
    "en": "<i>What it is:</i> a special drawer of the machine that stores the address of the next order.",
@@ -2101,6 +2344,15 @@
    "qa": "ok",
    "tipo": "prosa"
   },
+  "c7ff183003": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "the á",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "o á",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
   "c909a0f631": {
    "en": "relay",
    "modelo": "phi-4",
@@ -2162,6 +2414,15 @@
    "modelo": "phi-4",
    "orfao": false,
    "pt": "<b>lê-se:</b> cor de três e quatro é igual a um-seis, dois-três, três-efe: vermelho, verde e azul.",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "cd5e5f5ed7": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "<span class=\"tok\">light</span><span class=\"nome\">points</span>",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "<span class=\"tok\">luz</span><span class=\"nome\">pontos</span>",
    "qa": "ok",
    "tipo": "prosa"
   },
@@ -2230,13 +2491,13 @@
    "tipo": "js"
   },
   "d4eaed7653": {
+   "decisao": "leitura: roda é run, não spin",
    "en": "<b>read as:</b> running what was assembled from the text gives the same as the meaning of the text.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<b>lê-se:</b> rodar o que foi montado do texto dá o mesmo que o significado do texto.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "leitura: roda é run, não spin"
+   "tipo": "prosa"
   },
   "d55981cfb0": {
    "en": "threshold",
@@ -2246,14 +2507,23 @@
    "qa": "ok",
    "tipo": "prosa"
   },
+  "d781cf2c3c": {
+   "decisao": "nome curto do degrau, a mão em 2026-10-03",
+   "en": "The loop",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "O laço",
+   "qa": "ok",
+   "tipo": "attr:data-nome"
+  },
   "daa24f3311": {
+   "decisao": "literal de script: nome de classe não se traduz; espaço de borda é parte do texto",
    "en": "futuro",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "futuro",
    "qa": "ok",
-   "tipo": "js",
-   "decisao": "literal de script: nome de classe não se traduz; espaço de borda é parte do texto"
+   "tipo": "js"
   },
   "daec1182fb": {
    "en": "2 · number → bits",
@@ -2320,13 +2590,13 @@
    "tipo": "svg"
   },
   "df559f1914": {
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão",
    "en": "<span class=\"nome\">run</span>(<span class=\"nome\">assemble</span>(text)) = <span class=\"nome\">meaning</span>(text)",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span class=\"nome\">roda</span>(<span class=\"nome\">montar</span>(texto)) = <span class=\"nome\">significado</span>(texto)",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
+   "tipo": "prosa"
   },
   "df9f01caca": {
    "en": "<i>What it is:</i> electricity moving through a wire, like water moving through a pipe.",
@@ -2433,13 +2703,13 @@
    "tipo": "prosa"
   },
   "e55a227216": {
+   "decisao": "literal de script: nome de classe não se traduz; espaço de borda é parte do texto",
    "en": "step ",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "degrau ",
    "qa": "ok",
-   "tipo": "js",
-   "decisao": "literal de script: nome de classe não se traduz; espaço de borda é parte do texto"
+   "tipo": "js"
   },
   "e5e48d9cf8": {
    "en": "conserves <b>the letter's code</b>; forgets <b>the switch, the finger</b>.",
@@ -2497,67 +2767,67 @@
    "tipo": "prosa"
   },
   "ea94a8e72c": {
+   "decisao": "passagem: o original já é inglês; a tradução pt fica oculta na página en por CSS",
    "en": "<span class=\"en\" lang=\"en\">Thus, in UTF-8 the two bytes C2h and A3h represent the British £ sign. It seems a shame to require 2 bytes to encode what is essentially just 1 byte of information, but it's necessary for the rest of UTF-8 to work.</span><span class=\"pt\">Assim, em UTF-8 os dois bytes C2 e A3 representam o sinal de libra. Parece pena gastar 2 bytes para codificar o que é essencialmente 1 byte de informação, mas é necessário para o resto do UTF-8 funcionar.</span><cite>cap. 13, com o £ (U+00A3) como exemplo; o á (U+00E1) está na mesma faixa</cite>",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span class=\"en\" lang=\"en\">Thus, in UTF-8 the two bytes C2h and A3h represent the British £ sign. It seems a shame to require 2 bytes to encode what is essentially just 1 byte of information, but it's necessary for the rest of UTF-8 to work.</span><span class=\"pt\">Assim, em UTF-8 os dois bytes C2 e A3 representam o sinal de libra. Parece pena gastar 2 bytes para codificar o que é essencialmente 1 byte de informação, mas é necessário para o resto do UTF-8 funcionar.</span><cite>cap. 13, com o £ (U+00A3) como exemplo; o á (U+00E1) está na mesma faixa</cite>",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "passagem: o original já é inglês; a tradução pt fica oculta na página en por CSS"
+   "tipo": "prosa"
   },
   "ead0e0180a": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<i>Why it exists:</i> the machine cannot see the key; it only knows how to look at drawers. The keyboard leaves its number in one of them.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<i>Por que existe:</i> a máquina não enxerga a tecla; ela só sabe olhar gavetas. O teclado deixa o seu número numa delas.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "eb60ed0106": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<b>read as:</b> two to the eighth equals two hundred and fifty-six: the size of the set of lists of eight zeros or ones.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<b>lê-se:</b> dois elevado a oito é igual a duzentos e cinquenta e seis: o tamanho do conjunto das listas de oito zeros ou uns.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "ebe13063be": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "No sign appears before it is on this sheet. In every step, the new words come explained before they appear. Where the symbol is shorter than the sentence, the sentence wins.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "Nenhum sinal aparece antes de estar nesta folha. Em cada degrau, as palavras novas vêm explicadas antes de aparecerem. Onde o símbolo é mais curto que a frase, a frase vence.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "ed0d4669f6": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "address",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "endereço",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "ede84ad497": {
+   "decisao": "a mão em 2026-10-03",
    "en": "read 60 times a second",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "lidos 60 vezes por segundo",
    "qa": "ok",
-   "tipo": "svg",
-   "decisao": "a mão em 2026-10-03"
+   "tipo": "svg"
   },
   "edfed33fc2": {
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão",
    "en": "CODE 2 · PAPER",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "CÓDIGO 2 · PAPEL",
    "qa": "ok",
-   "tipo": "svg",
-   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
+   "tipo": "svg"
   },
   "ee4c4f606f": {
    "en": "(79 + 1) <span class=\"nome\">mod</span> 256",
@@ -2568,13 +2838,13 @@
    "tipo": "prosa"
   },
   "ee842ffeb4": {
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão",
    "en": "assembler",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "montador",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
+   "tipo": "prosa"
   },
   "eeafa72636": {
    "en": "<span class=\"nome\">mem</span>(0109) = 4F",
@@ -2593,40 +2863,40 @@
    "tipo": "js"
   },
   "efe4576d8b": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<i>Why it exists:</i> the place is what says how much each digit is worth: the 7 in 79 is worth seventy.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<i>Por que existe:</i> é a casa que diz quanto cada algarismo vale: o 7 de 79 vale setenta.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "f0483066be": {
+   "decisao": "passagem: o original já é inglês; a tradução pt fica oculta na página en por CSS",
    "en": "<span class=\"en\" lang=\"en\">A half adder is an XOR gate and an AND gate</span><span class=\"pt\">Um meio-somador é uma porta XOR e uma porta AND.</span><cite>porta → somador (cap. 14) · porta → flip-flop (caps. 17 e 19) · flip-flop de borda → contador e registrador (cap. 20) · somador → ULA (cap. 21)</cite>",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span class=\"en\" lang=\"en\">A half adder is an XOR gate and an AND gate</span><span class=\"pt\">Um meio-somador é uma porta XOR e uma porta AND.</span><cite>porta → somador (cap. 14) · porta → flip-flop (caps. 17 e 19) · flip-flop de borda → contador e registrador (cap. 20) · somador → ULA (cap. 21)</cite>",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "passagem: o original já é inglês; a tradução pt fica oculta na página en por CSS"
+   "tipo": "prosa"
   },
   "f078a2703a": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<span class=\"nome\">key</span>(<i>t</i>) = 79 while the O is pressed, and 0 afterwards",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span class=\"nome\">tecla</span>(<i>t</i>) = 79 enquanto o O está apertado, e 0 depois",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "f0d49844db": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<i>Why it exists:</i> it is the size of one letter, and the chunk the machine moves at a time.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<i>Por que existe:</i> é o tamanho de uma letra, e o pedaço que a máquina move de cada vez.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "f151dd780d": {
    "en": "Now there are two numbers per letter: what it's worth and where it is. The order of the letters has become the order of addresses. Reading the sentence is like going through neighboring drawers.",
@@ -2649,6 +2919,15 @@
    "modelo": "phi-4",
    "orfao": false,
    "pt": "5 endereço",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "f3f42349f6": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "phrase",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "frase",
    "qa": "ok",
    "tipo": "prosa"
   },
@@ -2685,13 +2964,13 @@
    "tipo": "svg"
   },
   "f6fed14af2": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<b>index below</b>: at which instant, or at which position. <span class=\"lese\">read as:</span> ess at instant tee.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<b>índice embaixo</b>: em qual instante, ou em qual posição. <span class=\"lese\">lê-se:</span> ésse no instante tê.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "f9224e2acb": {
    "en": "the math here · <b>code of variable length, without any word being the start of another</b>",
@@ -2765,6 +3044,15 @@
    "qa": "ok",
    "tipo": "prosa"
   },
+  "ff6675c9c0": {
+   "decisao": "estação da trilha, a mão em 2026-10-03",
+   "en": "<span class=\"tok\">phrase</span><span class=\"nome\">O</span>",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "<span class=\"tok\">frase</span><span class=\"nome\">O</span>",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
   "ff8286de76": {
    "en": "<a href=\"placa.html#ola-mundo-c7\">see on the board →</a> <span>ola-mundo, cycle 7: the program counter points to drawer 0004 and byte 36 is read as order: store the letter</span>",
    "modelo": "phi-4",
@@ -2774,301 +3062,22 @@
    "tipo": "prosa"
   },
   "ff9c23e3d3": {
+   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag",
    "en": "<b>read as:</b> the state at instant tee plus one is f of: the state at instant tee, and the input at instant tee.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<b>lê-se:</b> o estado no instante tê mais um é f de: o estado no instante tê, e a entrada no instante tê.",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
+   "tipo": "prosa"
   },
   "ffe1266812": {
+   "decisao": "passagem: o original já é inglês; a tradução pt fica oculta na página en por CSS",
    "en": "<span class=\"en\" lang=\"en\">The accumulator would then contain a code indicating what key has been pressed.</span><span class=\"pt\">O acumulador passaria então a conter um código indicando qual tecla foi apertada.</span><cite>cap. 25 — Peripherals</cite>",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span class=\"en\" lang=\"en\">The accumulator would then contain a code indicating what key has been pressed.</span><span class=\"pt\">O acumulador passaria então a conter um código indicando qual tecla foi apertada.</span><cite>cap. 25 — Peripherals</cite>",
    "qa": "ok",
-   "tipo": "prosa",
-   "decisao": "passagem: o original já é inglês; a tradução pt fica oculta na página en por CSS"
-  },
-  "0227077c9f": {
-   "pt": "Como ler os símbolos",
-   "tipo": "attr:data-nome",
-   "orfao": false,
-   "en": "How to read the symbols",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "nome curto do degrau, a mão em 2026-10-03"
-  },
-  "66fdfbc1a6": {
-   "pt": "Cada número vira oito casas",
-   "tipo": "attr:data-nome",
-   "orfao": false,
-   "en": "Each number becomes eight places",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "nome curto do degrau, a mão em 2026-10-03"
-  },
-  "3c7c4baa61": {
-   "pt": "Cada casa vira corrente",
-   "tipo": "attr:data-nome",
-   "orfao": false,
-   "en": "Each place becomes current",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "nome curto do degrau, a mão em 2026-10-03"
-  },
-  "76e8a6503e": {
-   "pt": "Os bits somam e ficam parados",
-   "tipo": "attr:data-nome",
-   "orfao": false,
-   "en": "The bits add up and stay put",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "nome curto do degrau, a mão em 2026-10-03"
-  },
-  "117327cff9": {
-   "pt": "Cada byte ganha um endereço",
-   "tipo": "attr:data-nome",
-   "orfao": false,
-   "en": "Each byte gets an address",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "nome curto do degrau, a mão em 2026-10-03"
-  },
-  "1e1b1e0556": {
-   "pt": "Um número é lido como ordem",
-   "tipo": "attr:data-nome",
-   "orfao": false,
-   "en": "A number is read as an order",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "nome curto do degrau, a mão em 2026-10-03"
-  },
-  "aa2ee6c320": {
-   "pt": "As ordens são escritas com palavras",
-   "tipo": "attr:data-nome",
-   "orfao": false,
-   "en": "The orders are written in words",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "nome curto do degrau, a mão em 2026-10-03"
-  },
-  "d781cf2c3c": {
-   "pt": "O laço",
-   "tipo": "attr:data-nome",
-   "orfao": false,
-   "en": "The loop",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "nome curto do degrau, a mão em 2026-10-03"
-  },
-  "54b6c54f86": {
-   "pt": "← → no teclado; um degrau por tela",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "← → on the keyboard; one step per screen",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "a mão em 2026-10-03"
-  },
-  "5dcfa45d7e": {
-   "pt": "<span class=\"tok\">lê-se</span><span class=\"nome\">sinais</span>",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "<span class=\"tok\">read as</span><span class=\"nome\">signs</span>",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
-  },
-  "a6db13485e": {
-   "pt": "sinais",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "signs",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
-  },
-  "ff6675c9c0": {
-   "pt": "<span class=\"tok\">frase</span><span class=\"nome\">O</span>",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "<span class=\"tok\">phrase</span><span class=\"nome\">O</span>",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
-  },
-  "f3f42349f6": {
-   "pt": "frase",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "phrase",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
-  },
-  "404ff36767": {
-   "pt": "<span class=\"tok\">tecla</span><span class=\"nome\">79</span>",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "<span class=\"tok\">key</span><span class=\"nome\">79</span>",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
-  },
-  "b74f5ee946": {
-   "pt": "79",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "79",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
-  },
-  "103d0f4ca1": {
-   "pt": "<span class=\"tok\">número</span><span class=\"nome\">79</span>",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "<span class=\"tok\">number</span><span class=\"nome\">79</span>",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
-  },
-  "0b47ce0b5a": {
-   "pt": "<span class=\"tok\">bits</span><span class=\"nome\">01001111</span>",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "<span class=\"tok\">bits</span><span class=\"nome\">01001111</span>",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
-  },
-  "0569ae912e": {
-   "pt": "bits",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "bits",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
-  },
-  "67d0dd5332": {
-   "pt": "01001111",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "01001111",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
-  },
-  "0299736ba3": {
-   "pt": "<span class=\"tok\">o á</span><span class=\"nome\">C3 A1</span>",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "<span class=\"tok\">the á</span><span class=\"nome\">C3 A1</span>",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
-  },
-  "c7ff183003": {
-   "pt": "o á",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "the á",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
-  },
-  "46f187391f": {
-   "pt": "C3 A1",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "C3 A1",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
-  },
-  "14cc5bca3a": {
-   "pt": "<span class=\"tok\">relés</span><span class=\"nome\">oito chaves</span>",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "<span class=\"tok\">relays</span><span class=\"nome\">eight switches</span>",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
-  },
-  "82ba661836": {
-   "pt": "<span class=\"tok\">conta</span><span class=\"nome\">+1 = P</span>",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "<span class=\"tok\">count</span><span class=\"nome\">+1 = P</span>",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
-  },
-  "30e5039c1d": {
-   "pt": "+1 = P",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "+1 = P",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
-  },
-  "628925973a": {
-   "pt": "<span class=\"tok\">endereço</span><span class=\"nome\">0109</span>",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "<span class=\"tok\">address</span><span class=\"nome\">0109</span>",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
-  },
-  "add97daefa": {
-   "pt": "0109",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "0109",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
-  },
-  "86631f2b67": {
-   "pt": "<span class=\"tok\">ordem</span><span class=\"nome\">CD 05 00</span>",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "<span class=\"tok\">order</span><span class=\"nome\">CD 05 00</span>",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
-  },
-  "3165ca0dc3": {
-   "pt": "<span class=\"tok\">palavra</span><span class=\"nome\">CALL 5</span>",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "<span class=\"tok\">word</span><span class=\"nome\">CALL 5</span>",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
-  },
-  "cd5e5f5ed7": {
-   "pt": "<span class=\"tok\">luz</span><span class=\"nome\">pontos</span>",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "<span class=\"tok\">light</span><span class=\"nome\">points</span>",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
-  },
-  "1b7f278997": {
-   "pt": "<span class=\"tok\">laço</span><span class=\"nome\">conserva</span>",
-   "tipo": "prosa",
-   "orfao": false,
-   "en": "<span class=\"tok\">loop</span><span class=\"nome\">conserves</span>",
-   "modelo": "claude-fable-5-1",
-   "qa": "ok",
-   "decisao": "estação da trilha, a mão em 2026-10-03"
+   "tipo": "prosa"
   }
  },
  "fatia": "index",

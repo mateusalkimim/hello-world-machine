@@ -1,13 +1,20 @@
 # A espinha matemática
 
-A tese deste material, fixada em 2026-10-02. O que importa não é a eletrônica
-de cada camada (isso é profundidade, e mora no
-[abstraction-ladder](https://github.com/mateusalkimim/abstraction-ladder)).
-O que importa é responder três perguntas:
+A tese deste material, fixada em 2026-10-02 e dita de novo pelo autor em
+2026-10-03. O que importa não é a eletrônica de cada camada: a corrente entra
+uma vez, como os dois estados que a máquina distingue, e daí em diante o
+assunto é a engenharia do computador. O que precisa existir para a ida e a
+volta mora no
+[abstraction-ladder](https://github.com/mateusalkimim/abstraction-ladder);
+aqui o que importa é responder três perguntas:
 
 1. **como corrente elétrica vira dado;**
 2. **como o dado navega em forma de corrente;**
 3. **o que cada camada de abstração significa matematicamente.**
+
+No fundo das três está o morse: linguagem por sinal de onda, em que a corrente
+muda, o sinal que ela expressa muda a cada camada, e no fim está o conjunto
+completo.
 
 A régua que atravessa as três: a matemática se refere ao mundo **por aquilo
 que se conserva**. Cada camada é uma promessa do tipo "pode esquecer o resto,

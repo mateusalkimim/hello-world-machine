@@ -4,11 +4,14 @@
 
 # A máquina do olá, mundo — `hello-world-machine`
 
-**O que cada camada de abstração faz com o número, seguindo uma frase só: de
-"Olá, Mundo!" dito no escuro até a luz que o devolve na tela.** Um degrau por
-tela; em cada um, o que esta camada faz com a frase, uma figura, e a passagem
-do livro que sustenta o que foi dito. Nenhum degrau entrou por plausibilidade:
-**o gerador aborta** se faltar a citação.
+**Tudo o que se vê, se lê e se ouve num computador passou por um circuito que
+só sabe duas coisas, há corrente ou não há, milhares de vezes por segundo. Esta
+página segue uma frase só, "Olá, Mundo!", nessa viagem: da saudação dita no
+escuro até a luz que a devolve na tela.** Um degrau por tela; em cada um, o que
+esta parte opera no sinal e o que devolve, a matemática que torna isso
+possível, uma figura, e a passagem do livro que sustenta o que foi dito.
+Nenhum degrau entrou por plausibilidade: **o gerador aborta** se faltar a
+citação.
 
 É material para quem não sabe nada. A régua é a folha em branco: uma tese de
 até 25 palavras; **as palavras novas explicadas antes de aparecerem** (o que é,
@@ -168,14 +171,20 @@ regras que mais pesaram:
 
 ## A tese
 
-O que importa aqui não é a eletrônica de cada camada (isso é profundidade, e
-mora na escada). É responder três perguntas: como corrente elétrica vira dado;
-como o dado navega em forma de corrente; e o que cada camada de abstração
-significa matematicamente. A espinha, degrau a degrau, está em
+O que torna um computador possível é mais simples do que ele: é morse.
+Linguagem por sinal de onda. A corrente muda, o sinal que ela expressa muda a
+cada camada, e no fim está o conjunto completo. A pergunta desta página é a
+matemática disso: como o que se vê, se lê e se ouve vira 0 e 1; como o já
+convertido viaja pelas partes do computador; o que cada parte opera no sinal,
+e o que cada pedaço devolve. A espinha, degrau a degrau, está em
 [`pesquisa/espinha-matematica.md`](pesquisa/espinha-matematica.md). Dois
 pontos pesam mais: a corrente vira dado por **limiar** (um intervalo inteiro
 de tensões vira um símbolo só, e o ruído some na equivalência), e o dado
 viaja como **onda de estados**, não como coisa que anda.
+
+A eletrônica de cada parte não é o assunto. A corrente entra uma vez, como os
+dois estados que a máquina distingue, e daí em diante o assunto é a engenharia
+do computador.
 
 ## O instrumento
 
@@ -191,14 +200,17 @@ de vídeo. A pesquisa que define a placa mínima, os dois relógios e as
 regras de legibilidade está em
 [`pesquisa/placa-minima-e-dado-visivel.md`](pesquisa/placa-minima-e-dado-visivel.md).
 
-## O lugar no ciclo maior
+## Os dois instrumentos
 
-Este é o segundo pedaço de um mapa maior da computação. O primeiro, o
-[abstraction-ladder](https://github.com/mateusalkimim/abstraction-ladder),
-sobe pela **profundidade**: do eletroímã ao paradigma, o que é feito do quê.
-Este segue pela **substância**: o que acontece com um número quando atravessa
-cada camada. Os dois usam a mesma máquina (nós com warrant declarado, página
-gerada da fonte, inglês derivado do português) e as mesmas duas fontes.
+Esta página e o
+[abstraction-ladder](https://github.com/mateusalkimim/abstraction-ladder)
+respondem à mesma pergunta por dois lados: como uma ideia humana, uma
+saudação, vira 0 e 1 e volta para a mesma pessoa quase na mesma forma. A
+escada é **o que precisa existir** para a ida e a volta: as seis famílias de
+circuitos. Esta máquina é **a matemática** que torna a conversão possível, e
+a viagem do sinal pelas partes. Os dois usam a mesma máquina de publicar (nós
+com warrant declarado, página gerada da fonte, inglês derivado do português) e
+as mesmas duas fontes.
 
 ## Proveniência e garantias
 

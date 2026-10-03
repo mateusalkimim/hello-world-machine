@@ -4,7 +4,7 @@
 
 # The Hello, World Machine — `hello-world-machine`
 
-**What each layer of abstraction does with the number, following a single sentence: from "Hello, World!" said in the dark to the light that returns it on the screen.** One step per screen; in each one, what this layer does with the sentence, a figure, and the passage from the book that supports what was said. No step entered by plausibility: **the generator aborts** if the citation is missing.
+**Everything you see, read or hear on a computer went through a circuit that only knows two things, current flowing or not, thousands of times a second. This page follows one sentence, "Olá, Mundo!", on that trip: from the greeting said in the dark to the light that returns it on the screen.** One step per screen; in each, what this part operates on the signal and what it gives back, the mathematics that makes it possible, a figure, and the passage from the book that supports what was said. No step got in by plausibility: **the generator aborts** if the citation is missing.
 
 This is material for those who know nothing. The ruler is the blank sheet: a thesis of up to 25 words; **new words explained before they appear** (what it is, why it exists); a figure with the new word inside it; a paragraph of up to 60; and the passage from the book behind a click, in "where this comes from."
 
@@ -148,20 +148,17 @@ weighed the most:
 
 ## The thesis
 
-What matters here is not the electronics of each layer (that's depth, and it resides on the ladder). The task is to answer three questions: how electric current becomes data; how data travels in the form of current; and what each layer of abstraction means mathematically. The spine, step by step, is in [`pesquisa/espinha-matematica.md`](pesquisa/espinha-matematica.md). Two points weigh more: current becomes data by **threshold** (an entire interval of voltages becomes a single symbol, and noise disappears in equivalence), and data travels as an **wave of states**, not as something that moves.
+What makes a computer possible is simpler than the computer: it is Morse. Language by wave signal. The current changes, the signal it carries changes at every layer, and at the end is the whole set. The question of this page is the mathematics of that: how what is seen, read and heard becomes 0 and 1; how the already converted travels through the parts of the computer; what each part operates on the signal, and what each piece gives back. The spine, step by step, is in [`pesquisa/espinha-matematica.md`](pesquisa/espinha-matematica.md). Two points weigh more: current becomes data by **threshold** (a whole interval of voltages becomes a single symbol, and the noise vanishes in the equivalence), and data travels as a **wave of states**, not as a thing that moves.
+
+The electronics of each part is not the subject. Current enters once, as the two states the machine tells apart, and from there on the subject is the engineering of the computer.
 
 ## The instrument
 
 The machine drawn in plan, in `pt/placa.html`: two buses, the modules between them, the screen beside, and the line of the Olá, Mundo! touched cycle by cycle. In each cycle, at most four things light up: the origin of the data, the eight bits on the bus, the destination, and the address. The specification of the drawing is in [`pesquisa/a-placa-em-planta.md`](pesquisa/a-placa-em-planta.md); that of the machine, in [`pesquisa/a-maquina.md`](pesquisa/a-maquina.md). What comes next is a game of blocks that falls, playable on the same board, in which you see the color of the piece come out of the register, cross the bus, and reach the video memory. The research that defines the minimum board, the two clocks, and the rules of readability is in [`pesquisa/placa-minima-e-dado-visivel.md`](pesquisa/placa-minima-e-dado-visivel.md).
 
-## The place in the larger cycle
+## The two instruments
 
-This is the second piece of a larger map of computing. The first, the
-[abstraction-ladder](https://github.com/mateusalkimim/abstraction-ladder),
-climbs the **depth**: from the electromagnet to the paradigm, what is made of
-what. This one follows the **substance**: what happens to a number as it passes
-through each layer. Both use the same machine (we with declared warrant, page
-generated from source, English derived from Portuguese) and the same two sources.
+This page and the [abstraction-ladder](https://github.com/mateusalkimim/abstraction-ladder) answer the same question from two sides: how a human idea, a greeting, becomes 0 and 1 and comes back to the same person in nearly the same shape. The ladder is **what must exist** for the round trip: the six families of circuits. This machine is **the mathematics** that makes the conversion possible, and the signal's trip through the parts. Both use the same publishing machine (nodes with a declared warrant, page generated from the source, English derived from the Portuguese) and the same two sources.
 
 ## Provenance and Warrants
 
