@@ -385,7 +385,7 @@
    "decisao": "a mão em 2026-10-03"
   },
   "262563bb07": {
-   "en": "the mathematics here · <b>a rule that takes each point of the grid to a colour</b>",
+   "en": "the mathematics here · <b>a rule that takes each point of the grid to a color</b>",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "a matemática daqui · <b>regra que leva cada ponto da grade numa cor</b>",
@@ -1632,7 +1632,7 @@
    "tipo": "prosa"
   },
   "a0062dd548": {
-   "en": "<i>What it is:</i> a dot on the screen, too small to see on its own, with a single colour.",
+   "en": "<i>What it is:</i> a dot on the screen, too small to see on its own, with a single color.",
    "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<i>O que é:</i> um ponto da tela, pequeno demais para ver sozinho, com uma cor só.",
