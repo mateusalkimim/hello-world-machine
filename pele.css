@@ -147,3 +147,11 @@ table.simbolos .expr{font-size:1.05rem}
 .item ul li{margin:.1rem 0} .item i{font-style:normal;color:var(--muted);font-size:.78rem;letter-spacing:.04em}
 details.prova .fonte{font-size:.8rem;color:var(--muted)}
 .item .expr{font-family:var(--it-serif);font-size:1.05rem;color:var(--ink)}
+/* a folha de sinais e o fecho: uma linha por sinal, o exemplo à esquerda */
+.sinais{display:grid;gap:0;border-top:1px solid var(--linha)}
+.sinal{display:grid;grid-template-columns:7.5rem 1fr;gap:.8rem;align-items:baseline;padding:.45rem 0;border-bottom:1px solid var(--linha)}
+.sinal p{margin:0;font-size:.92rem;line-height:1.5;color:var(--ink2)}
+.sinal .expr{font-family:var(--it-serif);font-size:1.15rem;color:var(--ink);line-height:1.3}
+.sinal .expr.degr{font-family:var(--it-sans,inherit);font-size:.95rem;color:var(--bronze);font-weight:600}
+.sinal b{font-weight:600;color:var(--ink)} .sinal i{font-style:normal;color:var(--bronze);font-size:.8rem;letter-spacing:.04em}
+@media (max-width:420px){.sinal{grid-template-columns:5.5rem 1fr}}

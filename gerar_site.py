@@ -234,16 +234,14 @@ def matematica(d):
 
 def convencoes():
     itens = "".join(
-        f'<div class="item"><p class="nome-item">{c}</p><ul>'
-        f'<li><i>O que é:</i> {o}.</li>'
-        f'<li><i>Exemplo:</i> <span class="expr">{e}</span></li>'
-        f'<li><i>Lê-se:</i> {l}.</li></ul></div>'
+        f'<div class="sinal"><p class="expr">{e}</p>'
+        f'<p><b>{c}</b>: {o}. <i>lê-se:</i> {l}.</p></div>'
         for c, o, e, l in D.CONVENCOES)
     return f"""
 <section class="degrau" id="conv" data-nome="Como ler os símbolos">
   <header><p class="regime">antes de tudo · como ler os símbolos desta página</p><h2>Sete sinais, e como cada um se lê</h2></header>
   <p class="tese">Cada expressão desta página vem com a leitura em voz alta logo abaixo. Esta folha diz o que cada tipo de sinal é.</p>
-  <div class="palavras"><p class="rot">os sinais desta página</p>{itens}</div>
+  <div class="sinais">{itens}</div>
   <p class="corpo">Nenhum sinal aparece antes de estar nesta folha. Em cada degrau, as palavras novas vêm explicadas antes de aparecerem. Onde o símbolo é mais curto que a frase, a frase vence.</p>
 </section>"""
 
@@ -272,14 +270,14 @@ def degrau(d):
 
 def fecho(f):
     itens = "".join(
-        f'<div class="item"><p class="nome-item">{a}</p><ul>'
-        f'<li><i>Conserva:</i> {b}.</li><li><i>Esquece:</i> {c}.</li></ul></div>'
+        f'<div class="sinal"><p class="expr degr">{a}</p>'
+        f'<p>conserva <b>{b}</b>; esquece <b>{c}</b>.</p></div>'
         for a, b, c, _fonte in f["linhas"])
     return f"""
 <section class="degrau" id="{f['id']}" data-nome="{html.escape(f['nome'])}">
   <header><p class="regime">fecho</p><h2>{f['titulo']}</h2></header>
   <p class="tese">{f['tese']}</p>
-  <div class="palavras"><p class="rot">degrau a degrau</p>{itens}</div>
+  <div class="sinais">{itens}</div>
   <p class="corpo">{f['corpo']}</p>
 </section>"""
 
