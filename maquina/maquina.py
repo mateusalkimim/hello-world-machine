@@ -14,8 +14,10 @@ ciclo (PC no barramento de endereços; RAM no barramento de dados; byte salvo no
 Instruction Latch; PC incrementado), e a execução gasta um ou dois ciclos
 conforme a instrução.
 
-Uso:  python3 maquina.py programa.bin [--passos N] [--traco]
+Uso:  python3 maquina.py programa.bin [--traco] [--json]
+      --json imprime o estado final e o traço em JSON (para a conferência de equivalência)
 """
+import json
 import sys
 
 VIDEO_INICIO, VIDEO_COLUNAS, VIDEO_LINHAS = 0x8000, 12, 22
@@ -221,6 +223,14 @@ class Maquina:
         return linhas
 
 
+def estado(m):
+    """O estado final e o traço, em forma comparável entre implementações."""
+    return dict(
+        instrucoes=m.instrucoes, ciclos=m.ciclos, parada=m.parada,
+        reg=dict(m.reg), pc=m.pc, flags=m.flags(), hl=m.hl,
+        tela=m.tela(), traco=m.traco or [])
+
+
 def celula(b):
     """A tabela de células: o mesmo byte é letra ou cor, conforme a faixa."""
     if b == 0:
@@ -239,8 +249,11 @@ def main():
         print(__doc__)
         return 2
     imagem = open(sys.argv[1], "rb").read()
-    m = Maquina(imagem, traco="--traco" in sys.argv)
+    m = Maquina(imagem, traco=("--traco" in sys.argv) or ("--json" in sys.argv))
     n = m.rodar()
+    if "--json" in sys.argv:
+        print(json.dumps(estado(m), ensure_ascii=False, sort_keys=True))
+        return 0
     print(f"{n} instruções, {m.ciclos} ciclos, {'parou em HLT' if m.parada else 'não parou'}")
     print("A=%02X B=%02X C=%02X D=%02X E=%02X HL=%04X PC=%04X flags=%s" % (
         m.reg["A"], m.reg["B"], m.reg["C"], m.reg["D"], m.reg["E"], m.hl, m.pc, m.flags()))

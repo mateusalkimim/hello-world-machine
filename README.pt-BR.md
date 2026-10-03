@@ -89,10 +89,11 @@ pele.css, visor.js    a pele e o visor: um degrau por tela, trilha no alto
 gerar_site.py         o gerador, que aborta se faltar warrant
 conferir_degraus.py   o controle negativo do gerador: planta o defeito e exige o aborto
 maquina/              a máquina: a CPU do Petzold com tela e teclado mapeados em memória
-  maquina.py            o emulador, que conta cada ciclo e grava o traço (a fonte da animação)
-  montar.py             o montador: linguagem de montagem → bytes
-  programas/            os programas, a começar por Olá, Mundo!
-  conferir_maquina.py   montador = mão; a tela diz a frase; o caminho de cada letra; controle negativo
+  maquina.py, maquina.js   o emulador, duas vezes: Python (a referência) e JavaScript (o navegador)
+  montar.py, montar.js     o montador, duas vezes: linguagem de montagem → bytes
+  programas/               os programas: Olá, Mundo! e o que percorre o conjunto inteiro
+  conferir_maquina.py      montador = mão; a tela diz a frase; o caminho de cada letra; controle negativo
+  conferir_equivalencia.py as duas implementações dão o MESMO traço, ciclo a ciclo, para cada programa
 conferir_idioma.py    cada página está no idioma da pasta em que mora
 conferir_publicacao.py  o que não pode sair numa superfície pública
 i18n.py, gerar_en.py, gerar_porta.py   a máquina bilíngue, para quem clonar
@@ -118,6 +119,12 @@ conferência que nunca reprovou não provou nada.
   concordam byte a byte, que a tela diz a frase, que cada letra chegou por um
   ciclo de escrita vindo do Instruction Latch 2 com o endereço em HL, e que um
   programa com um opcode trocado **não** produz a frase;
+- **`maquina/conferir_equivalencia.py`** roda cada programa nas duas máquinas,
+  Python e JavaScript, e exige o mesmo traço campo a campo, inclusive para um
+  programa quebrado; os dois montadores têm de dar os mesmos bytes e recusar
+  o que a máquina não tem; e um traço com um único campo alterado tem de ser
+  acusado. Usa o node só para rodar o JavaScript fora do navegador; o site não
+  depende dele;
 - **`conferir_idioma.py`** mede o texto, nunca o nome do arquivo: a página de
   `en/` tem de estar em inglês e a de `pt/` em português;
 - **`conferir_publicacao.py`** lê as superfícies públicas, inclusive as
@@ -201,9 +208,9 @@ gerada da fonte, inglês derivado do português) e as mesmas duas fontes.
   (virar um bit e ver o número mudar) ainda não existe;
 - cada degrau ainda não traz a linha "a matemática daqui" com a leitura em
   voz alta, nem a folha de convenções antes do primeiro símbolo;
-- a máquina existe como especificação executável (`maquina/`): o emulador
-  roda Olá, Mundo! e grava o traço por ciclo; a placa desenhada em canvas, que
-  reproduz esse traço, ainda não existe;
+- a máquina existe como especificação executável (`maquina/`), em Python e em
+  JavaScript, com os dois traços idênticos ciclo a ciclo; a placa desenhada em
+  canvas, que reproduz esse traço no navegador, ainda não existe;
 - os cinco buracos declarados.
 
 ## Licença

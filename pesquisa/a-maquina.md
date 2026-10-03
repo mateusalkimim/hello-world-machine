@@ -324,6 +324,17 @@ JMP; estimativa de 600 a 2.000 instruções, a conferir escrevendo.
 
 ## 13. As conferências
 
+Há **duas implementações** desta especificação: `maquina/maquina.py`, a
+referência, e `maquina/maquina.js`, a que roda no navegador; e dois
+montadores, `montar.py` e `montar.js`. `python3 maquina/conferir_equivalencia.py`
+exige que, para cada programa de `programas/`, os dois montadores deem os
+mesmos bytes e as duas máquinas deem o **mesmo traço, ciclo a ciclo**,
+inclusive para um programa quebrado; que os dois recusem CALL; e que um traço
+com um único campo alterado seja acusado. O programa `conjunto-inteiro.asm`
+existe para isso: passa por todas as instruções, os sete saltos tomados e não
+tomados, as oito operações da ULA nas duas formas, e os valores esperados
+estão anotados à mão ao lado de cada linha.
+
 `python3 maquina/conferir_maquina.py` prova, com controle negativo: montador
 e mão concordam nos 37 bytes; a tela diz "Olá, Mundo!"; cada letra chegou por
 um ciclo cujo dado saiu de IL2 e cujo endereço veio de HL; um programa com um
