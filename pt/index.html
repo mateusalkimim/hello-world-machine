@@ -51,8 +51,8 @@ p{margin:0}
 .frase{font-family:var(--it-serif);font-style:italic;font-size:1.08em}
 
 /* trilha do personagem */
-.trilha{display:flex;gap:0;align-items:stretch;overflow-x:auto;padding:.6rem .4rem;background:var(--card);border:1px solid var(--linha);scrollbar-width:thin}
-.trilha .est{flex:1 0 auto;min-width:3.6rem;display:grid;grid-template-rows:auto auto;justify-items:center;gap:.25rem;padding:.2rem .35rem;position:relative;opacity:.35;transition:opacity .2s}
+.trilha{display:flex;flex-wrap:wrap;gap:.2rem 0;align-items:stretch;padding:.5rem .4rem;background:var(--card);border:1px solid var(--linha)}
+.trilha .est{flex:1 0 auto;min-width:3.4rem;display:grid;grid-template-rows:auto auto;justify-items:center;gap:.25rem;padding:.2rem .35rem;position:relative;opacity:.35;transition:opacity .2s}
 .trilha .est + .est::before{content:"";position:absolute;left:-.3rem;top:1.05rem;width:.6rem;height:1px;background:var(--linha)}
 .trilha .est .tok{font-family:var(--it-mono);font-size:.9rem;line-height:1;color:var(--ink);height:1.3rem;display:flex;align-items:center}
 .trilha .est .tok.serif{font-family:var(--it-serif);font-style:italic;font-size:1.25rem}
@@ -155,6 +155,7 @@ table.simbolos .expr{font-size:1.05rem}
 .item ul{margin:.15rem 0 0;padding-left:1.2em;font-size:.95rem;line-height:1.55;color:var(--ink2)}
 .item ul li{margin:.1rem 0} .item i{font-style:normal;color:var(--muted);font-size:.78rem;letter-spacing:.04em}
 details.prova .fonte{font-size:.8rem;color:var(--muted)}
+.item .expr{font-family:var(--it-serif);font-size:1.05rem;color:var(--ink)}
 
 </style>
 </head>
@@ -169,13 +170,7 @@ details.prova .fonte{font-size:.8rem;color:var(--muted)}
 <section class="degrau" id="conv" data-nome="Como ler os símbolos">
   <header><p class="regime">antes de tudo · como ler os símbolos desta página</p><h2>Sete sinais, e como cada um se lê</h2></header>
   <p class="tese">Cada expressão desta página vem com a leitura em voz alta logo abaixo. Esta folha diz o que cada tipo de sinal é.</p>
-  <figure class="fig">
-    <div class="tabela"><table class="simbolos">
-      <tr><th>classe</th><th>o que é aqui</th><th>exemplo desta página</th><th>lê-se</th></tr>
-      <tr><td>nome em letras retas, com parênteses</td><td>uma regra com nome, aplicada ao que está entre parênteses</td><td class="expr"><span class="nome">número</span>(o)</td><td class="leitura">número de o</td></tr><tr><td>letra inclinada minúscula</td><td>uma quantidade que varia</td><td class="expr"><i>v</i>, <i>t</i></td><td class="leitura">vê, tê</td></tr><tr><td>índice embaixo</td><td>em qual instante, ou em qual posição</td><td class="expr"><i>s</i><sub><i>t</i></sub></td><td class="leitura">ésse no instante tê</td></tr><tr><td>número pequeno em cima</td><td>quantas vezes multiplicar o número por ele mesmo</td><td class="expr">2<sup>8</sup></td><td class="leitura">dois elevado a oito</td></tr><tr><td><span class="nome">mod</span></td><td>o resto da divisão por</td><td class="expr">(79 + 1) <span class="nome">mod</span> 256</td><td class="leitura">setenta e nove mais um, módulo duzentos e cinquenta e seis</td></tr><tr><td>seta entre dois conjuntos</td><td>uma regra que leva cada coisa da esquerda numa coisa da direita</td><td class="expr">sinais → significados</td><td class="leitura">leva sinais em significados</td></tr><tr><td>número em hexadecimal</td><td>um número escrito com os algarismos de 0 a 9 e as letras de A a F, que valem de 10 a 15</td><td class="expr">4F</td><td class="leitura">quatro-efe, que vale setenta e nove</td></tr>
-    </table></div>
-    <div class="origem"><span>a classe vem antes do símbolo</span></div>
-  </figure>
+  <div class="palavras"><p class="rot">os sinais desta página</p><div class="item"><p class="nome-item">nome em letras retas, com parênteses</p><ul><li><i>O que é:</i> uma regra com nome, aplicada ao que está entre parênteses.</li><li><i>Exemplo:</i> <span class="expr"><span class="nome">número</span>(o)</span></li><li><i>Lê-se:</i> número de o.</li></ul></div><div class="item"><p class="nome-item">letra inclinada minúscula</p><ul><li><i>O que é:</i> uma quantidade que varia.</li><li><i>Exemplo:</i> <span class="expr"><i>v</i>, <i>t</i></span></li><li><i>Lê-se:</i> vê, tê.</li></ul></div><div class="item"><p class="nome-item">índice embaixo</p><ul><li><i>O que é:</i> em qual instante, ou em qual posição.</li><li><i>Exemplo:</i> <span class="expr"><i>s</i><sub><i>t</i></sub></span></li><li><i>Lê-se:</i> ésse no instante tê.</li></ul></div><div class="item"><p class="nome-item">número pequeno em cima</p><ul><li><i>O que é:</i> quantas vezes multiplicar o número por ele mesmo.</li><li><i>Exemplo:</i> <span class="expr">2<sup>8</sup></span></li><li><i>Lê-se:</i> dois elevado a oito.</li></ul></div><div class="item"><p class="nome-item"><span class="nome">mod</span></p><ul><li><i>O que é:</i> o resto da divisão por.</li><li><i>Exemplo:</i> <span class="expr">(79 + 1) <span class="nome">mod</span> 256</span></li><li><i>Lê-se:</i> setenta e nove mais um, módulo duzentos e cinquenta e seis.</li></ul></div><div class="item"><p class="nome-item">seta entre dois conjuntos</p><ul><li><i>O que é:</i> uma regra que leva cada coisa da esquerda numa coisa da direita.</li><li><i>Exemplo:</i> <span class="expr">sinais → significados</span></li><li><i>Lê-se:</i> leva sinais em significados.</li></ul></div><div class="item"><p class="nome-item">número em hexadecimal</p><ul><li><i>O que é:</i> um número escrito com os algarismos de 0 a 9 e as letras de A a F, que valem de 10 a 15.</li><li><i>Exemplo:</i> <span class="expr">4F</span></li><li><i>Lê-se:</i> quatro-efe, que vale setenta e nove.</li></ul></div></div>
   <p class="corpo">Nenhum sinal aparece antes de estar nesta folha. Em cada degrau, as palavras novas vêm explicadas antes de aparecerem. Onde o símbolo é mais curto que a frase, a frase vence.</p>
 </section>
 <section class="degrau" id="d0" data-nome="A frase já é um código">
@@ -488,13 +483,7 @@ details.prova .fonte{font-size:.8rem;color:var(--muted)}
 <section class="degrau" id="d10" data-nome="O laço">
   <header><p class="regime">fecho</p><h2>Em cada degrau, uma coisa se conserva e uma se esquece</h2></header>
   <p class="tese">A matemática se refere ao mundo por aquilo que se conserva. Cada camada é uma promessa: “pode esquecer o resto, isto eu garanto”.</p>
-  <figure class="fig">
-    <div class="tabela"><table>
-      <tr><th>degrau</th><th>conserva</th><th>esquece</th></tr>
-      <tr><td>0 código</td><td>a mensagem</td><td>o meio</td></tr><tr><td>½ tecla → número</td><td>o código da letra</td><td>a chave, o dedo</td></tr><tr><td>1 letra → número</td><td>qual letra é</td><td>forma e som</td></tr><tr><td>2 número → bits</td><td>o número exato</td><td>a base dez</td></tr><tr><td>2½ o á</td><td>a letra e as 128 antigas</td><td>“um byte, uma letra”</td></tr><tr><td>3 bit → corrente</td><td>0 e 1</td><td>a física</td></tr><tr><td>4 conta e lembrança</td><td>a aritmética</td><td>os relés</td></tr><tr><td>5 endereço</td><td>a ordem das letras</td><td>o tempo</td></tr><tr><td>6 número → ordem</td><td>a matéria comum</td><td>“o que fazer” e “sobre o quê”</td></tr><tr><td>7 palavras → ordens</td><td>o significado</td><td>as palavras</td></tr><tr><td>8 ordem → luz</td><td>a forma reconhecível</td><td>o número</td></tr>
-    </table></div>
-    <div class="origem"></div>
-  </figure>
+  <div class="palavras"><p class="rot">degrau a degrau</p><div class="item"><p class="nome-item">0 código</p><ul><li><i>Conserva:</i> a mensagem.</li><li><i>Esquece:</i> o meio.</li></ul></div><div class="item"><p class="nome-item">½ tecla → número</p><ul><li><i>Conserva:</i> o código da letra.</li><li><i>Esquece:</i> a chave, o dedo.</li></ul></div><div class="item"><p class="nome-item">1 letra → número</p><ul><li><i>Conserva:</i> qual letra é.</li><li><i>Esquece:</i> forma e som.</li></ul></div><div class="item"><p class="nome-item">2 número → bits</p><ul><li><i>Conserva:</i> o número exato.</li><li><i>Esquece:</i> a base dez.</li></ul></div><div class="item"><p class="nome-item">2½ o á</p><ul><li><i>Conserva:</i> a letra e as 128 antigas.</li><li><i>Esquece:</i> “um byte, uma letra”.</li></ul></div><div class="item"><p class="nome-item">3 bit → corrente</p><ul><li><i>Conserva:</i> 0 e 1.</li><li><i>Esquece:</i> a física.</li></ul></div><div class="item"><p class="nome-item">4 conta e lembrança</p><ul><li><i>Conserva:</i> a aritmética.</li><li><i>Esquece:</i> os relés.</li></ul></div><div class="item"><p class="nome-item">5 endereço</p><ul><li><i>Conserva:</i> a ordem das letras.</li><li><i>Esquece:</i> o tempo.</li></ul></div><div class="item"><p class="nome-item">6 número → ordem</p><ul><li><i>Conserva:</i> a matéria comum.</li><li><i>Esquece:</i> “o que fazer” e “sobre o quê”.</li></ul></div><div class="item"><p class="nome-item">7 palavras → ordens</p><ul><li><i>Conserva:</i> o significado.</li><li><i>Esquece:</i> as palavras.</li></ul></div><div class="item"><p class="nome-item">8 ordem → luz</p><ul><li><i>Conserva:</i> a forma reconhecível.</li><li><i>Esquece:</i> o número.</li></ul></div></div>
   <p class="corpo">A escada inteira é a cadeia dessas promessas, e a execução é o que sobra quando todas foram cumpridas.</p>
 </section>
 </div>

@@ -42,8 +42,8 @@ p{margin:0}
 .frase{font-family:var(--it-serif);font-style:italic;font-size:1.08em}
 
 /* trilha do personagem */
-.trilha{display:flex;gap:0;align-items:stretch;overflow-x:auto;padding:.6rem .4rem;background:var(--card);border:1px solid var(--linha);scrollbar-width:thin}
-.trilha .est{flex:1 0 auto;min-width:3.6rem;display:grid;grid-template-rows:auto auto;justify-items:center;gap:.25rem;padding:.2rem .35rem;position:relative;opacity:.35;transition:opacity .2s}
+.trilha{display:flex;flex-wrap:wrap;gap:.2rem 0;align-items:stretch;padding:.5rem .4rem;background:var(--card);border:1px solid var(--linha)}
+.trilha .est{flex:1 0 auto;min-width:3.4rem;display:grid;grid-template-rows:auto auto;justify-items:center;gap:.25rem;padding:.2rem .35rem;position:relative;opacity:.35;transition:opacity .2s}
 .trilha .est + .est::before{content:"";position:absolute;left:-.3rem;top:1.05rem;width:.6rem;height:1px;background:var(--linha)}
 .trilha .est .tok{font-family:var(--it-mono);font-size:.9rem;line-height:1;color:var(--ink);height:1.3rem;display:flex;align-items:center}
 .trilha .est .tok.serif{font-family:var(--it-serif);font-style:italic;font-size:1.25rem}
@@ -146,3 +146,4 @@ table.simbolos .expr{font-size:1.05rem}
 .item ul{margin:.15rem 0 0;padding-left:1.2em;font-size:.95rem;line-height:1.55;color:var(--ink2)}
 .item ul li{margin:.1rem 0} .item i{font-style:normal;color:var(--muted);font-size:.78rem;letter-spacing:.04em}
 details.prova .fonte{font-size:.8rem;color:var(--muted)}
+.item .expr{font-family:var(--it-serif);font-size:1.05rem;color:var(--ink)}
