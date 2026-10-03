@@ -60,7 +60,13 @@ def main():
     for asm in sorted(glob.glob(os.path.join(AQUI, "maquina", "programas", "*.asm"))):
         fonte = open(asm, encoding="utf-8").read()
         m = maquina.Maquina(montar.binario(montar.montar(fonte)[0]), traco=True)
-        m.rodar(100_000)
+        rp = asm[:-4] + ".roteiro.json"
+        maximo = 100_000
+        if os.path.exists(rp):
+            for n, c in json.load(open(rp, encoding="utf-8")):
+                m.roteiro[n] = c
+            maximo = 400
+        m.rodar(maximo)
         tj = os.path.join(AQUI, "__pycache__", "traco.json")
         with open(tj, "w", encoding="utf-8") as f:
             json.dump(m.traco, f)
@@ -82,11 +88,11 @@ def main():
         falhas += 1
     else:
         h = open(pagina, encoding="utf-8").read()
-        for ref in ("../maquina/montar.js", "../maquina/maquina.js", "../placa.js", 'id="asm"'):
+        for ref in ("../maquina/montar.js", "../maquina/maquina.js", "../placa.js", 'data-programa="ola-mundo"', 'data-programa="eco"'):
             if ref not in h:
                 print(f"REPROVADO: pt/placa.html não referencia {ref}")
                 falhas += 1
-        print("pt/placa.html: referencia os três roteiros e carrega o programa (ok)")
+        print("pt/placa.html: referencia os três roteiros e carrega os dois programas (ok)")
     if falhas:
         print(f"REPROVADO: {falhas} falha(s)")
         return 1

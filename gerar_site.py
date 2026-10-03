@@ -33,14 +33,21 @@ import montar         # noqa: E402
 import maquina        # noqa: E402
 
 
-def traco_ola_mundo():
-    fonte = open(os.path.join(AQUI, "maquina", "programas", "ola-mundo.asm"), encoding="utf-8").read()
+def traco_de(programa):
+    """O traço do programa, com o roteiro de teclas ao lado dele, se houver."""
+    base = os.path.join(AQUI, "maquina", "programas", programa)
+    fonte = open(base + ".asm", encoding="utf-8").read()
     m = maquina.Maquina(montar.binario(montar.montar(fonte)[0]), traco=True)
-    m.rodar(100_000)
+    maximo = 100_000
+    if os.path.exists(base + ".roteiro.json"):
+        for n, c in json.load(open(base + ".roteiro.json", encoding="utf-8")):
+            m.roteiro[n] = c
+        maximo = 400
+    m.rodar(maximo)
     return m.traco
 
 
-TRACO = traco_ola_mundo()
+TRACOS = {"ola-mundo": traco_de("ola-mundo"), "eco": traco_de("eco")}
 
 TESE_MAX, CORPO_MAX, LESE_MAX = 25, 60, 32
 SELOS = {
@@ -91,9 +98,12 @@ def conferir(d):
     pl = d.get("placa")
     if not pl:
         abortar(f"{d['id']}: sem ciclo na placa (placa=dict(ciclo, diz, espera))")
-    if not 1 <= pl["ciclo"] <= len(TRACO):
-        abortar(f"{d['id']}: ciclo {pl['ciclo']} não existe no traço ({len(TRACO)} ciclos)")
-    reg = TRACO[pl["ciclo"] - 1]
+    traco = TRACOS.get(pl.get("programa", "ola-mundo"))
+    if traco is None:
+        abortar(f"{d['id']}: programa '{pl.get('programa')}' não existe")
+    if not 1 <= pl["ciclo"] <= len(traco):
+        abortar(f"{d['id']}: ciclo {pl['ciclo']} não existe no traço ({len(traco)} ciclos)")
+    reg = traco[pl["ciclo"] - 1]
     for chave, valor in pl["espera"].items():
         if chave == "nota_comeca":
             ok = reg["nota"].startswith(valor)
@@ -169,7 +179,7 @@ def degrau(d):
     <div class="origem">{origem}</div>
   </figure>
   <p class="corpo">{d['corpo']}</p>
-  <p class="verplaca"><a href="placa.html#c{d['placa']['ciclo']}">ver na placa →</a> <span>ciclo {d['placa']['ciclo']}: {d['placa']['diz']}</span></p>
+  <p class="verplaca"><a href="placa.html#{d['placa'].get('programa', 'ola-mundo')}-c{d['placa']['ciclo']}">ver na placa →</a> <span>{d['placa'].get('programa', 'ola-mundo')}, ciclo {d['placa']['ciclo']}: {d['placa']['diz']}</span></p>
   {matematica(d)}
   {prova(d)}
 </section>"""

@@ -31,6 +31,7 @@
     this.instrucoes = 0;
     this.traco = traco ? [] : null;
     this.tecla = 0;
+    this.roteiro = {};               // {número da instrução: código da tecla}
   }
 
   Maquina.prototype.ler = function (end) {
@@ -92,6 +93,7 @@
   Maquina.prototype.passo = function () {
     if (this.parada) return false;
     this.instrucoes += 1;
+    if (Object.prototype.hasOwnProperty.call(this.roteiro, this.instrucoes)) this.apertar(this.roteiro[this.instrucoes]);
     var op = this.buscar(0);
     var ddd = (op >> 3) & 7, sss = op & 7, v, b, r, f, lo, hi, end, antes, alvo, cond;
 
@@ -233,7 +235,9 @@
       var args = process.argv.slice(2);
       var imagem = new Uint8Array(fs.readFileSync(args[0]));
       var m = new Maquina(imagem, true);
-      m.rodar();
+      var im = args.indexOf("--max"), ir = args.indexOf("--roteiro");
+      if (ir >= 0) JSON.parse(fs.readFileSync(args[ir + 1], "utf8")).forEach(function (par) { m.roteiro[par[0]] = par[1]; });
+      m.rodar(im >= 0 ? parseInt(args[im + 1], 10) : 100000);
       if (args.indexOf("--json") >= 0) {
         process.stdout.write(JSON.stringify(m.estado()) + "\n");
       } else {

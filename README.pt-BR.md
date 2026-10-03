@@ -196,12 +196,12 @@ gerada da fonte, inglês derivado do português) e as mesmas duas fontes.
   Language of Computer Hardware and Software*, 2ª ed. (2022). Elas aparecem sob
   direito de citação, com capítulo, e pertencem ao autor. O livro **não está**
   neste repositório.
-- **Dez degraus, doze passagens**, cada uma com o original em inglês e a
+- **Onze degraus, quinze passagens**, cada uma com o original em inglês e a
   tradução do autor ao lado, para que a tradução também possa ser conferida.
-- **Cinco buracos declarados**, listados no fecho da página e em `A_LER`: o que
-  este mapa sabe que falta e ainda não abriu (como o 79 vira o desenho do "O";
-  como a tecla vira o número; a tabela ASCII em si; o acento num programa de
-  1978; da tela à web). Mapa que esconde o que falta mente sobre o próprio
+- **Quatro buracos declarados**, listados no fecho da página e em `A_LER`: o
+  que este mapa sabe que falta e ainda não abriu (como o 79 vira o desenho do
+  "O"; a tabela ASCII em si; o acento num programa de 1978; da tela à web). O
+  quinto, da tecla ao número, fechou com o eco. Mapa que esconde o que falta mente sobre o próprio
   tamanho.
 - **Dois degraus se apoiam no abstraction-ladder**, e dizem isso com um selo
   próprio. A aresta está lá, com a citação lida e o instrumento.
@@ -227,7 +227,9 @@ gerada da fonte, inglês derivado do português) e as mesmas duas fontes.
   JavaScript, com os dois traços idênticos ciclo a ciclo, e a placa em planta
   (`pt/placa.html`) toca o traço do Olá, Mundo! ciclo a ciclo; cada degrau
   tem o botão "ver na placa", que abre o ciclo que o mostra, e cada módulo da
-  placa abre o degrau que o explica; falta o medidor de limiar num fio;
+  placa abre o degrau que o explica; o eco está pronto e conferido, e na
+  placa dá para digitar e ver cada tecla ir da gaveta 8200h à tela; falta o
+  medidor de limiar num fio;
 - os cinco buracos declarados.
 
 ## Licença

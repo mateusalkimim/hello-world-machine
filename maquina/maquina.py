@@ -14,8 +14,11 @@ ciclo (PC no barramento de endereços; RAM no barramento de dados; byte salvo no
 Instruction Latch; PC incrementado), e a execução gasta um ou dois ciclos
 conforme a instrução.
 
-Uso:  python3 maquina.py programa.bin [--traco] [--json]
-      --json imprime o estado final e o traço em JSON (para a conferência de equivalência)
+Uso:  python3 maquina.py programa.bin [--traco] [--json] [--max N] [--roteiro teclas.json]
+      --json     imprime o estado final e o traço em JSON (para a conferência de equivalência)
+      --max N    para depois de N instruções (programas que não param, como o eco)
+      --roteiro  teclas apertadas de fora: [[instrução, código], …] — antes da instrução
+                 de número dado, o código entra na gaveta do teclado
 """
 import json
 import sys
@@ -41,6 +44,7 @@ class Maquina:
         self.instrucoes = 0
         self.traco = [] if traco else None
         self.tecla = 0
+        self.roteiro = {}             # {número da instrução: código da tecla}
 
     # --- a memória, com os dois periféricos mapeados -----------------------
     def ler(self, end):
@@ -114,6 +118,8 @@ class Maquina:
         if self.parada:
             return False
         self.instrucoes += 1
+        if self.instrucoes in self.roteiro:
+            self.apertar(self.roteiro[self.instrucoes])
         op = self.buscar(0)
         ddd, sss = (op >> 3) & 7, op & 7
 
@@ -251,7 +257,11 @@ def main():
         return 2
     imagem = open(sys.argv[1], "rb").read()
     m = Maquina(imagem, traco=("--traco" in sys.argv) or ("--json" in sys.argv))
-    n = m.rodar()
+    maximo = int(sys.argv[sys.argv.index("--max") + 1]) if "--max" in sys.argv else 100_000
+    if "--roteiro" in sys.argv:
+        for n_inst, codigo in json.load(open(sys.argv[sys.argv.index("--roteiro") + 1], encoding="utf-8")):
+            m.roteiro[n_inst] = codigo
+    n = m.rodar(maximo)
     if "--json" in sys.argv:
         print(json.dumps(estado(m), ensure_ascii=False, sort_keys=True))
         return 0

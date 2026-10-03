@@ -4,6 +4,37 @@ RÓTULO dentro da figura (contiguidade), nunca como glossário ao lado. Cores po
 token do tema (var(--...)), nunca literal, para valer no claro e no escuro."""
 
 FIGURAS = {
+    "tecla_vira_numero": r"""<svg viewBox="0 0 520 150" role="img" aria-label="A tecla O fecha uma chave; a gaveta 8200h passa a valer 4F; o acumulador lê 4F">
+      <text x="20" y="14" font-family="Inter, sans-serif" font-size="11" fill="var(--bronze)" font-weight="600" letter-spacing="1">TECLA · uma chave que o dedo fecha · a gaveta 8200h guarda o código</text>
+      <g transform="translate(20,34)">
+        <rect x="0" y="0" width="70" height="70" rx="8" fill="var(--card)" stroke="var(--linha)"/>
+        <text x="35" y="46" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="34" fill="var(--ink)">O</text>
+        <text x="35" y="90" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="var(--muted)">a tecla</text>
+      </g>
+      <g transform="translate(120,54)">
+        <line x1="0" y1="24" x2="30" y2="24" stroke="var(--bit1)" stroke-width="2"/>
+        <circle cx="30" cy="24" r="3" fill="var(--bit1)"/>
+        <line x1="30" y1="24" x2="62" y2="24" stroke="var(--bit1)" stroke-width="2"/>
+        <circle cx="62" cy="24" r="3" fill="var(--bit1)"/>
+        <line x1="62" y1="24" x2="92" y2="24" stroke="var(--bit1)" stroke-width="2"/>
+        <text x="46" y="60" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="var(--muted)">chave fechada = corrente</text>
+      </g>
+      <g transform="translate(236,34)">
+        <rect x="0" y="0" width="110" height="46" fill="var(--card)" stroke="var(--bronze)"/>
+        <text x="55" y="20" text-anchor="middle" font-family="Spline Sans Mono, monospace" font-size="12" fill="var(--muted)">8200h</text>
+        <text x="55" y="38" text-anchor="middle" font-family="Spline Sans Mono, monospace" font-size="16" fill="var(--ink)">4F</text>
+        <text x="55" y="90" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="var(--muted)">a gaveta do teclado</text>
+      </g>
+      <g transform="translate(360,57)"><line x1="0" y1="0" x2="40" y2="0" stroke="var(--bronze)" stroke-width="2"/><path d="M 36 -4 L 44 0 L 36 4 Z" fill="var(--bronze)"/><text x="22" y="-8" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="var(--muted)">LDA 8200h</text></g>
+      <g transform="translate(412,34)">
+        <rect x="0" y="0" width="90" height="46" fill="var(--card)" stroke="var(--linha)"/>
+        <text x="45" y="20" text-anchor="middle" font-family="Spline Sans Mono, monospace" font-size="12" fill="var(--muted)">A</text>
+        <text x="45" y="38" text-anchor="middle" font-family="Spline Sans Mono, monospace" font-size="16" fill="var(--ink)">4F</text>
+        <text x="45" y="90" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="var(--muted)">o acumulador</text>
+      </g>
+      <text x="260" y="140" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="var(--muted)">79 é o O; 0 é “ninguém apertou”. O programa pergunta à gaveta o tempo todo: polling.</text>
+    </svg>""",
+
     "tres_meios": r"""<svg viewBox="0 0 520 130" role="img" aria-label="A mesma frase em três meios: voz, papel, lanterna">
       <g font-family="Inter, sans-serif" font-size="11" fill="var(--bronze)" font-weight="600" letter-spacing="1">
         <text x="20" y="18">CÓDIGO 1 · VOZ</text><text x="200" y="18">CÓDIGO 2 · PAPEL</text><text x="372" y="18">CÓDIGO 3 · LANTERNA</text>

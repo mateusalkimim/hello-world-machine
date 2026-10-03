@@ -59,14 +59,42 @@
   // --- o tocador --------------------------------------------------------------
   var HWM = raiz.HWM, MONTAR = raiz.HWM_MONTAR;
   var canvas = document.getElementById("placa"), ctx = canvas.getContext("2d");
-  var asm = document.getElementById("asm").textContent;
-  var montado = MONTAR.montar(asm);
-  var imagem = MONTAR.binario(montado.saida);
-  var maquina = new HWM.Maquina(imagem, true);
-  maquina.rodar(100000);
-  var traco = maquina.traco, N = traco.length;
-  var porEndereco = {};
-  montado.listagem.forEach(function (l, i) { porEndereco[l[0]] = i; });
+
+  // os programas embutidos na página: <script type="text/plain" data-programa="…">
+  var PROGRAMAS = {};
+  [].forEach.call(document.querySelectorAll('script[type="text/plain"][data-programa]'), function (el) {
+    PROGRAMAS[el.getAttribute("data-programa")] = {
+      asm: el.textContent,
+      roteiro: el.getAttribute("data-roteiro") ? JSON.parse(el.getAttribute("data-roteiro")) : [],
+      max: el.getAttribute("data-max") ? parseInt(el.getAttribute("data-max"), 10) : 100000
+    };
+  });
+  var programa = "ola-mundo", montado, imagem, maquina, traco, N, porEndereco;
+
+  function carregar(nome) {
+    var prog = PROGRAMAS[nome]; programa = nome;
+    montado = MONTAR.montar(prog.asm);
+    imagem = MONTAR.binario(montado.saida);
+    maquina = new HWM.Maquina(imagem, true);
+    prog.roteiro.forEach(function (par) { maquina.roteiro[par[0]] = par[1]; });
+    maquina.rodar(prog.max);
+    traco = maquina.traco; N = traco.length;
+    porEndereco = {};
+    montado.listagem.forEach(function (l, i) { porEndereco[l[0]] = i; });
+    var ul = document.getElementById("listagem"); ul.innerHTML = "";
+    montado.listagem.forEach(function (l) {
+      var li = document.createElement("li");
+      li.innerHTML = '<span class="end">' + hex(l[0], 4) + '</span><span class="bytes">' +
+        l[1].map(function (b) { return hex(b, 2); }).join(" ") + '</span><span class="txt"></span>';
+      li.querySelector(".txt").textContent = l[2];
+      ul.appendChild(li);
+    });
+    document.getElementById("barra").max = N - 1;
+    document.getElementById("teclado").hidden = !(nome === "eco" && !maquina.parada);
+    document.getElementById("resumo").textContent = maquina.instrucoes + " instruções, " + N + " ciclos, " +
+      (maquina.parada ? "a máquina parou em HLT" : "a máquina está à espera do teclado") +
+      " · a tela diz “" + maquina.tela().map(function (l) { return l.replace(/·+$/, ""); }).filter(Boolean).join(" / ") + "”";
+  }
 
   var k = 0, p = 1, tocando = false, marcha = 1, ultimoT = 0, soTela = false;
   var MARCHAS = { 1: 1000, 4: 250, 20: 50 };
@@ -262,19 +290,9 @@
     desenhar();   // a escala lógica (canvas.width / LARG) já inclui o dpr
   }
 
-  // listagem
-  var ul = document.getElementById("listagem");
-  montado.listagem.forEach(function (l) {
-    var li = document.createElement("li");
-    li.innerHTML = '<span class="end">' + hex(l[0], 4) + '</span><span class="bytes">' +
-      l[1].map(function (b) { return hex(b, 2); }).join(" ") + '</span><span class="txt"></span>';
-    li.querySelector(".txt").textContent = l[2];
-    ul.appendChild(li);
-  });
   document.getElementById("ant").addEventListener("click", function () { tocando = false; ir(proximoVisivel(-1)); });
   document.getElementById("prox").addEventListener("click", function () { tocando = false; ir(proximoVisivel(1)); });
   document.getElementById("tocar").addEventListener("click", tocar);
-  document.getElementById("barra").max = N - 1;
   document.getElementById("barra").addEventListener("input", function (e) { tocando = false; document.getElementById("tocar").textContent = "tocar"; ir(+e.target.value); });
   document.getElementById("marcha").addEventListener("change", function (e) { marcha = +e.target.value; });
   document.getElementById("sotela").addEventListener("change", function (e) { soTela = e.target.checked; });
@@ -294,11 +312,44 @@
   }
   canvas.addEventListener("click", function (ev) { var id = moduloEm(ev); if (id) location.href = "index.html#" + DEGRAU_DO_MODULO[id]; });
   canvas.addEventListener("mousemove", function (ev) { canvas.style.cursor = moduloEm(ev) ? "pointer" : "default"; });
+  // o seletor de programa
+  var sel = document.getElementById("programa");
+  Object.keys(PROGRAMAS).forEach(function (nome) { var o = document.createElement("option"); o.value = nome; o.textContent = nome === "ola-mundo" ? "Olá, Mundo!" : nome; sel.appendChild(o); });
+  sel.addEventListener("change", function () { tocando = false; carregar(sel.value); ir(0); });
+
+  // o teclado ao vivo (eco): cada tecla entra na gaveta 8200h; a máquina corre
+  // até consumi-la, e a placa toca só a última jogada: teclado → A → tela
+  document.getElementById("teclado").addEventListener("keydown", function (e) {
+    if (e.key.length !== 1) return;
+    var codigo = e.key.charCodeAt(0);
+    if (codigo > 255 || maquina.parada || maquina.tecla) { e.preventDefault(); return; }
+    e.preventDefault();
+    maquina.apertar(codigo);
+    var guarda = 0;
+    while (maquina.tecla && !maquina.parada && guarda++ < 300) maquina.passo();
+    N = traco.length; document.getElementById("barra").max = N - 1;
+    var inicio = N - 1, i;
+    for (i = N - 1; i >= 0; i--) if (traco[i].dado_de === "teclado" && traco[i].dado) { inicio = i; break; }
+    document.getElementById("resumo").textContent = maquina.instrucoes + " instruções, " + N + " ciclos · a tela diz “" +
+      maquina.tela().map(function (l) { return l.replace(/·+$/, ""); }).filter(Boolean).join(" / ") + "”";
+    k = inicio; p = 0; tocando = true; ultimoT = 0;
+    document.getElementById("tocar").textContent = "pausar";
+    requestAnimationFrame(quadro);
+  });
+
+  // #programa-cN abre o programa no ciclo N (o botão "ver na placa" chega por aqui)
+  var mh = /^#(?:([a-z-]+)-)?c(\d+)$/.exec(location.hash || "");
+  var nomeInicial = (mh && mh[1] && PROGRAMAS[mh[1]]) ? mh[1] : "ola-mundo";
+  sel.value = nomeInicial;
+  carregar(nomeInicial);
   redimensionar();
-  // #cN abre no ciclo N (o botão "ver na placa" de cada degrau chega por aqui)
-  var mh = /^#c(\d+)$/.exec(location.hash || "");
-  if (mh) ir(+mh[1] - 1);
-  var ultimoCiclo = traco[N - 1];
-  document.getElementById("resumo").textContent = maquina.instrucoes + " instruções, " + N + " ciclos, " +
-    (maquina.parada ? "a máquina parou em HLT" : "a máquina não parou") + " · a tela diz “" + maquina.tela()[0].replace(/·+$/, "") + "”";
+  if (mh) ir(+mh[2] - 1);
+  window.addEventListener("hashchange", function () {
+    var h = /^#(?:([a-z-]+)-)?c(\d+)$/.exec(location.hash || "");
+    if (!h) return;
+    var nome = (h[1] && PROGRAMAS[h[1]]) ? h[1] : "ola-mundo";
+    tocando = false;
+    if (nome !== programa) { sel.value = nome; carregar(nome); }
+    ir(+h[2] - 1);
+  });
 })(typeof window !== "undefined" ? window : this);

@@ -13,6 +13,7 @@ O que ela prova:
 
 Roda:  python3 conferir_maquina.py
 """
+import json
 import os
 import sys
 
@@ -99,6 +100,38 @@ def main():
         falhas += 1
     except montar.ErroDeMontagem as e:
         print(f"montador recusa o que a máquina não tem: {e} (ok)")
+
+    # 6. o eco: três teclas de roteiro viram "Olá" na linha 1; cada tecla faz
+    #    teclado → A → RAM[HL], e a gaveta é zerada depois de cada uma
+    fonte_eco = open(os.path.join(AQUI, "programas", "eco.asm"), encoding="utf-8").read()
+    img_eco = montar.binario(montar.montar(fonte_eco)[0])
+    roteiro = json.load(open(os.path.join(AQUI, "programas", "eco.roteiro.json"), encoding="utf-8"))
+    e = maquina.Maquina(img_eco, traco=True)
+    for n, c in roteiro:
+        e.roteiro[n] = c
+    e.rodar(max_instrucoes=400)
+    linha1 = e.tela()[1].rstrip("·")
+    lidas = [t for t in e.traco if t["dado_de"] == "teclado" and t["dado"]]
+    escritas = [t for t in e.traco if t["dado_para"] == "RAM" and maquina.VIDEO_INICIO <= t["endereco"] < maquina.VIDEO_FIM]
+    if linha1 != "Olá" or e.parada:
+        print(f"REPROVADO: o eco mostra '{linha1}' (parada={e.parada})")
+        falhas += 1
+    elif [t["dado"] for t in lidas] != [79, 108, 225] or [(t["endereco"], t["dado"]) for t in escritas] != [(0x800C, 79), (0x800D, 108), (0x800E, 225)]:
+        print("REPROVADO: o caminho teclado → A → tela do eco não é o esperado")
+        falhas += 1
+    else:
+        print(f"eco: 'Olá' na linha 1 em {e.instrucoes} instruções; 3 leituras do teclado, 3 escritas na tela, gaveta zerada após cada tecla (ok)")
+    # controle negativo do eco: JZ virado em JMP nunca chega à escrita
+    q = bytearray(img_eco); q[q.index(0xCA)] = 0xC3
+    e2 = maquina.Maquina(bytes(q), traco=False)
+    for n, c in roteiro:
+        e2.roteiro[n] = c
+    e2.rodar(max_instrucoes=400)
+    if e2.tela()[1].rstrip("·") == "Olá":
+        print("REPROVADO: o eco quebrado também ecoou")
+        falhas += 1
+    else:
+        print(f"controle negativo do eco: JZ→JMP dá '{e2.tela()[1].rstrip('·')}' (acusado, ok)")
 
     if falhas:
         print(f"REPROVADO: {falhas} falha(s)")

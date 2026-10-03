@@ -42,17 +42,33 @@ def js(script, *args):
     return r.stdout
 
 
-def estado_py(imagem):
+def estado_py(imagem, roteiro=None, maximo=100_000):
     m = maquina.Maquina(imagem, traco=True)
-    m.rodar(max_instrucoes=100_000)
+    for n, c in (roteiro or []):
+        m.roteiro[n] = c
+    m.rodar(max_instrucoes=maximo)
     return json.loads(json.dumps(maquina.estado(m), sort_keys=True))
 
 
-def estado_js(imagem, tmp):
+def estado_js(imagem, tmp, roteiro=None, maximo=100_000):
     p = os.path.join(tmp, "prog.bin")
     with open(p, "wb") as f:
         f.write(imagem)
-    return json.loads(js("maquina.js", p, "--json"))
+    args = [p, "--json", "--max", str(maximo)]
+    if roteiro:
+        rp = os.path.join(tmp, "roteiro.json")
+        with open(rp, "w", encoding="utf-8") as f:
+            json.dump(roteiro, f)
+        args += ["--roteiro", rp]
+    return json.loads(js("maquina.js", *args))
+
+
+def roteiro_de(asm):
+    """O roteiro de teclas ao lado do programa, se houver; e o máximo de instruções."""
+    rp = asm[:-4] + ".roteiro.json"
+    if os.path.exists(rp):
+        return json.load(open(rp, encoding="utf-8")), 400
+    return None, 100_000
 
 
 def diferencas(a, b, caminho=""):
@@ -94,14 +110,15 @@ def main():
                 falhas += 1
                 continue
             # 2. máquinas, programa íntegro e programa quebrado
+            roteiro, maximo = roteiro_de(asm)
             for rotulo, imagem in (("íntegro", py_bytes), ("quebrado", py_bytes[:6] + b"\x2b" + py_bytes[7:])):
-                d = diferencas(estado_py(imagem), estado_js(imagem, tmp))
+                e = estado_py(imagem, roteiro, maximo)
+                d = diferencas(e, estado_js(imagem, tmp, roteiro, maximo))
                 if d:
                     print(f"REPROVADO {nome} ({rotulo}): {len(d)} diferença(s), a primeira: {d[0]}")
                     falhas += 1
                 else:
-                    e = estado_py(imagem)
-                    print(f"{nome} ({rotulo}): {len(py_bytes)} bytes, {e['ciclos']} ciclos, traço idêntico em Python e JavaScript (ok)")
+                    print(f"{nome} ({rotulo}): {len(py_bytes)} bytes, {e['ciclos']} ciclos{' com teclas de roteiro' if roteiro else ''}, traço idêntico em Python e JavaScript (ok)")
         # 3. recusas
         try:
             montar.montar("        CALL 0005h\n")
@@ -117,7 +134,7 @@ def main():
         else:
             print("os dois montadores recusam CALL (ok)")
         # 4. controle negativo do comparador
-        base = estado_py(py_bytes)
+        base = estado_py(montar.binario(montar.montar(open(programas[-1], encoding="utf-8").read())[0]))
         alterado = json.loads(json.dumps(base))
         alterado["traco"][8]["dado"] = 0x50          # a letra O vira P num único ciclo
         d = diferencas(base, alterado)

@@ -15,7 +15,18 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 
 def main():
     css = open(os.path.join(AQUI, "pele.css"), encoding="utf-8").read()
-    asm = open(os.path.join(AQUI, "maquina", "programas", "ola-mundo.asm"), encoding="utf-8").read()
+    import json
+    pasta = os.path.join(AQUI, "maquina", "programas")
+    programas = []
+    for nome in ("ola-mundo", "eco"):
+        asm = open(os.path.join(pasta, nome + ".asm"), encoding="utf-8").read().replace("</script", "<\\/script")
+        attrs = f'data-programa="{nome}"'
+        rp = os.path.join(pasta, nome + ".roteiro.json")
+        if os.path.exists(rp):
+            roteiro = json.load(open(rp, encoding="utf-8"))
+            attrs += f" data-roteiro='{json.dumps(roteiro)}' data-max=\"400\""
+        programas.append(f'<script type="text/plain" {attrs}>{asm}</script>')
+    blocos_programas = "\n".join(programas)
     extra = """
 .placa-wrap{display:grid;gap:1rem}
 .quadro{background:var(--card);border:1px solid var(--linha);padding:.6rem;min-width:0;overflow-x:auto}
@@ -27,6 +38,7 @@ canvas#placa{display:block;height:auto}
 .controles input[type=range]{flex:1 1 12rem;min-width:8rem}
 .controles select{font:inherit;font-size:.85rem;color:var(--ink);background:var(--card);border:1px solid var(--linha);border-radius:3px;padding:.35rem}
 .controles label{font-size:.82rem;color:var(--ink2);display:flex;gap:.35rem;align-items:center}
+.controles input#teclado{font:inherit;font-size:.9rem;color:var(--ink);background:var(--card);border:1px solid var(--bronze);border-radius:3px;padding:.45rem .7rem;flex:1 1 16rem;min-width:10rem}
 .estado{display:grid;gap:.25rem;font-size:.9rem;color:var(--ink2)}
 .estado #pos{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bronze);font-weight:600}
 .estado #nota{font-family:var(--it-serif);font-size:1.1rem;color:var(--ink)}
@@ -59,7 +71,7 @@ ol#listagem li.atual{background:var(--card);color:var(--ink);box-shadow:inset 3p
   <div><p class="eyebrow">hello-world-machine · instrumento</p><h1>Olá, Mundo! na placa</h1></div>
   <p class="nota"><a href="index.html">← os degraus</a> · ← → anda um ciclo · espaço toca e pausa · clicar num módulo abre o degrau que o explica</p>
 </div>
-<p class="tese">A máquina já rodou o programa inteiro. O que você toca é o traço: em cada ciclo, a origem acende, o barramento mostra o padrão, o destino recebe. Nada anda. O padrão se copia.</p>
+<p class="tese">A máquina já rodou o programa. O que você toca é o traço: em cada ciclo, a origem acende, o barramento mostra o padrão, o destino recebe. Nada anda. O padrão se copia. No eco, cada tecla sua entra na gaveta 8200h e a placa mostra o caminho dela até a tela.</p>
 <div class="placa-wrap">
   <div class="quadro"><canvas id="placa" width="1000" height="600" aria-label="A placa em planta: dois barramentos, os módulos entre eles, e a tela"></canvas></div>
   <div class="controles">
@@ -69,6 +81,8 @@ ol#listagem li.atual{background:var(--card);color:var(--ink);box-shadow:inset 3p
     <input id="barra" type="range" min="0" max="60" value="0" aria-label="ciclo">
     <select id="marcha" aria-label="marcha"><option value="1">1 ciclo por segundo</option><option value="4">4 por segundo</option><option value="20">20 por segundo</option></select>
     <label><input id="sotela" type="checkbox"> só as escritas na tela</label>
+    <label>programa <select id="programa" aria-label="programa"></select></label>
+    <input id="teclado" type="text" placeholder="digite aqui: cada tecla vira um byte" aria-label="teclado da máquina" autocomplete="off" hidden>
   </div>
   <div class="estado"><p id="pos"></p><p id="nota"></p><p id="resumo"></p></div>
   <p class="legenda"><span><i style="background:var(--azul)"></i>endereço</span><span><i style="background:var(--bronze)"></i>dado</span><span><i style="background:var(--bit1)"></i>bit 1</span><span><i style="background:var(--bit0);border:1px solid var(--linha)"></i>bit 0</span><span><i style="background:var(--linha)"></i>apagado</span></p>
@@ -86,7 +100,7 @@ ol#listagem li.atual{background:var(--card);color:var(--ink);box-shadow:inset 3p
 </div>
 <footer class="rodape"><p class="nota">Texto e figuras: CC BY-SA 4.0 · código: MIT · <a href="https://github.com/mateusalkimim/hello-world-machine">repositório</a></p></footer>
 </div>
-<script type="text/plain" id="asm">{asm.replace("</script", "<\\/script")}</script>
+{blocos_programas}
 <script src="../maquina/montar.js"></script>
 <script src="../maquina/maquina.js"></script>
 <script src="../placa.js"></script>

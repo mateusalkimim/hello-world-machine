@@ -51,6 +51,14 @@ segundo, quatro, vinte. Setas do teclado andam um ciclo; a barra esfrega. A
 velocidade da animação e a da máquina são controles separados: a máquina já
 rodou inteira antes de a placa começar, e o traço é o que se toca.
 
+## O modo ao vivo
+
+No eco, a máquina fica à espera do teclado. Cada tecla digitada entra na
+gaveta 8200h; a máquina corre até consumi-la, e o traço cresce com os ciclos
+dessa tecla. A placa então toca **só a última jogada**: da leitura da gaveta à
+escrita na tela. É o replay da pesquisa, no menor caso possível: o jogo roda,
+a placa reproduz.
+
 ## Código e mundo na mesma tela
 
 A listagem do programa fica ao lado da placa, com a instrução em curso

@@ -143,6 +143,18 @@ pelo caminho que o livro nomeia [F]:
 | 8000h … 8107h | **tela**: 22 linhas × 12 colunas, uma célula por byte, linha a linha | 264 | [S] |
 | 8200h | **teclado**: o código da última tecla; escrever ali zera | 1 | [S] |
 
+**O que a gaveta do teclado guarda [S], e o que o livro diz [F].** O capítulo
+25 lê o teclado por uma porta, `IN 25h`, e avisa que o código que chega é da
+**tecla**, não da letra: "It's tempting to assume that this code is the ASCII
+code for the key. But it's neither practical nor desirable to design hardware
+that figures out the ASCII code." Nesta máquina a gaveta 8200h entrega
+**o número da letra** (a mesma tabela de células), porque o navegador que
+hospeda a placa já fez a tradução. É uma simplificação declarada: o degrau
+"a tecla vira número" diz isso em nota. O programa consulta a gaveta o tempo
+todo, que é o que o livro chama de *polling* [F]: "One approach is for the
+program to check the keyboard very frequently. This approach is called
+polling."
+
 A célula (linha, coluna) mora em 8000h + 12·linha + coluna [D]. A tela tem
 esta forma por três razões [S]:
 
@@ -271,7 +283,11 @@ degrau; cada módulo da placa abre o degrau correspondente.
 
 **1. Olá, Mundo!** (acima): ROM → barramento → tela. Pronto e conferido.
 
-**2. Eco**: o que você digita aparece. Esboço, ainda não conferido:
+**2. Eco**: o que você digita aparece. Pronto e conferido em
+`maquina/programas/eco.asm`, com um roteiro de três teclas ao lado
+(`eco.roteiro.json`), que a conferência usa: a linha 1 da tela diz "Olá", cada
+tecla faz teclado → A → RAM[HL], e a gaveta é zerada depois de cada uma. Na
+placa, o modo ao vivo deixa você digitar, e toca só a última jogada:
 
 ```
         MVI H, 80h

@@ -30,6 +30,7 @@ FONTES = {
 TRILHA = [
     ("símbolos", '<span class="tok serif">lê-se</span>'),
     ("frase",    '<span class="tok serif">O</span>'),
+    ("tecla",    '<span class="tok">⌨ 79</span>'),
     ("número",   '<span class="tok">79</span>'),
     ("bits",     '<span class="tok">01001111</span>'),
     ("o á",      '<span class="tok">C3 A1</span>'),
@@ -74,6 +75,44 @@ DEGRAUS = [
         placa=dict(ciclo=1, diz='o primeiro ciclo: o PC põe 0000h no barramento e a RAM entrega o primeiro byte',
                    espera={'fase': 'busca', 'endereco': 0}),
         notas=[], derivado=None,
+    ),
+    dict(
+        id="d0b", numero="½", regime="tecla → número",
+        nome="A tecla vira número", titulo="A tecla vira número",
+        tese='Apertar a tecla O fecha uma chave. A máquina lê uma gaveta especial, '
+             '8200h, e encontra 79. A tecla virou número.',
+        corpo='O programa pergunta à gaveta o tempo todo e quase sempre encontra zero: '
+              'ninguém apertou. É o polling do livro. Quando encontra 79, copia para '
+              'a tela e zera a gaveta, pronto para a próxima tecla.',
+        figura="tecla_vira_numero", origem=["Petzold, cap. 25", "o código da tecla: decisão nossa, declarada"],
+        regua=None, selo="lida", fonte="petzold", ref="cap. 25 — Peripherals",
+        citacoes=[
+            ("The accumulator would then contain a code indicating what key has "
+             "been pressed.",
+             "O acumulador passaria então a conter um código indicando qual tecla "
+             "foi apertada."),
+            ("It's tempting to assume that this code is the ASCII code for the key. "
+             "But it's neither practical nor desirable to design hardware that "
+             "figures out the ASCII code.",
+             "É tentador supor que esse código é o código ASCII da tecla. Mas não é "
+             "prático nem desejável projetar hardware que descubra o código ASCII."),
+            ("One approach is for the program to check the keyboard very frequently. "
+             "This approach is called polling.",
+             "Uma abordagem é o programa consultar o teclado com muita frequência. "
+             "Isso se chama polling."),
+        ],
+        objeto="uma regra do tempo nos números: 0 enquanto solta, o código enquanto apertada",
+        matematica=[
+            ('<span class="nome">tecla</span>(<i>t</i>) = 79 enquanto o O está apertado, e 0 depois',
+             'tecla de tê é igual a setenta e nove enquanto o O está apertado, e zero depois'),
+        ],
+        placa=dict(programa="eco", ciclo=22, diz="a gaveta 8200h entrega 79 ao acumulador; dez ciclos depois o byte está na tela",
+                   espera=dict(dado_de="teclado", dado=0x4F)),
+        notas=["Nesta máquina a gaveta 8200h entrega direto o número da letra, porque o "
+               "navegador já fez a conta. Num teclado de verdade o código é da tecla, "
+               "não da letra, e um programa pequeno faz a tradução: o livro avisa. "
+               "Decisão nossa, declarada."],
+        derivado=None,
     ),
     dict(
         id="d1", numero="1", regime="letra → número",
@@ -380,6 +419,7 @@ FECHO = dict(
     origem=["régua: a tese “matemática como linguagem”"],
     linhas=[
         ("0 código", "a mensagem", "o meio", "cap. 1"),
+        ("½ tecla → número", "o código da letra", "a chave, o dedo", "cap. 25"),
         ("1 letra → número", "qual letra é", "forma e som", "cap. 13"),
         ("2 número → bits", "o número exato", "a base dez", "caps. 11, 12"),
         ("2½ o á", "a letra e as 128 antigas", "“um byte, uma letra”", "cap. 13"),
@@ -397,8 +437,6 @@ FECHO = dict(
 A_LER = [
     ("do 79 ao desenho do O", "fonte tipográfica e rasterização",
      "sem passagem no Petzold; outro livro, ou ofício do autor, datado"),
-    ("do teclado ao número", "Petzold cap. 25 — Peripherals",
-     "deve cobrir; não copiado ainda"),
     ("a tabela ASCII em si", "Petzold cap. 13",
      "está no capítulo e não foi copiada; os números do degrau 1 são derivados"),
     ("o á em 1978", "Petzold cap. 27",

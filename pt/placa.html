@@ -155,6 +155,7 @@ canvas#placa{display:block;height:auto}
 .controles input[type=range]{flex:1 1 12rem;min-width:8rem}
 .controles select{font:inherit;font-size:.85rem;color:var(--ink);background:var(--card);border:1px solid var(--linha);border-radius:3px;padding:.35rem}
 .controles label{font-size:.82rem;color:var(--ink2);display:flex;gap:.35rem;align-items:center}
+.controles input#teclado{font:inherit;font-size:.9rem;color:var(--ink);background:var(--card);border:1px solid var(--bronze);border-radius:3px;padding:.45rem .7rem;flex:1 1 16rem;min-width:10rem}
 .estado{display:grid;gap:.25rem;font-size:.9rem;color:var(--ink2)}
 .estado #pos{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bronze);font-weight:600}
 .estado #nota{font-family:var(--it-serif);font-size:1.1rem;color:var(--ink)}
@@ -176,7 +177,7 @@ ol#listagem li.atual{background:var(--card);color:var(--ink);box-shadow:inset 3p
   <div><p class="eyebrow">hello-world-machine · instrumento</p><h1>Olá, Mundo! na placa</h1></div>
   <p class="nota"><a href="index.html">← os degraus</a> · ← → anda um ciclo · espaço toca e pausa · clicar num módulo abre o degrau que o explica</p>
 </div>
-<p class="tese">A máquina já rodou o programa inteiro. O que você toca é o traço: em cada ciclo, a origem acende, o barramento mostra o padrão, o destino recebe. Nada anda. O padrão se copia.</p>
+<p class="tese">A máquina já rodou o programa. O que você toca é o traço: em cada ciclo, a origem acende, o barramento mostra o padrão, o destino recebe. Nada anda. O padrão se copia. No eco, cada tecla sua entra na gaveta 8200h e a placa mostra o caminho dela até a tela.</p>
 <div class="placa-wrap">
   <div class="quadro"><canvas id="placa" width="1000" height="600" aria-label="A placa em planta: dois barramentos, os módulos entre eles, e a tela"></canvas></div>
   <div class="controles">
@@ -186,6 +187,8 @@ ol#listagem li.atual{background:var(--card);color:var(--ink);box-shadow:inset 3p
     <input id="barra" type="range" min="0" max="60" value="0" aria-label="ciclo">
     <select id="marcha" aria-label="marcha"><option value="1">1 ciclo por segundo</option><option value="4">4 por segundo</option><option value="20">20 por segundo</option></select>
     <label><input id="sotela" type="checkbox"> só as escritas na tela</label>
+    <label>programa <select id="programa" aria-label="programa"></select></label>
+    <input id="teclado" type="text" placeholder="digite aqui: cada tecla vira um byte" aria-label="teclado da máquina" autocomplete="off" hidden>
   </div>
   <div class="estado"><p id="pos"></p><p id="nota"></p><p id="resumo"></p></div>
   <p class="legenda"><span><i style="background:var(--azul)"></i>endereço</span><span><i style="background:var(--bronze)"></i>dado</span><span><i style="background:var(--bit1)"></i>bit 1</span><span><i style="background:var(--bit0);border:1px solid var(--linha)"></i>bit 0</span><span><i style="background:var(--linha)"></i>apagado</span></p>
@@ -203,7 +206,7 @@ ol#listagem li.atual{background:var(--card);color:var(--ink);box-shadow:inset 3p
 </div>
 <footer class="rodape"><p class="nota">Texto e figuras: CC BY-SA 4.0 · código: MIT · <a href="https://github.com/mateusalkimim/hello-world-machine">repositório</a></p></footer>
 </div>
-<script type="text/plain" id="asm">; Olá, Mundo! — o primeiro programa desta máquina.
+<script type="text/plain" data-programa="ola-mundo">; Olá, Mundo! — o primeiro programa desta máquina.
 ;
 ; Escreve a frase na primeira linha da tela, uma letra por vez. Cada letra faz
 ; o mesmo caminho: sai do byte seguinte à instrução (Instruction Latch 2),
@@ -243,6 +246,32 @@ ol#listagem li.atual{background:var(--card);color:var(--ink);box-shadow:inset 3p
         MVI M, '!'          ; 21h
 
         HLT                 ; 76h: a máquina para, e a frase fica na tela
+</script>
+<script type="text/plain" data-programa="eco" data-roteiro='[[6, 79], [40, 108], [80, 225]]' data-max="400">; Eco — o que você digita aparece na tela.
+;
+; O primeiro laço desta máquina, e o primeiro caminho de ENTRADA: a tecla vira
+; número na gaveta 8200h, o número vai para o acumulador, e do acumulador para
+; a tela. O programa pergunta à gaveta o tempo todo e quase sempre encontra
+; zero (ninguém apertou): é o que o Petzold chama de polling, no cap. 25.
+; Quando encontra um código, copia para a célula que HL aponta, avança HL, e
+; zera a gaveta, para não ler a mesma tecla duas vezes.
+;
+; Não para nunca: a máquina fica à espera. Quem para é quem fecha a página.
+
+        ORG 0000h
+
+        MVI H, 80h          ; HL ← 800Ch: linha 1 da tela (a linha 0 é da faixa)
+        MVI L, 0Ch
+
+Espera: LDA 8200h           ; A ← a gaveta do teclado
+        CPI 00h             ; apertaram algo?
+        JZ Espera           ; não: pergunta de novo
+
+        MOV M, A            ; a tecla vira célula em [HL]
+        INX H               ; a próxima célula
+        MVI A, 00h
+        STA 8200h           ; zera a gaveta: a tecla foi consumida
+        JMP Espera
 </script>
 <script src="../maquina/montar.js"></script>
 <script src="../maquina/maquina.js"></script>
