@@ -1,6 +1,15 @@
 {
- "atualizado_em": "2026-10-03 16:10:04",
+ "atualizado_em": "2026-10-03 16:52:15",
  "blocos": {
+  "018db08f07": {
+   "decisao": "atualização de estado de 2026-10-03, escrita à mão",
+   "en": "1. Open the chapter in the source and find the passage where the author says what this layer does with the number;\n2. Add the step in `DEGRAUS`, with the thesis (up to 25 words), the body (up to 60), the new words it uses in `palavras` (what it is, why it exists), the **literal passage** in English and the translation alongside, the source and the chapter, and the seal; a new technical word also goes into the `TECNICAS` list of `gerar_site.py`, with the step where it is born;\n3. Add the figure in `figuras.py`, with the new word as a label inside it;\n4. Add the station of the step in `TRILHA` (what the \"o\" became here);\n5. If the step closes a hole, remove the corresponding line from `A_LER`;\n6. `python3 gerar_site.py`.",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "1. abra o capítulo na fonte e encontre a passagem em que o autor diz o que esta\n   camada faz com o número;\n2. acrescente o degrau em `DEGRAUS`, com a tese (até 25 palavras), o corpo (até\n   60), as palavras novas que ele usa em `palavras` (o que é, por que existe),\n   a **passagem literal** em inglês e a tradução ao lado, a fonte e o\n   capítulo, e o selo; uma palavra técnica nova entra também na lista\n   `TECNICAS` de `gerar_site.py`, com o degrau em que nasce;\n3. acrescente a figura em `figuras.py`, com a palavra nova como rótulo dentro\n   dela;\n4. acrescente a estação do degrau em `TRILHA` (o que o \"o\" virou aqui);\n5. se o degrau fechar um buraco, remova a linha correspondente de `A_LER`;\n6. `python3 gerar_site.py`.",
+   "qa": "ok",
+   "tipo": "md"
+  },
   "025ff7abca": {
    "en": "**Without Downloading** — <https://mateusalkimim.github.io/hello-world-machine/>",
    "modelo": "phi-4",
@@ -97,6 +106,15 @@
    "qa": "ok",
    "tipo": "md"
   },
+  "61e6f05c95": {
+   "decisao": "atualização de estado de 2026-10-03, escrita à mão",
+   "en": "python3 gerar_site.py        # pt/index.html, the steps\npython3 gerar_placa.py       # pt/placa.html, the instrument\npython3 gerar_en.py          # en/, derived from the translation table",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "python3 gerar_site.py        # pt/index.html, os degraus\npython3 gerar_placa.py       # pt/placa.html, o instrumento\npython3 gerar_en.py          # en/, derivado da tabela de tradução",
+   "qa": "ok",
+   "tipo": "cerca"
+  },
   "7794d657f4": {
    "en": "Verify that it still aborts:",
    "modelo": "phi-4",
@@ -108,8 +126,17 @@
   "8254c9597f": {
    "en": "1. Open the chapter in the source and find the passage where the author says what this layer does with the number;\n2. Add the step in `DEGRAUS`, with the thesis (up to 25 words), the body (up to 60), the **literal passage** in English and the translation alongside, the source, and the chapter, and the seal;\n3. Add the figure in `figuras.py`, with the new word as a label inside it;\n4. Add the station of the step in `TRILHA` (what the \"o\" became here);\n5. If the step closes a gap, remove the corresponding line from `A_LER`;\n6. `python3 gerar_site.py`.",
    "modelo": "phi-4",
-   "orfao": false,
+   "orfao": true,
    "pt": "1. abra o capítulo na fonte e encontre a passagem em que o autor diz o que esta\n   camada faz com o número;\n2. acrescente o degrau em `DEGRAUS`, com a tese (até 25 palavras), o corpo (até\n   60), a **passagem literal** em inglês e a tradução ao lado, a fonte e o\n   capítulo, e o selo;\n3. acrescente a figura em `figuras.py`, com a palavra nova como rótulo dentro\n   dela;\n4. acrescente a estação do degrau em `TRILHA` (o que o \"o\" virou aqui);\n5. se o degrau fechar um buraco, remova a linha correspondente de `A_LER`;\n6. `python3 gerar_site.py`.",
+   "qa": "ok",
+   "tipo": "md"
+  },
+  "96262b5484": {
+   "decisao": "atualização de estado de 2026-10-03, escrita à mão",
+   "en": "The generator **aborts** if the passage is empty, if the figure does not exist, if the thesis or the body exceed the budget, if English is left in the visible text, if a technical word appears before the step that explains it, or if a word of method appears on the page. It is intentional: a step without a warrant is not drawn, and a page that speaks to those who already know is not published.",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "O gerador **aborta** se a passagem estiver vazia, se a figura não existir, se\na tese ou o corpo passarem do orçamento, se sobrar inglês no texto visível,\nse uma palavra técnica aparecer antes do degrau que a explica, ou se uma\npalavra de método aparecer na página. É proposital: degrau sem warrant não é\ndesenhado, e página que fala para quem já sabe não é publicada.",
    "qa": "ok",
    "tipo": "md"
   },
@@ -132,7 +159,7 @@
   "dc0dfb9379": {
    "en": "The generator **aborts** if the passage is empty, if the figure does not exist, if the thesis or the body exceed the budget, or if there is leftover English in the visible text. It is intentional: a step without a **warrant** is not drawn.",
    "modelo": "phi-4",
-   "orfao": false,
+   "orfao": true,
    "pt": "O gerador **aborta** se a passagem estiver vazia, se a figura não existir, se\na tese ou o corpo passarem do orçamento, ou se sobrar inglês no texto visível.\nÉ proposital: degrau sem warrant não é desenhado.",
    "qa": "ok",
    "tipo": "md"

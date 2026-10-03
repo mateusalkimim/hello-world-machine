@@ -29,6 +29,7 @@ pacote.
 ```bash
 python3 gerar_site.py        # pt/index.html, os degraus
 python3 gerar_placa.py       # pt/placa.html, o instrumento
+python3 gerar_en.py          # en/, derivado da tabela de tradução
 ```
 
 O `pt/index.html` é **derivado** de `degraus.py`, `figuras.py`, `pele.css` e
@@ -41,8 +42,10 @@ Um degrau só entra **depois de lido**. O procedimento é:
 1. abra o capítulo na fonte e encontre a passagem em que o autor diz o que esta
    camada faz com o número;
 2. acrescente o degrau em `DEGRAUS`, com a tese (até 25 palavras), o corpo (até
-   60), a **passagem literal** em inglês e a tradução ao lado, a fonte e o
-   capítulo, e o selo;
+   60), as palavras novas que ele usa em `palavras` (o que é, por que existe),
+   a **passagem literal** em inglês e a tradução ao lado, a fonte e o
+   capítulo, e o selo; uma palavra técnica nova entra também na lista
+   `TECNICAS` de `gerar_site.py`, com o degrau em que nasce;
 3. acrescente a figura em `figuras.py`, com a palavra nova como rótulo dentro
    dela;
 4. acrescente a estação do degrau em `TRILHA` (o que o "o" virou aqui);
@@ -50,8 +53,10 @@ Um degrau só entra **depois de lido**. O procedimento é:
 6. `python3 gerar_site.py`.
 
 O gerador **aborta** se a passagem estiver vazia, se a figura não existir, se
-a tese ou o corpo passarem do orçamento, ou se sobrar inglês no texto visível.
-É proposital: degrau sem warrant não é desenhado.
+a tese ou o corpo passarem do orçamento, se sobrar inglês no texto visível,
+se uma palavra técnica aparecer antes do degrau que a explica, ou se uma
+palavra de método aparecer na página. É proposital: degrau sem warrant não é
+desenhado, e página que fala para quem já sabe não é publicada.
 
 Confira que ele ainda aborta:
 

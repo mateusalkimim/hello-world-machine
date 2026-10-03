@@ -32,15 +32,16 @@ The letter **o** is followed on the trail at the top of the page, step by step: 
 
 | | step | what the layer does with the number | source |
 |---|---|---|---|
-| 0 | the sentence is already code | swaps the middle, keeps the message | Petzold, chap. 1 |
+| 0 | the sentence is already a code | swaps the medium, keeps the message | Petzold, chap. 1 |
+| ½ | the key becomes a number | the key closes a switch; the machine finds 79 in a drawer | chap. 25 |
 | 1 | each letter gets a number | **O** is 79; the sentence becomes eleven numbers | chap. 13 |
 | 2 | each number becomes eight digits | 79 becomes 01001111; eight digits can hold 256 things | chaps. 11, 12 |
 | 2½ | á doesn't fit in one byte | 225 exceeds 127; **á** costs two bytes | chap. 13 |
-| 3 | each digit becomes current | 1 is current passing through a relay; 0, stop | chaps. 7, 8 |
-| 4 | the bits add and pause | adder and flip-flop: the number is operated and waits | chaps. 14 to 21 |
+| 3 | each digit becomes current | 1 is current passing through a relay; 0, current stopped | chaps. 7, 8 |
+| 4 | the bits add and stand still | adder and flip-flop: the number is operated on and waits | chaps. 14 to 21 |
 | 5 | each byte gets an address | two numbers per letter: the value and the place | chap. 19 |
-| 6 | a number is read as an order | CD is not a letter, it's "call"; only the program counter decides | chaps. 23, 27 |
-| 7 | orders are written with words | CALL 5 becomes CD 05 00 by the assembler | chap. 27 |
+| 6 | a number is read as an order | CD is not a letter, it is "call"; only the program counter decides | chaps. 23, 27 |
+| 7 | the orders are written with words | CALL 5 becomes CD 05 00 by the assembler | chap. 27 |
 | 8 | the order becomes points of light | the screen is memory, three bytes per point | chaps. 12, 25 |
 
 The closing is a single table: what each step **preserves** and what it **forgets**. It is the ruler that spans all: each layer is a promise of the type "you can forget the rest, I guarantee this," and the execution is what remains when all have been fulfilled.
@@ -166,20 +167,20 @@ generated from source, English derived from Portuguese) and the same two sources
 
 - **The passages come from a book, read**: Charles Petzold, *Code: The Hidden Language of Computer Hardware and Software*, 2nd ed. (2022). They appear under citation rights, with chapter, and belong to the author. The book **is not** in this repository.
 - **Eleven steps, fifteen passages**, each with the original in English and the author's translation alongside, so that the translation can also be checked.
-- **Four holes declared**, listed in the closing of the page and in `A_LER`: what this map knows is missing and has not yet opened (how 79 turns the drawing of the "O"; the ASCII table itself; the accent in a 1978 program; from screen to web). The fifth, from key to number, closed with the echo. A map that hides what is missing lies about its own size.
-- **Two steps rely on the abstraction ladder**, and say so with their own seal. The edge is there, with the read citation and the instrument.
-- **The character numbers are derived**, and marked as such: the codes of the eleven letters and the two bytes of á come from the rule of chapter 13, and any Unicode table confirms them.
+- **Four holes declared**, listed in `pesquisa/o-que-falta.md` and in `A_LER`: what this map knows is missing and has not yet opened (how 79 turns into the drawing of the "O"; the ASCII table itself; the accent in a 1978 program; from screen to web). The fifth, from key to number, closed with the echo. A map that hides what is missing lies about its own size.
+- **Two steps rely on the abstraction-ladder**, and say so with their own seal. The edge is there, with the read citation and the instrument.
+- **The character's numbers are derived**, and marked as such: the codes of the eleven letters and the two bytes of á come from the rule of chapter 13, and any Unicode table confirms them.
 - **The translation has an owner.** The English is derived block by block from the Portuguese, with the table keyed by hash of the original. Where the machine did not decide, a person decided, and the decision is written in the table.
-- No network, no telemetry, no dependency. The page opens offline. The typographic fonts come from Google Fonts and have local backup.
+- No network, no telemetry, no dependency. The page opens offline. The typefaces come from Google Fonts and have a local fallback.
 
 ## State, and what is missing
 
-- the page in Portuguese is complete in all ten steps and the closing;  
-- the page in English has **not** yet been derived: the translation table is still to be filled;  
-- steps 3 and 4 cite the ladder; the instrument proper to this repository (turning a bit and seeing the number change) does not yet exist;  
-- each step does not yet bring the line "the mathematics of this" with the reading aloud, nor the sheet of conventions before the first symbol;  
-- the machine exists as an executable specification (`maquina/`), in Python and JavaScript, with the two identical traces cycle by cycle, and the board plan (`pt/placa.html`) plays the trace of Olá, Mundo! cycle by cycle; each step has the button "see on the board," which opens the cycle that shows it, and each module of the board opens the step that explains it; the echo is ready and checked, and on the board you can type and see each key go from drawer 8200h to the screen; the threshold meter on a wire is missing;  
-- the five declared holes.
+- the page is complete in all eleven steps and the closing, in Portuguese and in English, with the sheet of signs before the first symbol and the line "the mathematics of this", read aloud, in every step;
+- steps 3 and 4 cite the ladder, and that is where the parts are assembled on screen;
+- the machine exists as an executable specification (`maquina/`), in Python and in JavaScript, with the two traces identical cycle by cycle, and the board plan (`pt/placa.html`) plays the trace of Olá, Mundo! cycle by cycle; each step has the button "see on the board", which opens the cycle that shows it, and each module of the board opens the step that explains it; the echo is ready and checked, and on the board you can type and see each key go from drawer 8200h to the screen;
+- the board still lacks the threshold meter on a wire: flip a bit and watch the number change;
+- the four declared holes;
+- measuring whether this form teaches more than the previous one is a separate test, with the ruler sealed beforehand, not yet done.
 
 ## License
 

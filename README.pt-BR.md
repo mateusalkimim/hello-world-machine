@@ -48,6 +48,7 @@ já virou fica visível, apagado; o atual, aceso.
 | | degrau | o que a camada faz com o número | fonte |
 |---|---|---|---|
 | 0 | a frase já é um código | troca o meio, conserva a mensagem | Petzold, cap. 1 |
+| ½ | a tecla vira número | a tecla fecha uma chave; a máquina acha o 79 numa gaveta | cap. 25 |
 | 1 | cada letra recebe um número | o **O** vale 79; a frase vira onze números | cap. 13 |
 | 2 | cada número vira oito casas | 79 vira 01001111; em oito casas cabem 256 coisas | caps. 11, 12 |
 | 2½ | o á não cabe em um byte | 225 passa de 127; o **á** custa dois bytes | cap. 13 |
@@ -207,11 +208,11 @@ gerada da fonte, inglês derivado do português) e as mesmas duas fontes.
   neste repositório.
 - **Onze degraus, quinze passagens**, cada uma com o original em inglês e a
   tradução do autor ao lado, para que a tradução também possa ser conferida.
-- **Quatro buracos declarados**, listados no fecho da página e em `A_LER`: o
-  que este mapa sabe que falta e ainda não abriu (como o 79 vira o desenho do
-  "O"; a tabela ASCII em si; o acento num programa de 1978; da tela à web). O
-  quinto, da tecla ao número, fechou com o eco. Mapa que esconde o que falta mente sobre o próprio
-  tamanho.
+- **Quatro buracos declarados**, listados em `pesquisa/o-que-falta.md` e em
+  `A_LER`: o que este mapa sabe que falta e ainda não abriu (como o 79 vira o
+  desenho do "O"; a tabela ASCII em si; o acento num programa de 1978; da
+  tela à web). O quinto, da tecla ao número, fechou com o eco. Mapa que
+  esconde o que falta mente sobre o próprio tamanho.
 - **Dois degraus se apoiam no abstraction-ladder**, e dizem isso com um selo
   próprio. A aresta está lá, com a citação lida e o instrumento.
 - **Os números do personagem são derivados**, e marcados assim: os códigos das
@@ -225,21 +226,21 @@ gerada da fonte, inglês derivado do português) e as mesmas duas fontes.
 
 ## Estado, e o que falta
 
-- a página em português está completa nos dez degraus e no fecho;
-- a página em inglês ainda **não** foi derivada: a tabela de tradução está por
-  preencher;
-- os degraus 3 e 4 citam a escada; o instrumento próprio deste repositório
-  (virar um bit e ver o número mudar) ainda não existe;
-- cada degrau ainda não traz a linha "a matemática daqui" com a leitura em
-  voz alta, nem a folha de convenções antes do primeiro símbolo;
+- a página está completa nos onze degraus e no fecho, em português e em
+  inglês, com a folha de sinais antes do primeiro símbolo e a linha "a
+  matemática daqui" lida em voz alta em cada degrau;
+- os degraus 3 e 4 citam a escada, e é lá que as peças são montadas na tela;
 - a máquina existe como especificação executável (`maquina/`), em Python e em
   JavaScript, com os dois traços idênticos ciclo a ciclo, e a placa em planta
   (`pt/placa.html`) toca o traço do Olá, Mundo! ciclo a ciclo; cada degrau
   tem o botão "ver na placa", que abre o ciclo que o mostra, e cada módulo da
   placa abre o degrau que o explica; o eco está pronto e conferido, e na
-  placa dá para digitar e ver cada tecla ir da gaveta 8200h à tela; falta o
-  medidor de limiar num fio;
-- os cinco buracos declarados.
+  placa dá para digitar e ver cada tecla ir da gaveta 8200h à tela;
+- falta na placa o medidor de limiar num fio: virar um bit e ver o número
+  mudar;
+- os quatro buracos declarados;
+- medir se a forma ensina mais que a anterior é um teste à parte, com régua
+  lacrada antes, ainda não feito.
 
 ## Licença
 
