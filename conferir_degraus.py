@@ -49,9 +49,36 @@ def roda(pasta):
     return r.returncode, r.stderr
 
 
+def sintaxe_dos_roteiros(pasta):
+    """Extrai cada <script> inline das páginas geradas e passa no node --check.
+    Um roteiro quebrado deixa a página inteira visível e muda, sem erro no
+    gerador — foi assim que o visor ficou morto por três versões."""
+    import re
+    node = shutil.which("node")
+    if not node:
+        return "node ausente: sintaxe dos roteiros NÃO conferida"
+    for pagina in ("pt/index.html", "pt/placa.html"):
+        caminho = os.path.join(pasta, pagina)
+        if not os.path.exists(caminho):
+            continue
+        h = open(caminho, encoding="utf-8").read()
+        for i, js in enumerate(re.findall(r"<script>(.*?)</script>", h, re.S)):
+            alvo = os.path.join(tempfile.gettempdir(), f"roteiro_{i}.js")
+            with open(alvo, "w", encoding="utf-8") as f:
+                f.write(js)
+            r = subprocess.run([node, "--check", alvo], capture_output=True, text=True)
+            if r.returncode != 0:
+                return f"REPROVADO: roteiro {i} de {pagina} não passa na sintaxe: {r.stderr.strip().splitlines()[-1] if r.stderr.strip() else ''}"
+    return "sintaxe dos roteiros gerados: ok"
+
+
 def main():
     original = open(os.path.join(AQUI, "degraus.py"), encoding="utf-8").read()
     falhas = 0
+    msg = sintaxe_dos_roteiros(AQUI)
+    print(msg)
+    if msg.startswith("REPROVADO"):
+        falhas += 1
     with tempfile.TemporaryDirectory() as tmp:
         for a in ARQUIVOS:
             shutil.copy(os.path.join(AQUI, a), tmp)

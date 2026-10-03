@@ -37,8 +37,9 @@
     if(e.key==='ArrowLeft')ir(atual-1,true);
   });
   var k0=0;
-  var m=/^#d(\d+)$/.exec(location.hash||'');
-  if(m){k0=Math.min(N-1,+m[1]);}
+  // o #hash é o id da seção (d0, d6, conv…), não a posição na fila
+  var alvo=-1; secs.forEach(function(s,i){ if('#'+s.id===(location.hash||'')) alvo=i; });
+  if(alvo>=0){k0=alvo;}
   else{try{var s=localStorage.getItem('om-degrau');if(s!==null)k0=Math.min(N-1,+s);}catch(e){}}
   ir(k0,false);
 })();

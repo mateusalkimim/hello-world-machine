@@ -19,6 +19,7 @@ O gerador ABORTA se:
     ou não mostrar o que o degrau diz que mostra.
 """
 import html
+import json
 import os
 import re
 import sys
@@ -200,10 +201,9 @@ def fecho(f):
 
 
 def trilha_js():
-    itens = ",".join(
-        "{tok:%s,nome:%s}" % (repr(tok).replace("'", '"') if "'" not in tok else repr(tok), repr(nome).replace("'", '"'))
-        for nome, tok in D.TRILHA)
-    return "[" + itens + "]"
+    # json.dumps escapa as aspas de dentro do HTML; repr não escapava, e o
+    # token "lê-se" (com aspas duplas) quebrou o roteiro inteiro em silêncio.
+    return json.dumps([dict(tok=tok, nome=nome) for nome, tok in D.TRILHA], ensure_ascii=False)
 
 
 def pagina():
