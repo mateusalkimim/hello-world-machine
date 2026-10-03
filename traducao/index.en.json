@@ -299,12 +299,13 @@
    "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
   },
   "1fd0fbe20a": {
-   "en": "<span>Petzold, cap. 27</span>",
-   "modelo": "phi-4",
+   "en": "<span>Petzold, ch. 27</span>",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span>Petzold, cap. 27</span>",
    "qa": "ok",
-   "tipo": "prosa"
+   "tipo": "prosa",
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
   },
   "20234a2659": {
    "en": "CD 05 00",
@@ -404,12 +405,13 @@
    "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
   },
   "26e63640ab": {
-   "en": "este pixel",
-   "modelo": "phi-4",
+   "en": "this pixel",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "este pixel",
    "qa": "ok",
-   "tipo": "svg"
+   "tipo": "svg",
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
   },
   "271208bfc3": {
    "en": "Someone writes the orders in words",
@@ -696,12 +698,13 @@
    "tipo": "prosa"
   },
   "461a2fb134": {
-   "en": "<span>Petzold, cap. 13</span>",
-   "modelo": "phi-4",
+   "en": "<span>Petzold, ch. 13</span>",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span>Petzold, cap. 13</span>",
    "qa": "ok",
-   "tipo": "prosa"
+   "tipo": "prosa",
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
   },
   "481f745385": {
    "en": "the math here · <b>one-to-one correspondence between letters and numbers</b>",
@@ -738,12 +741,13 @@
    "decisao": "literal de script: nome de classe não se traduz; espaço de borda é parte do texto"
   },
   "4b8e633479": {
-   "en": "<span>Petzold, cap. 1</span>",
-   "modelo": "phi-4",
+   "en": "<span>Petzold, ch. 1</span>",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span>Petzold, cap. 1</span>",
    "qa": "ok",
-   "tipo": "prosa"
+   "tipo": "prosa",
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
   },
   "4bb73815a3": {
    "en": "key",
@@ -1379,12 +1383,13 @@
    "tipo": "prosa"
   },
   "83661a4a68": {
-   "en": "<span>Petzold, caps. 7 e 8</span>",
-   "modelo": "phi-4",
+   "en": "<span>Petzold, chs. 7 and 8</span>",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span>Petzold, caps. 7 e 8</span>",
    "qa": "ok",
-   "tipo": "prosa"
+   "tipo": "prosa",
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
   },
   "84a5734592": {
    "en": "<b>slanted lowercase letter</b>: a quantity that varies. <span class=\"lese\">read as:</span> see, have.",
@@ -1769,12 +1774,13 @@
    "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
   },
   "ad7770fa6f": {
-   "en": "7 · palavras → ordens",
-   "modelo": "phi-4",
+   "en": "7 · words → orders",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "7 · palavras → ordens",
    "qa": "ok",
-   "tipo": "prosa"
+   "tipo": "prosa",
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
   },
   "adc17eb740": {
    "en": "<i>s</i><sub><i>t</i>+1</sub> = <span class=\"nome\">f</span>(<i>s</i><sub><i>t</i></sub>, <i>x</i><sub><i>t</i></sub>)",
@@ -1864,12 +1870,13 @@
    "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
   },
   "b2536ab8d4": {
-   "en": "a tecla",
-   "modelo": "phi-4",
+   "en": "the key",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "a tecla",
    "qa": "ok",
-   "tipo": "svg"
+   "tipo": "svg",
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
   },
   "b31f0373a7": {
    "en": "C9",
@@ -1916,20 +1923,22 @@
    "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
   },
   "b59ca474b2": {
-   "en": "<span class=\"nome\">bit</span>(<i>v</i>) = 1 se <i>v</i> ≥ 2 volts, e 0 se <i>v</i> ≤ 0,8 volt",
-   "modelo": "phi-4",
+   "en": "<span class=\"nome\">bit</span>(<i>v</i>) = 1 if <i>v</i> ≥ 2 volts, and 0 if <i>v</i> ≤ 0.8 volt",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span class=\"nome\">bit</span>(<i>v</i>) = 1 se <i>v</i> ≥ 2 volts, e 0 se <i>v</i> ≤ 0,8 volt",
    "qa": "ok",
-   "tipo": "prosa"
+   "tipo": "prosa",
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
   },
   "b672d0a863": {
-   "en": "fecho",
-   "modelo": "phi-4",
+   "en": "closing",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "fecho",
    "qa": "ok",
-   "tipo": "prosa"
+   "tipo": "prosa",
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
   },
   "b7176af68b": {
    "en": "<b>read as:</b> seventy-nine equals sixty-four, plus eight, plus four, plus two, plus one.",
@@ -1941,12 +1950,13 @@
    "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
   },
   "b794f41804": {
-   "en": "LETRAS · 7 bytes",
-   "modelo": "phi-4",
+   "en": "LETTERS · 7 bytes",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "LETRAS · 7 bytes",
    "qa": "ok",
-   "tipo": "svg"
+   "tipo": "svg",
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
   },
   "ba220ad95d": {
    "en": "4F is 79 in hexadecimal: eight bits shortened to two symbols · the á takes two neighboring drawers",
@@ -1974,12 +1984,13 @@
    "tipo": "prosa"
   },
   "bb0c27d958": {
-   "en": "chame o sistema",
-   "modelo": "phi-4",
+   "en": "call the system",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "chame o sistema",
    "qa": "ok",
-   "tipo": "prosa"
+   "tipo": "prosa",
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
   },
   "bbc5dace2a": {
    "en": "79 becomes <span class=\"mono\">01001111</span>. Eight places, each one only 0 or 1. Eight places can hold 256 different things.",
@@ -2000,12 +2011,13 @@
    "decisao": "preenchido a mão em 2026-10-03: o modelo devolveu o original ou perdeu a tag"
   },
   "bcd06fc154": {
-   "en": "em bits",
-   "modelo": "phi-4",
+   "en": "in bits",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "em bits",
    "qa": "ok",
-   "tipo": "prosa"
+   "tipo": "prosa",
+   "decisao": "a mão em 2026-10-03"
   },
   "bf7a66039d": {
    "en": "<i>What it is:</i> a part that opens or closes a path. The light switch is a switch; so is every key.",
@@ -2306,12 +2318,13 @@
    "tipo": "svg"
   },
   "df559f1914": {
-   "en": "<span class=\"nome\">roda</span>(<span class=\"nome\">montar</span>(texto)) = <span class=\"nome\">significado</span>(texto)",
-   "modelo": "phi-4",
+   "en": "<span class=\"nome\">run</span>(<span class=\"nome\">assemble</span>(text)) = <span class=\"nome\">meaning</span>(text)",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<span class=\"nome\">roda</span>(<span class=\"nome\">montar</span>(texto)) = <span class=\"nome\">significado</span>(texto)",
    "qa": "ok",
-   "tipo": "prosa"
+   "tipo": "prosa",
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
   },
   "df9f01caca": {
    "en": "<i>What it is:</i> electricity moving through a wire, like water moving through a pipe.",
@@ -2536,12 +2549,13 @@
    "decisao": "a mão em 2026-10-03"
   },
   "edfed33fc2": {
-   "en": "CÓDIGO 2 · PAPEL",
-   "modelo": "phi-4",
+   "en": "CODE 2 · PAPER",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "CÓDIGO 2 · PAPEL",
    "qa": "ok",
-   "tipo": "svg"
+   "tipo": "svg",
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
   },
   "ee4c4f606f": {
    "en": "(79 + 1) <span class=\"nome\">mod</span> 256",
@@ -2552,12 +2566,13 @@
    "tipo": "prosa"
   },
   "ee842ffeb4": {
-   "en": "montador",
-   "modelo": "phi-4",
+   "en": "assembler",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "montador",
    "qa": "ok",
-   "tipo": "prosa"
+   "tipo": "prosa",
+   "decisao": "a mão em 2026-10-03: rótulo de figura ou expressão"
   },
   "eeafa72636": {
    "en": "<span class=\"nome\">mem</span>(0109) = 4F",
