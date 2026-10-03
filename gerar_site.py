@@ -316,7 +316,7 @@ def pagina():
 <div class="pagina">
 <div class="cab">
   <div><p class="eyebrow">hello-world-machine</p><h1>A vida de Olá, Mundo!</h1></div>
-  <p class="nota"><a href="../en/" lang="en" hreflang="en">English</a> · ← → no teclado; um degrau por tela</p>
+  <p class="nota">← → no teclado; um degrau por tela</p>
 </div>
 <div class="trilha" id="trilha" aria-label="O que o o já virou"></div>
 <div id="degraus">{corpo}

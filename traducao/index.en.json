@@ -1118,12 +1118,13 @@
    "tipo": "svg"
   },
   "702bf13444": {
-   "en": "No one memorizes that “chame” is <span class=\"mono\">CD</span>. You write <span class=\"mono\">CALL 5</span> in text, and the assembler replaces each word with the correct byte.",
-   "modelo": "phi-4",
+   "en": "No one memorizes that “call” is <span class=\"mono\">CD</span>. You write <span class=\"mono\">CALL 5</span> in text, and the assembler replaces each word with the correct byte.",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "Ninguém decora que “chame” é <span class=\"mono\">CD</span>. Escreve-se <span class=\"mono\">CALL 5</span> num texto, e o montador troca cada palavra pelo byte certo.",
    "qa": "ok",
-   "tipo": "prosa"
+   "tipo": "prosa",
+   "decisao": "a ordem citada vai em inglês"
   },
   "70af4c1b9e": {
    "en": "current",
@@ -2229,12 +2230,13 @@
    "tipo": "js"
   },
   "d4eaed7653": {
-   "en": "<b>read as:</b> spinning what was assembled from the text gives the same as the meaning of the text.",
-   "modelo": "phi-4",
+   "en": "<b>read as:</b> running what was assembled from the text gives the same as the meaning of the text.",
+   "modelo": "claude-fable-5-1",
    "orfao": false,
    "pt": "<b>lê-se:</b> rodar o que foi montado do texto dá o mesmo que o significado do texto.",
    "qa": "ok",
-   "tipo": "prosa"
+   "tipo": "prosa",
+   "decisao": "leitura: roda é run, não spin"
   },
   "d55981cfb0": {
    "en": "threshold",
