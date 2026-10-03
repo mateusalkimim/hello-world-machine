@@ -134,3 +134,6 @@ table.simbolos .expr{font-size:1.05rem}
 .verplaca a:hover{border-color:var(--bronze)}
 .verplaca a:focus-visible{outline:2px solid var(--bronze);outline-offset:2px}
 .verplaca span{color:var(--muted);font-size:.8rem}
+
+/* a seção escondida some de verdade: .degrau{display:grid} vencia o [hidden] do navegador; o visor do artefato mascarava isso com a regra dele */
+.degrau[hidden]{display:none}
