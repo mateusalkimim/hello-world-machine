@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Olá, Mundo! na placa — hello-world-machine</title>
-<meta name="description" content="A máquina desenhada em planta toca, ciclo a ciclo, o programa que escreve Olá, Mundo! na tela: a origem acende, o barramento mostra o padrão, o destino recebe.">
+<title>Olá, Mundo! on the board — hello-world-machine</title>
+<meta name="description" content="The machine drawn in plan plays, cycle by cycle, the program that writes Olá, Mundo! on the screen: the source lights up, the bus displays the pattern, the destination receives.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: UMA tela por degrau (stepper controlado pelo leitor). No alto, a trilha do personagem "o": tudo que ele já virou fica visível, apagado; o atual, aceso. Abaixo: tese (≤25 palavras), figura com a palavra nova como rótulo DENTRO, parágrafo (≤60), e "mostrar a prova" fechado. Cores por token, claro e escuro. */
@@ -190,37 +190,37 @@ ol#listagem li.atual{background:var(--card);color:var(--ink);box-shadow:inset 3p
 <body>
 <div class="pagina" style="max-width:62em">
 <div class="cab">
-  <div><p class="eyebrow">hello-world-machine · instrumento</p><h1>Olá, Mundo! na placa</h1></div>
-  <p class="nota"><a href="index.html">← os degraus</a> · ← → anda um ciclo · espaço toca e pausa · clicar num módulo abre o degrau que o explica</p>
+  <div><p class="eyebrow">hello-world-machine · instrument</p><h1>Olá, Mundo! on the board</h1></div>
+  <p class="nota"><a href="index.html">← the steps</a> · ← → walks a cycle · space taps and pauses · click on a module opens the step that explains it</p>
 </div>
-<p class="tese">A máquina já rodou o programa. O que você toca é o traço: em cada ciclo, a origem acende, o barramento mostra o padrão, o destino recebe. Nada anda. O padrão se copia. No eco, cada tecla sua entra na gaveta 8200h e a placa mostra o caminho dela até a tela.</p>
+<p class="tese">The machine has already run the program. What you tap is the trace: in each cycle, the source lights up, the bus shows the pattern, the destination receives. Nothing moves. The pattern is copied. In the echo, each key you press enters drawer 8200h and the board shows the path to the screen.</p>
 <div class="placa-wrap">
-  <div class="quadro"><canvas id="placa" width="1000" height="600" aria-label="A placa em planta: dois barramentos, os módulos entre eles, e a tela"></canvas></div>
+  <div class="quadro"><canvas id="placa" width="1000" height="600" aria-label="The board in plan: two buses, the modules between them, and the screen"></canvas></div>
   <div class="controles">
-    <button id="ant" type="button">← anterior</button>
-    <button id="tocar" type="button">tocar</button>
-    <button id="prox" type="button">próximo →</button>
-    <input id="barra" type="range" min="0" max="60" value="0" aria-label="ciclo">
-    <select id="marcha" aria-label="marcha"><option value="1">1 ciclo por segundo</option><option value="4">4 por segundo</option><option value="20">20 por segundo</option></select>
-    <label><input id="sotela" type="checkbox"> só as escritas na tela</label>
-    <label>programa <select id="programa" aria-label="programa"></select></label>
-    <input id="teclado" type="text" placeholder="digite aqui: cada tecla vira um byte" aria-label="teclado da máquina" autocomplete="off" hidden>
+    <button id="ant" type="button">← previous</button>
+    <button id="tocar" type="button">play</button>
+    <button id="prox" type="button">next →</button>
+    <input id="barra" type="range" min="0" max="60" value="0" aria-label="cycle">
+    <select id="marcha" aria-label="marcha"><option value="1">1 cycle per second</option><option value="4">4 per second</option><option value="20">20 por segundo</option></select>
+    <label><input id="sotela" type="checkbox"> only the writings on the screen</label>
+    <label>program <select id="programa" aria-label="program"></select>/label>
+    <input id="teclado" type="text" placeholder="type here: each key becomes a byte" aria-label="machine keyboard" autocomplete="off" hidden>
   </div>
   <div class="estado"><p id="pos"></p><p id="nota"></p><p id="resumo"></p></div>
-  <p class="legenda"><span><i style="background:var(--azul)"></i>endereço</span><span><i style="background:var(--bronze)"></i>dado</span><span><i style="background:var(--bit1)"></i>bit 1</span><span><i style="background:var(--bit0);border:1px solid var(--linha)"></i>bit 0</span><span><i style="background:var(--linha)"></i>apagado</span></p>
+  <p class="legenda"><span><i style="background:var(--azul)"></i>address</span><span><i style="background:var(--bronze)"></i>data</span><span><i style="background:var(--bit1)"></i>bit 1</span><span><i style="background:var(--bit0);border:1px solid var(--linha)"></i>bit 0</span><span><i style="background:var(--linha)"></i>off</span></p>
   <div class="lado">
     <div>
-      <p class="eyebrow">o programa, como a pessoa escreveu e como virou bytes</p>
+      <p class="eyebrow">the program, as the person wrote it and as it became bytes</p>
       <ol id="listagem"></ol>
     </div>
     <div>
-      <p class="eyebrow">o que a placa mostra</p>
-      <p class="corpo">Em cima, o barramento de endereços: 16 fios, azul. Embaixo, o de dados: 8 fios, bronze, com os oito bits à vista. Entre os dois, os módulos da máquina do Petzold, cada um com o seu rótulo matemático. À direita, a tela, que lê 264 gavetas da RAM. Em cada ciclo acendem no máximo quatro coisas; o resto fica apagado.</p>
-      <p class="nota">Especificação: pesquisa/a-maquina.md e pesquisa/a-placa-em-planta.md. O traço desta página é o mesmo que a máquina em Python produz, ciclo a ciclo.</p>
+      <p class="eyebrow">what the board shows</p>
+      <p class="corpo">Above, the address bus: 16 wires, blue. Below, the data bus: 8 wires, bronze, with the eight bits visible. Between the two, the modules of Petzold's machine, each with its mathematical label. To the right, the screen, which reads 264 drawers of RAM. In each cycle, at most four things light up; the rest stays off.</p>
+      <p class="nota">Specification: research/a-machine.md and research/a-board-in-plan.md. The trace of this page is the same as the machine in Python produces, cycle by cycle.</p>
     </div>
   </div>
 </div>
-<footer class="rodape"><p class="nota">Texto e figuras: CC BY-SA 4.0 · código: MIT · <a href="https://github.com/mateusalkimim/hello-world-machine">repositório</a></p></footer>
+<footer class="rodape"><p class="nota">Text and figures: CC BY-SA 4.0 · code: MIT · <a href="https://github.com/mateusalkimim/hello-world-machine">repository</a></p></footer>
 </div>
 <script type="text/plain" data-programa="ola-mundo">; Olá, Mundo! — o primeiro programa desta máquina.
 ;
@@ -297,23 +297,23 @@ Espera: LDA 8200h           ; A ← a gaveta do teclado
  z-index:99;background:#c9a266;color:#0a1424;font:13px/1.4 Inter,system-ui,
  sans-serif;padding:7px 12px;gap:10px;justify-content:center;
  align-items:center">
-<span>This page is in Portuguese.</span>
-<a href="../en/placa.html" style="color:#0a1424;font-weight:600">Read in English</a>
-<button onclick="this.parentNode.style.display='none'" aria-label="close"
+<span>Esta pagina esta em ingles.</span>
+<a href="../pt/placa.html" style="color:#0a1424;font-weight:600">Ler em portugues</a>
+<button onclick="this.parentNode.style.display='none'" aria-label="fechar"
  style="background:none;border:0;color:#0a1424;cursor:pointer;font-size:15px;padding:2px 6px;line-height:1">&times;</button>
 </div>
 <script>
 (function(){try{
   var f=localStorage.getItem('sc-lang');
-  if(f==='pt')return;
+  if(f==='en')return;
   var L=(navigator.languages&&navigator.languages.length)?navigator.languages
         :[navigator.language||''];
   var pt=false; for(var i=0;i<L.length;i++){ if(/^pt/i.test(L[i])){pt=true;break;} }
-  if(f!=='en' && pt!==false)return;
+  if(f!=='pt' && pt!==true)return;
   document.getElementById('faixa-idioma').style.display='flex';
 }catch(e){}})();
 document.querySelector('#faixa-idioma a').addEventListener('click',function(){
-  try{localStorage.setItem('sc-lang','en');}catch(e){}
+  try{localStorage.setItem('sc-lang','pt');}catch(e){}
 });
 </script>
 <!-- trocar-idioma: gerado por i18n.py, nao editar -->
@@ -329,13 +329,13 @@ document.querySelector('#faixa-idioma a').addEventListener('click',function(){
   #trocar-idioma{padding:13px 18px;border-radius:22px;font-size:13px}
 }
 </style>
-<a id="trocar-idioma" href="../en/placa.html" hreflang="en" lang="en"
-   title="Read in English">EN</a>
+<a id="trocar-idioma" href="../pt/placa.html" hreflang="pt" lang="pt"
+   title="Ler em portugues">PT</a>
 <script>
 (function(){try{
   var a=document.getElementById('trocar-idioma');
   a.addEventListener('click',function(){
-    try{localStorage.setItem('sc-lang','en');}catch(e){}
+    try{localStorage.setItem('sc-lang','pt');}catch(e){}
   });
   // enquanto a faixa estiver na tela os dois dizem a mesma coisa; o botao
   // reaparece assim que ela sai (inclusive quando o leitor fecha no x).

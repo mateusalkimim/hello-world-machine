@@ -106,7 +106,7 @@ O que mudou, pela mesma régua da escada:
 - **a folha em branco é propriedade de construção**: lista fechada de palavras
   técnicas com o degrau em que cada uma nasce, e lista de palavras de método;
   o gerador aborta nas duas, e o controle negativo planta um defeito de cada.
-  Na primeira rodada ele barrou doze coisas, quase todas em rótulos de figura
+  Logo que entrou em uso ele barrou doze coisas, quase todas em rótulos de figura
   e em linhas da placa, onde a sonda de texto do corpo nunca olhava.
 
 Duas palavras saíram da lista por serem de todo dia: "sinal" (a folha de
@@ -115,8 +115,8 @@ sinais vem antes de tudo) e "ordem" (a ordem das letras, no degrau 5).
 ### A trilha, corrigida pelo domínio (2026-10-03)
 
 A trilha do alto nasceu da regra 1 (Victor: o concreto continua visível) como
-treze ícones e símbolos ligados por traços. O domínio da casa sobre instrumentos
-didáticos (`pharo/dominio-instrumento-didatico-interativo.md`) manda o
+treze ícones e símbolos ligados por traços. A pesquisa de domínio sobre instrumentos
+didáticos interativos, feita fora deste repositório, manda o
 contrário em três pontos: cortar o que não é conteúdo (Mayer, coerência 0,86);
 cerca de quatro objetos de uma vez (Pylyshyn); e "você está aqui" com dois
 sinais (NN/g). A trilha passou a ser só palavras, como a da escada: o nome do

@@ -147,3 +147,6 @@ details.prova .fonte{font-size:.8rem;color:var(--muted)}
 .sinal .expr.degr{font-family:var(--it-sans,inherit);font-size:.95rem;color:var(--bronze);font-weight:600}
 .sinal b{font-weight:600;color:var(--ink)} .sinal .lese{color:var(--bronze);font-size:.8rem;letter-spacing:.04em}
 @media (max-width:420px){.sinal{grid-template-columns:5.5rem 1fr}}
+
+/* na página inglesa a passagem mostra só o original; a tradução para o português fica oculta */
+html[lang^="en"] blockquote .pt{display:none}

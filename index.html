@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hello World Machine — A vida de olá mundo</title>
+<link rel="alternate" hreflang="pt-BR" href="pt/">
+<link rel="alternate" hreflang="en" href="en/">
+<link rel="alternate" hreflang="x-default" href="en/">
+<script>
+(function(){
+  var d='en';
+  try{ var f=localStorage.getItem('hwm-lang'); if(f==='pt'||f==='en'){ location.replace(f+'/'+location.hash); return; } }catch(e){}
+  var L=(navigator.languages&&navigator.languages.length)?navigator.languages
+        :[navigator.language||''];
+  for(var i=0;i<L.length;i++){ if(/^pt/i.test(L[i])){ d='pt'; break; } }
+  location.replace(d+'/'+location.hash);
+})();
+</script>
+<style>
+  body{margin:0;background:#0a1424;color:#e8e2d6;font-family:Inter,system-ui,sans-serif;
+       display:flex;min-height:100vh;align-items:center;justify-content:center}
+  .p{text-align:center;padding:30px}
+  h1{font-family:Cormorant,Georgia,serif;font-weight:600;font-size:30px;margin:0 0 6px}
+  .s{color:#5b6b86;font-size:14px;margin:0 0 22px}
+  a{display:inline-block;margin:6px;padding:10px 20px;border-radius:5px;
+    background:#24374f;color:#e8e2d6;text-decoration:none;font-size:14px}
+  a:hover{background:#c9a266;color:#0a1424}
+</style>
+</head>
+<body>
+<div class="p">
+  <h1>Hello World Machine</h1>
+  <p class="s">A vida de olá mundo &middot; The life of hello world</p>
+  <a href="pt/">Ler em portugues</a>
+  <a href="en/">Read in English</a>
+</div>
+</body>
+</html>

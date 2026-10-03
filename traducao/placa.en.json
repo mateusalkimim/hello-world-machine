@@ -1,0 +1,216 @@
+{
+ "atualizado_em": "2026-10-03 16:07:47",
+ "blocos": {
+  "06e5d6cfca": {
+   "en": "marcha",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "marcha",
+   "qa": "ok",
+   "tipo": "attr:aria-label"
+  },
+  "094a51d9d2": {
+   "en": "20 por segundo",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "20 por segundo",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "10f3064e6b": {
+   "en": "hello-world-machine · instrument",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "hello-world-machine · instrumento",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "126479caba": {
+   "en": "← previous",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "← anterior",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "3b15926bcf": {
+   "en": "Specification: research/a-machine.md and research/a-board-in-plan.md. The trace of this page is the same as the machine in Python produces, cycle by cycle.",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "Especificação: pesquisa/a-maquina.md e pesquisa/a-placa-em-planta.md. O traço desta página é o mesmo que a máquina em Python produz, ciclo a ciclo.",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "3ca2e33d1a": {
+   "en": "<span><i style=\"background:var(--azul)\"></i>address</span><span><i style=\"background:var(--bronze)\"></i>data</span><span><i style=\"background:var(--bit1)\"></i>bit 1</span><span><i style=\"background:var(--bit0);border:1px solid var(--linha)\"></i>bit 0</span><span><i style=\"background:var(--linha)\"></i>off</span>",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "<span><i style=\"background:var(--azul)\"></i>endereço</span><span><i style=\"background:var(--bronze)\"></i>dado</span><span><i style=\"background:var(--bit1)\"></i>bit 1</span><span><i style=\"background:var(--bit0);border:1px solid var(--linha)\"></i>bit 0</span><span><i style=\"background:var(--linha)\"></i>apagado</span>",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "4713194a2e": {
+   "en": "1 cycle per second",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "1 ciclo por segundo",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "5a666b9054": {
+   "en": "Olá, Mundo! on the board — hello-world-machine",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "Olá, Mundo! na placa — hello-world-machine",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "60d0313d34": {
+   "en": "next →",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "próximo →",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "8afb18fb13": {
+   "en": "machine keyboard",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "teclado da máquina",
+   "qa": "ok",
+   "tipo": "attr:aria-label"
+  },
+  "8c0a3e53ad": {
+   "en": "<a href=\"index.html\">← the steps</a> · ← → walks a cycle · space taps and pauses · click on a module opens the step that explains it",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "<a href=\"index.html\">← os degraus</a> · ← → anda um ciclo · espaço toca e pausa · clicar num módulo abre o degrau que o explica",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "8f07f8a271": {
+   "en": "4 per second",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "4 por segundo",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "93936d482b": {
+   "en": "what the board shows",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "o que a placa mostra",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "940bf7cba5": {
+   "en": "cycle",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "ciclo",
+   "qa": "ok",
+   "tipo": "attr:aria-label"
+  },
+  "97ff18bfb3": {
+   "en": "the program, as the person wrote it and as it became bytes",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "o programa, como a pessoa escreveu e como virou bytes",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "a0b6879392": {
+   "en": "The machine has already run the program. What you tap is the trace: in each cycle, the source lights up, the bus shows the pattern, the destination receives. Nothing moves. The pattern is copied. In the echo, each key you press enters drawer 8200h and the board shows the path to the screen.",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "A máquina já rodou o programa. O que você toca é o traço: em cada ciclo, a origem acende, o barramento mostra o padrão, o destino recebe. Nada anda. O padrão se copia. No eco, cada tecla sua entra na gaveta 8200h e a placa mostra o caminho dela até a tela.",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "a4d22e7c7e": {
+   "en": "Above, the address bus: 16 wires, blue. Below, the data bus: 8 wires, bronze, with the eight bits visible. Between the two, the modules of Petzold's machine, each with its mathematical label. To the right, the screen, which reads 264 drawers of RAM. In each cycle, at most four things light up; the rest stays off.",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "Em cima, o barramento de endereços: 16 fios, azul. Embaixo, o de dados: 8 fios, bronze, com os oito bits à vista. Entre os dois, os módulos da máquina do Petzold, cada um com o seu rótulo matemático. À direita, a tela, que lê 264 gavetas da RAM. Em cada ciclo acendem no máximo quatro coisas; o resto fica apagado.",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "ad49ca9216": {
+   "en": "The board in plan: two buses, the modules between them, and the screen",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "A placa em planta: dois barramentos, os módulos entre eles, e a tela",
+   "qa": "ok",
+   "tipo": "attr:aria-label"
+  },
+  "bf37c613ef": {
+   "en": "Text and figures: CC BY-SA 4.0 · code: MIT · <a href=\"https://github.com/mateusalkimim/hello-world-machine\">repository</a>",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "Texto e figuras: CC BY-SA 4.0 · código: MIT · <a href=\"https://github.com/mateusalkimim/hello-world-machine\">repositório</a>",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "bf8e3938ff": {
+   "en": "type here: each key becomes a byte",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "digite aqui: cada tecla vira um byte",
+   "qa": "ok",
+   "tipo": "attr:placeholder"
+  },
+  "c04b0b8f92": {
+   "en": "<input id=\"sotela\" type=\"checkbox\"> only the writings on the screen",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "<input id=\"sotela\" type=\"checkbox\"> só as escritas na tela",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "c37dc6f599": {
+   "en": "Olá, Mundo! on the board",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "Olá, Mundo! na placa",
+   "qa": "ok",
+   "tipo": "prosa"
+  },
+  "d26aaee092": {
+   "en": "program <select id=\"programa\" aria-label=\"program\"></select>",
+   "modelo": "claude-fable-5-1",
+   "orfao": false,
+   "pt": "programa <select id=\"programa\" aria-label=\"programa\"></select>",
+   "qa": "ok",
+   "tipo": "prosa",
+   "decisao": "a mão: o atributo id não se traduz"
+  },
+  "e775b24516": {
+   "en": "The machine drawn in plan plays, cycle by cycle, the program that writes Olá, Mundo! on the screen: the source lights up, the bus displays the pattern, the destination receives.",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "A máquina desenhada em planta toca, ciclo a ciclo, o programa que escreve Olá, Mundo! na tela: a origem acende, o barramento mostra o padrão, o destino recebe.",
+   "qa": "ok",
+   "tipo": "attr:content"
+  },
+  "e7d92c1fed": {
+   "en": "program",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "programa",
+   "qa": "ok",
+   "tipo": "attr:aria-label"
+  },
+  "ede7404021": {
+   "en": "play",
+   "modelo": "phi-4",
+   "orfao": false,
+   "pt": "tocar",
+   "qa": "ok",
+   "tipo": "prosa"
+  }
+ },
+ "fatia": "placa",
+ "idioma": "en-US"
+}

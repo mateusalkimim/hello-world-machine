@@ -113,7 +113,10 @@ class _Blocos(HTMLParser):
             self._pula += 1
         if not self._pula:
             for nome, valor in attrs:
-                if nome in ATRIBUTOS and valor and not SEM_LETRA.match(valor):
+                # a descricao da pagina (meta) e texto de tela para quem busca:
+                # entra como atributo, senao a pagina inglesa sai descrita em portugues
+                eh_descricao = tag == "meta" and nome == "content" and dict(attrs).get("name") == "description"
+                if (nome in ATRIBUTOS or eh_descricao) and valor and not SEM_LETRA.match(valor):
                     alvo = '%s="%s"' % (nome, valor)
                     p = self.raw.find(alvo, self._off())
                     if p != -1:
