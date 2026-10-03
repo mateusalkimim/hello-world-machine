@@ -2862,6 +2862,213 @@
    "modelo": "claude-fable-5-1",
    "qa": "ok",
    "decisao": "nome curto do degrau, a mão em 2026-10-03"
+  },
+  "54b6c54f86": {
+   "pt": "← → no teclado; um degrau por tela",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "← → on the keyboard; one step per screen",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "a mão em 2026-10-03"
+  },
+  "5dcfa45d7e": {
+   "pt": "<span class=\"tok\">lê-se</span><span class=\"nome\">sinais</span>",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "<span class=\"tok\">read as</span><span class=\"nome\">signs</span>",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
+  },
+  "a6db13485e": {
+   "pt": "sinais",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "signs",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
+  },
+  "ff6675c9c0": {
+   "pt": "<span class=\"tok\">frase</span><span class=\"nome\">O</span>",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "<span class=\"tok\">phrase</span><span class=\"nome\">O</span>",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
+  },
+  "f3f42349f6": {
+   "pt": "frase",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "phrase",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
+  },
+  "404ff36767": {
+   "pt": "<span class=\"tok\">tecla</span><span class=\"nome\">79</span>",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "<span class=\"tok\">key</span><span class=\"nome\">79</span>",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
+  },
+  "b74f5ee946": {
+   "pt": "79",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "79",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
+  },
+  "103d0f4ca1": {
+   "pt": "<span class=\"tok\">número</span><span class=\"nome\">79</span>",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "<span class=\"tok\">number</span><span class=\"nome\">79</span>",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
+  },
+  "0b47ce0b5a": {
+   "pt": "<span class=\"tok\">bits</span><span class=\"nome\">01001111</span>",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "<span class=\"tok\">bits</span><span class=\"nome\">01001111</span>",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
+  },
+  "0569ae912e": {
+   "pt": "bits",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "bits",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
+  },
+  "67d0dd5332": {
+   "pt": "01001111",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "01001111",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
+  },
+  "0299736ba3": {
+   "pt": "<span class=\"tok\">o á</span><span class=\"nome\">C3 A1</span>",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "<span class=\"tok\">the á</span><span class=\"nome\">C3 A1</span>",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
+  },
+  "c7ff183003": {
+   "pt": "o á",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "the á",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
+  },
+  "46f187391f": {
+   "pt": "C3 A1",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "C3 A1",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
+  },
+  "14cc5bca3a": {
+   "pt": "<span class=\"tok\">relés</span><span class=\"nome\">oito chaves</span>",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "<span class=\"tok\">relays</span><span class=\"nome\">eight switches</span>",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
+  },
+  "82ba661836": {
+   "pt": "<span class=\"tok\">conta</span><span class=\"nome\">+1 = P</span>",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "<span class=\"tok\">count</span><span class=\"nome\">+1 = P</span>",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
+  },
+  "30e5039c1d": {
+   "pt": "+1 = P",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "+1 = P",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
+  },
+  "628925973a": {
+   "pt": "<span class=\"tok\">endereço</span><span class=\"nome\">0109</span>",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "<span class=\"tok\">address</span><span class=\"nome\">0109</span>",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
+  },
+  "add97daefa": {
+   "pt": "0109",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "0109",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
+  },
+  "86631f2b67": {
+   "pt": "<span class=\"tok\">ordem</span><span class=\"nome\">CD 05 00</span>",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "<span class=\"tok\">order</span><span class=\"nome\">CD 05 00</span>",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
+  },
+  "3165ca0dc3": {
+   "pt": "<span class=\"tok\">palavra</span><span class=\"nome\">CALL 5</span>",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "<span class=\"tok\">word</span><span class=\"nome\">CALL 5</span>",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
+  },
+  "cd5e5f5ed7": {
+   "pt": "<span class=\"tok\">luz</span><span class=\"nome\">pontos</span>",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "<span class=\"tok\">light</span><span class=\"nome\">points</span>",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
+  },
+  "1b7f278997": {
+   "pt": "<span class=\"tok\">laço</span><span class=\"nome\">conserva</span>",
+   "tipo": "prosa",
+   "orfao": false,
+   "en": "<span class=\"tok\">loop</span><span class=\"nome\">conserves</span>",
+   "modelo": "claude-fable-5-1",
+   "qa": "ok",
+   "decisao": "estação da trilha, a mão em 2026-10-03"
   }
  },
  "fatia": "index",

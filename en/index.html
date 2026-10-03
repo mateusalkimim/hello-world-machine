@@ -166,9 +166,9 @@ html[lang^="en"] blockquote .pt{display:none}
 <div class="pagina">
 <div class="cab">
   <div><p class="eyebrow">hello-world-machine</p><h1>The life of Olá, Mundo!</h1></div>
-  <p class="nota"><a href="../en/" lang="en" hreflang="en">English</a> · ← → on the keyboard; one step per screen</p>
+  <p class="nota">← → on the keyboard; one step per screen</p>
 </div>
-<div class="trilha" id="trilha" aria-label="What the o already became"></div>
+<div class="trilha" id="trilha" aria-label="What the o already became"><div class="est futuro" data-i="0"><span class="tok">read as</span><span class="nome">signs</span></div><div class="est futuro" data-i="1"><span class="tok">phrase</span><span class="nome">O</span></div><div class="est futuro" data-i="2"><span class="tok">key</span><span class="nome">79</span></div><div class="est futuro" data-i="3"><span class="tok">number</span><span class="nome">79</span></div><div class="est futuro" data-i="4"><span class="tok">bits</span><span class="nome">01001111</span></div><div class="est futuro" data-i="5"><span class="tok">the á</span><span class="nome">C3 A1</span></div><div class="est futuro" data-i="6"><span class="tok">relays</span><span class="nome">eight switches</span></div><div class="est futuro" data-i="7"><span class="tok">count</span><span class="nome">+1 = P</span></div><div class="est futuro" data-i="8"><span class="tok">address</span><span class="nome">0109</span></div><div class="est futuro" data-i="9"><span class="tok">order</span><span class="nome">CD 05 00</span></div><div class="est futuro" data-i="10"><span class="tok">word</span><span class="nome">CALL 5</span></div><div class="est futuro" data-i="11"><span class="tok">light</span><span class="nome">points</span></div><div class="est futuro" data-i="12"><span class="tok">loop</span><span class="nome">conserves</span></div></div>
 <div id="degraus">
 <section class="degrau" id="conv" data-nome="How to read the symbols">
   <header><p class="regime">before everything · how to read the symbols on this page</p><h2>Seven signals, and how each is read</h2></header>
@@ -422,7 +422,7 @@ html[lang^="en"] blockquote .pt{display:none}
 </section>
 <section class="degrau" id="d8" data-nome="The orders are written in words">
   <header><p class="regime">7 · words → orders</p><h2>Someone writes the orders in words</h2></header>
-  <p class="tese">No one memorizes that “chame” is <span class="mono">CD</span>. You write <span class="mono">CALL 5</span> in text, and the assembler replaces each word with the correct byte.</p>
+  <p class="tese">No one memorizes that “call” is <span class="mono">CD</span>. You write <span class="mono">CALL 5</span> in text, and the assembler replaces each word with the correct byte.</p>
   <div class="palavras"><p class="rot">before, the words of this step</p><div class="item"><p class="nome-item">assembler</p><ul><li><i>What it is:</i> a program that reads a text with the orders written in words and replaces each word with the correct byte.</li><li><i>Why it exists:</i> because a person remembers a word, and a machine only reads a number. Someone has to make the switch, and a program does it without error.</li></ul></div><div class="item"><p class="nome-item">operating system</p><ul><li><i>What it is:</i> a program that already lives in the machine and provides services to other programs, like displaying text on the screen.</li><li><i>Why it exists:</i> so each new program doesn’t need to know how the screen works.</li></ul></div></div>
   <figure class="fig">
     <p class="rotulo">assembler: one line, one order</p>
@@ -438,7 +438,7 @@ html[lang^="en"] blockquote .pt{display:none}
   </figure>
   <p class="corpo">This is where delegation begins: a person writes the intention, the machine executes. The operating system already knows how to perform services, like displaying text, so each program doesn’t need to know.</p>
   <p class="verplaca"><a href="placa.html#ola-mundo-c7">see on the board →</a> <span>ola-mundo, cycle 7: in the list next to it, MVI M, 'O' became 36 4F; the machine only sees the bytes</span></p>
-  <div class="mat"><p class="obj">the math here · <b>translation that preserves meaning</b></p><p class="expr"><span class="nome">run</span>(<span class="nome">assemble</span>(text)) = <span class="nome">meaning</span>(text)</p><p class="leitura"><b>read as:</b> spinning what was assembled from the text gives the same as the meaning of the text.</p></div>
+  <div class="mat"><p class="obj">the math here · <b>translation that preserves meaning</b></p><p class="expr"><span class="nome">run</span>(<span class="nome">assemble</span>(text)) = <span class="nome">meaning</span>(text)</p><p class="leitura"><b>read as:</b> running what was assembled from the text gives the same as the meaning of the text.</p></div>
   <details class="prova"><summary>where this comes from</summary><div class="prova-corpo"><div class="fonte">Charles Petzold · ch. 27 — Coding</div><blockquote><span class="en" lang="en">An assembler such as ASM.COM reads an assembly-language program (often called a source-code file) and writes out to a file containing machine code—an executable file.</span><span class="pt">Um montador como o ASM.COM lê um programa em linguagem de montagem (o chamado arquivo-fonte) e escreve um arquivo com código de máquina: um executável.</span><cite>cap. 27 — Coding</cite></blockquote></div></details>
 </section>
 <section class="degrau" id="d9" data-nome="The order turns into points of light.">
@@ -504,17 +504,15 @@ html[lang^="en"] blockquote .pt{display:none}
   var secs=[].slice.call(document.querySelectorAll('.degrau'));
   var N=secs.length;
   // a trilha: o que o "o" já virou em cada degrau
-  var est=[{"tok": "sinais", "nome": "read as"}, {"tok": "O", "nome": "frase"}, {"tok": "79", "nome": "key"}, {"tok": "79", "nome": "number"}, {"tok": "01001111", "nome": "bits"}, {"tok": "C3 A1", "nome": "o á"}, {"tok": "eight switches", "nome": "relays"}, {"tok": "+1 = P", "nome": "count"}, {"tok": "0109", "nome": "address"}, {"tok": "CD 05 00", "nome": "order"}, {"tok": "CALL 5", "nome": "word"}, {"tok": "points", "nome": "light"}, {"tok": "conserves", "nome": "loop"}];
   var trilha=document.getElementById('trilha');
+  var est=[].slice.call(trilha.querySelectorAll('.est'));
   var ant=document.getElementById('ant'),prox=document.getElementById('prox'),pos=document.getElementById('pos');
   var atual=0;
   function desenharTrilha(k){
-    var h='';
-    for(var i=0;i<est.length;i++){
-      var cls=i<k?'passado':(i===k?'atual':'futuro');
-      h+='<div class="est '+cls+'" data-i="'+i+'"><span class="tok">'+est[i].nome+'</span><span class="nome">'+est[i].tok+'</span></div>';
-    }
-    trilha.innerHTML=h;
+    est.forEach(function(e,i){
+      e.classList.remove('passado','atual','futuro');
+      e.classList.add(i<k?'passado':(i===k?'atual':'futuro'));
+    });
     var a=trilha.querySelector('.atual'); if(a&&a.scrollIntoView){try{a.scrollIntoView({block:'nearest',inline:'center'});}catch(e){}}
   }
   function ir(k,foco){

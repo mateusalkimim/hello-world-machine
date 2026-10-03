@@ -2,17 +2,15 @@
   var secs=[].slice.call(document.querySelectorAll('.degrau'));
   var N=secs.length;
   // a trilha: o que o "o" já virou em cada degrau
-  var est=__TRILHA__;
   var trilha=document.getElementById('trilha');
+  var est=[].slice.call(trilha.querySelectorAll('.est'));
   var ant=document.getElementById('ant'),prox=document.getElementById('prox'),pos=document.getElementById('pos');
   var atual=0;
   function desenharTrilha(k){
-    var h='';
-    for(var i=0;i<est.length;i++){
-      var cls=i<k?'passado':(i===k?'atual':'futuro');
-      h+='<div class="est '+cls+'" data-i="'+i+'"><span class="tok">'+est[i].nome+'</span><span class="nome">'+est[i].tok+'</span></div>';
-    }
-    trilha.innerHTML=h;
+    est.forEach(function(e,i){
+      e.classList.remove('passado','atual','futuro');
+      e.classList.add(i<k?'passado':(i===k?'atual':'futuro'));
+    });
     var a=trilha.querySelector('.atual'); if(a&&a.scrollIntoView){try{a.scrollIntoView({block:'nearest',inline:'center'});}catch(e){}}
   }
   function ir(k,foco){

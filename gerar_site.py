@@ -282,10 +282,12 @@ def fecho(f):
 </section>"""
 
 
-def trilha_js():
-    # json.dumps escapa as aspas de dentro do HTML; repr não escapava, e o
-    # token "lê-se" (com aspas duplas) quebrou o roteiro inteiro em silêncio.
-    return json.dumps([dict(tok=tok, nome=nome) for nome, tok in D.TRILHA], ensure_ascii=False)
+def trilha_html():
+    """A trilha nasce em HTML, não no script: é conteúdo de tela, e a tradução
+    só enxerga conteúdo fora do script. O visor apenas troca as classes."""
+    return "".join(
+        f'<div class="est futuro" data-i="{i}"><span class="tok">{nome}</span><span class="nome">{tok}</span></div>'
+        for i, (nome, tok) in enumerate(D.TRILHA))
 
 
 def pagina():
@@ -294,7 +296,7 @@ def pagina():
     if len(D.TRILHA) != len(D.DEGRAUS) + 2:
         abortar(f"trilha com {len(D.TRILHA)} estações para convenções + {len(D.DEGRAUS)} degraus + fecho")
     css = open(os.path.join(AQUI, "pele.css"), encoding="utf-8").read()
-    js = open(os.path.join(AQUI, "visor.js"), encoding="utf-8").read().replace("__TRILHA__", trilha_js())
+    js = open(os.path.join(AQUI, "visor.js"), encoding="utf-8").read()
     portao_de_vocabulario("conv", texto_visivel(convencoes()))
     for d in D.DEGRAUS:
         portao_de_vocabulario(d["id"], texto_visivel(degrau(d)))
@@ -318,7 +320,7 @@ def pagina():
   <div><p class="eyebrow">hello-world-machine</p><h1>A vida de Olá, Mundo!</h1></div>
   <p class="nota">← → no teclado; um degrau por tela</p>
 </div>
-<div class="trilha" id="trilha" aria-label="O que o o já virou"></div>
+<div class="trilha" id="trilha" aria-label="O que o o já virou">{trilha_html()}</div>
 <div id="degraus">{corpo}
 </div>
 <nav class="passo" aria-label="Navegação entre degraus">
