@@ -1,0 +1,47 @@
+/* A pele de Ítaca sobre a bancada. Entra DEPOIS do estilo original e só troca
+   o que é pele: as variáveis de cor (que o desenho das peças também lê), as
+   fontes, e o molde do cabeçalho e dos rótulos. O jogo não é tocado.
+
+   Os papéis de cor, na paleta das outras três páginas:
+     azul    o que se toca (ferramenta escolhida, botão principal, foco)
+     ouro    fio COM corrente; bronze é a borda e o número dele
+     ardósia fio SEM corrente
+     verde   acerto        rubro   erro
+   O ouro do fio é mais vivo que o bronze da casa de propósito: com o bronze, a
+   distância de cor entre fio com e sem corrente caía a 70% da original; com
+   este ouro e esta ardósia fica acima de 100%, no claro e no escuro. */
+:root{
+  --bg:#f3f5f9; --paper:#ffffff; --board:#e9edf5; --peg:#c5cfe0; --ink:#16233f; --ink2:#3f4d6b; --line:#d9e0ec;
+  --wire:#4d5d85; --hot:#d9a441; --hot2:#a9713f; --spark:#f6e7bd; --lit:#e9bb55; --chip:#1e3a6b; --chip2:#12244a;
+  --ok:#4e7a49; --okbg:#e6efe4; --bad:#a84444; --badbg:#f6e7e5; --accent:#1e3a6b; --accentbg:#e4e9f2; --radius:5px;
+  --bronze:#a9713f; --azul-deep:#12244a;
+  --it-serif:"Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --it-sans:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --it-mono:"Spline Sans Mono", ui-monospace, "Cascadia Code", monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0a1424; --paper:#111d33; --board:#0d192d; --peg:#243352; --ink:#f0e4cc; --ink2:#c9c2b2; --line:#243352;
+  --wire:#7f8fb3; --hot:#e0b04a; --hot2:#e3c48f; --spark:#f6e7bd; --lit:#f0c765; --chip:#2b3f63; --chip2:#1b2a45;
+  --ok:#8dbb86; --okbg:#17291f; --bad:#d98080; --badbg:#33202a; --accent:#7fa3dc; --accentbg:#1b2a45;
+  --bronze:#c9a266; --azul-deep:#c7d6f0; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0a1424; --paper:#111d33; --board:#0d192d; --peg:#243352; --ink:#f0e4cc; --ink2:#c9c2b2; --line:#243352;
+  --wire:#7f8fb3; --hot:#e0b04a; --hot2:#e3c48f; --spark:#f6e7bd; --lit:#f0c765; --chip:#2b3f63; --chip2:#1b2a45;
+  --ok:#8dbb86; --okbg:#17291f; --bad:#d98080; --badbg:#33202a; --accent:#7fa3dc; --accentbg:#1b2a45;
+  --bronze:#c9a266; --azul-deep:#c7d6f0; color-scheme:dark }
+
+body{font-family:var(--it-sans)}
+header{align-items:flex-end;margin:10px 0 6px}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--bronze);font-weight:600;margin:0}
+h1{font-family:var(--it-serif);font-weight:600;font-size:26px;line-height:1.1;color:var(--azul-deep)}
+h2{font-family:var(--it-serif);font-weight:600;font-size:20px;line-height:1.15}
+.title{font-family:var(--it-serif);font-weight:600;font-size:25px;line-height:1.15}
+.family{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze);font-weight:600;margin-bottom:4px}
+.pill{font-family:var(--it-mono);font-size:11px;border-radius:5px}
+.card,#wrap,.confirm{border-radius:7px}
+.chip{border-radius:5px}
+.parts canvas{border-radius:5px}
+.actions button.primary,.btn.primary{color:var(--paper)}
+.check li.done .box::after{border-color:var(--paper)}
+.bit.on b,.bit.on i{color:#0a1424}
+.readout .big{font-family:var(--it-serif)}

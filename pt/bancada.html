@@ -4,11 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Bancada de circuitos</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
 <style>
 :root{
-  --bg:#E8EAEE; --paper:#F8F9FB; --board:#F3EEE3; --peg:#D8CFBB; --ink:#1B1F24; --ink2:#5B636E; --line:#CDD2DA;
+  --bg:#E8EAEE; --paper:#F8F9FB; --board:#F3EEE3; --peg:#D8CFBB; --ink:#0a1424; --ink2:#5B636E; --line:#CDD2DA;
   --wire:#5A6470; --hot:#F2A33A; --hot2:#B86E07; --spark:#FFE9A8; --lit:#FFD262; --chip:#2F3A4A; --chip2:#1F2733;
   --ok:#2E9E6B; --okbg:#E3F4EB; --bad:#D2452F; --badbg:#FBE7E3; --accent:#2B5DD1; --accentbg:#E6ECFA; --radius:8px;
   box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
@@ -25,7 +24,7 @@
 }
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.5}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.5}
 main{max-width:720px;margin:0 auto;padding:12px 12px 40px}
 header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}
 h1{font-size:18px;font-weight:600;margin:0}
@@ -75,7 +74,7 @@ td.wait{color:var(--ink2)}
 .bit{display:flex;flex-direction:column;align-items:center;min-width:28px;padding:3px 2px;border-radius:6px;border:1px solid var(--line);background:var(--paper)}
 .bit b{font-size:15px;font-weight:600;color:var(--ink2)}
 .bit i{font-style:normal;font-size:10px;color:var(--ink2)}
-.bit.on{background:var(--hot);border-color:var(--hot2)} .bit.on b,.bit.on i{color:#1B1F24}
+.bit.on{background:var(--hot);border-color:var(--hot2)} .bit.on b,.bit.on i{color:#0a1424}
 .bit.miss{border-style:dashed}
 .check{list-style:none;margin:8px 0 0;padding:0}
 .check li{display:flex;gap:8px;align-items:baseline;margin:4px 0}
@@ -97,6 +96,53 @@ td.wait{color:var(--ink2)}
 .onb ol{margin:0 0 10px 18px;padding:0}
 .onb li{margin:2px 0}
 summary{cursor:pointer;color:var(--accent);font-weight:500}
+/* A pele de Ítaca sobre a bancada. Entra DEPOIS do estilo original e só troca
+   o que é pele: as variáveis de cor (que o desenho das peças também lê), as
+   fontes, e o molde do cabeçalho e dos rótulos. O jogo não é tocado.
+
+   Os papéis de cor, na paleta das outras três páginas:
+     azul    o que se toca (ferramenta escolhida, botão principal, foco)
+     ouro    fio COM corrente; bronze é a borda e o número dele
+     ardósia fio SEM corrente
+     verde   acerto        rubro   erro
+   O ouro do fio é mais vivo que o bronze da casa de propósito: com o bronze, a
+   distância de cor entre fio com e sem corrente caía a 70% da original; com
+   este ouro e esta ardósia fica acima de 100%, no claro e no escuro. */
+:root{
+  --bg:#f3f5f9; --paper:#ffffff; --board:#e9edf5; --peg:#c5cfe0; --ink:#16233f; --ink2:#3f4d6b; --line:#d9e0ec;
+  --wire:#4d5d85; --hot:#d9a441; --hot2:#a9713f; --spark:#f6e7bd; --lit:#e9bb55; --chip:#1e3a6b; --chip2:#12244a;
+  --ok:#4e7a49; --okbg:#e6efe4; --bad:#a84444; --badbg:#f6e7e5; --accent:#1e3a6b; --accentbg:#e4e9f2; --radius:5px;
+  --bronze:#a9713f; --azul-deep:#12244a;
+  --it-serif:"Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --it-sans:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --it-mono:"Spline Sans Mono", ui-monospace, "Cascadia Code", monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0a1424; --paper:#111d33; --board:#0d192d; --peg:#243352; --ink:#f0e4cc; --ink2:#c9c2b2; --line:#243352;
+  --wire:#7f8fb3; --hot:#e0b04a; --hot2:#e3c48f; --spark:#f6e7bd; --lit:#f0c765; --chip:#2b3f63; --chip2:#1b2a45;
+  --ok:#8dbb86; --okbg:#17291f; --bad:#d98080; --badbg:#33202a; --accent:#7fa3dc; --accentbg:#1b2a45;
+  --bronze:#c9a266; --azul-deep:#c7d6f0; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0a1424; --paper:#111d33; --board:#0d192d; --peg:#243352; --ink:#f0e4cc; --ink2:#c9c2b2; --line:#243352;
+  --wire:#7f8fb3; --hot:#e0b04a; --hot2:#e3c48f; --spark:#f6e7bd; --lit:#f0c765; --chip:#2b3f63; --chip2:#1b2a45;
+  --ok:#8dbb86; --okbg:#17291f; --bad:#d98080; --badbg:#33202a; --accent:#7fa3dc; --accentbg:#1b2a45;
+  --bronze:#c9a266; --azul-deep:#c7d6f0; color-scheme:dark }
+
+body{font-family:var(--it-sans)}
+header{align-items:flex-end;margin:10px 0 6px}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--bronze);font-weight:600;margin:0}
+h1{font-family:var(--it-serif);font-weight:600;font-size:26px;line-height:1.1;color:var(--azul-deep)}
+h2{font-family:var(--it-serif);font-weight:600;font-size:20px;line-height:1.15}
+.title{font-family:var(--it-serif);font-weight:600;font-size:25px;line-height:1.15}
+.family{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze);font-weight:600;margin-bottom:4px}
+.pill{font-family:var(--it-mono);font-size:11px;border-radius:5px}
+.card,#wrap,.confirm{border-radius:7px}
+.chip{border-radius:5px}
+.parts canvas{border-radius:5px}
+.actions button.primary,.btn.primary{color:var(--paper)}
+.check li.done .box::after{border-color:var(--paper)}
+.bit.on b,.bit.on i{color:#0a1424}
+.readout .big{font-family:var(--it-serif)}
 
 .partes{display:flex;flex-wrap:wrap;gap:.2rem 1.1rem;font-size:.85rem;line-height:1.4;padding:0 0 .4rem;margin:0;border-bottom:1px solid rgba(128,128,128,.3)}
 .partes a{color:inherit;opacity:.62;text-decoration:none;padding:.15rem 0;border-bottom:2px solid transparent}
@@ -108,7 +154,7 @@ summary{cursor:pointer;color:var(--accent);font-weight:500}
 <main>
 <nav class="partes" aria-label="As quatro partes"><a href="index.html">os degraus</a><a href="placa.html">a placa</a><a href="escada.html">a escada</a><a href="bancada.html" aria-current="page">a bancada</a></nav>
 <header>
-  <h1>Bancada de circuitos</h1>
+  <div><p class="eyebrow">hello-world-machine · bancada</p><h1>Bancada de circuitos</h1></div>
   <span class="pill" id="progress"></span>
 </header>
 <svg class="trilha" id="trilha" viewBox="0 0 380 68" role="img" aria-label="Trilha das famílias"></svg>
@@ -388,7 +434,7 @@ function drawPart(g,c,cx,cy,s,st){
     const w=s*0.56,h=s*0.68, x=cx-w/2,y=cy-h/2+s*0.05;
     g.fillStyle=COL.hot; rr(g,x,y,w,h,s*0.08); g.fill();
     g.fillStyle=COL.hot2; g.fillRect(cx-s*0.14,y-s*0.08,s*0.28,s*0.1); g.fillRect(x,y+h*0.64,w,h*0.3);
-    g.fillStyle="#1B1F24"; g.font=`700 ${Math.round(s*0.42)}px "IBM Plex Sans",sans-serif`; g.fillText("+",cx,y+h*0.33);
+    g.fillStyle="#0a1424"; g.font=`700 ${Math.round(s*0.42)}px "Inter",sans-serif`; g.fillText("+",cx,y+h*0.33);
   } else if(c.t==="sw"){
     const closed=(st.anim!==undefined)?st.anim:(st.on?1:0);
     const padCol=st.p?COL.hot:COL.wire;
@@ -404,7 +450,7 @@ function drawPart(g,c,cx,cy,s,st){
     g.fillStyle=COL.ink2; g.beginPath(); g.arc(0,by,s*0.06,0,7); g.fill();
     g.restore();
     if(c.lbl){ const lx=cx+((c.r%2)?-s*0.02:0), ly=cy+((c.r%2)?0:s*0.02);
-      g.fillStyle=st.on?"#1B1F24":COL.ink; g.font=`700 ${Math.round(s*0.26)}px "IBM Plex Sans",sans-serif`; g.fillText(c.lbl,lx,ly+1); }
+      g.fillStyle=st.on?"#0a1424":COL.ink; g.font=`700 ${Math.round(s*0.26)}px "Inter",sans-serif`; g.fillText(c.lbl,lx,ly+1); }
   } else if(c.t==="lamp"){
     const tagged=!!c.lbl; const r=tagged?s*0.24:s*0.3; const by=tagged?cy-s*0.1:cy-s*0.06;
     if(tagged){ g.fillStyle=COL.chip; g.strokeStyle=COL.chip2; g.lineWidth=1; rr(g,cx-s*0.42,cy-s*0.42,s*0.84,s*0.84,s*0.1); g.fill(); g.stroke();
@@ -414,7 +460,7 @@ function drawPart(g,c,cx,cy,s,st){
     g.fillStyle=st.lit?COL.lit:COL.paper; g.strokeStyle=st.lit?COL.hot2:COL.ink2; g.lineWidth=1.5;
     g.beginPath(); g.arc(cx,by,r,0,7); g.fill(); g.stroke();
     if(!tagged){ g.fillStyle=COL.ink2; g.fillRect(cx-s*0.14,by+r-s*0.02,s*0.28,s*0.12); }
-    else { const sl=shortLbl(c.lbl); g.fillStyle=COL.ink; g.font=`700 ${Math.round(s*(sl.length>1?0.16:0.2))}px "IBM Plex Sans",sans-serif`; g.fillText(sl,cx,cy+s*0.275); }
+    else { const sl=shortLbl(c.lbl); g.fillStyle=COL.ink; g.font=`700 ${Math.round(s*(sl.length>1?0.16:0.2))}px "Inter",sans-serif`; g.fillText(sl,cx,cy+s*0.275); }
   } else if(c.t==="tn"||c.t==="tp"){
     const gd=c.r; const closed=(st.anim!==undefined)?st.anim:(st.act?1:0);
     const padCol=st.p?COL.hot:COL.wire, coilCol=st.gp?COL.hot:COL.ink2;
@@ -433,15 +479,15 @@ function drawPart(g,c,cx,cy,s,st){
     g.strokeStyle=(closed>0.98&&st.p)?COL.hot:COL.ink; g.lineWidth=Math.max(3,s*0.13); g.beginPath(); g.moveTo(px,0); g.lineTo(tx,ty); g.stroke();
     g.fillStyle=COL.ink2; g.beginPath(); g.arc(px,0,s*0.075,0,7); g.fill();
     g.restore();
-    g.fillStyle=COL.ink2; g.font=`700 ${Math.round(s*0.24)}px "IBM Plex Sans",sans-serif`; g.fillText(c.t==="tn"?"N":"P",cx-DX[gd]*s*0.36,cy-DY[gd]*s*0.36+1);
+    g.fillStyle=COL.ink2; g.font=`700 ${Math.round(s*0.24)}px "Inter",sans-serif`; g.fillText(c.t==="tn"?"N":"P",cx-DX[gd]*s*0.36,cy-DY[gd]*s*0.36+1);
   } else if(c.t==="clk"){
     const r=s*0.34;
     g.fillStyle=st.clk?COL.hot:COL.paper; g.strokeStyle=st.clk?COL.hot2:COL.ink2; g.lineWidth=1.5;
     g.beginPath(); g.arc(cx,cy,r,0,7); g.fill(); g.stroke();
     const a=(st.ph||0)*Math.PI*2-Math.PI/2;
-    g.strokeStyle=st.clk?"#1B1F24":COL.ink; g.lineWidth=2; g.beginPath(); g.moveTo(cx,cy); g.lineTo(cx+Math.cos(a)*r*0.7,cy+Math.sin(a)*r*0.7); g.stroke();
+    g.strokeStyle=st.clk?"#0a1424":COL.ink; g.lineWidth=2; g.beginPath(); g.moveTo(cx,cy); g.lineTo(cx+Math.cos(a)*r*0.7,cy+Math.sin(a)*r*0.7); g.stroke();
     g.beginPath(); g.moveTo(cx,cy); g.lineTo(cx,cy-r*0.45); g.stroke();
-    g.fillStyle=st.clk?"#1B1F24":COL.ink; g.beginPath(); g.arc(cx,cy,s*0.05,0,7); g.fill();
+    g.fillStyle=st.clk?"#0a1424":COL.ink; g.beginPath(); g.arc(cx,cy,s*0.05,0,7); g.fill();
   }
   g.restore();
 }
@@ -477,9 +523,9 @@ function drawMonitor(){
   ctx.fillStyle=COL.chip2; rr(ctx,mx+S*0.25,my+S*0.25,mw-S*0.5,mh-S*0.5,S*0.2); ctx.fill();
   ctx.textAlign="center"; ctx.textBaseline="middle";
   const big=Math.round(S*(lines===3?0.9:1.05));
-  ctx.fillStyle=b.all?COL.hot:COL.ink2; ctx.font=`600 ${big}px "IBM Plex Sans",sans-serif`;
+  ctx.fillStyle=b.all?COL.hot:COL.ink2; ctx.font=`600 ${big}px "Inter",sans-serif`;
   ctx.fillText(b.all?fmt(b.v):"– – –",cx,my+(lines===3?mh*0.3:mh*0.42));
-  ctx.fillStyle=b.all?COL.spark:COL.ink2; ctx.font=`500 ${Math.round(S*0.34)}px "IBM Plex Sans",sans-serif`;
+  ctx.fillStyle=b.all?COL.spark:COL.ink2; ctx.font=`500 ${Math.round(S*0.34)}px "Inter",sans-serif`;
   if(!b.all){ ctx.fillText("faltam saídas",cx,my+mh*0.8); ctx.restore(); return; }
   if(flt){
     ctx.fillText(b.M+" × 2^"+b.E+"  =  "+fmt(b.v),cx,my+mh*0.62);
@@ -658,7 +704,7 @@ function buildTrilha(){
   for(let i=0;i<n-1;i++){ const x1=20+i*step,x2=20+(i+1)*step; const lit=famDone(i)&&famDone(i+1); h+=`<line x1="${x1+12}" y1="22" x2="${x2-12}" y2="22" stroke="${lit?'var(--hot)':'var(--line)'}" stroke-width="3" stroke-linecap="round"/>`; }
   for(let i=0;i<n;i++){ const x=20+i*step; const done=famDone(i), cur=mission.fam===i;
     h+=`<g class="node" data-f="${i}"><circle cx="${x}" cy="22" r="12" fill="${done?'var(--hot)':'var(--paper)'}" stroke="${cur?'var(--accent)':(done?'var(--hot2)':'var(--line)')}" stroke-width="${cur?3:1.5}"/>`;
-    if(done) h+=`<path d="M${x-5} 22l3.5 3.5 6.5-7" fill="none" stroke="#1B1F24" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>`;
+    if(done) h+=`<path d="M${x-5} 22l3.5 3.5 6.5-7" fill="none" stroke="#0a1424" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>`;
     else h+=`<text x="${x}" y="22" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" fill="${cur?'var(--accent)':'var(--ink2)'}">${i||'•'}</text>`;
     h+=`<text x="${x}" y="${i%2?60:47}" text-anchor="middle" font-size="9.5" fill="${cur?'var(--ink)':'var(--ink2)'}" font-weight="${cur?600:400}">${FAMILIES[i]}</text></g>`; }
   svg.innerHTML=h;
@@ -780,6 +826,7 @@ setInterval(()=>{ if(!hasClk()){ if(sim.clockOn){sim.clockOn=false;tick();} retu
 
 window.addEventListener("resize",resize);
 if(window.matchMedia){ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{buildPalette();buildParts();buildTrilha();draw();}); }
+if(document.fonts&&document.fonts.ready){ document.fonts.ready.then(()=>{buildPalette();buildParts();buildTrilha();draw();}); }
 buildParts();
 (function(){ let start=0; try{ const last=localStorage.getItem("bancada:last"); if(last){ const i=missions.findIndex(m=>m.id===last); if(i>=0) start=i; } }catch(e){} mission=missions[start]; })();
 showMission();
