@@ -150,3 +150,7 @@ details.prova .fonte{font-size:.8rem;color:var(--muted)}
 
 /* na página inglesa a passagem mostra só o original; a tradução para o português fica oculta */
 html[lang^="en"] blockquote .pt{display:none}
+/* O visor escreve o #id da seção na URL, e o navegador, ao terminar de carregar, rola até ela:
+   a página abria com o cabeçalho, a barra e a trilha fora da vista. Com esta margem o alvo
+   da rolagem cai acima do topo e a página abre no alto. */
+.degrau{scroll-margin-top:100vh}

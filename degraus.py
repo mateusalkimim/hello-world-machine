@@ -28,8 +28,8 @@ Selos de procedência (campo `selo`):
 FONTES = {
     "petzold": ("Charles Petzold, <i>Code: The Hidden Language of Computer "
                 "Hardware and Software</i>, 2ª ed. (2022)"),
-    "ladder": ("abstraction-ladder — a escada de abstrações, "
-               "https://github.com/mateusalkimim/abstraction-ladder"),
+    "ladder": ("a escada — as seis famílias de circuitos, "
+               "neste mesmo material, na página da escada"),
 }
 
 # A trilha: o nome de cada degrau e, embaixo, em texto, o que o "O" já virou.
@@ -256,7 +256,7 @@ DEGRAUS = [
         corpo='O número não está no relé. O relé só sabe passar ou não passar; '
               'somos nós que combinamos que passar vale 1. Oito relés, oito '
               'casas: o <b>O</b> inteiro cabe numa fileira. Como relés viram '
-              'portas e contas é a história da outra página, a escada.',
+              'portas e contas é a história da outra página, <a href="escada.html">a escada</a>.',
         figura="oito_reles", origem=["Petzold, caps. 7 e 8"],
         regua=("ouro", "aqui deixa de ser escrita e passa a ser eletricidade"),
         selo="escada", fonte="ladder",

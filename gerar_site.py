@@ -34,6 +34,7 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
 import degraus as D   # noqa: E402
 import figuras as F   # noqa: E402
+import barra as BARRA  # noqa: E402
 sys.path.insert(0, os.path.join(AQUI, "maquina"))
 import montar         # noqa: E402
 import maquina        # noqa: E402
@@ -295,7 +296,7 @@ def pagina():
         conferir(d)
     if len(D.TRILHA) != len(D.DEGRAUS) + 2:
         abortar(f"trilha com {len(D.TRILHA)} estações para convenções + {len(D.DEGRAUS)} degraus + fecho")
-    css = open(os.path.join(AQUI, "pele.css"), encoding="utf-8").read()
+    css = open(os.path.join(AQUI, "pele.css"), encoding="utf-8").read() + BARRA.CSS
     js = open(os.path.join(AQUI, "visor.js"), encoding="utf-8").read()
     portao_de_vocabulario("conv", texto_visivel(convencoes()))
     for d in D.DEGRAUS:
@@ -316,6 +317,7 @@ def pagina():
 </head>
 <body>
 <div class="pagina">
+{BARRA.barra("degraus")}
 <div class="cab">
   <div><p class="eyebrow">hello-world-machine</p><h1>A vida de Olá, Mundo!</h1></div>
   <p class="nota">← → no teclado; um degrau por tela</p>

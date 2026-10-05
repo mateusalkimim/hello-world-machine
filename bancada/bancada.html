@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bancada de circuitos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E8EAEE; --paper:#F8F9FB; --board:#F3EEE3; --peg:#D8CFBB; --ink:#1B1F24; --ink2:#5B636E; --line:#CDD2DA;
+  --wire:#5A6470; --hot:#F2A33A; --hot2:#B86E07; --spark:#FFE9A8; --lit:#FFD262; --chip:#2F3A4A; --chip2:#1F2733;
+  --ok:#2E9E6B; --okbg:#E3F4EB; --bad:#D2452F; --badbg:#FBE7E3; --accent:#2B5DD1; --accentbg:#E6ECFA; --radius:8px;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#15181C; --paper:#1E2228; --board:#262A31; --peg:#3B414B; --ink:#E8EAEE; --ink2:#9AA3AE; --line:#353B45;
+  --wire:#8F98A3; --hot:#F2A33A; --hot2:#FFC56B; --spark:#FFF1B8; --lit:#FFD262; --chip:#3A4658; --chip2:#2A3340;
+  --ok:#4FC28B; --okbg:#1E3328; --bad:#F06C57; --badbg:#3A2320; --accent:#7A9BF2; --accentbg:#252E44;
+}}
+:root[data-theme="dark"]{
+  --bg:#15181C; --paper:#1E2228; --board:#262A31; --peg:#3B414B; --ink:#E8EAEE; --ink2:#9AA3AE; --line:#353B45;
+  --wire:#8F98A3; --hot:#F2A33A; --hot2:#FFC56B; --spark:#FFF1B8; --lit:#FFD262; --chip:#3A4658; --chip2:#2A3340;
+  --ok:#4FC28B; --okbg:#1E3328; --bad:#F06C57; --badbg:#3A2320; --accent:#7A9BF2; --accentbg:#252E44;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.5}
+main{max-width:720px;margin:0 auto;padding:12px 12px 40px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}
+h1{font-size:18px;font-weight:600;margin:0}
+.pill{font-size:12px;color:var(--ink2);border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--paper)}
+.trilha{display:block;width:100%;height:auto;margin:2px 0 8px}
+.trilha .node{cursor:pointer}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.family{font-size:12px;color:var(--ink2);margin:0 0 2px}
+.title{font-size:18px;font-weight:600;margin:0 0 6px;line-height:1.3}
+.story{margin:0 0 8px}
+.task{margin:0;padding:8px 10px;border-left:3px solid var(--accent);background:var(--accentbg);border-radius:0 8px 8px 0}
+.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.chip{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer;min-height:34px}
+.chip[aria-expanded="true"]{background:var(--accentbg);border-color:var(--accent)}
+.reveal{margin:8px 0 0;font-size:14px;color:var(--ink2);display:none;white-space:pre-line}
+.reveal.show{display:block}
+#wrap{position:relative;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--board);touch-action:none}
+canvas{display:block}
+.legend{font-size:12px;color:var(--ink2);margin:4px 0 0}
+.palette{display:flex;gap:6px;overflow-x:auto;padding:8px 0 4px;-webkit-overflow-scrolling:touch}
+.palette.tools{padding-bottom:0}
+.palette.tools button{min-width:70px;flex:1 1 0}
+.palette button{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:2px;font:inherit;font-size:12px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:5px 8px 4px;min-width:64px;cursor:pointer}
+.palette button canvas{width:30px;height:30px}
+.palette button .sym{font-size:20px;line-height:30px;height:30px}
+.palette button[aria-pressed="true"]{border-color:var(--accent);background:var(--accentbg);font-weight:500}
+button:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.actions{display:flex;gap:8px;margin:6px 0 10px;flex-wrap:wrap}
+.actions button,.btn{font:inherit;font-size:14px;border-radius:var(--radius);padding:9px 14px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;min-height:40px}
+.actions button.primary,.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:500}
+.actions button:disabled{opacity:.5;cursor:default}
+.hint{font-size:13px;color:var(--ink2);margin:0 0 8px;min-height:1.4em}
+.confirm{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--badbg);border:1px solid var(--bad);border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:14px}
+.confirm[hidden]{display:none}
+.confirm span{flex:1 1 160px}
+h2{font-size:15px;margin:0 0 6px;font-weight:600}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{text-align:center;padding:5px 4px;border-bottom:1px solid var(--line)}
+th{color:var(--ink2);font-weight:500}
+td.ok{background:var(--okbg);color:var(--ok);font-weight:600}
+td.bad{background:var(--badbg);color:var(--bad);font-weight:600}
+td.wait{color:var(--ink2)}
+.live{font-size:12px;color:var(--ink2);margin:6px 0 0}
+.readout{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:2px 0 4px}
+.readout .big{font-size:34px;font-weight:600;min-width:70px;color:var(--hot2)}
+.readout .bits{display:flex;gap:4px;flex-wrap:wrap}
+.bit{display:flex;flex-direction:column;align-items:center;min-width:28px;padding:3px 2px;border-radius:6px;border:1px solid var(--line);background:var(--paper)}
+.bit b{font-size:15px;font-weight:600;color:var(--ink2)}
+.bit i{font-style:normal;font-size:10px;color:var(--ink2)}
+.bit.on{background:var(--hot);border-color:var(--hot2)} .bit.on b,.bit.on i{color:#1B1F24}
+.bit.miss{border-style:dashed}
+.check{list-style:none;margin:8px 0 0;padding:0}
+.check li{display:flex;gap:8px;align-items:baseline;margin:4px 0}
+.check .box{display:inline-block;width:18px;height:18px;border:2px solid var(--line);border-radius:5px;flex:0 0 auto;position:relative;top:3px}
+.check li.done .box{background:var(--ok);border-color:var(--ok)}
+.check li.done .box::after{content:"";position:absolute;left:5px;top:1px;width:4px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.check li.done{color:var(--ink2)}
+#done{display:none;border-color:var(--ok)}
+#done.show{display:block}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--okbg);color:var(--ok);border-radius:999px;padding:6px 14px;font-weight:600;margin-bottom:8px}
+.badge svg{width:18px;height:18px}
+@media (prefers-reduced-motion: no-preference){ #done.show .badge{animation:pop .45s cubic-bezier(.2,1.4,.4,1)} }
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.explore{margin:6px 0 0 18px;padding:0;color:var(--ink2);font-size:14px}
+.parts{display:grid;grid-template-columns:48px 1fr;gap:6px 10px;align-items:center;margin-top:8px}
+.parts canvas{width:44px;height:44px;background:var(--board);border-radius:8px;border:1px solid var(--line)}
+.parts p{margin:0;font-size:13px}
+.parts p b{font-weight:600}
+.onb ol{margin:0 0 10px 18px;padding:0}
+.onb li{margin:2px 0}
+summary{cursor:pointer;color:var(--accent);font-weight:500}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1>Bancada de circuitos</h1>
+  <span class="pill" id="progress"></span>
+</header>
+<svg class="trilha" id="trilha" viewBox="0 0 380 68" role="img" aria-label="Trilha das famílias"></svg>
+
+<section class="card onb" id="onb">
+  <h2>Como jogar</h2>
+  <ol>
+    <li>Escolha uma peça na barra de peças e toque na placa para colocar. Arraste para desenhar fio.</li>
+    <li>Ferramentas: a Mão liga chaves e mostra o que cada peça está fazendo; Mover muda uma peça de lugar; Girar vira chaves e transistores.</li>
+    <li>Fio laranja tem tensão. A tabela da missão se marca sozinha enquanto você monta.</li>
+  </ol>
+  <button class="btn primary" id="onbOk">Entendi</button>
+</section>
+
+<section class="card" id="missionCard">
+  <p class="family" id="mFamily"></p>
+  <p class="title" id="mTitle"></p>
+  <p class="story" id="mStory"></p>
+  <p class="task" id="mTask"></p>
+  <div class="row">
+    <button class="chip" id="btnWhy" aria-expanded="false">Por que isso importa</button>
+    <button class="chip" id="btnHint" aria-expanded="false">Dica</button>
+    <button class="chip" id="btnExample">Ver exemplo</button>
+  </div>
+  <p class="reveal" id="why"></p>
+  <p class="reveal" id="hint"></p>
+</section>
+
+<div id="wrap"><canvas id="cv" aria-label="Placa de montagem"></canvas></div>
+<p class="legend" id="legend"></p>
+<div class="palette tools" id="tools" role="toolbar" aria-label="Ferramentas"></div>
+<div class="palette" id="palette" role="toolbar" aria-label="Peças"></div>
+
+<div class="actions">
+  <button class="primary" id="btnDone">Concluir missão</button>
+  <button id="btnUndo">Desfazer</button>
+  <button id="btnClear">Limpar</button>
+</div>
+<p class="hint" id="status"></p>
+<div class="confirm" id="confirm" hidden><span id="confirmText"></span><button class="btn" id="confirmNo">Cancelar</button><button class="btn primary" id="confirmYes">Sim</button></div>
+
+<section class="card" id="tableCard">
+  <h2 id="tableTitle">Tabela da missão</h2>
+  <div id="liveTable"></div>
+  <ul class="check" id="checklist"></ul>
+  <p class="live" id="liveNote"></p>
+</section>
+
+<section class="card" id="done">
+  <div class="badge"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="currentColor" opacity=".18"/><path d="M5.5 10.5l3 3 6-6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="doneText"></span></div>
+  <p id="doneBody" style="margin:0 0 6px"></p>
+  <ul class="explore" id="explore"></ul>
+  <div class="row"><button class="btn primary" id="btnNext">Próxima missão</button></div>
+</section>
+
+<section class="card">
+  <details>
+    <summary>Peças: o que cada uma faz</summary>
+    <div class="parts" id="partsGrid"></div>
+  </details>
+</section>
+</main>
+
+<script>
+(function(){
+"use strict";
+const EXAMPLES={"tut": [{"t": "src", "x": 2, "y": 3}, {"t": "wire", "x": 3, "y": 3}, {"t": "sw", "x": 4, "y": 3, "lbl": "A", "r": 0}, {"t": "wire", "x": 5, "y": 3}, {"t": "lamp", "x": 6, "y": 3, "lbl": ""}], "t1": [{"t": "src", "x": 1, "y": 4}, {"t": "wire", "x": 2, "y": 4}, {"t": "tn", "x": 3, "y": 4, "r": 0}, {"t": "wire", "x": 4, "y": 4}, {"t": "lamp", "x": 5, "y": 4, "lbl": "S"}, {"t": "src", "x": 3, "y": 2}, {"t": "sw", "x": 3, "y": 3, "lbl": "A", "r": 1}], "g-and": [{"t": "src", "x": 1, "y": 4}, {"t": "wire", "x": 2, "y": 4}, {"t": "tn", "x": 3, "y": 4, "r": 0}, {"t": "wire", "x": 4, "y": 4}, {"t": "tn", "x": 5, "y": 4, "r": 0}, {"t": "wire", "x": 6, "y": 4}, {"t": "lamp", "x": 7, "y": 4, "lbl": "S"}, {"t": "src", "x": 3, "y": 2}, {"t": "sw", "x": 3, "y": 3, "lbl": "A", "r": 1}, {"t": "src", "x": 5, "y": 2}, {"t": "sw", "x": 5, "y": 3, "lbl": "B", "r": 1}], "g-or": [{"t": "src", "x": 1, "y": 4}, {"t": "wire", "x": 2, "y": 4}, {"t": "wire", "x": 2, "y": 3}, {"t": "wire", "x": 2, "y": 5}, {"t": "tn", "x": 3, "y": 3, "r": 0}, {"t": "sw", "x": 3, "y": 2, "lbl": "A", "r": 1}, {"t": "src", "x": 3, "y": 1}, {"t": "tn", "x": 3, "y": 5, "r": 2}, {"t": "sw", "x": 3, "y": 6, "lbl": "B", "r": 1}, {"t": "src", "x": 3, "y": 7}, {"t": "wire", "x": 4, "y": 3}, {"t": "wire", "x": 4, "y": 5}, {"t": "wire", "x": 4, "y": 4}, {"t": "wire", "x": 5, "y": 4}, {"t": "lamp", "x": 6, "y": 4, "lbl": "S"}], "g-not": [{"t": "src", "x": 1, "y": 4}, {"t": "wire", "x": 2, "y": 4}, {"t": "tp", "x": 3, "y": 4, "r": 0}, {"t": "wire", "x": 4, "y": 4}, {"t": "lamp", "x": 5, "y": 4, "lbl": "S"}, {"t": "src", "x": 3, "y": 2}, {"t": "sw", "x": 3, "y": 3, "lbl": "A", "r": 1}], "add": [{"t": "src", "x": 2, "y": 2}, {"t": "wire", "x": 3, "y": 2}, {"t": "tn", "x": 4, "y": 2, "r": 0}, {"t": "wire", "x": 5, "y": 2}, {"t": "tn", "x": 6, "y": 2, "r": 0}, {"t": "wire", "x": 7, "y": 2}, {"t": "lamp", "x": 8, "y": 2, "lbl": "C"}, {"t": "src", "x": 4, "y": 0}, {"t": "sw", "x": 4, "y": 1, "lbl": "A", "r": 1}, {"t": "src", "x": 6, "y": 0}, {"t": "sw", "x": 6, "y": 1, "lbl": "B", "r": 1}, {"t": "src", "x": 1, "y": 3}, {"t": "tn", "x": 1, "y": 4, "r": 3}, {"t": "wire", "x": 1, "y": 5}, {"t": "tn", "x": 1, "y": 6, "r": 3}, {"t": "src", "x": 1, "y": 7}, {"t": "src", "x": 0, "y": 2}, {"t": "sw", "x": 0, "y": 3, "lbl": "A", "r": 1}, {"t": "wire", "x": 0, "y": 4}, {"t": "wire", "x": 0, "y": 6}, {"t": "sw", "x": 0, "y": 7, "lbl": "B", "r": 1}, {"t": "src", "x": 0, "y": 8}, {"t": "wire", "x": 2, "y": 5}, {"t": "wire", "x": 3, "y": 5}, {"t": "wire", "x": 4, "y": 5}, {"t": "tn", "x": 5, "y": 5, "r": 2}, {"t": "wire", "x": 6, "y": 5}, {"t": "lamp", "x": 6, "y": 4, "lbl": "S"}, {"t": "src", "x": 10, "y": 3}, {"t": "tp", "x": 10, "y": 4, "r": 1}, {"t": "wire", "x": 10, "y": 5}, {"t": "tp", "x": 10, "y": 6, "r": 1}, {"t": "src", "x": 10, "y": 7}, {"t": "src", "x": 11, "y": 2}, {"t": "sw", "x": 11, "y": 3, "lbl": "A", "r": 1}, {"t": "wire", "x": 11, "y": 4}, {"t": "wire", "x": 11, "y": 6}, {"t": "sw", "x": 11, "y": 7, "lbl": "B", "r": 1}, {"t": "src", "x": 11, "y": 8}, {"t": "wire", "x": 9, "y": 5}, {"t": "wire", "x": 9, "y": 6}, {"t": "wire", "x": 8, "y": 6}, {"t": "wire", "x": 8, "y": 7}, {"t": "wire", "x": 7, "y": 7}, {"t": "wire", "x": 6, "y": 7}, {"t": "wire", "x": 5, "y": 7}, {"t": "wire", "x": 5, "y": 6}], "reg": [{"t": "src", "x": 0, "y": 2}, {"t": "wire", "x": 1, "y": 2}, {"t": "tn", "x": 2, "y": 2, "r": 0}, {"t": "wire", "x": 3, "y": 2}, {"t": "tn", "x": 4, "y": 2, "r": 0}, {"t": "wire", "x": 5, "y": 2}, {"t": "src", "x": 2, "y": 0}, {"t": "sw", "x": 2, "y": 1, "lbl": "G", "r": 1}, {"t": "src", "x": 4, "y": 0}, {"t": "sw", "x": 4, "y": 1, "lbl": "D", "r": 1}, {"t": "wire", "x": 5, "y": 3}, {"t": "wire", "x": 5, "y": 4}, {"t": "wire", "x": 5, "y": 5}, {"t": "wire", "x": 5, "y": 6}, {"t": "wire", "x": 5, "y": 7}, {"t": "lamp", "x": 6, "y": 3, "lbl": "Q"}, {"t": "src", "x": 0, "y": 6}, {"t": "wire", "x": 1, "y": 6}, {"t": "tp", "x": 2, "y": 6, "r": 2}, {"t": "wire", "x": 3, "y": 6}, {"t": "tn", "x": 4, "y": 6, "r": 2}, {"t": "wire", "x": 4, "y": 7}, {"t": "sw", "x": 2, "y": 7, "lbl": "G", "r": 1}, {"t": "src", "x": 2, "y": 8}], "clk": [{"t": "clk", "x": 2, "y": 3}, {"t": "wire", "x": 3, "y": 3}, {"t": "lamp", "x": 4, "y": 3, "lbl": "L"}], "ins": [{"t": "src", "x": 0, "y": 2}, {"t": "wire", "x": 1, "y": 2}, {"t": "tn", "x": 2, "y": 2, "r": 0}, {"t": "wire", "x": 3, "y": 2}, {"t": "tn", "x": 4, "y": 2, "r": 0}, {"t": "wire", "x": 5, "y": 2}, {"t": "src", "x": 2, "y": 0}, {"t": "sw", "x": 2, "y": 1, "lbl": "A", "r": 1}, {"t": "src", "x": 4, "y": 0}, {"t": "sw", "x": 4, "y": 1, "lbl": "B", "r": 1}, {"t": "wire", "x": 5, "y": 3}, {"t": "tp", "x": 5, "y": 4, "r": 1}, {"t": "sw", "x": 6, "y": 4, "lbl": "I", "r": 0}, {"t": "src", "x": 7, "y": 4}, {"t": "wire", "x": 5, "y": 5}, {"t": "lamp", "x": 4, "y": 5, "lbl": "S"}, {"t": "tn", "x": 5, "y": 6, "r": 1}, {"t": "sw", "x": 6, "y": 6, "lbl": "I", "r": 0}, {"t": "src", "x": 7, "y": 6}, {"t": "wire", "x": 5, "y": 7}, {"t": "wire", "x": 4, "y": 7}, {"t": "wire", "x": 4, "y": 8}, {"t": "wire", "x": 3, "y": 8}, {"t": "src", "x": 1, "y": 8}, {"t": "tn", "x": 2, "y": 8, "r": 2}, {"t": "sw", "x": 2, "y": 9, "lbl": "A", "r": 1}, {"t": "src", "x": 2, "y": 10}, {"t": "tn", "x": 5, "y": 8, "r": 2}, {"t": "sw", "x": 5, "y": 9, "lbl": "B", "r": 1}, {"t": "src", "x": 5, "y": 10}, {"t": "src", "x": 6, "y": 8}], "bin": [{"t": "lamp", "x": 1, "y": 1, "lbl": "128"}, {"t": "sw", "x": 1, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 1, "y": 3}, {"t": "lamp", "x": 2, "y": 1, "lbl": "64"}, {"t": "sw", "x": 2, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 2, "y": 3}, {"t": "lamp", "x": 3, "y": 1, "lbl": "32"}, {"t": "sw", "x": 3, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 3, "y": 3}, {"t": "lamp", "x": 4, "y": 1, "lbl": "16"}, {"t": "sw", "x": 4, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 4, "y": 3}, {"t": "lamp", "x": 5, "y": 1, "lbl": "8"}, {"t": "sw", "x": 5, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 5, "y": 3}, {"t": "lamp", "x": 6, "y": 1, "lbl": "4"}, {"t": "sw", "x": 6, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 6, "y": 3}, {"t": "lamp", "x": 7, "y": 1, "lbl": "2"}, {"t": "sw", "x": 7, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 7, "y": 3}, {"t": "lamp", "x": 8, "y": 1, "lbl": "1"}, {"t": "sw", "x": 8, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 8, "y": 3}], "b16": [{"t": "lamp", "x": 1, "y": 1, "lbl": "32768"}, {"t": "sw", "x": 1, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 1, "y": 3}, {"t": "lamp", "x": 2, "y": 1, "lbl": "16384"}, {"t": "sw", "x": 2, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 2, "y": 3}, {"t": "lamp", "x": 3, "y": 1, "lbl": "8192"}, {"t": "sw", "x": 3, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 3, "y": 3}, {"t": "lamp", "x": 4, "y": 1, "lbl": "4096"}, {"t": "sw", "x": 4, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 4, "y": 3}, {"t": "lamp", "x": 5, "y": 1, "lbl": "2048"}, {"t": "sw", "x": 5, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 5, "y": 3}, {"t": "lamp", "x": 6, "y": 1, "lbl": "1024"}, {"t": "sw", "x": 6, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 6, "y": 3}, {"t": "lamp", "x": 7, "y": 1, "lbl": "512"}, {"t": "sw", "x": 7, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 7, "y": 3}, {"t": "lamp", "x": 8, "y": 1, "lbl": "256"}, {"t": "sw", "x": 8, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 8, "y": 3}, {"t": "lamp", "x": 1, "y": 5, "lbl": "128"}, {"t": "sw", "x": 1, "y": 6, "r": 1, "lbl": ""}, {"t": "src", "x": 1, "y": 7}, {"t": "lamp", "x": 2, "y": 5, "lbl": "64"}, {"t": "sw", "x": 2, "y": 6, "r": 1, "lbl": ""}, {"t": "src", "x": 2, "y": 7}, {"t": "lamp", "x": 3, "y": 5, "lbl": "32"}, {"t": "sw", "x": 3, "y": 6, "r": 1, "lbl": ""}, {"t": "src", "x": 3, "y": 7}, {"t": "lamp", "x": 4, "y": 5, "lbl": "16"}, {"t": "sw", "x": 4, "y": 6, "r": 1, "lbl": ""}, {"t": "src", "x": 4, "y": 7}, {"t": "lamp", "x": 5, "y": 5, "lbl": "8"}, {"t": "sw", "x": 5, "y": 6, "r": 1, "lbl": ""}, {"t": "src", "x": 5, "y": 7}, {"t": "lamp", "x": 6, "y": 5, "lbl": "4"}, {"t": "sw", "x": 6, "y": 6, "r": 1, "lbl": ""}, {"t": "src", "x": 6, "y": 7}, {"t": "lamp", "x": 7, "y": 5, "lbl": "2"}, {"t": "sw", "x": 7, "y": 6, "r": 1, "lbl": ""}, {"t": "src", "x": 7, "y": 7}, {"t": "lamp", "x": 8, "y": 5, "lbl": "1"}, {"t": "sw", "x": 8, "y": 6, "r": 1, "lbl": ""}, {"t": "src", "x": 8, "y": 7}], "flt": [{"t": "lamp", "x": 1, "y": 1, "lbl": "m8"}, {"t": "sw", "x": 1, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 1, "y": 3}, {"t": "lamp", "x": 2, "y": 1, "lbl": "m4"}, {"t": "sw", "x": 2, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 2, "y": 3}, {"t": "lamp", "x": 3, "y": 1, "lbl": "m2"}, {"t": "sw", "x": 3, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 3, "y": 3}, {"t": "lamp", "x": 4, "y": 1, "lbl": "m1"}, {"t": "sw", "x": 4, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 4, "y": 3}, {"t": "lamp", "x": 6, "y": 1, "lbl": "e8"}, {"t": "sw", "x": 6, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 6, "y": 3}, {"t": "lamp", "x": 7, "y": 1, "lbl": "e4"}, {"t": "sw", "x": 7, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 7, "y": 3}, {"t": "lamp", "x": 8, "y": 1, "lbl": "e2"}, {"t": "sw", "x": 8, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 8, "y": 3}, {"t": "lamp", "x": 9, "y": 1, "lbl": "e1"}, {"t": "sw", "x": 9, "y": 2, "r": 1, "lbl": ""}, {"t": "src", "x": 9, "y": 3}]};
+const DX=[0,1,0,-1],DY=[-1,0,1,0];
+const opp=d=>(d+2)%4;
+
+/* ================= missions ================= */
+const missions=[
+ {id:"tut",fam:0,cols:11,rows:7,family:"Começando",title:"Acenda uma lâmpada",
+  story:"Toda máquina começa igual: uma fonte de energia, um caminho, e algo na ponta que mostra se a energia chegou.",
+  task:"Siga a lista abaixo da placa. Cada item marca sozinho quando você conseguir.",
+  why:"O computador inteiro é isso em escala: bilhões de caminhos que ou levam tensão ou não. Lâmpada acesa é 1, apagada é 0.",
+  hints:["Fonte, dois fios, lâmpada, tudo em linha.","Depois toque num fio do meio com a ferramenta Chave A: ela entra no lugar do fio, já alinhada. Com a Mão, toque na chave para ligar."],
+  inputs:["A"],outputs:[],tutorial:true,
+  checks:[
+   {t:"Coloque uma fonte",f:s=>s.src>0},
+   {t:"Coloque uma lâmpada",f:s=>s.lamp>0},
+   {t:"Ligue as duas com fio até a lâmpada acender",f:s=>s.everLit},
+   {t:"Troque um fio do caminho pela chave A e, com a Mão, desligue e ligue a chave",f:s=>s.swA>0&&s.toggled}
+  ],
+  explore:["Coloque duas lâmpadas no mesmo fio. As duas acendem?","Faça um caminho longo e cheio de curvas. A tensão se importa com a distância?"]},
+ {id:"bin",fam:0,cols:10,rows:7,family:"Começando",title:"A máquina de binário",
+  story:"Oito lâmpadas em fila, cada uma valendo o dobro da vizinha da direita: 128, 64, 32, 16, 8, 4, 2, 1. Um número é só o padrão de acesas e apagadas.",
+  task:"Monte as oito saídas, cada uma com sua chave e sua fonte. Depois escreva 149 e, em seguida, 203. A placa mostra ao vivo o número que está escrito.",
+  why:"É assim que todo número vive dentro do computador: um grupo de fios, cada um ligado ou desligado. Oito fios é um byte, e dá para escrever de 0 até 255.",
+  hints:["Para cada saída, uma coluna: saída em cima, chave no meio, fonte embaixo. Use a ferramenta Saída repetidas vezes: ela coloca 128, 64, 32... na ordem. O monitor na placa mostra o número ao vivo.","Para escrever um número, vá da esquerda pra direita perguntando 'cabe?'. 149: 128 cabe (sobra 21), 64 não, 32 não, 16 cabe (sobra 5), 8 não, 4 cabe (sobra 1), 2 não, 1 cabe."],
+  inputs:[],outputs:["128","64","32","16","8","4","2","1"],binary:true,numMode:"int",monitorY:5.3,genericSw:true,tutorial:true,
+  checks:[
+   {t:"Coloque as oito saídas, de 128 até 1",f:s=>s.binAll},
+   {t:"Cada saída com uma chave e uma fonte (ligue uma e veja a saída acender)",f:s=>s.binLit},
+   {t:"Escreva 149",f:s=>s.seen149},
+   {t:"Escreva 203",f:s=>s.seen203}
+  ],
+  explore:["Qual é o maior número que cabe nas oito lâmpadas? Ligue todas e veja.","Escreva um número e some 1 de cabeça: qual chave muda? E quando a lâmpada do 1 já está acesa?","Com três lâmpadas só (4, 2, 1), conte de 0 até 7 ligando e desligando."]},
+ {id:"b16",fam:0,cols:10,rows:11,family:"Começando",title:"16 bits: dois bytes",
+  story:"Mesma fila, só que mais comprida: 16 lâmpadas. Não cabem numa linha, então dividimos em duas. O byte de cima vale 256 vezes o de baixo: sua lâmpada mais fraca vale 256.",
+  task:"Monte as 16 saídas (a ferramenta Saída coloca 32768 primeiro). Escreva 1.000, depois 65.535, depois qualquer número que precise de exatamente 12 lâmpadas. O monitor mostra quantas lâmpadas o número usa.",
+  why:"Quantas lâmpadas um número precisa é o log₂ dele: cada lâmpada a mais dobra o alcance. 32 lâmpadas passam de 4 bilhões; 64 chegam a 18 quintilhões. O número cresce exponencialmente, a fila cresce só linearmente.",
+  hints:["Mesma regra do 'cabe?', começando do 32768: 1000 não cabe em nenhuma do byte de cima até o 512. 512 cabe (sobra 488), 256 cabe (232), 128 (104), 64 (40), 32 (8), 8 cabe.","Precisar de exatamente 12 lâmpadas = a lâmpada acesa mais alta é a 2048 (a 12ª contando da direita). Qualquer número entre 2048 e 4095 serve."],
+  inputs:[],outputs:["32768","16384","8192","4096","2048","1024","512","256","128","64","32","16","8","4","2","1"],binary:true,numMode:"int",monitorY:9.4,genericSw:true,tutorial:true,
+  checks:[
+   {t:"Coloque as 16 saídas, de 32768 até 1",f:s=>s.binAll},
+   {t:"Escreva 1.000",f:s=>s.seen.has("v:1000")},
+   {t:"Escreva 65.535 (todas acesas)",f:s=>s.seen.has("v:65535")},
+   {t:"Escreva um número que precise de exatamente 12 lâmpadas",f:s=>s.seen.has("k:12")}
+  ],
+  explore:["Um milhão precisaria de quantas lâmpadas? Dobre o 1 até passar de um milhão e conte.","Ligue só a lâmpada 256: é o 'cutucão' que o byte de baixo dá no de cima quando passa de 255.","Com 16 lâmpadas existem 65.536 padrões. Com 17? Com 20?"]},
+ {id:"flt",fam:0,cols:11,rows:8,family:"Começando",title:"Ponto flutuante: a régua que se estica",
+  story:"Notação científica em binário. Em vez de escrever o número inteiro, guardamos os dígitos (M) e o expoente (E), como em 6,02 × 10²³. O valor é M × 2 elevado a E.",
+  task:"Monte as 8 saídas: quatro de dígitos (m8, m4, m2, m1) e quatro de expoente (e8, e4, e2, e1). Escreva 96. Tente 100 e veja que não existe; escreva 104. Por fim, o maior número possível.",
+  why:"É assim que 64 bits guardam números até 10³⁰⁸: poucos dígitos e um expoente que diz quantas casas andar. O preço: entre dois números vizinhos há um vão, e ele cresce junto com o expoente. O monitor mostra esse vão.",
+  hints:["96 = 12 × 8. Doze é 8 + 4 (acenda m8 e m4). Oito é 2³, então E = 3 (acenda e2 e e1).","Com E = 3 a régua anda de 8 em 8: 96, 104, 112... O 100 cai no vão. O maior número: todos os dígitos (15) e o maior expoente (15): 15 × 32768 = 491.520, com só 8 lâmpadas."],
+  inputs:[],outputs:["m8","m4","m2","m1","e8","e4","e2","e1"],binary:true,numMode:"float",monitorY:5.9,genericSw:true,tutorial:true,
+  checks:[
+   {t:"Coloque as 8 saídas: m8, m4, m2, m1 e e8, e4, e2, e1",f:s=>s.binAll},
+   {t:"Escreva 96 (veja o vão de 8 no monitor)",f:s=>s.seen.has("v:96")},
+   {t:"Escreva 104, o vizinho de 96",f:s=>s.seen.has("v:104")},
+   {t:"Escreva o maior número possível, 491.520",f:s=>s.seen.has("v:491520")}
+  ],
+  explore:["Escreva 3 com E = 0 e depois tente 3 com E = 1. Dá o mesmo número? Qual é o vão em cada caso?","Com E = 15, qual é o menor passo entre dois números vizinhos?","Compare: 8 lâmpadas de inteiro vão até 255 sem vão nenhum; 8 lâmpadas flutuantes vão até 491.520 cheias de vãos. Quando cada uma é melhor?"]},
+ {id:"t1",fam:1,cols:11,rows:7,family:"1. Transistores",title:"O interruptor sem dedo",
+  story:"Um transistor é um interruptor com um eletroímã no lugar do dedo. Tensão no fio de controle: o ímã puxa a lâmina e fecha o caminho. Sem tensão: a lâmina solta e abre.",
+  task:"A lâmpada S acende só quando a chave A está ligada, mas a chave não pode estar no caminho da lâmpada: ela só alimenta o eletroímã de um transistor N.",
+  why:"É a única coisa que um processador sabe fazer de verdade: um fio com tensão fechando outro caminho. Tudo o mais é isso repetido bilhões de vezes.",
+  hints:["Duas linhas separadas: uma leva a fonte até a lâmpada passando pelo transistor; a outra leva outra fonte até a chave A, que encosta no lado da bolinha.","Em cima do transistor N: chave A, e acima dela uma fonte. Se a bobina não estiver virada pra chave, use Girar no transistor."],
+  inputs:["A"],outputs:["S"],minT:1,
+  steps:[{in:{A:0},out:{S:0}},{in:{A:1},out:{S:1}}],
+  explore:["Troque o N por um P. O que acontece com a tabela?","Ponha um segundo transistor N em fila no mesmo caminho, controlado pela mesma chave A."]},
+ {id:"g-and",fam:2,cols:11,rows:7,family:"2. Portas lógicas",title:"Porta E",
+  story:"Dois interruptores em fila no mesmo fio: a lâmpada só acende se os dois fecharem.",
+  task:"S acende apenas quando A e B estão ligadas. Use transistores; as chaves ficam fora do caminho da lâmpada.",
+  why:"Toda vez que o computador precisa de 'isto E aquilo' (as duas senhas conferem, os dois bits são 1), é esta porta.",
+  hints:["Fonte, transistor N, transistor N, lâmpada S, tudo em linha.","Cada transistor com sua própria chave em cima: A em cima do primeiro, B em cima do segundo, cada chave com uma fonte acima."],
+  inputs:["A","B"],outputs:["S"],minT:2,
+  steps:[{in:{A:0,B:0},out:{S:0}},{in:{A:1,B:0},out:{S:0}},{in:{A:0,B:1},out:{S:0}},{in:{A:1,B:1},out:{S:1}}],
+  explore:["Acrescente um terceiro transistor em fila com a chave A de novo. Muda algo?","Troque os dois N por P. Que porta vira? Olhe a tabela."]},
+ {id:"g-or",fam:2,cols:10,rows:9,family:"2. Portas lógicas",title:"Porta OU",
+  story:"Dois interruptores lado a lado, em caminhos paralelos: basta um fechar.",
+  task:"S acende se A ou B (ou as duas) estiverem ligadas.",
+  why:"'Qualquer um serve': uma tecla ou outra, um erro ou outro. É a porta das alternativas.",
+  hints:["Da fonte saem dois caminhos, um com um transistor N controlado por A e outro com um N controlado por B. Os dois caminhos se juntam antes da lâmpada.","Um fio sobe e outro desce a partir da fonte; cada ramo tem seu transistor; depois dos transistores os fios voltam a se encontrar."],
+  inputs:["A","B"],outputs:["S"],minT:2,
+  steps:[{in:{A:0,B:0},out:{S:0}},{in:{A:1,B:0},out:{S:1}},{in:{A:0,B:1},out:{S:1}},{in:{A:1,B:1},out:{S:1}}],
+  explore:["Troque os dois N por P. Compare com a tabela da porta E com P.","Dá pra fazer um OU com três entradas? Use a chave A duas vezes."]},
+ {id:"g-not",fam:2,cols:11,rows:7,family:"2. Portas lógicas",title:"Porta NÃO",
+  story:"Um interruptor que fecha quando ninguém aperta e abre quando apertam. Isso é o transistor P.",
+  task:"S acende quando A está desligada, e apaga quando A liga.",
+  why:"Sem inversão não existe comparação nem decisão. Com E, OU e NÃO dá pra construir qualquer circuito que exista.",
+  hints:["É a missão do transistor, trocando N por P.","Fonte, transistor P, lâmpada. Chave A em cima do P, fonte em cima da chave."],
+  inputs:["A"],outputs:["S"],minT:1,
+  steps:[{in:{A:0},out:{S:1}},{in:{A:1},out:{S:0}}],
+  explore:["Ponha um P e um N em fila, os dois controlados por A. A lâmpada acende alguma vez?","Faça um NÃO do NÃO: a saída do P alimentando o controle de outro P."]},
+ {id:"add",fam:3,cols:12,rows:9,family:"3. Somadores",title:"Somador de 1 bit",
+  story:"Um dedo só: 1 + 1 não cabe, então o dedo abaixa e cutuca o vizinho. Duas saídas: o dedo (soma) e o cutucão (vai-um).",
+  task:"Com A e B: C (vai-um) acende só com os dois ligados; S (soma) acende quando exatamente um está ligado.",
+  why:"Enfileire oito desses, com o vai-um de cada um entrando no vizinho, e você tem a conta que o processador faz bilhões de vezes por segundo.",
+  hints:["C é a porta E que você já fez. S é mais chata: acende quando OU está acesa mas E não está.","Monte um OU (dois N em paralelo) e um NÃO-E (dois P em paralelo). A saída do OU passa por um transistor N cujo controle é o fio do NÃO-E. A mesma chave pode aparecer em vários lugares: todas as chaves A ligam juntas."],
+  inputs:["A","B"],outputs:["S","C"],minT:4,
+  steps:[{in:{A:0,B:0},out:{S:0,C:0}},{in:{A:1,B:0},out:{S:1,C:0}},{in:{A:0,B:1},out:{S:1,C:0}},{in:{A:1,B:1},out:{S:0,C:1}}],
+  explore:["Com a Mão, ligue A e B e siga o fio laranja desde cada fonte até onde ele para.","A lâmpada S lendo 'dedo' e C lendo 'cutucão': qual número as duas juntas mostram quando A=1 e B=1?"]},
+ {id:"reg",fam:4,cols:11,rows:9,family:"4. Registradores",title:"Uma gaveta de 1 bit",
+  story:"Um fio que segura o próprio interruptor: depois que recebe tensão, ele mesmo mantém o caminho fechado. Assim um número fica guardado.",
+  task:"D é o dado, G é 'gravar'. Com G ligada, Q copia D. Com G desligada, Q fica como estava, mesmo que D mude.",
+  why:"Cada registrador e cada célula de memória do computador é uma variação disto: um fio que se mantém sozinho até alguém mandar gravar outra coisa.",
+  hints:["São dois caminhos até Q. Um só funciona com G ligada e copia D. O outro só funciona com G desligada e copia o próprio Q.","Caminho 1: fonte, N (controle G), N (controle D), Q. Caminho 2: fonte, P (controle G), N cujo controle encosta num fio do próprio Q. Os dois chegam no mesmo fio de Q."],
+  inputs:["D","G"],outputs:["Q"],minT:3,
+  steps:[{in:{D:0,G:1},out:{Q:0}},{in:{D:1,G:1},out:{Q:1}},{in:{D:1,G:0},out:{Q:1}},{in:{D:0,G:0},out:{Q:1}},{in:{D:0,G:1},out:{Q:0}},{in:{D:1,G:0},out:{Q:0}}],
+  explore:["Com a Mão: ligue G, ligue D, desligue G, desligue D. Q continua acesa? Agora ligue G de novo.","Apague o fio que volta de Q para o controle. O que a gaveta esquece?"]},
+ {id:"clk",fam:5,cols:11,rows:7,family:"5. Relógio",title:"O pulso",
+  story:"Um fio que liga e desliga sozinho, sem parar. Cada pulso é um 'agora pode' para o resto da máquina.",
+  task:"Coloque um relógio e faça a lâmpada L piscar com ele.",
+  why:"Sem o relógio, todas as partes trabalhariam ao mesmo tempo e se atropelariam. O pulso é o que põe as instruções em fila, uma de cada vez.",
+  hints:["Relógio, fio, lâmpada L. O relógio já é uma fonte que pisca.","Depois experimente: relógio no controle de um transistor N, e uma fonte normal passando por ele até a lâmpada."],
+  inputs:[],outputs:["L"],minT:0,needClk:true,
+  steps:[{in:{},clk:1,out:{L:1}},{in:{},clk:0,out:{L:0}}],
+  explore:["Ponha o relógio no controle de um transistor P. A lâmpada pisca ao contrário?","Ligue o relógio na chave G da sua gaveta de 1 bit (missão anterior). O que acontece com Q?"]},
+ {id:"ins",fam:6,cols:12,rows:11,family:"6. Instruções",title:"Um número escolhe o circuito",
+  story:"Uma instrução é só um número ligado em chaves de trem: ele abre o caminho até um circuito e fecha os outros. Nada lê o número; os fios dele encaixam.",
+  task:"I é a instrução. Com I desligada, S = A E B. Com I ligada, S = A OU B.",
+  why:"Isto é um processador em miniatura: dois circuitos prontos e um número decidindo qual deles chega na saída. Com mais bits de instrução, mais circuitos pra escolher.",
+  hints:["Monte a porta E e a porta OU separadas, cada uma com suas chaves A e B. Falta só o seletor.","A saída do E passa por um transistor P (controle I). A saída do OU passa por um transistor N (controle I). As duas saídas se encontram na lâmpada S."],
+  inputs:["I","A","B"],outputs:["S"],minT:6,
+  steps:[{in:{I:0,A:0,B:0},out:{S:0}},{in:{I:0,A:1,B:0},out:{S:0}},{in:{I:0,A:0,B:1},out:{S:0}},{in:{I:0,A:1,B:1},out:{S:1}},
+         {in:{I:1,A:0,B:0},out:{S:0}},{in:{I:1,A:1,B:0},out:{S:1}},{in:{I:1,A:0,B:1},out:{S:1}},{in:{I:1,A:1,B:1},out:{S:1}}],
+  explore:["Troque os papéis: P no OU e N no E. O que I passa a significar?","Você tem 1 bit de instrução e 2 circuitos. Com 2 bits de instrução, quantos circuitos daria pra escolher?"]}
+];
+const FAMILIES=["Início","Transistores","Portas","Somadores","Registradores","Relógio","Instruções"];
+
+/* ================= simulation ================= */
+function Sim(cols,rows){ this.W=cols; this.H=rows; this.cells=[]; for(let y=0;y<rows;y++) this.cells.push(new Array(cols).fill(null)); this.active=new Map(); this.powered=new Set(); this.clockOn=false; }
+Sim.prototype.key=function(x,y){return y*this.W+x;};
+Sim.prototype.cell=function(x,y){return (x<0||y<0||x>=this.W||y>=this.H)?null:this.cells[y][x];};
+function chanDirs(c){ return (c.r%2===0)?[1,3]:[0,2]; }
+Sim.prototype.connects=function(c,d){
+  if(!c) return false;
+  switch(c.t){
+    case "wire": case "src": return true;
+    case "sw": return !!c.on && chanDirs(c).includes(d);
+    case "clk": return this.clockOn;
+    case "tn": case "tp": return chanDirs(c).includes(d) && !!this.active.get(c);
+    default: return false;
+  }
+};
+Sim.prototype.gatePowered=function(x,y,c){ const g=c.r; const n=this.cell(x+DX[g],y+DY[g]); return !!(n&&this.connects(n,opp(g))&&this.powered.has(this.key(x+DX[g],y+DY[g]))); };
+Sim.prototype.solve=function(){
+  for(let it=0;it<80;it++){
+    this.powered=new Set(); const q=[];
+    for(let y=0;y<this.H;y++)for(let x=0;x<this.W;x++){const c=this.cells[y][x]; if(c&&(c.t==="src"||(c.t==="clk"&&this.clockOn))){this.powered.add(this.key(x,y));q.push([x,y]);}}
+    while(q.length){
+      const [x,y]=q.pop(); const c=this.cells[y][x];
+      for(let d=0;d<4;d++){
+        const nx=x+DX[d],ny=y+DY[d]; const n=this.cell(nx,ny); if(!n) continue;
+        const k=this.key(nx,ny); if(this.powered.has(k)) continue;
+        if(this.connects(c,d)&&this.connects(n,opp(d))){this.powered.add(k);q.push([nx,ny]);}
+      }
+    }
+    let changed=false;
+    for(let y=0;y<this.H;y++)for(let x=0;x<this.W;x++){
+      const c=this.cells[y][x]; if(!c||(c.t!=="tn"&&c.t!=="tp")) continue;
+      const gp=this.gatePowered(x,y,c); const a=(c.t==="tn")?gp:!gp;
+      if(this.active.get(c)!==a){this.active.set(c,a);changed=true;}
+    }
+    if(!changed) break;
+  }
+};
+Sim.prototype.lampLit=function(x,y){ for(let d=0;d<4;d++){const n=this.cell(x+DX[d],y+DY[d]); if(n&&this.connects(n,opp(d))&&this.powered.has(this.key(x+DX[d],y+DY[d]))) return true;} return false; };
+Sim.prototype.find=function(t,lbl){ const r=[]; for(let y=0;y<this.H;y++)for(let x=0;x<this.W;x++){const c=this.cells[y][x]; if(c&&c.t===t&&(c.lbl||"")===lbl) r.push([x,y]);} return r; };
+Sim.prototype.count=function(f){ let n=0; for(let y=0;y<this.H;y++)for(let x=0;x<this.W;x++){const c=this.cells[y][x]; if(c&&f(c)) n++;} return n; };
+Sim.prototype.clone=function(){ const s=new Sim(this.W,this.H); s.cells=this.cells.map(r=>r.map(c=>c?Object.assign({},c):null)); s.clockOn=this.clockOn; return s; };
+
+/* run a mission's steps on a fresh clone; returns rows with got/ok; null if prerequisites missing */
+function runSteps(m){
+  const s=sim.clone(); s.active=new Map(); const rows=[];
+  for(const l of m.inputs) if(!s.find("sw",l).length) return {missing:"Falta a chave "+l+"."};
+  for(const l of m.outputs) if(!s.find("lamp",l).length) return {missing:"Falta a lâmpada "+l+"."};
+  if(m.needClk&&!s.count(c=>c.t==="clk")) return {missing:"Falta um relógio."};
+  for(const step of m.steps){
+    for(const l of m.inputs) for(const [x,y] of s.find("sw",l)) s.cells[y][x].on=!!step.in[l];
+    if(step.clk!==undefined) s.clockOn=!!step.clk;
+    s.solve();
+    const got={}; let ok=true;
+    for(const l of m.outputs){ const [x,y]=s.find("lamp",l)[0]; got[l]=s.lampLit(x,y)?1:0; if(got[l]!==step.out[l]) ok=false; }
+    rows.push({step,got,ok});
+  }
+  return {rows, all:rows.every(r=>r.ok), tcount:s.count(c=>c.t==="tn"||c.t==="tp")};
+}
+
+/* ================= state ================= */
+let mission=missions[0], sim=new Sim(10,7);
+let tool={k:"wire",lbl:""}, toggled=false, undoStack=[], selected=null, hintLevel=0;
+let doneSet=new Set(); try{ doneSet=new Set(JSON.parse(localStorage.getItem("bancada:done")||"[]")); }catch(e){}
+function saveDone(){ try{ localStorage.setItem("bancada:done",JSON.stringify([...doneSet])); }catch(e){} }
+
+/* ================= drawing ================= */
+const cv=document.getElementById("cv"); const ctx=cv.getContext("2d");
+let S=30, COL={}, phase=0; const animMap=new WeakMap();
+const reduceMotion=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+function readColors(){ COL={}; for(const k of ["board","peg","wire","hot","hot2","spark","lit","ink","ink2","line","chip","chip2","paper","ok","accent"]) COL[k]=css("--"+k); }
+function rr(g,x,y,w,h,r){ g.beginPath(); g.moveTo(x+r,y); g.arcTo(x+w,y,x+w,y+h,r); g.arcTo(x+w,y+h,x,y+h,r); g.arcTo(x,y+h,x,y,r); g.arcTo(x,y,x+w,y,r); g.closePath(); }
+
+function shortLbl(l){ const n=+l; if(!isNaN(n)&&n>=1024&&n%1024===0) return (n/1024)+"k"; return l; }
+function drawPart(g,c,cx,cy,s,st){
+  g.save(); g.lineCap="round"; g.lineJoin="round"; g.textAlign="center"; g.textBaseline="middle";
+  const hot=st.p?COL.hot:COL.wire;
+  if(c.t==="wire"){
+    g.strokeStyle=hot; g.lineWidth=Math.max(3,s*0.2);
+    let n=0; for(let d=0;d<4;d++){ if(st.nb[d]){ n++; g.beginPath(); g.moveTo(cx,cy); g.lineTo(cx+DX[d]*s/2,cy+DY[d]*s/2); g.stroke(); } }
+    const straight=n===2&&((st.nb[0]&&st.nb[2])||(st.nb[1]&&st.nb[3]));
+    g.fillStyle=hot; g.beginPath(); g.arc(cx,cy,straight?s*0.1:s*0.16,0,7); g.fill();
+    if(st.p&&!reduceMotion){ g.fillStyle=COL.spark; for(let d=0;d<4;d++){ if(!st.nb[d]) continue; g.beginPath(); g.arc(cx+DX[d]*s*0.5*st.ph,cy+DY[d]*s*0.5*st.ph,s*0.07,0,7); g.fill(); } }
+  } else if(c.t==="src"){
+    const w=s*0.56,h=s*0.68, x=cx-w/2,y=cy-h/2+s*0.05;
+    g.fillStyle=COL.hot; rr(g,x,y,w,h,s*0.08); g.fill();
+    g.fillStyle=COL.hot2; g.fillRect(cx-s*0.14,y-s*0.08,s*0.28,s*0.1); g.fillRect(x,y+h*0.64,w,h*0.3);
+    g.fillStyle="#1B1F24"; g.font=`700 ${Math.round(s*0.42)}px "IBM Plex Sans",sans-serif`; g.fillText("+",cx,y+h*0.33);
+  } else if(c.t==="sw"){
+    const closed=(st.anim!==undefined)?st.anim:(st.on?1:0);
+    const padCol=st.p?COL.hot:COL.wire;
+    g.save(); g.translate(cx,cy); g.rotate((c.r%2)*Math.PI/2);
+    g.lineWidth=Math.max(3,s*0.18); g.strokeStyle=padCol;
+    g.beginPath(); g.moveTo(-s/2,0); g.lineTo(-s*0.36,0); g.stroke();
+    g.beginPath(); g.moveTo(s*0.36,0); g.lineTo(s/2,0); g.stroke();
+    const bx=-s*0.38, by=-s*0.14, bw=s*0.76, bh=s*0.32;
+    g.fillStyle=st.on?COL.hot:COL.paper; g.strokeStyle=st.on?COL.hot2:COL.ink2; g.lineWidth=1.5; rr(g,bx,by,bw,bh,s*0.08); g.fill(); g.stroke();
+    const hx=(closed*2-1)*s*0.24, hy=-s*0.44;
+    g.strokeStyle=st.on?COL.hot2:COL.ink2; g.lineWidth=Math.max(3,s*0.13); g.beginPath(); g.moveTo(0,by); g.lineTo(hx,hy); g.stroke();
+    g.fillStyle=st.on?COL.hot:COL.ink2; g.beginPath(); g.arc(hx,hy,s*0.1,0,7); g.fill();
+    g.fillStyle=COL.ink2; g.beginPath(); g.arc(0,by,s*0.06,0,7); g.fill();
+    g.restore();
+    if(c.lbl){ const lx=cx+((c.r%2)?-s*0.02:0), ly=cy+((c.r%2)?0:s*0.02);
+      g.fillStyle=st.on?"#1B1F24":COL.ink; g.font=`700 ${Math.round(s*0.26)}px "IBM Plex Sans",sans-serif`; g.fillText(c.lbl,lx,ly+1); }
+  } else if(c.t==="lamp"){
+    const tagged=!!c.lbl; const r=tagged?s*0.24:s*0.3; const by=tagged?cy-s*0.1:cy-s*0.06;
+    if(tagged){ g.fillStyle=COL.chip; g.strokeStyle=COL.chip2; g.lineWidth=1; rr(g,cx-s*0.42,cy-s*0.42,s*0.84,s*0.84,s*0.1); g.fill(); g.stroke();
+      g.fillStyle=COL.paper; rr(g,cx-s*0.3,cy+s*0.17,s*0.6,s*0.2,s*0.04); g.fill(); }
+    if(st.lit){ g.fillStyle=COL.lit; g.globalAlpha=0.3; g.beginPath(); g.arc(cx,by,r+s*0.14,0,7); g.fill(); g.globalAlpha=1;
+      g.strokeStyle=COL.hot; g.lineWidth=2; for(let i=0;i<6;i++){ const a=i*Math.PI/3-Math.PI/2; g.beginPath(); g.moveTo(cx+Math.cos(a)*(r+s*0.06),by+Math.sin(a)*(r+s*0.06)); g.lineTo(cx+Math.cos(a)*(r+s*0.14),by+Math.sin(a)*(r+s*0.14)); g.stroke(); } }
+    g.fillStyle=st.lit?COL.lit:COL.paper; g.strokeStyle=st.lit?COL.hot2:COL.ink2; g.lineWidth=1.5;
+    g.beginPath(); g.arc(cx,by,r,0,7); g.fill(); g.stroke();
+    if(!tagged){ g.fillStyle=COL.ink2; g.fillRect(cx-s*0.14,by+r-s*0.02,s*0.28,s*0.12); }
+    else { const sl=shortLbl(c.lbl); g.fillStyle=COL.ink; g.font=`700 ${Math.round(s*(sl.length>1?0.16:0.2))}px "IBM Plex Sans",sans-serif`; g.fillText(sl,cx,cy+s*0.275); }
+  } else if(c.t==="tn"||c.t==="tp"){
+    const gd=c.r; const closed=(st.anim!==undefined)?st.anim:(st.act?1:0);
+    const padCol=st.p?COL.hot:COL.wire, coilCol=st.gp?COL.hot:COL.ink2;
+    g.save(); g.translate(cx,cy); g.rotate(gd*Math.PI/2);
+    g.lineWidth=Math.max(3,s*0.18); g.strokeStyle=padCol;
+    g.beginPath(); g.moveTo(-s/2,0); g.lineTo(-s*0.32,0); g.stroke();
+    g.beginPath(); g.moveTo(s*0.32,0); g.lineTo(s/2,0); g.stroke();
+    g.fillStyle=padCol; g.beginPath(); g.arc(s*0.32,0,s*0.075,0,7); g.fill();
+    const px=-s*0.3, L=s*0.6, th=-0.42*(1-closed);
+    const tx=px+Math.cos(th)*L, ty=Math.sin(th)*L;
+    const rodY=Math.tan(th)*(0-px);
+    g.fillStyle=coilCol; g.beginPath(); g.arc(0,-s*0.46,s*0.06,0,7); g.fill();
+    g.fillStyle=coilCol; rr(g,-s*0.17,-s*0.41,s*0.34,s*0.15,s*0.04); g.fill();
+    g.strokeStyle=st.gp?COL.hot2:COL.chip2; g.lineWidth=1; for(let i=-1;i<=1;i++){ g.beginPath(); g.moveTo(i*s*0.08,-s*0.39); g.lineTo(i*s*0.08,-s*0.28); g.stroke(); }
+    g.strokeStyle=coilCol; g.lineWidth=Math.max(2,s*0.07); g.beginPath(); g.moveTo(0,-s*0.27); g.lineTo(0,rodY-s*0.02); g.stroke();
+    g.strokeStyle=(closed>0.98&&st.p)?COL.hot:COL.ink; g.lineWidth=Math.max(3,s*0.13); g.beginPath(); g.moveTo(px,0); g.lineTo(tx,ty); g.stroke();
+    g.fillStyle=COL.ink2; g.beginPath(); g.arc(px,0,s*0.075,0,7); g.fill();
+    g.restore();
+    g.fillStyle=COL.ink2; g.font=`700 ${Math.round(s*0.24)}px "IBM Plex Sans",sans-serif`; g.fillText(c.t==="tn"?"N":"P",cx-DX[gd]*s*0.36,cy-DY[gd]*s*0.36+1);
+  } else if(c.t==="clk"){
+    const r=s*0.34;
+    g.fillStyle=st.clk?COL.hot:COL.paper; g.strokeStyle=st.clk?COL.hot2:COL.ink2; g.lineWidth=1.5;
+    g.beginPath(); g.arc(cx,cy,r,0,7); g.fill(); g.stroke();
+    const a=(st.ph||0)*Math.PI*2-Math.PI/2;
+    g.strokeStyle=st.clk?"#1B1F24":COL.ink; g.lineWidth=2; g.beginPath(); g.moveTo(cx,cy); g.lineTo(cx+Math.cos(a)*r*0.7,cy+Math.sin(a)*r*0.7); g.stroke();
+    g.beginPath(); g.moveTo(cx,cy); g.lineTo(cx,cy-r*0.45); g.stroke();
+    g.fillStyle=st.clk?"#1B1F24":COL.ink; g.beginPath(); g.arc(cx,cy,s*0.05,0,7); g.fill();
+  }
+  g.restore();
+}
+function resize(){
+  const w=document.getElementById("wrap").clientWidth;
+  S=Math.floor(w/sim.W); const dpr=window.devicePixelRatio||1;
+  cv.width=S*sim.W*dpr; cv.height=S*sim.H*dpr; cv.style.width=(S*sim.W)+"px"; cv.style.height=(S*sim.H)+"px";
+  ctx.setTransform(dpr,0,0,dpr,0,0); draw();
+}
+function draw(){
+  readColors();
+  ctx.fillStyle=COL.board; ctx.fillRect(0,0,S*sim.W,S*sim.H);
+  ctx.fillStyle=COL.peg; for(let x=0;x<=sim.W;x++)for(let y=0;y<=sim.H;y++){ ctx.beginPath(); ctx.arc(x*S,y*S,1.5,0,7); ctx.fill(); }
+  if(selected){ ctx.strokeStyle=COL.accent; ctx.lineWidth=2; rr(ctx,selected[0]*S+2,selected[1]*S+2,S-4,S-4,6); ctx.stroke(); }
+  for(let y=0;y<sim.H;y++)for(let x=0;x<sim.W;x++){
+    const c=sim.cells[y][x]; if(!c) continue;
+    const st={p:sim.powered.has(sim.key(x,y)),on:!!c.on,act:!!sim.active.get(c),clk:sim.clockOn,ph:phase,nb:[0,0,0,0]};
+    if(c.t==="wire") for(let d=0;d<4;d++) st.nb[d]=!!sim.cell(x+DX[d],y+DY[d]);
+    if(c.t==="lamp") st.lit=sim.lampLit(x,y);
+    if(c.t==="tn"||c.t==="tp"){ st.gp=sim.gatePowered(x,y,c); const a=animMap.get(c); st.anim=(a===undefined)?(st.act?1:0):a; }
+    if(c.t==="sw"){ const a=animMap.get(c); st.anim=(a===undefined)?(st.on?1:0):a; }
+    drawPart(ctx,c,x*S+S/2,y*S+S/2,S,st);
+  }
+  if(mission.binary) drawMonitor();
+}
+function fmt(n){ return n.toLocaleString("pt-BR"); }
+function drawMonitor(){
+  const b=binValue(); const flt=mission.numMode==="float";
+  const lines=flt?3:(mission.outputs.length>8?3:2);
+  const mw=S*7.4, mh=S*(lines===3?2.7:2.1), mx=S*sim.W/2-mw/2, my=S*mission.monitorY-mh/2, cx=S*sim.W/2;
+  ctx.save();
+  ctx.fillStyle=COL.chip; ctx.strokeStyle=COL.chip2; ctx.lineWidth=1.5; rr(ctx,mx,my,mw,mh,S*0.3); ctx.fill(); ctx.stroke();
+  ctx.fillStyle=COL.chip2; rr(ctx,mx+S*0.25,my+S*0.25,mw-S*0.5,mh-S*0.5,S*0.2); ctx.fill();
+  ctx.textAlign="center"; ctx.textBaseline="middle";
+  const big=Math.round(S*(lines===3?0.9:1.05));
+  ctx.fillStyle=b.all?COL.hot:COL.ink2; ctx.font=`600 ${big}px "IBM Plex Sans",sans-serif`;
+  ctx.fillText(b.all?fmt(b.v):"– – –",cx,my+(lines===3?mh*0.3:mh*0.42));
+  ctx.fillStyle=b.all?COL.spark:COL.ink2; ctx.font=`500 ${Math.round(S*0.34)}px "IBM Plex Sans",sans-serif`;
+  if(!b.all){ ctx.fillText("faltam saídas",cx,my+mh*0.8); ctx.restore(); return; }
+  if(flt){
+    ctx.fillText(b.M+" × 2^"+b.E+"  =  "+fmt(b.v),cx,my+mh*0.62);
+    ctx.fillText("vão até o vizinho: "+fmt(b.gap),cx,my+mh*0.84);
+  } else if(lines===3){
+    ctx.fillText(b.bits.slice(0,8).join("")+"  "+b.bits.slice(8).join(""),cx,my+mh*0.62);
+    ctx.fillText(b.k?"cabe em "+b.k+" lâmpada"+(b.k>1?"s":""):"zero: nenhuma lâmpada",cx,my+mh*0.84);
+  } else {
+    ctx.fillText(b.bits.join(" "),cx,my+mh*0.8);
+  }
+  ctx.restore();
+}
+function tick(){ sim.solve(); draw(); updateTable(); }
+function stepAnims(){ let moving=false; for(let y=0;y<sim.H;y++)for(let x=0;x<sim.W;x++){ const c=sim.cells[y][x]; if(!c||(c.t!=="tn"&&c.t!=="tp"&&c.t!=="sw")) continue; const target=(c.t==="sw"?c.on:sim.active.get(c))?1:0; let cur=animMap.get(c); if(cur===undefined) cur=target; if(reduceMotion) cur=target; else if(Math.abs(cur-target)>0.01){ cur+=(target-cur)*0.28; moving=true; } else cur=target; animMap.set(c,cur); } return moving; }
+requestAnimationFrame(function frame(t){ const moving=stepAnims(); if(!reduceMotion){ phase=(t/700)%1; if(moving||sim.powered.size||hasClk()) draw(); } requestAnimationFrame(frame); });
+
+/* ================= interaction ================= */
+let down=false, lastK=-1, downCell=null, picked=null;
+function pos(e){ const r=cv.getBoundingClientRect(); return [Math.floor((e.clientX-r.left)/S),Math.floor((e.clientY-r.top)/S)]; }
+function inside(x,y){ return x>=0&&y>=0&&x<sim.W&&y<sim.H; }
+function anyLit(){ for(let y=0;y<sim.H;y++)for(let x=0;x<sim.W;x++){const c=sim.cells[y][x]; if(c&&c.t==="lamp"&&sim.lampLit(x,y)) return true;} return false; }
+function hasClk(){ return sim.count(c=>c.t==="clk")>0; }
+function setStatus(t){ document.getElementById("status").textContent=t; }
+let pendingYes=null;
+function askConfirm(msg,onYes){ pendingYes=onYes; document.getElementById("confirmText").textContent=msg; const el=document.getElementById("confirm"); el.hidden=false; el.scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"nearest"}); }
+function closeConfirm(){ pendingYes=null; document.getElementById("confirm").hidden=true; }
+document.getElementById("confirmYes").addEventListener("click",()=>{ const f=pendingYes; closeConfirm(); if(f) f(); });
+document.getElementById("confirmNo").addEventListener("click",closeConfirm);
+const NAME={wire:"Fio",src:"Fonte",sw:"Chave",lamp:"Lâmpada",tn:"Transistor N",tp:"Transistor P",clk:"Relógio"};
+function partName(c){ return c.t==="sw"?"Chave"+(c.lbl?" "+c.lbl:""):c.t==="lamp"?(c.lbl?"Saída "+c.lbl:"Lâmpada de teste"):NAME[c.t]; }
+function describe(x,y,c){
+  if(c.t==="wire") setStatus("Fio: "+(sim.powered.has(sim.key(x,y))?"com tensão.":"sem tensão. Siga até uma fonte e veja onde o caminho está aberto."));
+  else if(c.t==="src") setStatus("Fonte: sempre com tensão. Tudo começa aqui.");
+  else if(c.t==="sw"){ const n=c.lbl?sim.find("sw",c.lbl).length:1; setStatus(partName(c)+": "+(c.on?"ligada, deixando passar":"desligada, caminho aberto")+(c.r%2?" (conduz na vertical).":" (conduz na horizontal).")+(n>1?" As "+n+" chaves "+c.lbl+" ligam juntas.":"")); }
+  else if(c.t==="lamp") setStatus(partName(c)+": "+(sim.lampLit(x,y)?"acesa, chegou tensão.":"apagada, não chegou tensão.")+(c.lbl?" É esta que a tabela da missão lê.":""));
+  else if(c.t==="tn") setStatus("Transistor N: eletroímã "+(sim.gatePowered(x,y,c)?"ligado, puxou a lâmina: caminho fechado, passa.":"desligado, lâmina solta: caminho aberto, não passa."));
+  else if(c.t==="tp") setStatus("Transistor P: eletroímã "+(sim.gatePowered(x,y,c)?"ligado, levantou a lâmina: caminho aberto, não passa.":"desligado, lâmina encostada: caminho fechado, passa."));
+  else if(c.t==="clk") setStatus("Relógio: liga e desliga sozinho. Agora está "+(sim.clockOn?"ligado.":"desligado."));
+}
+function autoRot(x,y,t){
+  const n=d=>!!sim.cell(x+DX[d],y+DY[d]);
+  const horiz=n(1)||n(3), vert=n(0)||n(2);
+  if(t==="sw") return (vert&&!horiz)?1:0;
+  if(horiz&&!vert) return 0;
+  if(vert&&!horiz) return n(1)?1:(n(3)?3:1);
+  if(horiz&&vert) return n(0)?0:2;
+  return 0;
+}
+function snapshot(){ undoStack.push(JSON.stringify(sim.cells)); if(undoStack.length>60) undoStack.shift(); document.getElementById("btnUndo").disabled=false; }
+function toggleSwitch(c){ const before=anyLit(); const v=!c.on; if(c.lbl){ for(const [sx,sy] of sim.find("sw",c.lbl)) sim.cells[sy][sx].on=v; } else c.on=v; sim.solve(); if(anyLit()!==before) toggled=true; }
+function rotatePart(c){ if(c.t==="sw"){ c.r=(c.r+1)%2; return true; } if(c.t==="tn"||c.t==="tp"){ c.r=(c.r+1)%4; return true; } return false; }
+
+/* one tap (or the start of a drag) on a cell */
+function tap(x,y){
+  if(!inside(x,y)) return;
+  const c=sim.cells[y][x];
+  if(tool.k==="hand"){
+    selected=c?[x,y]:null;
+    if(!c){ setStatus(""); draw(); return; }
+    if(c.t==="sw"){ snapshot(); toggleSwitch(c); save(); }
+    tick(); describe(x,y,c); return;
+  }
+  if(tool.k==="rotate"){
+    selected=c?[x,y]:null;
+    if(!c){ setStatus("Toque numa chave ou num transistor para girar."); draw(); return; }
+    if(!rotatePart(c)){ setStatus(partName(c)+" não gira."); draw(); return; }
+    snapshot(); save(); tick();
+    setStatus(c.t==="sw"?"Chave girada: agora conduz na "+(c.r%2?"vertical.":"horizontal."):"Transistor girado: a bobina (controle) está virada para "+["cima","a direita","baixo","a esquerda"][c.r]+".");
+    return;
+  }
+  if(tool.k==="move"){
+    if(!picked){
+      if(!c){ setStatus("Toque na peça que quer mover."); return; }
+      picked=[x,y]; selected=picked; draw(); setStatus(partName(c)+" escolhida. Agora toque no lugar de destino (ou arraste)."); return;
+    }
+    if(picked[0]===x&&picked[1]===y){ picked=null; selected=null; draw(); setStatus(""); return; }
+    if(c){ setStatus("Lugar ocupado. Escolha uma célula vazia."); return; }
+    snapshot(); const p=sim.cells[picked[1]][picked[0]]; sim.cells[y][x]=p; sim.cells[picked[1]][picked[0]]=null; picked=null; selected=[x,y];
+    save(); tick(); setStatus(partName(p)+" movida."); return;
+  }
+  selected=null;
+  const occupied="Já tem uma peça aqui. Para trocar, apague primeiro (ou use Desfazer).";
+  if(tool.k==="erase"){ if(!c) return; snapshot(); sim.cells[y][x]=null; save(); tick(); return; }
+  if(tool.k==="wire"){ if(c){ if(c.t!=="wire") setStatus(occupied); return; } snapshot(); setStatus(""); sim.cells[y][x]={t:"wire"}; save(); tick(); return; }
+  // placing a part
+  let lbl=tool.lbl||"";
+  if(lbl==="auto"){ lbl=mission.outputs.find(l=>!sim.find("lamp",l).length)||""; if(!lbl){ setStatus("Todas as saídas já estão na placa."); return; } }
+  if(c&&c.t!=="wire"){
+    if(c.t===tool.k&&(c.lbl||"")===lbl) setStatus(partName(c)+" já está aqui. Use a Mão para ligar, Girar para girar, Mover para mudar de lugar.");
+    else setStatus(occupied);
+    return;
+  }
+  snapshot();
+  const sib=(tool.k==="sw"&&lbl)?sim.find("sw",lbl):[];
+  sim.cells[y][x]={t:tool.k,r:(tool.k==="sw"||tool.k==="tn"||tool.k==="tp")?autoRot(x,y,tool.k):0,on:sib.length?!!sim.cells[sib[0][1]][sib[0][0]].on:false,lbl:lbl};
+  save(); tick();
+  if(tool.lbl==="auto") setStatus("Saída "+lbl+" colocada."+(mission.numMode==="float"?(lbl[0]==="m"?" (dígito)":" (expoente)"):""));
+  else if(tool.k==="sw") setStatus("Chave colocada na "+(sim.cells[y][x].r%2?"vertical":"horizontal")+". Para ligar, use a Mão; para girar, use Girar.");
+  else if(tool.k==="tn"||tool.k==="tp") setStatus("Transistor colocado com a bobina para "+["cima","a direita","baixo","a esquerda"][sim.cells[y][x].r]+". Para mudar, use Girar.");
+  else setStatus("");
+}
+/* painting while dragging: only wire and erase */
+function paint(x,y){
+  if(!inside(x,y)) return;
+  const c=sim.cells[y][x];
+  if(tool.k==="wire"){ if(c) return; sim.cells[y][x]={t:"wire"}; save(); tick(); }
+  else if(tool.k==="erase"){ if(!c) return; sim.cells[y][x]=null; save(); tick(); }
+}
+cv.addEventListener("pointerdown",e=>{ down=true; cv.setPointerCapture(e.pointerId); const [x,y]=pos(e); downCell=[x,y]; lastK=sim.key(x,y); tap(x,y); });
+cv.addEventListener("pointermove",e=>{ if(!down) return; const [x,y]=pos(e); const k=sim.key(x,y); if(k===lastK) return; lastK=k; paint(x,y); });
+cv.addEventListener("pointerup",e=>{ if(!down) return; down=false; const [x,y]=pos(e);
+  if(tool.k==="move"&&picked&&downCell&&(x!==downCell[0]||y!==downCell[1])&&inside(x,y)) tap(x,y); downCell=null; });
+cv.addEventListener("pointercancel",()=>{ down=false; downCell=null; });
+
+/* ================= palette & parts ================= */
+function iconCanvas(c,st,px){
+  const k=document.createElement("canvas"); const dpr=window.devicePixelRatio||1;
+  k.width=px*dpr; k.height=px*dpr; const g=k.getContext("2d"); g.setTransform(dpr,0,0,dpr,0,0);
+  readColors(); drawPart(g,c,px/2,px/2,px*0.9,Object.assign({p:false,on:false,act:false,gp:false,clk:false,ph:0.3,nb:[0,1,0,1]},st));
+  return k;
+}
+function buildPalette(){
+  const tb=document.getElementById("tools"); tb.innerHTML="";
+  const tools=[{k:"hand",n:"Mão",sym:"☝"},{k:"move",n:"Mover",sym:"✥"},{k:"rotate",n:"Girar",sym:"↻"},{k:"erase",n:"Apagar",sym:"✕"}];
+  for(const it of tools){ const b=document.createElement("button"); b.setAttribute("aria-pressed",String(tool.k===it.k)); const sp=document.createElement("span"); sp.className="sym"; sp.textContent=it.sym; b.appendChild(sp); const t=document.createElement("span"); t.textContent=it.n; b.appendChild(t); b.addEventListener("click",()=>selectTool(it.k,"")); tb.appendChild(b); }
+  const p=document.getElementById("palette"); p.innerHTML="";
+  const items=[{k:"wire",n:"Fio",c:{t:"wire"},st:{p:true,nb:[0,1,1,0]}},{k:"src",n:"Fonte",c:{t:"src"}}];
+  for(const l of mission.inputs) items.push({k:"sw",lbl:l,n:"Chave "+l,c:{t:"sw",lbl:l,r:0},st:{on:false}});
+  if(mission.genericSw) items.push({k:"sw",lbl:"",n:"Chave",c:{t:"sw",lbl:"",r:0},st:{on:false}});
+  if(!mission.tutorial) items.push({k:"tn",n:"Transistor N",c:{t:"tn",r:0},st:{act:true,gp:true,p:true}},{k:"tp",n:"Transistor P",c:{t:"tp",r:0},st:{act:true,p:true}});
+  if(mission.binary) items.push({k:"lamp",lbl:"auto",n:"Saída",c:{t:"lamp",lbl:"128"},st:{lit:true}});
+  else for(const l of mission.outputs) items.push({k:"lamp",lbl:l,n:"Saída "+l,c:{t:"lamp",lbl:l},st:{lit:true}});
+  items.push({k:"lamp",lbl:"",n:"Lâmpada teste",c:{t:"lamp",lbl:""},st:{lit:true}});
+  if(mission.fam>=5||mission.id==="reg") items.push({k:"clk",n:"Relógio",c:{t:"clk"},st:{clk:true}});
+  for(const it of items){
+    const b=document.createElement("button"); b.setAttribute("aria-pressed",String(tool.k===it.k&&(tool.lbl||"")===(it.lbl||"")));
+    b.appendChild(iconCanvas(it.c,it.st||{},30));
+    const t=document.createElement("span"); t.textContent=it.n; b.appendChild(t);
+    b.addEventListener("click",()=>selectTool(it.k,it.lbl||""));
+    p.appendChild(b);
+  }
+}
+function selectTool(k,lbl){
+  tool={k,lbl}; picked=null; selected=null; buildPalette(); draw();
+  const msg={hand:"Mão: toque numa chave para ligar e em qualquer peça para ver o que ela está fazendo.",move:"Mover: toque na peça e depois no destino, ou arraste.",rotate:"Girar: toque numa chave ou transistor. A chave conduz só no eixo dela; no transistor gira a bobina.",erase:"Apagar: toque ou arraste sobre as peças.",wire:"Fio: toque ou arraste na placa."};
+  setStatus(msg[k]||"Toque na placa para colocar.");
+}
+function buildParts(){
+  const grid=document.getElementById("partsGrid"); grid.innerHTML="";
+  const rows=[
+   [{t:"wire"},{p:true,nb:[0,1,1,0]},"<b>Fio</b>: leva a tensão. Laranja com tensão, cinza sem."],
+   [{t:"src"},{},"<b>Fonte</b>: de onde a tensão sai. Sem fonte, nada acende."],
+   [{t:"sw",lbl:"A"},{on:true,p:true},"<b>Chave</b>: um interruptor com dois contatos. Só conduz no eixo dela (horizontal ou vertical); entra alinhada com os fios vizinhos e vira com a ferramenta Girar. A Mão liga e desliga; todas as chaves com a mesma letra ligam juntas."],
+   [{t:"tn",r:0},{act:true,gp:true,p:true},"<b>Transistor N</b>: um eletroímã (a bobina) e uma lâmina. Com tensão no controle, o ímã puxa a lâmina e fecha o caminho entre os dois contatos."],
+   [{t:"tp",r:0},{act:true,p:true},"<b>Transistor P</b>: a lâmina já nasce encostada. Com tensão no controle, o ímã levanta a lâmina e abre o caminho."],
+   [{t:"lamp",lbl:"S"},{lit:true},"<b>Saída</b> (lâmpada com etiqueta): é a que a tabela da missão lê. Acende se um fio com tensão encosta nela."],
+   [{t:"lamp",lbl:""},{lit:true},"<b>Lâmpada de teste</b>: igual à saída, mas sem etiqueta. Serve para enxergar se chega tensão em qualquer ponto do circuito. Não deixa a tensão passar adiante."],
+   [{t:"clk"},{clk:true},"<b>Relógio</b>: uma fonte que liga e desliga sozinha."]
+  ];
+  for(const [c,st,txt] of rows){ grid.appendChild(iconCanvas(c,st,44)); const p=document.createElement("p"); p.innerHTML=txt; grid.appendChild(p); }
+}
+
+/* ================= persistence ================= */
+function save(){ try{ localStorage.setItem("bancada:"+mission.id,JSON.stringify(sim.cells)); }catch(e){} }
+function load(){
+  sim=new Sim(mission.cols,mission.rows);
+  try{ const raw=localStorage.getItem("bancada:"+mission.id); if(raw){const arr=JSON.parse(raw); if(Array.isArray(arr)&&arr.length===sim.H&&arr[0].length===sim.W){sim.cells=arr.map(r=>r.map(c=>c?Object.assign({r:0,on:false,lbl:""},c):null));}} }catch(e){}
+}
+function isEmpty(){ return sim.count(()=>true)===0; }
+
+/* ================= trilha & progress ================= */
+function famDone(f){ return missions.filter(m=>m.fam===f).every(m=>doneSet.has(m.id)); }
+function buildTrilha(){
+  const svg=document.getElementById("trilha"); const n=FAMILIES.length; const step=(380-40)/(n-1);
+  let h='';
+  for(let i=0;i<n-1;i++){ const x1=20+i*step,x2=20+(i+1)*step; const lit=famDone(i)&&famDone(i+1); h+=`<line x1="${x1+12}" y1="22" x2="${x2-12}" y2="22" stroke="${lit?'var(--hot)':'var(--line)'}" stroke-width="3" stroke-linecap="round"/>`; }
+  for(let i=0;i<n;i++){ const x=20+i*step; const done=famDone(i), cur=mission.fam===i;
+    h+=`<g class="node" data-f="${i}"><circle cx="${x}" cy="22" r="12" fill="${done?'var(--hot)':'var(--paper)'}" stroke="${cur?'var(--accent)':(done?'var(--hot2)':'var(--line)')}" stroke-width="${cur?3:1.5}"/>`;
+    if(done) h+=`<path d="M${x-5} 22l3.5 3.5 6.5-7" fill="none" stroke="#1B1F24" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>`;
+    else h+=`<text x="${x}" y="22" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" fill="${cur?'var(--accent)':'var(--ink2)'}">${i||'•'}</text>`;
+    h+=`<text x="${x}" y="${i%2?60:47}" text-anchor="middle" font-size="9.5" fill="${cur?'var(--ink)':'var(--ink2)'}" font-weight="${cur?600:400}">${FAMILIES[i]}</text></g>`; }
+  svg.innerHTML=h;
+  svg.querySelectorAll(".node").forEach(g=>g.addEventListener("click",()=>{ const f=+g.dataset.f; const list=missions.filter(m=>m.fam===f); const target=list.find(m=>!doneSet.has(m.id))||list[0]; selectMission(missions.indexOf(target)); }));
+  const total=missions.length, done=missions.filter(m=>doneSet.has(m.id)).length;
+  document.getElementById("progress").textContent=done+" de "+total+" missões";
+}
+
+/* ================= live table / checklist ================= */
+let binSeen=new Set(), everLit=false;
+function binValue(){
+  const bits=[]; let all=true;
+  for(const l of mission.outputs){ const f=sim.find("lamp",l); if(!f.length){ all=false; bits.push(null); continue; } bits.push(sim.lampLit(f[0][0],f[0][1])?1:0); }
+  const r={all,bits,v:0,k:0,lit:0};
+  if(mission.numMode==="float"){
+    let M=0,E=0; mission.outputs.forEach((l,i)=>{ if(bits[i]===1){ r.lit++; const w=+l.slice(1); if(l[0]==="m") M+=w; else E+=w; } });
+    r.M=M; r.E=E; r.v=M*Math.pow(2,E); r.gap=Math.pow(2,E);
+  } else {
+    mission.outputs.forEach((l,i)=>{ if(bits[i]===1){ r.lit++; r.v+=+l; if(!r.k) r.k=mission.outputs.length-i; } });
+  }
+  return r;
+}
+function stats(){
+  const s={src:0,lamp:0,lit:0,swA:0,toggled};
+  for(let y=0;y<sim.H;y++)for(let x=0;x<sim.W;x++){const c=sim.cells[y][x]; if(!c) continue;
+    if(c.t==="src") s.src++; if(c.t==="lamp"){ s.lamp++; if(sim.lampLit(x,y)) s.lit++; } if(c.t==="sw"&&c.lbl==="A") s.swA++; }
+  if(s.lit>0) everLit=true; s.everLit=everLit;
+  if(mission.binary){ const b=binValue(); s.binAll=b.all; s.binLit=b.all&&b.lit>0;
+    if(b.all){ binSeen.add("v:"+b.v); if(b.k) binSeen.add("k:"+b.k); try{localStorage.setItem("bancada:seen:"+mission.id,JSON.stringify([...binSeen]));}catch(e){} }
+    s.seen=binSeen; s.seen149=binSeen.has("v:149"); s.seen203=binSeen.has("v:203"); }
+  return s;
+}
+let lastAll=false;
+function updateTable(){
+  const ul=document.getElementById("checklist"), tbl=document.getElementById("liveTable"), note=document.getElementById("liveNote");
+  if(mission.tutorial){
+    tbl.innerHTML=""; document.getElementById("tableTitle").textContent=mission.binary?"Número escrito":"Passos";
+    const s=stats(); let all=true; ul.innerHTML="";
+    if(mission.binary){ const b=binValue(); const sub=!b.all?"":mission.numMode==="float"?("M = "+b.M+", E = "+b.E+", vão "+fmt(b.gap)):(b.k?"cabe em "+b.k+" lâmpada"+(b.k>1?"s":""):"zero");
+      tbl.innerHTML='<div class="readout"><span class="big">'+(b.all?fmt(b.v):"–")+'</span><span class="bits">'+mission.outputs.map((l,i)=>'<span class="bit'+(b.bits[i]===1?' on':'')+(b.bits[i]===null?' miss':'')+'"><b>'+(b.bits[i]===null?'?':b.bits[i])+'</b><i>'+shortLbl(l)+'</i></span>').join("")+'</span></div>'+(sub?'<p class="live">'+sub+'</p>':''); }
+    mission.checks.forEach(ck=>{ const li=document.createElement("li"); const d=ck.f(s); if(!d) all=false; li.className=d?"done":""; li.innerHTML='<span class="box"></span><span>'+ck.t+'</span>'; ul.appendChild(li); });
+    note.textContent=all?"Tudo feito. Toque em Concluir missão.":"";
+    document.getElementById("btnDone").disabled=!all; lastAll=all; return;
+  }
+  ul.innerHTML=""; document.getElementById("tableTitle").textContent="Tabela da missão";
+  const r=runSteps(mission);
+  const ins=mission.inputs.slice(); if(mission.needClk) ins.unshift("relógio");
+  let h="<table><thead><tr>"+(mission.id==="reg"?"<th>passo</th>":"")+ins.map(l=>"<th>"+l+"</th>").join("")+mission.outputs.map(l=>"<th>"+l+"</th>").join("")+"</tr></thead><tbody>";
+  mission.steps.forEach((step,i)=>{
+    h+="<tr>"+(mission.id==="reg"?"<td>"+(i+1)+"</td>":"")+ins.map(l=>"<td>"+(l==="relógio"?step.clk:step.in[l])+"</td>").join("");
+    for(const l of mission.outputs){ const row=r.rows?r.rows[i]:null; const cls=row?(row.got[l]===step.out[l]?"ok":"bad"):"wait"; h+="<td class='"+cls+"'>"+step.out[l]+(row?(cls==="ok"?" ✓":" ✗"):"")+"</td>"; }
+    h+="</tr>";
+  });
+  h+="</tbody></table>"; tbl.innerHTML=h;
+  let all=false;
+  if(r.missing) note.textContent=r.missing+" As colunas de saída mostram o que a missão espera.";
+  else if(r.tcount<(mission.minT||0)) note.textContent="A tabela já está sendo testada. Esta missão pede pelo menos "+mission.minT+" transistor"+(mission.minT>1?"es":"")+" (você tem "+r.tcount+").";
+  else if(r.all){ all=true; note.textContent=(mission.id==="reg"?"Os passos rodam na ordem, de cima pra baixo. ":"")+"Todas as linhas conferem. Toque em Concluir missão."; }
+  else note.textContent=(mission.id==="reg"?"Os passos rodam na ordem, de cima pra baixo. ":"")+"Verde confere, vermelho não. Ligue as chaves daquela linha com a Mão e siga o fio laranja.";
+  document.getElementById("btnDone").disabled=!all; lastAll=all;
+}
+
+/* ================= mission flow ================= */
+function selectMission(i){ mission=missions[i]; showMission(); window.scrollTo({top:0,behavior:reduceMotion?"auto":"smooth"}); }
+function showMission(){
+  document.getElementById("mFamily").textContent=mission.family;
+  document.getElementById("mTitle").textContent=mission.title;
+  document.getElementById("mStory").textContent=mission.story;
+  document.getElementById("mTask").textContent=mission.task;
+  document.getElementById("why").textContent=mission.why; document.getElementById("why").classList.remove("show"); document.getElementById("btnWhy").setAttribute("aria-expanded","false");
+  hintLevel=0; const hb=document.getElementById("btnHint"); hb.textContent="Dica"; hb.setAttribute("aria-expanded","false"); document.getElementById("hint").classList.remove("show"); document.getElementById("hint").textContent="";
+  document.getElementById("done").classList.remove("show");
+  document.getElementById("legend").textContent=mission.tutorial?"Mão liga e inspeciona, Mover muda de lugar, Girar vira a peça. A chave entra alinhada com os fios vizinhos.":"Mão liga e inspeciona, Mover muda de lugar, Girar vira a peça. Chaves e transistores conduzem só no eixo deles e já entram alinhados com os fios vizinhos.";
+  setStatus(""); closeConfirm(); toggled=false; everLit=false; selected=null; undoStack=[]; document.getElementById("btnUndo").disabled=true;
+  binSeen=new Set(); try{ if(mission.binary) binSeen=new Set(JSON.parse(localStorage.getItem("bancada:seen:"+mission.id)||"[]")); }catch(e){}
+  tool={k:"wire",lbl:""}; picked=null; load(); buildPalette(); buildTrilha(); resize(); tick();
+}
+document.getElementById("btnWhy").addEventListener("click",e=>{ const el=document.getElementById("why"); const open=!el.classList.contains("show"); el.classList.toggle("show",open); e.currentTarget.setAttribute("aria-expanded",String(open)); });
+document.getElementById("btnHint").addEventListener("click",e=>{
+  const el=document.getElementById("hint"); const hs=mission.hints;
+  if(hintLevel<hs.length){ hintLevel++; el.textContent=hs.slice(0,hintLevel).map((t,i)=>(hs.length>1?(i+1)+". ":"")+t).join("\n"); el.classList.add("show"); }
+  e.currentTarget.textContent=hintLevel<hs.length?"Mais uma dica":"Dicas"; e.currentTarget.setAttribute("aria-expanded","true");
+});
+document.getElementById("btnExample").addEventListener("click",()=>{
+  const ex=EXAMPLES[mission.id]; if(!ex) return;
+  const go=()=>{
+    snapshot(); sim=new Sim(mission.cols,mission.rows);
+    let minX=1e9,maxX=-1,minY=1e9,maxY=-1; for(const it of ex){ minX=Math.min(minX,it.x); maxX=Math.max(maxX,it.x); minY=Math.min(minY,it.y); maxY=Math.max(maxY,it.y); }
+    const bw=maxX-minX+1, bh=maxY-minY+1;
+    let regionH=sim.H;
+    if(mission.binary){ const lines=mission.numMode==="float"?3:(mission.outputs.length>8?3:2); regionH=mission.monitorY-(lines===3?2.7:2.1)/2; }
+    const ox=Math.floor((sim.W-bw)/2)-minX, oy=Math.max(0,Math.round((regionH-bh)/2))-minY;
+    for(const it of ex){ const x=it.x+ox, y=it.y+oy; if(x>=0&&y>=0&&x<sim.W&&y<sim.H) sim.cells[y][x]={t:it.t,r:it.r||0,on:false,lbl:it.lbl||""}; }
+    save(); tool={k:"hand",lbl:""}; picked=null; buildPalette(); tick();
+    setStatus("Exemplo carregado. Com a Mão, ligue as chaves e toque nas peças para ver o que cada uma faz. Depois apague e monte o seu.");
+    document.getElementById("wrap").scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"center"});
+  };
+  if(isEmpty()) go(); else askConfirm("Isso substitui sua montagem por um exemplo pronto (dá para desfazer). Continuar?",go);
+});
+document.getElementById("btnUndo").addEventListener("click",()=>{ if(!undoStack.length) return; const raw=undoStack.pop(); sim.cells=JSON.parse(raw); sim.active=new Map(); save(); tick(); document.getElementById("btnUndo").disabled=!undoStack.length; });
+document.getElementById("btnClear").addEventListener("click",()=>{ if(isEmpty()){ setStatus("A placa já está vazia."); return; } askConfirm("Apagar tudo desta missão? (dá para desfazer)",()=>{ snapshot(); sim=new Sim(mission.cols,mission.rows); save(); tick(); setStatus("Placa limpa."); }); });
+document.getElementById("btnDone").addEventListener("click",()=>{
+  if(!lastAll) return;
+  doneSet.add(mission.id); saveDone(); buildTrilha();
+  const d=document.getElementById("done"); const famOk=famDone(mission.fam);
+  document.getElementById("doneText").textContent=famOk?"Família concluída: "+FAMILIES[mission.fam]:"Missão concluída";
+  document.getElementById("doneBody").textContent=mission.id==="bin"?"Você escreveu números só com acesas e apagadas. Agora a fila cresce.":mission.id==="b16"?"Cada lâmpada a mais dobra o alcance: isso é o log₂. Falta ver como caber números gigantes em poucas lâmpadas.":mission.id==="flt"?"Dígitos e expoente: é assim que o computador escreve de um átomo a uma galáxia com 64 lâmpadas. A próxima missão troca o dedo da chave por um fio.":mission.binary?"":mission.tutorial?"Agora você sabe o básico: fonte, caminho, chave, lâmpada. A próxima missão é a máquina de binário.":"Antes de seguir, vale experimentar um pouco com o que você montou:";
+  const ex=document.getElementById("explore"); ex.innerHTML=""; (mission.explore||[]).forEach(t=>{ const li=document.createElement("li"); li.textContent=t; ex.appendChild(li); });
+  const i=missions.indexOf(mission); document.getElementById("btnNext").style.display=i<missions.length-1?"":"none";
+  if(i===missions.length-1) document.getElementById("doneBody").textContent="Você montou um transistor, as três portas, um somador, uma gaveta de 1 bit, um relógio e um seletor de instrução. Isso é um processador por dentro.";
+  d.classList.add("show"); d.scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"nearest"});
+});
+document.getElementById("btnNext").addEventListener("click",()=>{ const i=missions.indexOf(mission); if(i<missions.length-1) selectMission(i+1); });
+document.getElementById("onbOk").addEventListener("click",()=>{ document.getElementById("onb").style.display="none"; try{localStorage.setItem("bancada:onb","1");}catch(e){} });
+try{ if(localStorage.getItem("bancada:onb")) document.getElementById("onb").style.display="none"; }catch(e){}
+
+/* ================= clock ================= */
+setInterval(()=>{ if(!hasClk()){ if(sim.clockOn){sim.clockOn=false;tick();} return;} sim.clockOn=!sim.clockOn; tick(); },700);
+
+window.addEventListener("resize",resize);
+if(window.matchMedia){ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{buildPalette();buildParts();buildTrilha();draw();}); }
+buildParts();
+(function(){ let start=0; try{ const last=localStorage.getItem("bancada:last"); if(last){ const i=missions.findIndex(m=>m.id===last); if(i>=0) start=i; } }catch(e){} mission=missions[start]; })();
+showMission();
+const _sel=selectMission; selectMission=function(i){ _sel(i); try{localStorage.setItem("bancada:last",mission.id);}catch(e){} };
+})();
+</script>
+</body>
+</html>

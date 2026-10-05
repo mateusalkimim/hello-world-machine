@@ -67,10 +67,10 @@ a régua que atravessa todos: cada camada é uma promessa do tipo "pode esquecer
 o resto, isto eu garanto", e a execução é o que sobra quando todas foram
 cumpridas.
 
-Os degraus 3 e 4 se apoiam na escada que já existe, o
-[abstraction-ladder](https://github.com/mateusalkimim/abstraction-ladder): as
-arestas relé → porta → somador → flip-flop → registrador estão lá com citação e
-com instrumento que monta a peça na tela.
+Os degraus 3 e 4 se apoiam na escada, que agora mora aqui, em
+[`pt/escada.html`](pt/escada.html): as arestas relé → porta → somador →
+flip-flop → registrador estão lá com citação e com instrumento que monta a peça
+na tela.
 
 ## Início rápido
 
@@ -99,6 +99,12 @@ pt/placa.html         Olá, Mundo! na placa: o instrumento — GERADO por gerar_
 placa.js              a placa em planta: desenha a máquina e toca o traço, um ciclo por vez
 gerar_placa.py        o gerador da página do instrumento
 conferir_placa.py     todo nome do traço tem módulo desenhado; nome inventado é recusado
+pt/escada.html        a escada: as seis famílias de circuitos — GERADA por escada/gerar_escada.py
+pt/bancada.html       a bancada de circuitos: doze missões — GERADA por gerar_bancada.py
+barra.py              a barra das quatro partes, a mesma em toda página
+escada/               os fontes da escada: famílias, peças, mapa, instrumentos, gerador e conferências
+bancada/              a fonte da bancada, uma página que anda sozinha
+gerar_bancada.py      cola a barra na bancada, sem tocar no jogo
 en/index.html         a mesma página em inglês — DERIVADA de pt/ + traducao/
 degraus.py            os degraus, as teses, e as PASSAGENS que os sustentam
 figuras.py            uma figura por degrau, com a palavra nova como rótulo
@@ -200,17 +206,29 @@ de vídeo. A pesquisa que define a placa mínima, os dois relógios e as
 regras de legibilidade está em
 [`pesquisa/placa-minima-e-dado-visivel.md`](pesquisa/placa-minima-e-dado-visivel.md).
 
-## Os dois instrumentos
+## As quatro partes
 
-Esta página e o
-[abstraction-ladder](https://github.com/mateusalkimim/abstraction-ladder)
-respondem à mesma pergunta por dois lados: como uma ideia humana, uma
-saudação, vira 0 e 1 e volta para a mesma pessoa quase na mesma forma. A
-escada é **o que precisa existir** para a ida e a volta: as seis famílias de
-circuitos. Esta máquina é **a matemática** que torna a conversão possível, e
-a viagem do sinal pelas partes. Os dois usam a mesma máquina de publicar (nós
-com warrant declarado, página gerada da fonte, inglês derivado do português) e
-as mesmas duas fontes.
+O material é um só e tem quatro páginas, ligadas por uma barra no alto de cada
+uma. A pergunta é a mesma nas quatro: como uma ideia humana, uma saudação, vira
+0 e 1 e volta para a mesma pessoa quase na mesma forma.
+
+- **os degraus** (`pt/index.html`): a viagem de "Olá, Mundo!", um degrau por
+  tela. É **a matemática** que torna a conversão possível, e a viagem do sinal
+  pelas partes;
+- **a placa** (`pt/placa.html`): a mesma viagem rodando na máquina desenhada,
+  ciclo a ciclo;
+- **a escada** (`pt/escada.html`): **o que precisa existir** para a ida e a
+  volta, as seis famílias de circuitos. Transistores ligam e desligam, portas
+  lógicas decidem, somadores fazem conta, registradores guardam número,
+  instruções mandam, e o relógio marca o tempo. Uma família por tela, com as
+  peças, o instrumento que monta cada uma, e a passagem do livro;
+- **a bancada** (`pt/bancada.html`): as mesmas peças na mão. Doze missões numa
+  bancada de circuitos, de acender uma lâmpada a um número que escolhe o
+  circuito, com a tabela de cada missão ao vivo.
+
+A escada nasceu como um repositório à parte, o abstraction-ladder, e foi
+trazida para cá: os fontes moram em `escada/` e têm gerador e conferências
+próprios. A escada e a bancada estão só em português por enquanto.
 
 ## Proveniência e garantias
 
@@ -225,8 +243,8 @@ as mesmas duas fontes.
   desenho do "O"; a tabela ASCII em si; o acento num programa de 1978; da
   tela à web). O quinto, da tecla ao número, fechou com o eco. Mapa que
   esconde o que falta mente sobre o próprio tamanho.
-- **Dois degraus se apoiam no abstraction-ladder**, e dizem isso com um selo
-  próprio. A aresta está lá, com a citação lida e o instrumento.
+- **Dois degraus se apoiam na escada**, e dizem isso com um selo próprio. A
+  aresta está lá, com a citação lida e o instrumento.
 - **Os números do personagem são derivados**, e marcados assim: os códigos das
   onze letras e os dois bytes do á saem da regra do capítulo 13, e qualquer
   tabela Unicode os confere.

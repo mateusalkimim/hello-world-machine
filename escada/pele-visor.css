@@ -1,0 +1,115 @@
+/* O visor da escada: uma família por tela, trilha no alto, previsão e
+   recuperação. Complementa a pele (pele.css), que é a identidade escura
+   desta página. Cada família empresta a sua cor por --fam. */
+.caixa{max-width:900px}
+.cab{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:14px}
+.cab h1{font-size:34px}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ouro);font-weight:600;margin:0}
+.eyebrow b{color:var(--creme)}
+
+.trilha{display:flex;gap:0;overflow-x:auto;padding:8px 4px;background:var(--cartao);border:1px solid var(--borda);border-radius:7px;margin-bottom:18px;scrollbar-width:thin}
+.trilha .est{flex:1 0 auto;min-width:5.2rem;display:grid;justify-items:center;gap:3px;padding:3px 6px;position:relative;opacity:.4;cursor:pointer;border-radius:5px}
+.trilha .est + .est::before{content:"";position:absolute;left:-4px;top:16px;width:8px;height:1px;background:var(--borda)}
+.trilha .tok{font-family:Cormorant,Georgia,serif;font-size:19px;line-height:1;color:var(--creme)}
+.trilha .nome{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--fraco);white-space:nowrap}
+.trilha .est.passado{opacity:.7}
+.trilha .est.atual{opacity:1;background:#0f2038}
+.trilha .est.atual .tok{color:var(--fam,var(--ouro))}
+.trilha .est.atual .nome{color:var(--fam,var(--ouro))}
+
+.tela{display:grid;gap:16px;min-width:0}
+.tela header{display:grid;gap:4px}
+.tela h2{margin:0;font-size:30px}
+.tese{font-family:Cormorant,Georgia,serif;font-size:22px;line-height:1.3;color:var(--creme);margin:0}
+.corpo{color:#b9c4d4;font-size:16px;margin:0;max-width:760px}
+.fig{margin:0;background:var(--cartao);border:1px solid var(--borda);border-radius:7px;padding:12px;overflow-x:auto}
+.fig svg{display:block;max-width:100%;height:auto}
+.fig .rot{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ouro);margin:0 0 8px}
+table.simbolos{border-collapse:collapse;width:100%;font-size:14px}
+table.simbolos th,table.simbolos td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--borda);vertical-align:top}
+table.simbolos th{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fraco);font-weight:600}
+table.simbolos td.expr{font-size:16px}
+
+.mat{display:grid;gap:5px;padding:10px 14px;border-left:3px solid var(--fam,var(--ouro));background:var(--cartao);border-radius:0 6px 6px 0}
+.mat .obj{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ouro);font-weight:600;margin:0}
+.mat .obj b{color:#b9c4d4;text-transform:none;letter-spacing:0;font-size:13px;font-weight:500}
+.expr{font-family:Cormorant,Georgia,serif;font-size:20px;line-height:1.3;color:var(--creme);margin:0}
+.expr i{font-style:italic} .nome{font-style:normal}
+.leitura{font-size:13px;font-style:italic;color:var(--fraco);margin:0;line-height:1.4}
+.leitura b{font-style:normal;color:var(--ouro);font-weight:600}
+
+/* previsão e recuperação: o salto do "ativo" para o "construtivo" */
+.pergunta{display:grid;gap:8px;padding:12px 14px;border:1px solid var(--fam,var(--borda));border-radius:7px;background:#0b1a2d}
+.pergunta .rot{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fam,var(--ouro));font-weight:600;margin:0}
+.pergunta .enunciado{margin:0;color:var(--creme);font-size:16px}
+.pergunta .opcoes{display:grid;gap:4px}
+.pergunta label{display:flex;gap:8px;align-items:baseline;font-size:15px;color:#b9c4d4;cursor:pointer;padding:3px 6px;border-radius:4px}
+.pergunta label:hover{background:#0f2038}
+.pergunta label.certa{color:var(--lido)} .pergunta label.errada{color:var(--fisica);text-decoration:line-through}
+.pergunta button.ver{justify-self:start;font:inherit;font-size:13px;color:var(--creme);background:none;border:1px solid var(--fam,var(--borda));border-radius:4px;padding:6px 12px;cursor:pointer}
+.pergunta button.ver:hover{background:#0f2038}
+.pergunta button:focus-visible,.pergunta input:focus-visible,nav.passo button:focus-visible{outline:2px solid var(--ouro);outline-offset:2px}
+.pergunta .porque{margin:0;font-size:14px;color:#b9c4d4;border-top:1px solid var(--borda);padding-top:8px}
+.pergunta .porque b{color:var(--creme)}
+
+details.pordentro,details.prova-fam{border-top:1px solid var(--borda);padding-top:8px}
+details summary{cursor:pointer;color:#8fb3e0;font-size:14px}
+details summary::marker{color:var(--ouro)}
+details.pordentro > div, details.pordentro > details{margin-top:10px}
+details.degrau{background:var(--cartao);border:1px solid var(--borda);border-radius:6px;padding:8px 12px;margin-top:8px}
+details.degrau > summary b{color:var(--creme);font-family:Cormorant,Georgia,serif;font-size:19px}
+details.degrau > summary .diz{color:#b9c4d4;font-size:13.5px;margin-left:6px}
+details.degrau .regime{font-size:12px;color:var(--fraco);margin:6px 0 0}
+.campo{margin-top:10px}
+.campo .rot{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fraco);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.campo p{margin:4px 0 0;color:#b9c4d4;font-size:14.5px}
+details.passagem,details.seta,details.dentro{margin-top:6px}
+details.passagem summary,details.seta summary,details.dentro summary{font-size:12.5px;color:var(--fraco)}
+blockquote{margin:6px 0 0;padding:8px 12px;background:#0b1a2d;border-left:2px solid var(--borda);font-family:Cormorant,Georgia,serif;font-size:15.5px;color:var(--creme);display:grid;gap:4px}
+blockquote .pt{font-family:Inter,system-ui,sans-serif;font-size:13px;color:#b9c4d4}
+blockquote cite{font-style:normal;font-family:Inter,system-ui,sans-serif;font-size:11.5px;color:var(--fraco)}
+.duas{font-size:12.5px;color:var(--fraco);margin:4px 0 0}
+.fonte{font-size:12.5px;color:var(--fraco);margin:6px 0}
+.chaves{display:flex;flex-wrap:wrap;gap:12px;font-size:12.5px;color:#b9c4d4;margin:0}
+.chaves i{display:inline-block;width:.8em;height:.8em;border-radius:2px;margin-right:5px;vertical-align:-1px}
+ul.soltas,ul.falta{padding-left:18px;margin:8px 0 0;font-size:14px;color:#b9c4d4}
+ul.falta .estado{font-size:12px;color:var(--ouro)} ul.falta .porque-falta{font-size:13px;color:var(--fraco)}
+
+nav.passo{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;border-top:1px solid var(--borda);padding-top:12px;margin-top:22px}
+nav.passo button{font:inherit;font-size:14px;color:#8fb3e0;background:none;border:1px solid var(--borda);border-radius:4px;padding:8px 12px;cursor:pointer;text-align:left;min-width:0;display:grid;gap:2px}
+nav.passo button:hover{border-color:var(--ouro)} nav.passo button:disabled{opacity:.35;cursor:default}
+nav.passo button small{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--fraco)}
+nav.passo button span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
+nav.passo .prox{text-align:right} nav.passo .pos{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fraco);white-space:nowrap;margin:0}
+@media (max-width:460px){nav.passo{grid-template-columns:1fr 1fr}nav.passo .pos{grid-column:1/-1;text-align:center;order:-1}}
+footer{margin-top:28px;color:var(--fraco);font-size:12.5px}
+
+/* a seção escondida some de verdade: a regra .tela{display:grid} vencia o [hidden] do navegador */
+.tela[hidden]{display:none}
+
+/* a tradução do autor acompanha a citação só na página em português */
+.traducao{font-size:13px;color:#b9c4d4;margin:4px 0 0}
+html[lang^="en"] .traducao{display:none}
+
+/* as palavras e as peças: nome em cor, e abaixo os dois itens, sem número */
+.item{margin:10px 0 0;max-width:760px}
+.nome-item{margin:0;font-size:16px;color:var(--fam,var(--ouro));font-weight:600}
+.item ul{margin:3px 0 0;padding-left:1.2em;font-size:16px;line-height:1.55;color:#c9d2df}
+.item ul li{margin:2px 0} .item i{font-style:normal;color:var(--fraco);font-size:13px;letter-spacing:.04em}
+.palavras .rot,.pecas .rot{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ouro);margin:0 0 4px}
+details.fonte{margin-top:8px} details.fonte summary{font-size:12.5px;color:var(--fraco)}
+.traducao{font-size:13px;color:#b9c4d4;margin:4px 0 8px}
+
+/* as famílias e os sinais da primeira tela: uma linha por entrada, o exemplo à esquerda */
+.sinais{display:grid;border-top:1px solid var(--borda);margin:4px 0 14px;max-width:760px}
+.sinal{display:grid;grid-template-columns:8.5rem 1fr;gap:12px;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--borda)}
+.sinal p{margin:0;font-size:15px;line-height:1.5;color:#c9d2df}
+.sinal .expr{font-family:Cormorant,Georgia,serif;font-size:19px;color:var(--creme);line-height:1.3}
+.sinal .expr.fam{font-family:Cormorant,Georgia,serif;font-weight:600}
+.sinal b{font-weight:600;color:var(--creme)} .sinal .lese{color:var(--ouro);font-size:12px;letter-spacing:.04em}
+#conv .rot{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ouro);margin:14px 0 0}
+@media (max-width:420px){.sinal{grid-template-columns:6rem 1fr}}
+/* O visor escreve o #id da seção na URL, e o navegador, ao terminar de carregar, rola até ela:
+   a página abria com o cabeçalho, a barra e a trilha fora da vista. Com esta margem o alvo
+   da rolagem cai acima do topo e a página abre no alto. */
+.tela{scroll-margin-top:100vh}

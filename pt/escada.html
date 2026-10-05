@@ -1,0 +1,1159 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A escada de abstrações — seis famílias, do transistor à instrução</title>
+<meta name="description" content="Uma saudação sai de uma pessoa, atravessa uma máquina que só sabe se há corrente ou não, e volta. Seis famílias de circuitos são tudo o que precisa existir no meio: transistores ligam e desligam, portas decidem, somadores fazem conta, registradores guardam, instruções mandam, o relógio marca o tempo. Para quem não sabe nada, com instrumento, aposta e pergunta em cada família.">
+<style>:root{ --fundo:#0a1424; --creme:#e8e2d6; --fraco:#5b6b86; --ouro:#c9a266;
+         --cartao:#0d1c30; --borda:#1e3050; --lido:#6fbf6a; --falta:#8a94a4;
+         --fisica:#c1704f; --comb:#5b8fc9; --seq:#4fb3a5; --lingua:#a883c9; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--fundo);color:var(--creme);
+       font-family:Inter,-apple-system,"Segoe UI",system-ui,sans-serif;
+       padding:44px 26px 60px;line-height:1.6}
+  .caixa{max-width:980px;margin:0 auto}
+  h1{font-family:Cormorant,Georgia,serif;font-weight:600;font-size:44px;margin:0 0 6px}
+  .lede{color:#b9c4d4;font-size:16px;max-width:760px;margin:0 0 4px}
+  .nota{color:var(--fraco);font-size:13.5px;max-width:760px;margin:12px 0 0}
+  h2{font-family:Cormorant,Georgia,serif;font-size:25px;margin:52px 0 10px;font-weight:600}
+  h3{font-family:Cormorant,Georgia,serif;font-size:23px;font-weight:600;margin:0}
+
+  /* --- o mapa. §4 da norma-de-diagramas: SVG com width:100% escala pela
+     largura e, em tela baixa, corta os dois extremos em silêncio. Daí o
+     max-height em vh — e a medida em mais de uma resolução. --- */
+  .mapa{margin:26px 0 0;background:var(--cartao);border:1px solid var(--borda);
+        border-radius:8px;padding:18px 14px}
+  .mapa svg{width:100%;height:auto;max-height:82vh;display:block}
+  /* No telefone o mapa espremido a 308px fica ilegivel — medido. Em vez de
+     encolher, ele mantem largura minima e ROLA na propria caixa; o corpo da
+     pagina nunca rola na horizontal. */
+  @media (max-width:820px){
+    .mapa{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .mapa svg{min-width:720px;max-height:none}
+    .mapa::after{content:"↔ arraste o mapa para o lado";display:block;
+      color:var(--fraco);font-size:11.5px;padding:8px 2px 0}
+  }
+  .mapa a.no{cursor:pointer}
+  .mapa a.no:hover rect{stroke-width:2.6}
+
+  /* --- cartão de degrau --- */
+  .degrau{background:var(--cartao);border:1px solid var(--borda);border-radius:7px;
+          padding:16px 20px 14px;margin:0 0 16px;scroll-margin-top:18px}
+  .degrau header{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .nivel{color:var(--fraco);font-size:12px;font-variant-numeric:tabular-nums;
+         margin-left:auto}
+  .regime{font-size:11px;padding:2px 9px;border-radius:11px;border:1px solid}
+  .r-fisica{color:var(--fisica);border-color:var(--fisica)}
+  .r-comb{color:var(--comb);border-color:var(--comb)}
+  .r-seq{color:var(--seq);border-color:var(--seq)}
+  .r-arq{color:var(--ouro);border-color:var(--ouro)}
+  .r-lingua{color:#a883c9;border-color:#a883c9}
+
+  .campos{margin:14px 0 0;display:grid;gap:11px}
+  @media (min-width:760px){ .campos{grid-template-columns:1fr 1fr;gap:11px 26px} }
+  .campo{border-top:1px solid #16283f;padding-top:9px}
+  .campo dt{font-size:11.5px;color:var(--ouro);letter-spacing:.04em;
+            text-transform:lowercase;margin:0 0 3px}
+  .campo dd{margin:0;font-size:13.5px;color:#c3ccda}
+  .selo{display:inline-block;font-size:10.5px;padding:1px 7px;border-radius:9px;
+        margin-left:6px;vertical-align:1px;white-space:nowrap}
+  .selo.lido{color:var(--lido);border:1px solid rgba(111,191,106,.45)}
+  .selo.oficio{color:var(--ouro);border:1px solid rgba(201,162,102,.45)}
+  details.proc>summary{cursor:pointer;color:var(--fraco);font-size:11.5px;
+        padding:5px 0 0;list-style:none}
+  details.proc>summary::before{content:"· ";color:var(--ouro)}
+
+  /* --- instrumento --- */
+  .instr{margin:16px 0 4px;border:1px solid #23405e;border-radius:7px;
+         background:#0a1a2e;padding:14px 16px 12px}
+  .instr h4{margin:0 0 4px;font-family:Cormorant,Georgia,serif;font-size:19px;
+            font-weight:600;color:var(--creme)}
+  .instr .comoler{color:#9fadc0;font-size:13px;margin:0 0 12px}
+  .instr canvas{width:100%;display:block;background:#0d1c30;border-radius:5px;
+                border:1px solid #16283f}
+  .botoes{display:flex;gap:8px;flex-wrap:wrap;margin:11px 0 0}
+  .botoes button{background:#17293f;color:#b9c4d4;border:1px solid #2b4767;
+        border-radius:5px;padding:6px 13px;font-size:12.5px;
+        font-family:inherit;cursor:pointer}
+  .botoes button:hover{border-color:var(--ouro);color:var(--creme)}
+  .botoes button.on{background:#1d3a2a;border-color:var(--lido);color:#cfe8cd}
+  .prova{color:var(--fraco);font-size:11.5px;margin:9px 0 0}
+  .aviso{color:var(--fisica);font-size:12px}
+
+  details.seta{margin:12px 0 0;padding:0 0 0 26px;border-left:2px solid var(--lido)}
+  details.seta>summary{cursor:pointer;color:var(--lido);font-size:13px;
+          padding:7px 0;list-style:none}
+  details.seta>summary::before{content:"▲  ";}
+  details.seta[open]>summary{color:var(--creme)}
+  blockquote{margin:2px 0 12px;padding:12px 16px;background:#132440;
+             border-left:3px solid var(--ouro);border-radius:0 5px 5px 0;
+             color:#cfd6e2;font-size:13.5px}
+  blockquote cite{display:block;margin-top:8px;color:var(--fraco);font-size:12px;
+                  font-style:normal}
+  .duas{color:var(--ouro);font-size:12.5px;margin:-6px 0 12px 26px}
+  .pordentro{margin:12px 0 2px;padding-top:10px;border-top:1px dashed #24395c;
+             color:var(--fraco);font-size:12.5px}
+  .pordentro b{color:#9fadc0}
+  details.dentro>summary{cursor:pointer;color:#9fadc0;font-size:13px;padding:6px 0;
+             list-style:none}
+  details.dentro>summary::before{content:"· ";color:var(--ouro)}
+  details.dentro>summary span{color:var(--fraco)}
+  ul.soltas{list-style:none;padding:0;margin:14px 0 0}
+  ul.soltas li{background:var(--cartao);border:1px solid var(--borda);border-radius:5px;
+             padding:11px 15px;margin:0 0 8px;font-size:13.5px}
+  ul.falta{list-style:none;padding:0;margin:14px 0 0}
+  ul.falta li{background:var(--cartao);border:1px dashed #33465f;border-radius:5px;
+              padding:9px 14px;margin:0 0 7px;color:var(--falta);font-size:13.5px}
+  ul.falta li b{color:#b9c4d4}
+  ul.falta li span{float:right;font-size:12px;color:var(--fraco)}
+  .estado{display:inline-block;font-size:11px;padding:1px 8px;border-radius:9px;
+          margin:6px 0 0;border:1px solid}
+  .e-nao-sustenta{color:#c1704f;border-color:#c1704f}
+  .e-reescrita{color:var(--lido);border-color:var(--lido)}
+  .e-nao-achada{color:var(--fraco);border-color:#33465f}
+  .e-nao-aresta{color:#a883c9;border-color:#a883c9}
+  .porque{color:#8d99ab;font-size:12.5px;margin:7px 0 0;line-height:1.55}
+  .comolerpag{background:var(--cartao);border:1px solid var(--borda);
+        border-radius:7px;padding:15px 20px;margin:22px 0 0;font-size:13.5px;
+        color:#b0bbcb}
+  .comolerpag b{color:var(--creme)}
+  footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--borda);
+         color:var(--fraco);font-size:13px}
+  footer a{color:var(--ouro)}
+  code{background:#132440;padding:1px 6px;border-radius:3px;font-size:13px;color:var(--ouro)}
+
+/* O visor da escada: uma família por tela, trilha no alto, previsão e
+   recuperação. Complementa a pele (pele.css), que é a identidade escura
+   desta página. Cada família empresta a sua cor por --fam. */
+.caixa{max-width:900px}
+.cab{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:14px}
+.cab h1{font-size:34px}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ouro);font-weight:600;margin:0}
+.eyebrow b{color:var(--creme)}
+
+.trilha{display:flex;gap:0;overflow-x:auto;padding:8px 4px;background:var(--cartao);border:1px solid var(--borda);border-radius:7px;margin-bottom:18px;scrollbar-width:thin}
+.trilha .est{flex:1 0 auto;min-width:5.2rem;display:grid;justify-items:center;gap:3px;padding:3px 6px;position:relative;opacity:.4;cursor:pointer;border-radius:5px}
+.trilha .est + .est::before{content:"";position:absolute;left:-4px;top:16px;width:8px;height:1px;background:var(--borda)}
+.trilha .tok{font-family:Cormorant,Georgia,serif;font-size:19px;line-height:1;color:var(--creme)}
+.trilha .nome{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--fraco);white-space:nowrap}
+.trilha .est.passado{opacity:.7}
+.trilha .est.atual{opacity:1;background:#0f2038}
+.trilha .est.atual .tok{color:var(--fam,var(--ouro))}
+.trilha .est.atual .nome{color:var(--fam,var(--ouro))}
+
+.tela{display:grid;gap:16px;min-width:0}
+.tela header{display:grid;gap:4px}
+.tela h2{margin:0;font-size:30px}
+.tese{font-family:Cormorant,Georgia,serif;font-size:22px;line-height:1.3;color:var(--creme);margin:0}
+.corpo{color:#b9c4d4;font-size:16px;margin:0;max-width:760px}
+.fig{margin:0;background:var(--cartao);border:1px solid var(--borda);border-radius:7px;padding:12px;overflow-x:auto}
+.fig svg{display:block;max-width:100%;height:auto}
+.fig .rot{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ouro);margin:0 0 8px}
+table.simbolos{border-collapse:collapse;width:100%;font-size:14px}
+table.simbolos th,table.simbolos td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--borda);vertical-align:top}
+table.simbolos th{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fraco);font-weight:600}
+table.simbolos td.expr{font-size:16px}
+
+.mat{display:grid;gap:5px;padding:10px 14px;border-left:3px solid var(--fam,var(--ouro));background:var(--cartao);border-radius:0 6px 6px 0}
+.mat .obj{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ouro);font-weight:600;margin:0}
+.mat .obj b{color:#b9c4d4;text-transform:none;letter-spacing:0;font-size:13px;font-weight:500}
+.expr{font-family:Cormorant,Georgia,serif;font-size:20px;line-height:1.3;color:var(--creme);margin:0}
+.expr i{font-style:italic} .nome{font-style:normal}
+.leitura{font-size:13px;font-style:italic;color:var(--fraco);margin:0;line-height:1.4}
+.leitura b{font-style:normal;color:var(--ouro);font-weight:600}
+
+/* previsão e recuperação: o salto do "ativo" para o "construtivo" */
+.pergunta{display:grid;gap:8px;padding:12px 14px;border:1px solid var(--fam,var(--borda));border-radius:7px;background:#0b1a2d}
+.pergunta .rot{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fam,var(--ouro));font-weight:600;margin:0}
+.pergunta .enunciado{margin:0;color:var(--creme);font-size:16px}
+.pergunta .opcoes{display:grid;gap:4px}
+.pergunta label{display:flex;gap:8px;align-items:baseline;font-size:15px;color:#b9c4d4;cursor:pointer;padding:3px 6px;border-radius:4px}
+.pergunta label:hover{background:#0f2038}
+.pergunta label.certa{color:var(--lido)} .pergunta label.errada{color:var(--fisica);text-decoration:line-through}
+.pergunta button.ver{justify-self:start;font:inherit;font-size:13px;color:var(--creme);background:none;border:1px solid var(--fam,var(--borda));border-radius:4px;padding:6px 12px;cursor:pointer}
+.pergunta button.ver:hover{background:#0f2038}
+.pergunta button:focus-visible,.pergunta input:focus-visible,nav.passo button:focus-visible{outline:2px solid var(--ouro);outline-offset:2px}
+.pergunta .porque{margin:0;font-size:14px;color:#b9c4d4;border-top:1px solid var(--borda);padding-top:8px}
+.pergunta .porque b{color:var(--creme)}
+
+details.pordentro,details.prova-fam{border-top:1px solid var(--borda);padding-top:8px}
+details summary{cursor:pointer;color:#8fb3e0;font-size:14px}
+details summary::marker{color:var(--ouro)}
+details.pordentro > div, details.pordentro > details{margin-top:10px}
+details.degrau{background:var(--cartao);border:1px solid var(--borda);border-radius:6px;padding:8px 12px;margin-top:8px}
+details.degrau > summary b{color:var(--creme);font-family:Cormorant,Georgia,serif;font-size:19px}
+details.degrau > summary .diz{color:#b9c4d4;font-size:13.5px;margin-left:6px}
+details.degrau .regime{font-size:12px;color:var(--fraco);margin:6px 0 0}
+.campo{margin-top:10px}
+.campo .rot{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fraco);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.campo p{margin:4px 0 0;color:#b9c4d4;font-size:14.5px}
+details.passagem,details.seta,details.dentro{margin-top:6px}
+details.passagem summary,details.seta summary,details.dentro summary{font-size:12.5px;color:var(--fraco)}
+blockquote{margin:6px 0 0;padding:8px 12px;background:#0b1a2d;border-left:2px solid var(--borda);font-family:Cormorant,Georgia,serif;font-size:15.5px;color:var(--creme);display:grid;gap:4px}
+blockquote .pt{font-family:Inter,system-ui,sans-serif;font-size:13px;color:#b9c4d4}
+blockquote cite{font-style:normal;font-family:Inter,system-ui,sans-serif;font-size:11.5px;color:var(--fraco)}
+.duas{font-size:12.5px;color:var(--fraco);margin:4px 0 0}
+.fonte{font-size:12.5px;color:var(--fraco);margin:6px 0}
+.chaves{display:flex;flex-wrap:wrap;gap:12px;font-size:12.5px;color:#b9c4d4;margin:0}
+.chaves i{display:inline-block;width:.8em;height:.8em;border-radius:2px;margin-right:5px;vertical-align:-1px}
+ul.soltas,ul.falta{padding-left:18px;margin:8px 0 0;font-size:14px;color:#b9c4d4}
+ul.falta .estado{font-size:12px;color:var(--ouro)} ul.falta .porque-falta{font-size:13px;color:var(--fraco)}
+
+nav.passo{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;border-top:1px solid var(--borda);padding-top:12px;margin-top:22px}
+nav.passo button{font:inherit;font-size:14px;color:#8fb3e0;background:none;border:1px solid var(--borda);border-radius:4px;padding:8px 12px;cursor:pointer;text-align:left;min-width:0;display:grid;gap:2px}
+nav.passo button:hover{border-color:var(--ouro)} nav.passo button:disabled{opacity:.35;cursor:default}
+nav.passo button small{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--fraco)}
+nav.passo button span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
+nav.passo .prox{text-align:right} nav.passo .pos{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fraco);white-space:nowrap;margin:0}
+@media (max-width:460px){nav.passo{grid-template-columns:1fr 1fr}nav.passo .pos{grid-column:1/-1;text-align:center;order:-1}}
+footer{margin-top:28px;color:var(--fraco);font-size:12.5px}
+
+/* a seção escondida some de verdade: a regra .tela{display:grid} vencia o [hidden] do navegador */
+.tela[hidden]{display:none}
+
+/* a tradução do autor acompanha a citação só na página em português */
+.traducao{font-size:13px;color:#b9c4d4;margin:4px 0 0}
+html[lang^="en"] .traducao{display:none}
+
+/* as palavras e as peças: nome em cor, e abaixo os dois itens, sem número */
+.item{margin:10px 0 0;max-width:760px}
+.nome-item{margin:0;font-size:16px;color:var(--fam,var(--ouro));font-weight:600}
+.item ul{margin:3px 0 0;padding-left:1.2em;font-size:16px;line-height:1.55;color:#c9d2df}
+.item ul li{margin:2px 0} .item i{font-style:normal;color:var(--fraco);font-size:13px;letter-spacing:.04em}
+.palavras .rot,.pecas .rot{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ouro);margin:0 0 4px}
+details.fonte{margin-top:8px} details.fonte summary{font-size:12.5px;color:var(--fraco)}
+.traducao{font-size:13px;color:#b9c4d4;margin:4px 0 8px}
+
+/* as famílias e os sinais da primeira tela: uma linha por entrada, o exemplo à esquerda */
+.sinais{display:grid;border-top:1px solid var(--borda);margin:4px 0 14px;max-width:760px}
+.sinal{display:grid;grid-template-columns:8.5rem 1fr;gap:12px;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--borda)}
+.sinal p{margin:0;font-size:15px;line-height:1.5;color:#c9d2df}
+.sinal .expr{font-family:Cormorant,Georgia,serif;font-size:19px;color:var(--creme);line-height:1.3}
+.sinal .expr.fam{font-family:Cormorant,Georgia,serif;font-weight:600}
+.sinal b{font-weight:600;color:var(--creme)} .sinal .lese{color:var(--ouro);font-size:12px;letter-spacing:.04em}
+#conv .rot{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ouro);margin:14px 0 0}
+@media (max-width:420px){.sinal{grid-template-columns:6rem 1fr}}
+/* O visor escreve o #id da seção na URL, e o navegador, ao terminar de carregar, rola até ela:
+   a página abria com o cabeçalho, a barra e a trilha fora da vista. Com esta margem o alvo
+   da rolagem cai acima do topo e a página abre no alto. */
+.tela{scroll-margin-top:100vh}
+
+
+.partes{display:flex;flex-wrap:wrap;gap:.2rem 1.1rem;font-size:.85rem;line-height:1.4;padding:0 0 .4rem;margin:0;border-bottom:1px solid rgba(128,128,128,.3)}
+.partes a{color:inherit;opacity:.62;text-decoration:none;padding:.15rem 0;border-bottom:2px solid transparent}
+.partes a:hover{opacity:1;text-decoration:underline}
+.partes a[aria-current]{opacity:1;font-weight:600;border-bottom-color:currentColor}
+</style>
+</head>
+<body>
+<div class="caixa">
+<nav class="partes" aria-label="As quatro partes"><a href="index.html">os degraus</a><a href="placa.html">a placa</a><a href="escada.html" aria-current="page">a escada</a><a href="bancada.html">a bancada</a></nav>
+<div class="cab"><div><p class="eyebrow">hello-world-machine</p><h1>A escada de abstrações</h1></div>
+<p class="nota">← → no teclado; uma família por tela</p></div>
+<div class="trilha" id="trilha" aria-label="as famílias"></div>
+<div id="telas">
+<section class="tela" id="conv" data-nome="As seis famílias, e como ler os sinais">
+  <header><p class="eyebrow">antes de tudo</p><h2>Seis famílias, e o que cada uma faz com o número</h2></header>
+  <p class="tese">Toda peça de um computador cabe numa de seis famílias, nomeadas pelo que fazem com o número. As famílias vêm primeiro; os nomes das peças, depois.</p>
+  <div class="sinais"><div class="sinal"><p class="expr fam" style="color:#c1704f">transistores</p><p><b>ligam e desligam</b>: eletroímã, relé, transistor.</p></div><div class="sinal"><p class="expr fam" style="color:#5b8fc9">portas lógicas</p><p><b>decidem</b>: porta lógica.</p></div><div class="sinal"><p class="expr fam" style="color:#7fa3dc">somadores</p><p><b>fazem conta</b>: somador, ULA.</p></div><div class="sinal"><p class="expr fam" style="color:#4fb3a5">registradores</p><p><b>guardam número</b>: flip-flop de nível, flip-flop de borda, registrador, contador, memória (RAM).</p></div><div class="sinal"><p class="expr fam" style="color:#a883c9">instruções</p><p><b>mandam</b>: máquina de registradores, montador, interpretador, compilador, paradigma.</p></div><div class="sinal"><p class="expr fam" style="color:#c9a266">relógio</p><p><b>marca o tempo</b>: oscilador (o relógio).</p></div></div>
+  <p class="corpo">Em cada família: a ideia principal, as palavras novas explicadas antes de aparecerem, uma aposta, um instrumento ou uma figura, as peças, a matemática daqui lida em voz alta, e uma pergunta no fim. De onde cada coisa vem fica a um clique.</p>
+  <p class="rot">como ler os sinais desta página</p>
+  <div class="sinais"><div class="sinal"><p class="expr"><span class="nome">E</span>(<i>a</i>, <i>b</i>)</p><p><b>nome em letras retas, com parênteses</b>: uma regra com nome, aplicada ao que está entre parênteses. <span class="lese">lê-se:</span> E de a e b.</p></div><div class="sinal"><p class="expr"><i>v</i>, <i>t</i></p><p><b>letra inclinada minúscula</b>: uma quantidade que varia. <span class="lese">lê-se:</span> vê, tê.</p></div><div class="sinal"><p class="expr"><i>s</i><sub><i>t</i></sub></p><p><b>índice embaixo</b>: em qual instante. <span class="lese">lê-se:</span> o estado no instante tê.</p></div><div class="sinal"><p class="expr">10</p><p><b>número em binário</b>: um número escrito só com 0 e 1; cada casa vale o dobro da vizinha. <span class="lese">lê-se:</span> um-zero, que vale dois.</p></div><div class="sinal"><p class="expr"><i>v</i> ≥ limiar</p><p><b>≥ e &lt;</b>: maior ou igual; menor. <span class="lese">lê-se:</span> vê é maior ou igual ao limiar.</p></div><div class="sinal"><p class="expr">1 ÷ 0,02</p><p><b>÷</b>: dividido por. <span class="lese">lê-se:</span> um dividido por zero vírgula zero dois.</p></div></div>
+</section>
+<section class="tela familia" id="transistores" data-nome="transistores" style="--fam:#c1704f">
+  <header><p class="eyebrow">família 1 de 6 · <b>transistores</b> ligam e desligam</p><h2>Uma chave que a eletricidade aciona</h2></header>
+  <p class="tese">Uma máquina que só sabe se há corrente ou não precisa de uma peça que faça isso: a chave. Primeiro o relé; hoje o transistor.</p>
+  <div class="palavras"><p class="rot">antes, as palavras desta tela</p><div class="item"><p class="nome-item">corrente</p><ul><li><i>O que é:</i> eletricidade andando por dentro de um fio, como água andando por um cano.</li><li><i>Por que existe:</i> é ela que faz a lâmpada acender, o motor girar e, aqui, a chave virar.</li></ul></div><div class="item"><p class="nome-item">chave</p><ul><li><i>O que é:</i> uma peça que abre ou fecha o caminho da corrente. O interruptor da luz é uma chave.</li><li><i>Por que existe:</i> para ligar e desligar sem cortar o fio.</li></ul></div><div class="item"><p class="nome-item">ímã</p><ul><li><i>O que é:</i> um pedaço de ferro que puxa outros pedaços de ferro.</li><li><i>Por que existe:</i> puxar sem encostar é o que vai deixar uma corrente mexer numa chave.</li></ul></div></div>
+  <section class="pergunta previsao" data-certa="1"><p class="rot">antes de mexer, aposte</p><p class="enunciado">Se a corrente que manda for fraca demais para puxar a lâmina do relé, a lâmpada do outro lado…</p><div class="opcoes"><label><input type="radio" name="transistores-previsao" value="0" id="transistores-previsao-0"> <span>acende mais fraca</span></label><label><input type="radio" name="transistores-previsao" value="1" id="transistores-previsao-1"> <span>não acende</span></label><label><input type="radio" name="transistores-previsao" value="2" id="transistores-previsao-2"> <span>acende igual</span></label></div><button type="button" class="ver" data-pergunta="transistores-previsao">ver a resposta</button><p class="porque" hidden><b></b> A chave não tem meio-termo: ou a lâmina fecha o caminho, ou não. É por isso que dá para confiar: correntes diferentes dão o mesmo resultado, ligado ou desligado.</p></section>
+  <figure class="fig"><svg viewBox="0 0 520 150" role="img" aria-label="Um relé: a corrente de controle puxa a lâmina, que fecha o contato da outra corrente">
+      <text x="20" y="14" font-family="Inter, sans-serif" font-size="11" fill="#c9a266" font-weight="600" letter-spacing="1">RELÉ · uma corrente fecha a chave da outra</text>
+      <g stroke="#5b8fc9" stroke-width="2" fill="none"><path d="M 30 100 L 90 100"/><path d="M 90 70 l 0 60" stroke-dasharray="3 3"/><rect x="82" y="70" width="16" height="36" fill="#14263f" stroke="#5b8fc9"/></g>
+      <text x="60" y="122" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#9fadc0">corrente de controle</text>
+      <text x="90" y="62" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#9fadc0">bobina</text>
+      <g stroke="#6fbf6a" stroke-width="2.4" fill="none"><path d="M 170 60 L 230 60"/><path d="M 230 60 L 262 42"/><path d="M 268 60 L 330 60"/></g>
+      <circle cx="230" cy="60" r="4" fill="#6fbf6a"/><circle cx="268" cy="60" r="4" fill="#33465f"/>
+      <text x="250" y="90" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#9fadc0">a lâmina: aberta = 0, fechada = 1</text>
+      <path d="M 120 88 L 230 64" stroke="#c9a266" stroke-width="1.2" fill="none" stroke-dasharray="4 3"/>
+      <text x="400" y="56" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="22" fill="#e8e2d6">0 ou 1</text>
+      <text x="400" y="80" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#9fadc0">a corrente controlada: passa ou não passa</text>
+      <text x="400" y="120" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#9fadc0">nenhum meio-termo</text>
+    </svg></figure>
+  <div class="pecas"><p class="rot">as peças desta família</p><div class="item" id="eletroima"><p class="nome-item">eletroímã</p><ul><li><i>O que é:</i> Um pedaço de ferro com um fio enrolado nele. Com corrente no fio, o ferro vira ímã; sem corrente, deixa de ser.</li><li><i>Por que existe:</i> Porque é o jeito de a eletricidade puxar alguma coisa à distância, e de ligar e desligar esse puxão à vontade.</li></ul></div><div class="item" id="rele"><p class="nome-item">relé</p><ul><li><i>O que é:</i> Um eletroímã que puxa uma chave. Quando a corrente chega, o ímã puxa a lâmina, e a lâmina fecha outro caminho, de outra pilha.</li><li><i>Por que existe:</i> Para um sinal fraco acionar um sinal forte. O fio comprido enfraquece o sinal; o relé o faz nascer de novo, com pilha nova.</li></ul></div><div class="item" id="transistor"><p class="nome-item">transistor</p><ul><li><i>O que é:</i> Um interruptor com um eletroímã no lugar do dedo: com corrente no fio de controle, o caminho fecha; sem corrente, abre. Na bancada ele aparece com ímã e lâmina, que é como dá para ver; dentro do chip, o mesmo abre e fecha acontece sem peça que se mexa.</li><li><i>Por que existe:</i> Para fazer o que o relé faz sendo minúsculo, rápido, sem esquentar e sem gastar quase nada. Foi assim que o rádio passou a caber no bolso.</li></ul></div></div>
+  <p class="corpo">Uma chave que outra corrente aciona deixa uma corrente mandar em outra. Por dentro, é um eletroímã no lugar do dedo: com corrente no fio de controle, o ímã puxa a lâmina e fecha o caminho; sem corrente, a lâmina solta. O relé é assim; o transistor faz o mesmo, minúsculo. Os dois só sabem duas coisas: ligado e desligado.</p>
+  <div class="mat"><p class="obj">a matemática daqui · <b>uma linha, o limiar, separa ligado de desligado</b></p><p class="expr"><span class="nome">chave</span>(<i>v</i>) = 1 se <i>v</i> ≥ limiar, e 0 se <i>v</i> &lt; limiar</p><p class="leitura"><b>lê-se:</b> chave de vê é igual a um se vê é maior ou igual ao limiar, e zero se vê é menor que o limiar.</p></div>
+  <section class="pergunta recuperacao" data-certa="1"><p class="rot">antes de seguir, responda</p><p class="enunciado">O que o transistor e o relé têm em comum, que faz os dois serem a mesma família?</p><div class="opcoes"><label><input type="radio" name="transistores-recuperacao" value="0" id="transistores-recuperacao-0"> <span>os dois amplificam som</span></label><label><input type="radio" name="transistores-recuperacao" value="1" id="transistores-recuperacao-1"> <span>os dois são chaves que a eletricidade aciona</span></label><label><input type="radio" name="transistores-recuperacao" value="2" id="transistores-recuperacao-2"> <span>os dois guardam um número</span></label></div><button type="button" class="ver" data-pergunta="transistores-recuperacao">ver a resposta</button><p class="porque" hidden><b></b> Família é o que a peça faz: estas ligam e desligam. Amplificar foi o primeiro uso do transistor; guardar número é outra família, a dos registradores.</p></section>
+  <details class="fonte"><summary>de onde isto vem</summary><blockquote lang="en">We’re interested only in the idea of a relay being a switch that can be controlled by electricity rather than by fingers.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 7 — Telegraphs and Relays · cap. 15 — Is This for Real?</cite></blockquote><p class="traducao">O que nos interessa é só a ideia de o relé ser uma chave que a eletricidade controla, em vez dos dedos.</p><blockquote lang="en">Vacuum tubes were originally developed for amplification, but they could also be used for switches in logic gates. The same goes for the transistor.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 7 — Telegraphs and Relays · cap. 15 — Is This for Real?</cite></blockquote><p class="traducao">As válvulas nasceram para amplificar, mas também serviam de chave em portas lógicas. O mesmo vale para o transistor.</p><blockquote lang="en">If you take an iron bar, wrap it with a couple of hundred turns of thin insulated wire, and then run a current through the wire, the iron bar becomes a magnet.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 7 — Telegraphs and Relays</cite></blockquote><blockquote lang="en">Morse couldn’t use a lightbulb as his signaling device because a practical one wouldn’t be invented until 1879. Instead, Morse relied upon the phenomenon of electromagnetism.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 7 — Telegraphs and Relays</cite></blockquote><blockquote lang="en">A relay is like a sounder in that an incoming current is used to power an electromagnet that pulls down a metal lever. The lever, however, is used as part of a switch connecting a battery to an outgoing wire.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 7 — Telegraphs and Relays</cite></blockquote><blockquote lang="en">the longer a length of wire becomes, the more resistance it has to the flow of electricity. This was a major impediment to long-distance telegraphy. … In this way, a weak incoming current is “amplified” to make a stronger outgoing current.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 7 — Telegraphs and Relays</cite></blockquote><blockquote lang="en">Vacuum tubes were originally developed for amplification, but they could also be used for switches in logic gates. The same goes for the transistor.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 15 — Is This for Real?</cite></blockquote><blockquote lang="en">Vacuum tubes were originally developed for amplification, but they could also be used for switches in logic gates. The same goes for the transistor.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 15 — Is This for Real?</cite></blockquote></details>
+</section>
+<section class="tela familia" id="portas" data-nome="portas lógicas" style="--fam:#5b8fc9">
+  <header><p class="eyebrow">família 2 de 6 · <b>portas lógicas</b> decidem</p><h2>Duas chaves em série decidem</h2></header>
+  <p class="tese">Duas chaves em série só passam corrente com as duas fechadas: é a porta E. Em paralelo, basta uma: a porta OU. Decidir virou fiação.</p>
+  <div class="palavras"><p class="rot">antes, as palavras desta tela</p><div class="item"><p class="nome-item">entrada e saída</p><ul><li><i>O que é:</i> entrada é por onde a corrente chega numa peça; saída é por onde ela sai.</li><li><i>Por que existe:</i> daqui para cima, toda peça se descreve pelo que sai, dado o que entrou.</li></ul></div><div class="item"><p class="nome-item">em série e em paralelo</p><ul><li><i>O que é:</i> em série, duas chaves ficam uma depois da outra no mesmo caminho; em paralelo, cada chave tem o seu caminho.</li><li><i>Por que existe:</i> é a diferença entre precisar das duas fechadas e bastar uma.</li></ul></div><div class="item"><p class="nome-item">sim ou não</p><ul><li><i>O que é:</i> corrente na saída é sim; sem corrente é não. Também se escreve 1 e 0.</li><li><i>Por que existe:</i> é a única pergunta que uma chave sabe responder, e dá para montar qualquer outra com ela.</li></ul></div></div>
+  <section class="pergunta previsao" data-certa="1"><p class="rot">antes de mexer, aposte</p><p class="enunciado">Dois relés em série, e só o relé A acionado. A lâmpada…</p><div class="opcoes"><label><input type="radio" name="portas-previsao" value="0" id="portas-previsao-0"> <span>acende</span></label><label><input type="radio" name="portas-previsao" value="1" id="portas-previsao-1"> <span>não acende</span></label><label><input type="radio" name="portas-previsao" value="2" id="portas-previsao-2"> <span>acende pela metade</span></label></div><button type="button" class="ver" data-pergunta="portas-previsao">ver a resposta</button><p class="porque" hidden><b></b> Em série, a corrente passa pelos dois contatos; um aberto basta para cortar. É a porta E: precisa dos dois.</p></section>
+  <div class="instr" id="i-rele-vira-porta"><h4>Dois relés viram uma porta</h4><p class="comoler">Ligue os dois e veja: <b>em série</b> a lâmpada só acende com os dois acionados, que é a porta E, feita de metal. A tabela-verdade não vem pronta: ela se preenche conforme você visita as combinações, e enquanto faltar linha o instrumento diz quantas faltam.</p><canvas data-h="230"></canvas><div class="botoes"><button type="button" data-acao="mode">em série</button><button type="button" data-acao="inA">relé A</button><button type="button" data-acao="inB">relé B</button></div></div>
+  <div class="pecas"><p class="rot">as peças desta família</p><div class="item" id="porta"><p class="nome-item">porta lógica</p><ul><li><i>O que é:</i> Uma peça que responde sim ou não: deixa a corrente passar, ou bloqueia, conforme o que chega nas entradas. É feita de chaves ligadas de um certo jeito.</li><li><i>Por que existe:</i> Porque uma chave acionada por outra chave pode ser ligada a mais chaves, e assim as perguntas de sim ou não se combinam até virar conta.</li></ul></div></div>
+  <p class="corpo">Uma porta lógica responde sim ou não a uma pergunta sobre as entradas, e a resposta é só a forma como os fios foram ligados. Com E, OU e NÃO se monta qualquer pergunta de sim ou não. É o ponto em que o assunto deixa de ser eletricidade e passa a ser lógica.</p>
+  <div class="mat"><p class="obj">a matemática daqui · <b>regras de sim ou não, que se combinam</b></p><p class="expr"><span class="nome">E</span>(<i>a</i>, <i>b</i>) = 1 só se <i>a</i> = 1 e <i>b</i> = 1</p><p class="leitura"><b>lê-se:</b> E de a e b é igual a um só se a é igual a um e b é igual a um.</p></div>
+  <section class="pergunta recuperacao" data-certa="1"><p class="rot">antes de seguir, responda</p><p class="enunciado">Que arranjo de dois relés acende a lâmpada quando qualquer um dos dois é acionado?</p><div class="opcoes"><label><input type="radio" name="portas-recuperacao" value="0" id="portas-recuperacao-0"> <span>em série</span></label><label><input type="radio" name="portas-recuperacao" value="1" id="portas-recuperacao-1"> <span>em paralelo</span></label><label><input type="radio" name="portas-recuperacao" value="2" id="portas-recuperacao-2"> <span>nenhum: precisa de três</span></label></div><button type="button" class="ver" data-pergunta="portas-recuperacao">ver a resposta</button><p class="porque" hidden><b></b> Em paralelo há dois caminhos, e basta um fechado. É a porta OU. Em série é a porta E.</p></section>
+  <details class="fonte"><summary>de onde isto vem</summary><blockquote lang="en">These two relays wired in series are known as an AND gate because it is performing a Boolean AND operation.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 8 — Relays and Gates</cite></blockquote><p class="traducao">Esses dois relés ligados em série são conhecidos como porta E, porque executam a operação E de Boole.</p><blockquote lang="en">Reduced to its essentials, a computer is a synthesis of Boolean algebra and electricity. The crucial components that embody this melding of math and hardware are known as logic gates. … Logic gates perform simple operations in Boolean logic by blocking or letting through the flow of electrical current.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 8 — Relays and Gates</cite></blockquote><blockquote lang="en">Relays have an advantage over switches in that relays can be switched on and off by other relays rather than by fingers. This means that logic gates can be combined to perform more complex tasks, such as simple functions in arithmetic and, eventually, the workings of entire computers.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 8 — Relays and Gates</cite></blockquote></details>
+</section>
+<section class="tela familia" id="somadores" data-nome="somadores" style="--fam:#7fa3dc">
+  <header><p class="eyebrow">família 3 de 6 · <b>somadores</b> fazem conta</p><h2>Portas ligadas de um jeito fazem conta</h2></header>
+  <p class="tese">OU-exclusivo dá a soma de dois bits; E dá o vai-um. Encadeadas, somam qualquer número. A ULA é esse arranjo com nome de função.</p>
+  <div class="palavras"><p class="rot">antes, as palavras desta tela</p><div class="item"><p class="nome-item">bit</p><ul><li><i>O que é:</i> uma casa que só aceita 0 ou 1. É o que uma chave guarda: desligada ou ligada.</li><li><i>Por que existe:</i> é a menor quantidade de informação que existe; tudo o mais é feito de bits.</li></ul></div><div class="item"><p class="nome-item">binário</p><ul><li><i>O que é:</i> um número escrito só com 0 e 1, em que cada casa vale o dobro da vizinha: 1, 2, 4, 8…</li><li><i>Por que existe:</i> é o jeito de contar com chaves. Dois é 10; três é 11; quatro é 100.</li></ul></div><div class="item"><p class="nome-item">byte</p><ul><li><i>O que é:</i> oito bits lado a lado. Cabem 256 valores diferentes.</li><li><i>Por que existe:</i> é o tamanho de uma letra, e o pedaço que a máquina move de cada vez.</li></ul></div><div class="item"><p class="nome-item">vai-um</p><ul><li><i>O que é:</i> o 1 que sobra de uma casa e vai para a casa seguinte, como no papel.</li><li><i>Por que existe:</i> sem ele, a soma para na primeira casa.</li></ul></div><div class="item"><p class="nome-item">OU-exclusivo</p><ul><li><i>O que é:</i> uma porta que responde sim só quando as duas entradas são diferentes.</li><li><i>Por que existe:</i> é exatamente a soma de uma casa: 0 e 1 dá 1; 1 e 1 dá 0, e sobra o vai-um.</li></ul></div></div>
+  <section class="pergunta previsao" data-certa="1"><p class="rot">antes de mexer, aposte</p><p class="enunciado">A = 1 e B = 1 no somador. O que sai?</p><div class="opcoes"><label><input type="radio" name="somadores-previsao" value="0" id="somadores-previsao-0"> <span>soma 1, vai-um 0</span></label><label><input type="radio" name="somadores-previsao" value="1" id="somadores-previsao-1"> <span>soma 0, vai-um 1</span></label><label><input type="radio" name="somadores-previsao" value="2" id="somadores-previsao-2"> <span>soma 1, vai-um 1</span></label></div><button type="button" class="ver" data-pergunta="somadores-previsao">ver a resposta</button><p class="porque" hidden><b></b> Um mais um é dois, que em binário se escreve 10: a casa da soma fica 0 e o 1 vai para a casa seguinte. OU-exclusivo de 1 e 1 é 0; E de 1 e 1 é 1.</p></section>
+  <div class="instr" id="i-portas-viram-conta"><h4>Duas portas viram uma conta</h4><p class="comoler">A porta OU-exclusivo dá a soma; a porta E dá o vai-um. A conta em binário aparece ao lado para você conferir que não é coincidência, e o caso que interessa é <b>1 + 1</b>.</p><canvas data-h="220"></canvas><div class="botoes"><button type="button" data-acao="inA">A</button><button type="button" data-acao="inB">B</button></div></div>
+  <div class="pecas"><p class="rot">as peças desta família</p><div class="item" id="somador"><p class="nome-item">somador</p><ul><li><i>O que é:</i> Uma peça que soma dois bits e devolve dois: o bit da soma e o vai-um.</li><li><i>Por que existe:</i> Porque somar uma casa só não basta: da segunda casa em diante são três bits a somar, os dois da casa e o vai-um que veio da anterior.</li></ul></div><div class="item" id="ula"><p class="nome-item">ULA</p><ul><li><i>O que é:</i> A parte da máquina que soma e subtrai, e faz mais algumas coisas úteis.</li><li><i>Por que existe:</i> Porque números grandes se somam em pedaços, um byte de cada vez, e cada pedaço precisa levar em conta o vai-um do anterior. A ULA faz essa sequência.</li></ul></div></div>
+  <p class="corpo">Somar 1 + 1 dá 10 em binário: soma 0 e vai-um 1, exatamente o que as duas portas respondem. Ligando um somador de uma casa ao da casa seguinte, soma-se qualquer número. A ULA, a calculadora da máquina, junta a soma, a subtração e as operações de sim ou não num só lugar.</p>
+  <div class="mat"><p class="obj">a matemática daqui · <b>somar em binário, casa por casa, com o vai-um</b></p><p class="expr">1 + 1 = 10 em binário: soma 0, vai-um 1</p><p class="leitura"><b>lê-se:</b> um mais um é igual a um-zero em binário: soma zero, vai-um um.</p></div>
+  <section class="pergunta recuperacao" data-certa="1"><p class="rot">antes de seguir, responda</p><p class="enunciado">Por que a ULA é da família dos somadores, e não da dos registradores?</p><div class="opcoes"><label><input type="radio" name="somadores-recuperacao" value="0" id="somadores-recuperacao-0"> <span>porque guarda o resultado</span></label><label><input type="radio" name="somadores-recuperacao" value="1" id="somadores-recuperacao-1"> <span>porque faz conta e não guarda nada</span></label><label><input type="radio" name="somadores-recuperacao" value="2" id="somadores-recuperacao-2"> <span>porque tem relógio</span></label></div><button type="button" class="ver" data-pergunta="somadores-recuperacao">ver a resposta</button><p class="porque" hidden><b></b> A ULA opera e devolve; quem guarda o resultado é outra família, a dos registradores, que vem a seguir. Família é o que a peça faz com o número.</p></section>
+  <details class="fonte"><summary>de onde isto vem</summary><blockquote lang="en">A half adder is an XOR gate and an AND gate<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 14 — Adding with Logic Gates</cite></blockquote><p class="traducao">Um meio-somador é uma porta OU-exclusivo e uma porta E.</p><blockquote lang="en">adding a pair of binary numbers results in two bits, which are called the sum bit and the carry bit (as in “1 plus 1 equals 0, carry the 1”)<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 14 — Adding with Logic Gates</cite></blockquote><blockquote lang="en">We can use the half adder only for the addition of the rightmost column: 1 plus 1 equals 0, carry the 1. For the second column from the right, we really need to add three binary numbers because of the carry. And that goes for all subsequent columns.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 14 — Adding with Logic Gates</cite></blockquote><blockquote lang="en">The remainder of this chapter focuses on the most fundamental part of the CPU, which is known as the arithmetic logic unit, or ALU. This is the part of the CPU that adds and subtracts, as well as performing a couple of other useful tasks.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 21 — The Arithmetic Logic Unit</cite></blockquote><blockquote lang="en">these large numbers must be added and subtracted in bytes, starting with the least significant byte. Each subsequent 1-byte addition or subtraction must take into account the carry from the previous operation.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 21 — The Arithmetic Logic Unit</cite></blockquote></details>
+</section>
+<section class="tela familia" id="registradores" data-nome="registradores" style="--fam:#4fb3a5">
+  <header><p class="eyebrow">família 4 de 6 · <b>registradores</b> guardam número</p><h2>Um circuito que lembra</h2></header>
+  <p class="tese">Duas portas realimentadas lembram um bit depois que a entrada some. Oito lado a lado guardam um byte. Muitos, com endereço, são a memória.</p>
+  <div class="palavras"><p class="rot">antes, as palavras desta tela</p><div class="item"><p class="nome-item">realimentado</p><ul><li><i>O que é:</i> um circuito cuja saída volta para a própria entrada.</li><li><i>Por que existe:</i> é o que faz a peça segurar o que recebeu, mesmo depois de a entrada sumir.</li></ul></div><div class="item"><p class="nome-item">relógio e borda</p><ul><li><i>O que é:</i> o relógio é um tique que se repete, sempre igual; a borda é o instante em que o tique sobe. A peça que faz o tique vem na última família.</li><li><i>Por que existe:</i> para todas as peças guardarem no mesmo instante, e não a qualquer momento.</li></ul></div><div class="item"><p class="nome-item">endereço</p><ul><li><i>O que é:</i> o número na porta de uma fileira da memória.</li><li><i>Por que existe:</i> para achar de novo o que foi guardado.</li></ul></div></div>
+  <section class="pergunta previsao" data-certa="1"><p class="rot">antes de mexer, aposte</p><p class="enunciado">Aperte S e solte. Depois aperte R e solte. Nos dois momentos a entrada voltou a (0, 0). A saída…</p><div class="opcoes"><label><input type="radio" name="registradores-previsao" value="0" id="registradores-previsao-0"> <span>é a mesma nos dois</span></label><label><input type="radio" name="registradores-previsao" value="1" id="registradores-previsao-1"> <span>é diferente nos dois</span></label><label><input type="radio" name="registradores-previsao" value="2" id="registradores-previsao-2"> <span>fica apagada</span></label></div><button type="button" class="ver" data-pergunta="registradores-previsao">ver a resposta</button><p class="porque" hidden><b></b> Com a mesma entrada, saídas diferentes: a saída depende do que veio antes. É isso que lembrar quer dizer, e nenhuma porta sozinha faz.</p></section>
+  <div class="instr" id="i-circuito-que-lembra"><h4>O circuito que lembra</h4><p class="comoler"><b>S</b> liga, <b>R</b> desliga, e <b>Q</b> é o que o circuito lembra. Aperte S e solte; aperte R e solte. Nos dois casos a entrada volta a ser (0, 0), e a saída é diferente. É essa a definição de lembrar, e é a coisa que nenhuma porta sozinha faz.</p><canvas data-h="240"></canvas><div class="botoes"><button type="button" data-acao="setS">S — segurar</button><button type="button" data-acao="setR">R — segurar</button></div></div>
+  <div class="pecas"><p class="rot">as peças desta família</p><div class="item" id="flipflop"><p class="nome-item">flip-flop de nível</p><ul><li><i>O que é:</i> O primeiro circuito que lembra: com as duas chaves soltas, ele pode estar de dois jeitos, e fica no jeito em que a última chave o deixou.</li><li><i>Por que existe:</i> Porque sem lembrar não existe antes: não há conta acumulada, não há contagem, não há ordem a cumprir. Tudo o que a máquina faz com o tempo começa aqui.</li></ul></div><div class="item" id="flipflop_b"><p class="nome-item">flip-flop de borda</p><ul><li><i>O que é:</i> Um flip-flop que só guarda o dado no instante em que o relógio sobe, e não durante todo o tempo em que ele está alto. É feito de dois flip-flops de nível em fila.</li><li><i>Por que existe:</i> Porque o de nível vaza: enquanto o relógio está alto, qualquer mudança na entrada atravessa para a saída. Num circuito ligado à própria saída, isso vira um laço sem fim.</li></ul></div><div class="item" id="registrador"><p class="nome-item">registrador</p><ul><li><i>O que é:</i> Oito flip-flops lado a lado, que guardam um byte enquanto a ULA trabalha nele. A máquina manda guardar e manda devolver.</li><li><i>Por que existe:</i> Porque a ULA precisa de um lugar perto dela para pousar os números que vai somar e o resultado. Buscar na memória a cada passo seria uma viagem a cada conta.</li></ul></div><div class="item" id="contador"><p class="nome-item">contador</p><ul><li><i>O que é:</i> Uma fileira de flip-flops de borda em que cada um dispara o seguinte. Lida em binário, a fileira conta os tiques do relógio.</li><li><i>Por que existe:</i> Porque a máquina precisa saber qual é a próxima. O número que o contador guarda vira o endereço que ela vai ler em seguida.</li></ul></div><div class="item" id="memoria"><p class="nome-item">memória (RAM)</p><ul><li><i>O que é:</i> Muitos flip-flops em fileiras, cada fileira com um número na porta, o endereço. Dá para guardar um valor numa fileira e, depois, ler o que está lá.</li><li><i>Por que existe:</i> Porque escrever e ler acontecem em momentos diferentes, e alguma coisa precisa manter o que foi escrito intacto entre os dois.</li></ul></div></div>
+  <p class="corpo">O flip-flop é o primeiro circuito cuja saída depende do que entrou antes, não só de agora. Guardando só na borda do relógio, vira o registrador, que segura um byte e o devolve quando mandam; em fileiras com endereço, vira a memória; ligado em fila, conta. Tudo é a mesma família: guardar número.</p>
+  <div class="mat"><p class="obj">a matemática daqui · <b>o estado de agora depende do estado de antes</b></p><p class="expr"><i>s</i><sub><i>t</i>+1</sub> = <span class="nome">f</span>(<i>s</i><sub><i>t</i></sub>, <i>x</i><sub><i>t</i></sub>)</p><p class="leitura"><b>lê-se:</b> o estado no instante tê mais um é f de: o estado no instante tê, e a entrada no instante tê.</p></div>
+  <section class="pergunta recuperacao" data-certa="0"><p class="rot">antes de seguir, responda</p><p class="enunciado">A memória e o contador estão na família do flip-flop porque…</p><div class="opcoes"><label><input type="radio" name="registradores-recuperacao" value="0" id="registradores-recuperacao-0"> <span>todos são feitos de flip-flops e guardam número</span></label><label><input type="radio" name="registradores-recuperacao" value="1" id="registradores-recuperacao-1"> <span>todos fazem conta</span></label><label><input type="radio" name="registradores-recuperacao" value="2" id="registradores-recuperacao-2"> <span>todos precisam de teclado</span></label></div><button type="button" class="ver" data-pergunta="registradores-recuperacao">ver a resposta</button><p class="porque" hidden><b></b> Os três são feitos de flip-flops. O contador também soma um a cada tique, mas o que ele conserva é o número guardado.</p></section>
+  <details class="fonte"><summary>de onde isto vem</summary><blockquote lang="en">the level-triggered D-type flip-flop, which is made from an inverter, two AND gates, and two NOR gates<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 19 — An Assemblage of Memory</cite></blockquote><p class="traducao">o flip-flop tipo D disparado por nível, que é feito de um inversor, duas portas E e duas portas NÃO-OU</p><blockquote lang="en">This configuration of flip-flops, decoder, and selector is sometimes known as read/write memory<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 19 — An Assemblage of Memory</cite></blockquote><p class="traducao">Esse arranjo de flip-flops, decodificador e seletor é às vezes chamado de memória de leitura e escrita</p><blockquote lang="en">We can say that this circuit has two stable states when both switches are open. Such a circuit is called a flip-flop… A flip-flop circuit retains information. It “remembers.” It only remembers what switch was most recently closed, but that is significant.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 17 — Feedback and Flip-Flops</cite></blockquote><blockquote lang="en">An edge-triggered D-type flip-flop is constructed from two stages of level-triggered D-type flip-flops, wired together this way:<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 17 — Feedback and Flip-Flops</cite></blockquote><blockquote lang="en">This is what’s called an “infinite loop.” It occurs because the D-type flip-flop we designed was level-triggered. The Clock input must change its level from 0 to 1 in order for the value of the Data input to be stored in the latch. But during the time that the Clock input is 1, the Data input can change, and those changes will be reflected in the values of the outputs.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 17 — Feedback and Flip-Flops</cite></blockquote><blockquote lang="en">These latches are called registers, and a primary purpose of these registers is to store bytes as they are processed by the ALU.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 22 — Registers and Busses</cite></blockquote><blockquote lang="en">This is a job for a counter built from a row of cascading flip-flops, such as the one you saw on page 237 of Chapter 17:<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 20 — Automating Arithmetic</cite></blockquote><blockquote lang="en">This configuration of flip-flops, decoder, and selector is sometimes known as read/write memory because you can store values (that is, write them) and later determine what those values are (that is, read them). Because you can change the Address signals to any one of the eight values at will, this type of memory is more commonly known as random access memory, or RAM<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 19 — An Assemblage of Memory</cite></blockquote><blockquote lang="en">We write and we later read. We save and we later retrieve. We store and we later access. The function of memory is to keep the information intact between those two events.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 19 — An Assemblage of Memory</cite></blockquote></details>
+</section>
+<section class="tela familia" id="instrucoes" data-nome="instruções" style="--fam:#a883c9">
+  <header><p class="eyebrow">família 5 de 6 · <b>instruções</b> mandam</p><h2>Um número lido como ordem</h2></header>
+  <p class="tese">Ao lado dos dados moram bytes que a máquina lê como ordens; o contador de programa aponta qual. Daí sobem montador, interpretador e compilador.</p>
+  <div class="palavras"><p class="rot">antes, as palavras desta tela</p><div class="item"><p class="nome-item">instrução</p><ul><li><i>O que é:</i> uma ordem que a máquina sabe cumprir, guardada na memória como um byte: some, copie, guarde, pule.</li><li><i>Por que existe:</i> sem ordens, a máquina só guardaria e somaria ao acaso.</li></ul></div><div class="item"><p class="nome-item">programa</p><ul><li><i>O que é:</i> uma fila de instruções, uma depois da outra.</li><li><i>Por que existe:</i> é como uma pessoa diz à máquina o que fazer, de uma vez, para a máquina fazer sozinha.</li></ul></div><div class="item"><p class="nome-item">contador de programa</p><ul><li><i>O que é:</i> um contador que guarda o endereço da próxima instrução.</li><li><i>Por que existe:</i> para a máquina saber qual byte ler como ordem agora, e qual vem depois.</li></ul></div><div class="item"><p class="nome-item">controlador</p><ul><li><i>O que é:</i> a parte que lê a instrução e manda nas outras peças, uma de cada vez.</li><li><i>Por que existe:</i> peça solta não faz nada em ordem; alguém tem de dizer quem trabalha agora.</li></ul></div></div>
+  <section class="pergunta previsao" data-certa="2"><p class="rot">antes de mexer, aposte</p><p class="enunciado">Na memória há o byte 4F. Ele é uma letra ou uma ordem?</p><div class="opcoes"><label><input type="radio" name="instrucoes-previsao" value="0" id="instrucoes-previsao-0"> <span>sempre uma letra</span></label><label><input type="radio" name="instrucoes-previsao" value="1" id="instrucoes-previsao-1"> <span>sempre uma ordem</span></label><label><input type="radio" name="instrucoes-previsao" value="2" id="instrucoes-previsao-2"> <span>depende de o contador de programa apontar para ele</span></label></div><button type="button" class="ver" data-pergunta="instrucoes-previsao">ver a resposta</button><p class="porque" hidden><b></b> O byte é o mesmo nos dois casos. Quem decide é o apontador: se o contador de programa chega nele, é lido como ordem.</p></section>
+  <figure class="fig"><svg viewBox="0 0 520 150" role="img" aria-label="O contador de programa aponta uma gaveta; o byte que está nela é lido como ordem">
+      <text x="20" y="14" font-family="Inter, sans-serif" font-size="11" fill="#c9a266" font-weight="600" letter-spacing="1">CONTADOR DE PROGRAMA · aponta qual gaveta será lida como ORDEM agora</text>
+      <g font-family="Spline Sans Mono, ui-monospace, monospace" font-size="13" text-anchor="middle">
+        <rect x="20" y="40" width="110" height="46" rx="4" fill="#0d1c30" stroke="#a883c9"/><text x="75" y="60" fill="#9fadc0">PC</text><text x="75" y="78" fill="#e8e2d6">0004</text>
+        <path d="M 130 63 L 180 63" stroke="#a883c9" stroke-width="2"/><path d="M 176 59 L 184 63 L 176 67 Z" fill="#a883c9"/>
+        <rect x="190" y="30" width="60" height="30" fill="#0d1c30" stroke="#1e3050"/><text x="220" y="50" fill="#5b6b86">0003</text>
+        <rect x="190" y="62" width="60" height="30" fill="#0d1c30" stroke="#a883c9" stroke-width="2"/><text x="220" y="82" fill="#e8e2d6">36</text>
+        <rect x="190" y="94" width="60" height="30" fill="#0d1c30" stroke="#1e3050"/><text x="220" y="114" fill="#5b6b86">4F</text>
+        <path d="M 250 77 L 300 77" stroke="#a883c9" stroke-width="2"/><path d="M 296 73 L 304 77 L 296 81 Z" fill="#a883c9"/>
+        <rect x="310" y="48" width="190" height="56" rx="4" fill="#0d1c30" stroke="#a883c9"/>
+        <text x="405" y="70" fill="#9fadc0" font-family="Inter, sans-serif" font-size="11">o byte 36 é lido como</text><text x="405" y="92" fill="#e8e2d6" font-family="Inter, sans-serif">“escreva em [HL]”</text>
+      </g>
+      <text x="220" y="142" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#9fadc0">o 4F da gaveta de baixo é uma letra; nada no byte diz isso, só o apontador</text>
+    </svg></figure>
+  <div class="pecas"><p class="rot">as peças desta família</p><div class="item" id="maquina"><p class="nome-item">máquina de registradores</p><ul><li><i>O que é:</i> Registradores e operações, mais um controlador que diz a ordem em que as operações acontecem. Desenhada, ela é um diagrama de fiação.</li><li><i>Por que existe:</i> Porque peça solta não faz nada em ordem. Faltava um sinal que mandasse as peças trabalharem juntas para cumprir uma instrução guardada na memória.</li></ul></div><div class="item" id="assembler"><p class="nome-item">montador</p><ul><li><i>O que é:</i> Um programa que lê o texto com as ordens, escritas em palavras, e o transforma na lista de instruções que a máquina executa.</li><li><i>Por que existe:</i> Porque o texto usa nomes no lugar de endereços, e um nome é uma promessa de endereço que ainda não existe. O montador lê o texto inteiro antes, só para descobrir a que lugar cada nome aponta.</li></ul></div><div class="item" id="avaliador"><p class="nome-item">interpretador</p><ul><li><i>O que é:</i> Um programa que lê uma expressão e decide o que ela significa, passo a passo, usando os registradores da máquina.</li><li><i>Por que existe:</i> Porque assim uma linguagem feita para pessoas roda numa máquina que só entende instruções: o interpretador é a ponte, escrito quase na língua da máquina.</li></ul></div><div class="item" id="compilador"><p class="nome-item">compilador</p><ul><li><i>O que é:</i> Um programa que traduz, de uma vez, um programa escrito para pessoas num programa equivalente escrito na língua da máquina.</li><li><i>Por que existe:</i> Porque interpretar a cada vez custa caro: traduzido de uma vez, o programa roda muito mais rápido. O preço é que o interpretador é melhor para experimentar e corrigir.</li></ul></div><div class="item" id="paradigma"><p class="nome-item">paradigma</p><ul><li><i>O que é:</i> Um jeito de programar que aparece quando se muda o interpretador. Por exemplo: ensinar o interpretador a procurar sozinho entre várias respostas possíveis.</li><li><i>Por que existe:</i> Porque, sendo o interpretador um programa, dá para experimentar uma linguagem nova só mudando ele, antes de existir uma implementação de verdade.</li></ul></div></div>
+  <p class="corpo">Nada no byte diz se ele é dado ou ordem; o que decide é onde o contador de programa aponta. A máquina de registradores é esse arranjo: registradores, operações e um controlador que diz a ordem. O montador troca palavras por bytes; o interpretador executa um texto; o compilador o traduz de uma vez.</p>
+  <div class="mat"><p class="obj">a matemática daqui · <b>a máquina é uma regra de passo: do estado de agora para o próximo</b></p><p class="expr">próximo = <span class="nome">passo</span>(<i>PC</i>, <i>A</i>, mem)</p><p class="leitura"><b>lê-se:</b> o próximo estado é passo de: o contador de programa, o registrador A, e a memória.</p></div>
+  <section class="pergunta recuperacao" data-certa="2"><p class="rot">antes de seguir, responda</p><p class="enunciado">Qual destas peças não é da família das instruções?</p><div class="opcoes"><label><input type="radio" name="instrucoes-recuperacao" value="0" id="instrucoes-recuperacao-0"> <span>o montador</span></label><label><input type="radio" name="instrucoes-recuperacao" value="1" id="instrucoes-recuperacao-1"> <span>o compilador</span></label><label><input type="radio" name="instrucoes-recuperacao" value="2" id="instrucoes-recuperacao-2"> <span>o somador</span></label></div><button type="button" class="ver" data-pergunta="instrucoes-recuperacao">ver a resposta</button><p class="porque" hidden><b></b> O somador faz conta e não sabe o que é uma ordem. Montador e compilador vivem de traduzir ordens.</p></section>
+  <details class="fonte"><summary>de onde isto vem</summary><blockquote lang="en">To design a register machine, we must design its data paths (registers and operations) and the controller that sequences these operations.<cite>Harold Abelson &amp; Gerald Jay Sussman, <i>Structure and Interpretation of Computer Programs</i>, 2ª ed. · §5.1 — Designing Register Machines · Petzold, cap. 23 — CPU Control Signals</cite></blockquote><p class="traducao">Para projetar uma máquina de registradores, projetamos os caminhos de dados (registradores e operações) e o controlador que sequencia essas operações.</p><blockquote lang="en">To design a register machine, we must design its data paths (registers and operations) and the controller that sequences these operations. … If we view the arrows as wires and the X buttons as switches, the data-path diagram is very like the wiring diagram for a machine that could be constructed from electrical components.<cite>Harold Abelson &amp; Gerald Jay Sussman, <i>Structure and Interpretation of Computer Programs</i>, 2ª ed. · SICP §5.1 — Designing Register Machines</cite></blockquote><blockquote lang="en">…control signals, so called because they control these components to work together in executing instructions stored in memory. … The CPU control signals are the strings.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · caps. 22–23 — Registers and Busses · CPU Control Signals</cite></blockquote><blockquote lang="en">The assembler transforms the sequence of controller expressions for a machine into a corresponding list of machine instructions, each with its execution procedure.<cite>Harold Abelson &amp; Gerald Jay Sussman, <i>Structure and Interpretation of Computer Programs</i>, 2ª ed. · SICP §5.2.2 — The Assembler</cite></blockquote><blockquote lang="en">Before it can generate the instruction execution procedures, the assembler must know what all the labels refer to, so it begins by scanning the controller text to separate the labels from the instructions.<cite>Harold Abelson &amp; Gerald Jay Sussman, <i>Structure and Interpretation of Computer Programs</i>, 2ª ed. · SICP §5.2.2 — The Assembler</cite></blockquote><blockquote lang="en">The explicit-control evaluator that we develop in this section shows how the underlying procedure-calling and argument-passing mechanisms used in the evaluation process can be described in terms of operations on registers and stacks.<cite>Harold Abelson &amp; Gerald Jay Sussman, <i>Structure and Interpretation of Computer Programs</i>, 2ª ed. · SICP §5.4 — The Explicit-Control Evaluator</cite></blockquote><blockquote lang="en">the explicit-control evaluator can serve as an implementation of a Scheme interpreter, written in a language that is very similar to the native machine language of conventional computers.<cite>Harold Abelson &amp; Gerald Jay Sussman, <i>Structure and Interpretation of Computer Programs</i>, 2ª ed. · SICP §5.4 — The Explicit-Control Evaluator</cite></blockquote><blockquote lang="en">A compiler for a given source language and machine translates a source program into an equivalent program (called the object program) written in the machine's native language.<cite>Harold Abelson &amp; Gerald Jay Sussman, <i>Structure and Interpretation of Computer Programs</i>, 2ª ed. · SICP §5.5 — Compilation</cite></blockquote><blockquote lang="en">Compared with interpretation, compilation can provide a great increase in the efficiency of program execution, as we will explain below in the overview of the compiler. On the other hand, an interpreter provides a more powerful environment for interactive program development and debugging, because the source program being executed is available at run time to be examined and modified.<cite>Harold Abelson &amp; Gerald Jay Sussman, <i>Structure and Interpretation of Computer Programs</i>, 2ª ed. · SICP §5.5 — Compilation</cite></blockquote><blockquote lang="en">we extend the Scheme evaluator to support a programming paradigm called nondeterministic computing by building into the evaluator a facility to support automatic search<cite>Harold Abelson &amp; Gerald Jay Sussman, <i>Structure and Interpretation of Computer Programs</i>, 2ª ed. · SICP §4.3 — Variations on a Scheme: Nondeterministic Computing</cite></blockquote><blockquote lang="en">Now that we have an evaluator expressed as a Lisp program, we can experiment with alternative choices in language design simply by modifying the evaluator. Indeed, new languages are often invented by first writing an evaluator that embeds the new language within an existing high-level language.<cite>Harold Abelson &amp; Gerald Jay Sussman, <i>Structure and Interpretation of Computer Programs</i>, 2ª ed. · SICP §4.2 — Variations on a Scheme: Lazy Evaluation</cite></blockquote></details>
+</section>
+<section class="tela familia" id="relogio" data-nome="relógio" style="--fam:#c9a266">
+  <header><p class="eyebrow">família 6 de 6 · <b>relógio</b> marca o tempo</p><h2>O circuito que anda sozinho</h2></header>
+  <p class="tese">Um relé ligado à própria saída liga e desliga sozinho: o oscilador. Contar as voltas dele é medir o tempo, por isso se chama relógio.</p>
+  <div class="palavras"><p class="rot">antes, as palavras desta tela</p><div class="item"><p class="nome-item">tique</p><ul><li><i>O que é:</i> uma volta completa do relógio: sobe e desce.</li><li><i>Por que existe:</i> é a unidade de tempo da máquina; tudo acontece de tique em tique.</li></ul></div><div class="item"><p class="nome-item">período e frequência</p><ul><li><i>O que é:</i> período é quanto dura um tique; frequência é quantos tiques cabem num segundo.</li><li><i>Por que existe:</i> a frequência diz a velocidade da máquina.</li></ul></div></div>
+  <section class="pergunta previsao" data-certa="0"><p class="rot">antes de mexer, aposte</p><p class="enunciado">O oscilador dá 50 voltas por segundo. Em um segundo, o contador ligado a ele mostra…</p><div class="opcoes"><label><input type="radio" name="relogio-previsao" value="0" id="relogio-previsao-0"> <span>50</span></label><label><input type="radio" name="relogio-previsao" value="1" id="relogio-previsao-1"> <span>1</span></label><label><input type="radio" name="relogio-previsao" value="2" id="relogio-previsao-2"> <span>depende do dado</span></label></div><button type="button" class="ver" data-pergunta="relogio-previsao">ver a resposta</button><p class="porque" hidden><b></b> O contador avança um a cada volta do relógio. Contar voltas é medir tempo: é exatamente por isso que o oscilador se chama relógio.</p></section>
+  <div class="instr" id="i-nivel-x-borda"><h4>Nível × borda, no mesmo relógio</h4><p class="comoler">Os dois circuitos, o mesmo dado, o mesmo relógio. A faixa clara é o tempo em que o relógio está alto: o de <b>nível</b> copia o dado durante toda ela, e por isso <b>vaza</b>. O de <b>borda</b> copia só na linha pontilhada. Aperte tocar e veja os dois lado a lado.</p><canvas data-h="260"></canvas><div class="botoes"><button type="button" data-acao="playpause">tocar</button><button type="button" data-acao="restart">reiniciar</button></div></div><div class="instr" id="i-contagem-aparece"><h4>A contagem aparece sozinha</h4><p class="comoler">Dê pulsos e olhe as ondas: cada estágio vira na <b>metade</b> da frequência do anterior. Ninguém projetou a contagem binária; ela é a fiação.</p><canvas data-h="250"></canvas><div class="botoes"><button type="button" data-acao="step">um pulso</button><button type="button" data-acao="autorun">automático</button><button type="button" data-acao="clear">zerar</button></div></div>
+  <div class="pecas"><p class="rot">as peças desta família</p><div class="item" id="oscilador"><p class="nome-item">oscilador (o relógio)</p><ul><li><i>O que é:</i> Um circuito que muda de estado sozinho, sem ninguém abrir ou fechar uma chave.</li><li><i>Por que existe:</i> Porque todo computador precisa de algo que faça o resto se mover em sincronia: é o relógio.</li></ul></div></div>
+  <p class="corpo">Todo computador tem um oscilador que faz tudo o mais se mover em sincronia. É ele que entra no flip-flop de borda e diz quando guardar, e no contador diz quando avançar. Sem relógio, os registradores não saberiam o instante de guardar, e a máquina não teria um passo.</p>
+  <div class="mat"><p class="obj">a matemática daqui · <b>o tempo vira contagem: 0, 1, 2, …</b></p><p class="expr">frequência = 1 ÷ período: 1 ÷ 0,02 s = 50 por segundo</p><p class="leitura"><b>lê-se:</b> frequência é igual a um dividido pelo período: um dividido por zero vírgula zero dois segundo é igual a cinquenta por segundo.</p></div>
+  <section class="pergunta recuperacao" data-certa="1"><p class="rot">antes de seguir, responda</p><p class="enunciado">O que o flip-flop de borda faz com o relógio?</p><div class="opcoes"><label><input type="radio" name="relogio-recuperacao" value="0" id="relogio-recuperacao-0"> <span>ignora</span></label><label><input type="radio" name="relogio-recuperacao" value="1" id="relogio-recuperacao-1"> <span>guarda o dado só no instante em que o relógio sobe</span></label><label><input type="radio" name="relogio-recuperacao" value="2" id="relogio-recuperacao-2"> <span>guarda o dado o tempo todo</span></label></div><button type="button" class="ver" data-pergunta="relogio-recuperacao">ver a resposta</button><p class="porque" hidden><b></b> Na borda, e só nela. O de nível guarda enquanto o relógio está alto, e por isso vaza. O instrumento desta família mostra os dois lado a lado.</p></section>
+  <details class="fonte"><summary>de onde isto vem</summary><blockquote lang="en">All computers have some kind of oscillator that makes everything else move in synchronicity.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 17 — Feedback and Flip-Flops</cite></blockquote><p class="traducao">Todo computador tem algum tipo de oscilador que faz tudo o mais se mover em sincronia.</p><blockquote lang="en">For that reason, an oscillator is sometimes referred to as a clock because by counting the number of oscillations you can tell time (kind of).<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 17 — Feedback and Flip-Flops</cite></blockquote><p class="traducao">Por isso, um oscilador é às vezes chamado de relógio: contando as oscilações dá para dizer as horas (mais ou menos).</p><blockquote lang="en">The oscillator doesn’t require a human being; it basically runs by itself.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 17 — Feedback and Flip-Flops</cite></blockquote><blockquote lang="en">All computers have some kind of oscillator that makes everything else move in synchronicity.<cite>Charles Petzold, <i>Code: The Hidden Language of Computer Hardware and Software</i>, 2ª ed. · cap. 17 — Feedback and Flip-Flops</cite></blockquote></details>
+</section>
+<section class="tela" id="mapa" data-nome="O mapa">
+  <header><p class="eyebrow">o fecho</p><h2>O mapa inteiro, de baixo para cima</h2></header>
+  <p class="tese">O eletroímã é o chão; o paradigma é o topo. Cada seta diz de que a peça de cima é feita, ou de que ela depende. Clique num nome para ir à peça.</p>
+  <div class="mapa"><svg viewBox="0 0 1090 1142" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mapa da escada de abstrações, do eletroímã à máquina de registradores">
+<defs>
+<marker id="ponta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6"
+        markerHeight="6" orient="auto-start-reverse">
+  <path d="M0,1 L9,5 L0,9 z" fill="#6fbf6a"/></marker>
+<marker id="pontaF" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6"
+        markerHeight="6" orient="auto-start-reverse">
+  <path d="M0,1 L9,5 L0,9 z" fill="#33465f"/></marker>
+</defs>
+<line x1="46" y1="872.0" x2="1044" y2="872.0" stroke="#c9a266" stroke-width="1" stroke-dasharray="2 5" opacity=".65"/>
+<text x="1040" y="863.0" text-anchor="end" fill="#c9a266" font-family="Inter,sans-serif" font-size="11.5" opacity=".9">daqui para cima o assunto é lógica, não eletricidade</text>
+<line x1="46" y1="352.0" x2="1044" y2="352.0" stroke="#a883c9" stroke-width="1" stroke-dasharray="2 5" opacity=".55"/>
+<text x="1040" y="343.0" text-anchor="end" fill="#a883c9" font-family="Inter,sans-serif" font-size="11.5" opacity=".9">daqui para cima o assunto é linguagem, não circuito</text>
+<rect x="100" y="53" width="200" height="42" rx="7" fill="none" stroke="#33465f" stroke-width="1.3" stroke-dasharray="5 4"/><text x="200" y="79" text-anchor="middle" fill="#6b7a90" font-family="Inter,sans-serif" font-size="12.5">sistema operacional</text>
+<rect x="370" y="53" width="200" height="42" rx="7" fill="none" stroke="#33465f" stroke-width="1.3" stroke-dasharray="5 4"/><text x="470" y="79" text-anchor="middle" fill="#6b7a90" font-family="Inter,sans-serif" font-size="12.5">instrução</text>
+<text x="50" y="30" fill="#6b7a90" font-family="Inter,sans-serif" font-size="11.5">não lido — a estrada continua, e o mapa não esconde isso</text>
+<path d="M470,168 C470,128 200,147 200,103" fill="none" stroke="#33465f" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#pontaF)"/>
+<path d="M470,168 L470,103" fill="none" stroke="#33465f" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#pontaF)"/>
+<path d="M470,168 C470,128 740,147 740,103" fill="none" stroke="#33465f" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#pontaF)"/>
+<path d="M470,1000 L470,952" fill="none" stroke="#6fbf6a" stroke-width="1.7" marker-end="url(#ponta)"/>
+<path d="M470,896 L470,848" fill="none" stroke="#6fbf6a" stroke-width="1.7" marker-end="url(#ponta)"/>
+<path d="M470,792 C470,768.0 200,768.0 200,744" fill="none" stroke="#6fbf6a" stroke-width="1.7" marker-end="url(#ponta)"/>
+<path d="M470,792 L470,744" fill="none" stroke="#6fbf6a" stroke-width="1.7" marker-end="url(#ponta)"/>
+<path d="M470,688 C470,664.0 740,664.0 740,640" fill="none" stroke="#6fbf6a" stroke-width="1.7" marker-end="url(#ponta)"/>
+<path d="M470,792 C970,762 970,670 740,640" fill="none" stroke="#6fbf6a" stroke-width="1.7" marker-end="url(#ponta)"/>
+<path d="M740,584 L740,536" fill="none" stroke="#6fbf6a" stroke-width="1.7" marker-end="url(#ponta)"/>
+<path d="M740,584 C740,560.0 470,560.0 470,536" fill="none" stroke="#6fbf6a" stroke-width="1.7" marker-end="url(#ponta)"/>
+<path d="M470,480 L470,432" fill="none" stroke="#6fbf6a" stroke-width="1.7" marker-end="url(#ponta)"/><path d="M470,480 L470,432" fill="none" stroke="#6fbf6a" stroke-width="4.6" opacity=".22"/>
+<path d="M200,688 L200,640" fill="none" stroke="#6fbf6a" stroke-width="1.7" marker-end="url(#ponta)"/>
+<path d="M470,376 C470,352.0 200,352.0 200,328" fill="none" stroke="#6fbf6a" stroke-width="1.7" marker-end="url(#ponta)"/>
+<path d="M470,376 L470,328" fill="none" stroke="#6fbf6a" stroke-width="1.7" marker-end="url(#ponta)"/>
+<path d="M470,272 L470,224" fill="none" stroke="#6fbf6a" stroke-width="1.7" marker-end="url(#ponta)"/>
+<path d="M470,688 L470,640" fill="none" stroke="#6fbf6a" stroke-width="1.7" marker-end="url(#ponta)"/>
+<path d="M470,272 C470,248.0 740,248.0 740,224" fill="none" stroke="#6fbf6a" stroke-width="1.7" marker-end="url(#ponta)"/>
+<path d="M200,896 C200,872.0 470,872.0 470,848" fill="none" stroke="#6fbf6a" stroke-width="1.7" marker-end="url(#ponta)"/>
+<path d="M470,896 C470,872.0 740,872.0 740,848" fill="none" stroke="#6fbf6a" stroke-width="1.7" marker-end="url(#ponta)"/>
+<a href="#eletroima" class="no">
+<rect x="370" y="1000" width="200" height="56" rx="7"
+      fill="#3a2418" stroke="#c1704f" stroke-width="1.6"/>
+<text x="470" y="1033" text-anchor="middle" fill="#e6b499"
+      font-family="Cormorant,Georgia,serif" font-size="17.5"><tspan x="470" dy="0">eletroímã</tspan></text>
+<text x="379" y="1015" fill="#c1704f" font-family="Inter,sans-serif"
+      font-size="10" opacity=".75">nível -1</text>
+</a>
+<a href="#rele" class="no">
+<rect x="370" y="896" width="200" height="56" rx="7"
+      fill="#3a2418" stroke="#c1704f" stroke-width="1.6"/>
+<text x="470" y="929" text-anchor="middle" fill="#e6b499"
+      font-family="Cormorant,Georgia,serif" font-size="17.5"><tspan x="470" dy="0">relé</tspan></text>
+<text x="379" y="911" fill="#c1704f" font-family="Inter,sans-serif"
+      font-size="10" opacity=".75">nível 0</text>
+</a>
+<a href="#porta" class="no">
+<rect x="370" y="792" width="200" height="56" rx="7"
+      fill="#14263f" stroke="#5b8fc9" stroke-width="1.6"/>
+<text x="470" y="825" text-anchor="middle" fill="#bcd4ec"
+      font-family="Cormorant,Georgia,serif" font-size="17.5"><tspan x="470" dy="0">porta lógica</tspan></text>
+<text x="379" y="807" fill="#5b8fc9" font-family="Inter,sans-serif"
+      font-size="10" opacity=".75">nível 1</text>
+</a>
+<a href="#somador" class="no">
+<rect x="100" y="688" width="200" height="56" rx="7"
+      fill="#1a2a4a" stroke="#7fa3dc" stroke-width="1.6"/>
+<text x="200" y="721" text-anchor="middle" fill="#cfe0f5"
+      font-family="Cormorant,Georgia,serif" font-size="17.5"><tspan x="200" dy="0">somador</tspan></text>
+<text x="109" y="703" fill="#7fa3dc" font-family="Inter,sans-serif"
+      font-size="10" opacity=".75">nível 2</text>
+</a>
+<a href="#flipflop" class="no">
+<rect x="370" y="688" width="200" height="56" rx="7"
+      fill="#10312e" stroke="#4fb3a5" stroke-width="1.6"/>
+<text x="470" y="721" text-anchor="middle" fill="#a8e0d7"
+      font-family="Cormorant,Georgia,serif" font-size="17.5"><tspan x="470" dy="0">flip-flop de nível</tspan></text>
+<text x="379" y="703" fill="#4fb3a5" font-family="Inter,sans-serif"
+      font-size="10" opacity=".75">nível 2</text>
+</a>
+<a href="#flipflop_b" class="no">
+<rect x="640" y="584" width="200" height="56" rx="7"
+      fill="#10312e" stroke="#4fb3a5" stroke-width="1.6"/>
+<text x="740" y="617" text-anchor="middle" fill="#a8e0d7"
+      font-family="Cormorant,Georgia,serif" font-size="17.5"><tspan x="740" dy="0">flip-flop de borda</tspan></text>
+<text x="649" y="599" fill="#4fb3a5" font-family="Inter,sans-serif"
+      font-size="10" opacity=".75">nível 3</text>
+</a>
+<a href="#contador" class="no">
+<rect x="640" y="480" width="200" height="56" rx="7"
+      fill="#10312e" stroke="#4fb3a5" stroke-width="1.6"/>
+<text x="740" y="513" text-anchor="middle" fill="#a8e0d7"
+      font-family="Cormorant,Georgia,serif" font-size="17.5"><tspan x="740" dy="0">contador</tspan></text>
+<text x="649" y="495" fill="#4fb3a5" font-family="Inter,sans-serif"
+      font-size="10" opacity=".75">nível 4</text>
+</a>
+<a href="#registrador" class="no">
+<rect x="370" y="480" width="200" height="56" rx="7"
+      fill="#10312e" stroke="#4fb3a5" stroke-width="1.6"/>
+<text x="470" y="513" text-anchor="middle" fill="#a8e0d7"
+      font-family="Cormorant,Georgia,serif" font-size="17.5"><tspan x="470" dy="0">registrador</tspan></text>
+<text x="379" y="495" fill="#4fb3a5" font-family="Inter,sans-serif"
+      font-size="10" opacity=".75">nível 4</text>
+</a>
+<a href="#maquina" class="no">
+<rect x="370" y="376" width="200" height="56" rx="7"
+      fill="#2a1836" stroke="#a883c9" stroke-width="1.6"/>
+<text x="470" y="399" text-anchor="middle" fill="#dcc9ec"
+      font-family="Cormorant,Georgia,serif" font-size="17.5"><tspan x="470" dy="0">máquina de</tspan><tspan x="470" dy="17">registradores</tspan></text>
+<text x="379" y="391" fill="#a883c9" font-family="Inter,sans-serif"
+      font-size="10" opacity=".75">nível 5</text>
+</a>
+<a href="#ula" class="no">
+<rect x="100" y="584" width="200" height="56" rx="7"
+      fill="#1a2a4a" stroke="#7fa3dc" stroke-width="1.6"/>
+<text x="200" y="617" text-anchor="middle" fill="#cfe0f5"
+      font-family="Cormorant,Georgia,serif" font-size="17.5"><tspan x="200" dy="0">ULA</tspan></text>
+<text x="109" y="599" fill="#7fa3dc" font-family="Inter,sans-serif"
+      font-size="10" opacity=".75">nível 3</text>
+</a>
+<a href="#assembler" class="no">
+<rect x="100" y="272" width="200" height="56" rx="7"
+      fill="#2a1836" stroke="#a883c9" stroke-width="1.6"/>
+<text x="200" y="305" text-anchor="middle" fill="#dcc9ec"
+      font-family="Cormorant,Georgia,serif" font-size="17.5"><tspan x="200" dy="0">montador</tspan></text>
+<text x="109" y="287" fill="#a883c9" font-family="Inter,sans-serif"
+      font-size="10" opacity=".75">nível 6</text>
+</a>
+<a href="#avaliador" class="no">
+<rect x="370" y="272" width="200" height="56" rx="7"
+      fill="#2a1836" stroke="#a883c9" stroke-width="1.6"/>
+<text x="470" y="305" text-anchor="middle" fill="#dcc9ec"
+      font-family="Cormorant,Georgia,serif" font-size="17.5"><tspan x="470" dy="0">interpretador</tspan></text>
+<text x="379" y="287" fill="#a883c9" font-family="Inter,sans-serif"
+      font-size="10" opacity=".75">nível 6</text>
+</a>
+<a href="#paradigma" class="no">
+<rect x="370" y="168" width="200" height="56" rx="7"
+      fill="#2a1836" stroke="#a883c9" stroke-width="1.6"/>
+<text x="470" y="201" text-anchor="middle" fill="#dcc9ec"
+      font-family="Cormorant,Georgia,serif" font-size="17.5"><tspan x="470" dy="0">paradigma</tspan></text>
+<text x="379" y="183" fill="#a883c9" font-family="Inter,sans-serif"
+      font-size="10" opacity=".75">nível 7</text>
+</a>
+<a href="#transistor" class="no">
+<rect x="100" y="896" width="200" height="56" rx="7"
+      fill="#3a2418" stroke="#c1704f" stroke-width="1.6"/>
+<text x="200" y="929" text-anchor="middle" fill="#e6b499"
+      font-family="Cormorant,Georgia,serif" font-size="17.5"><tspan x="200" dy="0">transistor</tspan></text>
+<text x="109" y="911" fill="#c1704f" font-family="Inter,sans-serif"
+      font-size="10" opacity=".75">nível 0</text>
+</a>
+<a href="#oscilador" class="no">
+<rect x="640" y="792" width="200" height="56" rx="7"
+      fill="#33280f" stroke="#c9a266" stroke-width="1.6"/>
+<text x="740" y="825" text-anchor="middle" fill="#f0dcb4"
+      font-family="Cormorant,Georgia,serif" font-size="17.5"><tspan x="740" dy="0">oscilador (o relógio)</tspan></text>
+<text x="649" y="807" fill="#c9a266" font-family="Inter,sans-serif"
+      font-size="10" opacity=".75">nível 1</text>
+</a>
+<a href="#memoria" class="no">
+<rect x="370" y="584" width="200" height="56" rx="7"
+      fill="#10312e" stroke="#4fb3a5" stroke-width="1.6"/>
+<text x="470" y="617" text-anchor="middle" fill="#a8e0d7"
+      font-family="Cormorant,Georgia,serif" font-size="17.5"><tspan x="470" dy="0">memória (RAM)</tspan></text>
+<text x="379" y="599" fill="#4fb3a5" font-family="Inter,sans-serif"
+      font-size="10" opacity=".75">nível 3</text>
+</a>
+<a href="#compilador" class="no">
+<rect x="640" y="168" width="200" height="56" rx="7"
+      fill="#2a1836" stroke="#a883c9" stroke-width="1.6"/>
+<text x="740" y="201" text-anchor="middle" fill="#dcc9ec"
+      font-family="Cormorant,Georgia,serif" font-size="17.5"><tspan x="740" dy="0">compilador</tspan></text>
+<text x="649" y="183" fill="#a883c9" font-family="Inter,sans-serif"
+      font-size="10" opacity=".75">nível 7</text>
+</a>
+<text x="50" y="1096" fill="#5b6b86" font-family="Inter,sans-serif" font-size="11.5">a cor diz a família · a seta cheia: de que a peça é feita · a tracejada: o que ainda está fora da escada</text>
+<rect x="50" y="1109" width="13" height="13" rx="3" fill="#3a2418" stroke="#c1704f" stroke-width="1.4"/>
+<text x="69" y="1120" fill="#8a94a4" font-family="Inter,sans-serif" font-size="11">transistores</text>
+<rect x="152.8" y="1109" width="13" height="13" rx="3" fill="#14263f" stroke="#5b8fc9" stroke-width="1.4"/>
+<text x="171.8" y="1120" fill="#8a94a4" font-family="Inter,sans-serif" font-size="11">portas lógicas</text>
+<rect x="268.40000000000003" y="1109" width="13" height="13" rx="3" fill="#1a2a4a" stroke="#7fa3dc" stroke-width="1.4"/>
+<text x="287.40000000000003" y="1120" fill="#8a94a4" font-family="Inter,sans-serif" font-size="11">somadores</text>
+<rect x="352.0" y="1109" width="13" height="13" rx="3" fill="#10312e" stroke="#4fb3a5" stroke-width="1.4"/>
+<text x="371.0" y="1120" fill="#8a94a4" font-family="Inter,sans-serif" font-size="11">registradores</text>
+<rect x="461.2" y="1109" width="13" height="13" rx="3" fill="#2a1836" stroke="#a883c9" stroke-width="1.4"/>
+<text x="480.2" y="1120" fill="#8a94a4" font-family="Inter,sans-serif" font-size="11">instruções</text>
+<rect x="551.2" y="1109" width="13" height="13" rx="3" fill="#33280f" stroke="#c9a266" stroke-width="1.4"/>
+<text x="570.2" y="1120" fill="#8a94a4" font-family="Inter,sans-serif" font-size="11">relógio</text>
+</svg></div>
+  <p class="chaves"><span class="chave"><i style="background:#c1704f"></i>transistores — ligam e desligam</span><span class="chave"><i style="background:#5b8fc9"></i>portas lógicas — decidem</span><span class="chave"><i style="background:#7fa3dc"></i>somadores — fazem conta</span><span class="chave"><i style="background:#4fb3a5"></i>registradores — guardam número</span><span class="chave"><i style="background:#a883c9"></i>instruções — mandam</span><span class="chave"><i style="background:#c9a266"></i>relógio — marca o tempo</span></p>
+  <p class="corpo">A cor do nó é a família. A linha dourada marca onde o assunto deixa de ser eletricidade e passa a ser lógica; a roxa, onde deixa de ser circuito e passa a ser linguagem. As setas tracejadas apontam para o que ainda não está na escada.</p>
+</section>
+</div>
+<nav class="passo" aria-label="navegação"><button id="ant" type="button"><small>anterior</small><span></span></button>
+<p class="pos" id="pos"></p><button id="prox" type="button" class="prox"><small>próximo</small><span></span></button></nav>
+<footer><b>A escada de abstrações</b> — Mateus Alkimim · código <b>MIT</b>, conteúdo
+<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.pt-br">CC BY-SA 4.0</a>.
+As frases dos livros pertencem aos seus autores e aparecem com fonte e capítulo.</footer>
+</div>
+<script>/* O visor da escada: uma família por tela. Trilha no alto, hash pelo id da
+   seção, setas do teclado, e as perguntas (previsão e recuperação) com a
+   resposta que explica onde a aposta divergiu. Sem biblioteca. */
+(function () {
+  "use strict";
+  var secs = [].slice.call(document.querySelectorAll(".tela"));
+  var N = secs.length;
+  var est = [{"id": "conv", "tok": "lê-se", "nome": "sinais"}, {"id": "transistores", "tok": "transistores", "nome": "ligam e desligam", "cor": "#c1704f"}, {"id": "portas", "tok": "portas lógicas", "nome": "decidem", "cor": "#5b8fc9"}, {"id": "somadores", "tok": "somadores", "nome": "fazem conta", "cor": "#7fa3dc"}, {"id": "registradores", "tok": "registradores", "nome": "guardam número", "cor": "#4fb3a5"}, {"id": "instrucoes", "tok": "instruções", "nome": "mandam", "cor": "#a883c9"}, {"id": "relogio", "tok": "relógio", "nome": "marca o tempo", "cor": "#c9a266"}, {"id": "mapa", "tok": "mapa", "nome": "o fecho"}];
+  var trilha = document.getElementById("trilha");
+  var ant = document.getElementById("ant"), prox = document.getElementById("prox"), pos = document.getElementById("pos");
+  var atual = 0;
+
+  function desenharTrilha(k) {
+    var h = "";
+    for (var i = 0; i < est.length; i++) {
+      var cls = i < k ? "passado" : (i === k ? "atual" : "futuro");
+      var cor = est[i].cor ? ' style="--fam:' + est[i].cor + '"' : "";
+      h += '<div class="est ' + cls + '" data-i="' + i + '"' + cor + '><span class="tok">' + est[i].tok + '</span><span class="nome">' + est[i].nome + '</span></div>';
+    }
+    trilha.innerHTML = h;
+    var a = trilha.querySelector(".atual");
+    if (a && a.scrollIntoView) { try { a.scrollIntoView({ block: "nearest", inline: "center" }); } catch (e) {} }
+  }
+  function ir(k, foco) {
+    if (k < 0 || k >= N) return;
+    atual = k;
+    secs.forEach(function (s, i) { s.hidden = (i !== k); });
+    desenharTrilha(k);
+    pos.textContent = k === 0 ? "antes de tudo" : (k === N - 1 ? "o fecho" : "família " + k + " de " + (N - 2));
+    ant.disabled = (k === 0); ant.querySelector("span").textContent = k > 0 ? secs[k - 1].dataset.nome : "";
+    prox.disabled = (k === N - 1); prox.querySelector("span").textContent = k < N - 1 ? secs[k + 1].dataset.nome : "";
+    try { if (location.hash !== "#" + secs[k].id) history.replaceState(null, "", "#" + secs[k].id); } catch (e) {}
+    try { localStorage.setItem("escada-tela", String(k)); } catch (e) {}
+    if (window.ESCADA_MONTAR) window.ESCADA_MONTAR();   // monta o instrumento da tela que acabou de aparecer
+    if (foco) window.scrollTo({ top: 0, behavior: "auto" });
+  }
+  ant.addEventListener("click", function () { ir(atual - 1, true); });
+  prox.addEventListener("click", function () { ir(atual + 1, true); });
+  trilha.addEventListener("click", function (e) { var t = e.target.closest && e.target.closest(".est"); if (t) ir(+t.dataset.i, true); });
+  document.addEventListener("keydown", function (e) {
+    if (e.target && /^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(e.target.tagName)) return;
+    if (e.key === "ArrowRight") ir(atual + 1, true);
+    if (e.key === "ArrowLeft") ir(atual - 1, true);
+  });
+  function porHash() {
+    var a = -1; secs.forEach(function (s, i) { if ("#" + s.id === location.hash) a = i; });
+    return a;
+  }
+  window.addEventListener("hashchange", function () { var a = porHash(); if (a >= 0 && a !== atual) ir(a, true); });
+
+  // as perguntas: aposta antes do instrumento, recuperação no fim. A resposta
+  // diz ONDE a aposta divergiu, nunca só "errado"; nada trava o próximo.
+  [].forEach.call(document.querySelectorAll(".pergunta"), function (sec) {
+    var certa = +sec.dataset.certa, botao = sec.querySelector("button.ver"), porque = sec.querySelector(".porque");
+    var nome = botao.dataset.pergunta;
+    try { var guardada = localStorage.getItem("escada-" + nome); if (guardada !== null) { var r = sec.querySelector('input[value="' + guardada + '"]'); if (r) r.checked = true; } } catch (e) {}
+    botao.addEventListener("click", function () {
+      var esc = sec.querySelector("input:checked");
+      var labels = sec.querySelectorAll("label");
+      [].forEach.call(labels, function (l, i) { l.classList.toggle("certa", i === certa); l.classList.toggle("errada", esc && i === +esc.value && i !== certa); });
+      var b = porque.querySelector("b");
+      if (!esc) b.textContent = "Você não apostou. A resposta é a marcada:";
+      else if (+esc.value === certa) b.textContent = "Acertou:";
+      else b.textContent = "Você escolheu “" + labels[+esc.value].textContent.trim() + "”; a resposta é “" + labels[certa].textContent.trim() + "”, porque";
+      porque.hidden = false;
+      try { if (esc) localStorage.setItem("escada-" + nome, esc.value); } catch (e) {}
+    });
+  });
+
+  var k0 = porHash();
+  if (k0 < 0) { try { var s = localStorage.getItem("escada-tela"); if (s !== null) k0 = Math.min(N - 1, +s); } catch (e) {} }
+  ir(k0 < 0 ? 0 : k0, false);
+})();
+</script>
+<script>/* Os instrumentos da escada — canvas e aritmética, nada mais.
+ *
+ * Contrato herdado do seeing-calculus: sem biblioteca de terceiro, sem rede,
+ * sem servidor. Abre offline. Nada sai da sua máquina porque não há para onde.
+ *
+ * A diferença de propósito, e é a tese desta reforma: no seeing-calculus o
+ * instrumento deixa uma afirmação ser CONFERIDA com a régua. Aqui ele faz o
+ * mesmo com uma ARESTA do mapa. Quando a escada diz "porta lógica ← dois relés
+ * em série", o instrumento liga dois relés em série e monta a tabela-verdade na
+ * sua frente. A citação do Petzold continua lá, como segunda testemunha — mas
+ * ela deixou de ser a única coisa que sustenta a seta.
+ */
+(function () {
+  "use strict";
+
+  var COR = {
+    fio:  "#33465f",   // fio sem corrente
+    vivo: "#6fbf6a",   // corrente passando
+    ferro:"#c1704f",   // o que é físico
+    frio: "#5b8fc9",   // lógica combinacional
+    seq:  "#4fb3a5",   // lógica sequencial
+    ouro: "#c9a266",
+    txt:  "#9fadc0",
+    fraco:"#5b6b86",
+    creme:"#e8e2d6"
+  };
+
+  // roundRect é recente. O contrato deste repositório é abrir OFFLINE em
+  // navegador qualquer, então a peça entra com remendo em vez de depender da
+  // versão de quem abriu.
+  if (typeof CanvasRenderingContext2D !== "undefined" &&
+      !CanvasRenderingContext2D.prototype.roundRect) {
+    CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
+      r = Math.min(r || 0, w / 2, h / 2);
+      this.moveTo(x + r, y);
+      this.arcTo(x + w, y, x + w, y + h, r);
+      this.arcTo(x + w, y + h, x, y + h, r);
+      this.arcTo(x, y + h, x, y, r);
+      this.arcTo(x, y, x + w, y, r);
+      this.closePath();
+      return this;
+    };
+  }
+
+  function ctx2d(cv) {
+    var r = window.devicePixelRatio || 1, c = cv.getContext("2d");
+    var w = cv.clientWidth, h = parseInt(cv.dataset.h || "230", 10);
+    cv.width = w * r; cv.height = h * r; cv.style.height = h + "px";
+    c.setTransform(r, 0, 0, r, 0, 0);
+    c.clearRect(0, 0, w, h);
+    c.__w = w; c.__h = h;
+    return c;
+  }
+  function txt(c, s, x, y, cor, tam, al) {
+    c.fillStyle = cor || COR.txt;
+    c.font = (tam || 12) + "px Inter, system-ui, sans-serif";
+    c.textAlign = al || "left"; c.textBaseline = "middle";
+    c.fillText(s, x, y);
+  }
+  function fio(c, pts, ligado, larg) {
+    c.strokeStyle = ligado ? COR.vivo : COR.fio;
+    c.lineWidth = larg || 2.4; c.lineCap = "round"; c.lineJoin = "round";
+    c.beginPath(); c.moveTo(pts[0][0], pts[0][1]);
+    for (var i = 1; i < pts.length; i++) c.lineTo(pts[i][0], pts[i][1]);
+    c.stroke();
+  }
+  function bolha(c, x, y, ligado, r) {
+    c.beginPath(); c.arc(x, y, r || 5, 0, 6.284);
+    c.fillStyle = ligado ? COR.vivo : "#1e3050"; c.fill();
+    c.strokeStyle = ligado ? COR.vivo : COR.fio; c.lineWidth = 1.4; c.stroke();
+  }
+
+  /* ------------------------------------------------------------------ *
+   * [1] DOIS RELÉS VIRAM UMA PORTA
+   * Prova a aresta  relé → porta lógica.
+   * A tabela-verdade não vem pronta: ela se preenche conforme você visita
+   * as combinações. Enquanto faltar linha, o instrumento diz que falta.
+   * ------------------------------------------------------------------ */
+  function releViraPorta(raiz) {
+    var cv = raiz.querySelector("canvas");
+    var st = { a: false, b: false, serie: true, vistos: {} };
+
+    function chave() { return (st.serie ? "S" : "P") + (st.a ? 1 : 0) + (st.b ? 1 : 0); }
+    function saida() { return st.serie ? (st.a && st.b) : (st.a || st.b); }
+
+    function desenhar() {
+      st.vistos[chave()] = true;
+      var c = ctx2d(cv), w = c.__w, y = 96, on = saida();
+      var xA = w * 0.20, xB = w * 0.44, xL = w * 0.76;
+
+      // trilho de alimentação e retorno
+      if (st.serie) {
+        fio(c, [[40, y], [xA - 26, y]], true);
+        fio(c, [[xA + 26, y], [xB - 26, y]], st.a);
+        fio(c, [[xB + 26, y], [xL - 30, y]], st.a && st.b);
+      } else {
+        fio(c, [[40, y], [40, y - 34], [xA - 26, y - 34]], true);
+        fio(c, [[40, y], [40, y + 34], [xB - 26, y + 34]], true);
+        fio(c, [[xA + 26, y - 34], [xL - 60, y - 34], [xL - 60, y]], st.a);
+        fio(c, [[xB + 26, y + 34], [xL - 60, y + 34], [xL - 60, y]], st.b);
+        fio(c, [[xL - 60, y], [xL - 30, y]], on);
+      }
+      relé(c, xA, st.serie ? y : y - 34, st.a, "A");
+      relé(c, xB, st.serie ? y : y + 34, st.b, "B");
+
+      // lâmpada
+      c.beginPath(); c.arc(xL, y, 15, 0, 6.284);
+      c.fillStyle = on ? "rgba(201,162,102,.92)" : "#132440";
+      c.fill(); c.strokeStyle = on ? COR.ouro : COR.fio; c.lineWidth = 1.8; c.stroke();
+      if (on) { c.beginPath(); c.arc(xL, y, 26, 0, 6.284);
+                c.strokeStyle = "rgba(201,162,102,.30)"; c.lineWidth = 6; c.stroke(); }
+      txt(c, st.serie ? "em série" : "em paralelo", 40, 30, COR.creme, 13);
+      txt(c, st.serie ? "só acende se os dois estiverem acionados"
+                      : "acende se qualquer um estiver acionado",
+          40, 50, COR.fraco, 11.5);
+      tabela(c, w);
+    }
+
+    function relé(c, x, y, ligado, rot) {
+      c.fillStyle = "#132440"; c.strokeStyle = ligado ? COR.ferro : COR.fio;
+      c.lineWidth = 1.6;
+      c.beginPath(); c.roundRect(x - 25, y - 24, 50, 48, 5); c.fill(); c.stroke();
+      // bobina
+      for (var i = 0; i < 4; i++) {
+        c.beginPath(); c.arc(x - 12 + i * 8, y + 12, 4, Math.PI, 0);
+        c.strokeStyle = ligado ? COR.ferro : COR.fio; c.lineWidth = 1.5; c.stroke();
+      }
+      // contato: fecha quando acionado
+      fio(c, [[x - 18, y - 8], [x - 4, y - 8]], ligado, 2);
+      fio(c, [[x + 4, y - 8], [x + 18, y - 8]], ligado, 2);
+      c.strokeStyle = ligado ? COR.vivo : COR.fio; c.lineWidth = 2.2;
+      c.beginPath(); c.moveTo(x - 4, y - 8);
+      c.lineTo(x + 5, ligado ? y - 8 : y - 17); c.stroke();
+      txt(c, rot, x, y - 36, ligado ? COR.creme : COR.fraco, 12, "center");
+    }
+
+    function tabela(c, w) {
+      var pre = st.serie ? "S" : "P", x0 = w - 168, y0 = 152, faltam = 0;
+      txt(c, "A   B   saída", x0, y0, COR.fraco, 11.5);
+      [[0,0],[0,1],[1,0],[1,1]].forEach(function (l, i) {
+        var k = pre + l[0] + l[1], visto = !!st.vistos[k];
+        var v = st.serie ? (l[0] && l[1]) : (l[0] || l[1]);
+        if (!visto) faltam++;
+        var y = y0 + 18 + i * 15;
+        var atual = (l[0] === (st.a?1:0) && l[1] === (st.b?1:0));
+        if (atual) { c.fillStyle = "rgba(111,191,106,.12)";
+                     c.fillRect(x0 - 6, y - 7, 150, 14); }
+        txt(c, l[0] + "   " + l[1] + "   " + (visto ? v : "—"), x0, y,
+            visto ? (atual ? COR.creme : COR.txt) : "#3b4a60", 11.5);
+      });
+      var nome = st.serie ? "E" : "OU";
+      txt(c, faltam ? ("faltam " + faltam + " combinações para fechar a tabela")
+                    : ("tabela completa — isto é uma porta " + nome),
+          x0 - 6, y0 + 96, faltam ? COR.fraco : COR.vivo, 11.5);
+    }
+
+    raiz.querySelectorAll("[data-acao]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var a = b.dataset.acao;
+        if (a === "inA") st.a = !st.a;
+        if (a === "inB") st.b = !st.b;
+        if (a === "mode") { st.serie = !st.serie;
+          b.textContent = st.serie ? "em série" : "em paralelo"; }
+        b.classList.toggle("on", (a === "inA" && st.a) || (a === "inB" && st.b));
+        desenhar();
+      });
+    });
+    desenhar();
+    window.addEventListener("resize", desenhar);
+  }
+
+  /* ------------------------------------------------------------------ *
+   * [2] NÍVEL × BORDA — o instrumento que a escada mais precisava
+   * Prova a aresta  flip-flop de nível → flip-flop de borda, e mostra
+   * POR QUE ela existe: o de nível VAZA enquanto o relógio está alto.
+   * Os dois no MESMO relógio, com o mesmo dado, lado a lado.
+   * ------------------------------------------------------------------ */
+  function nivelXBorda(raiz) {
+    var cv = raiz.querySelector("canvas");
+    var st = { t: 0, tocando: false, dado: [], periodo: 96, ultimo: 0 };
+    // o dado muda algumas vezes DENTRO da janela em que o relógio está alto —
+    // é exatamente aí que os dois circuitos discordam
+    var MUDANCAS = [0,0,1,1,1,0,0,1,0,1,1,0,0,0,1,1,0,1,0,0,1,1,1,0];
+
+    function dadoEm(t) { return MUDANCAS[Math.floor(t / 26) % MUDANCAS.length]; }
+    function relogioEm(t) { return (t % st.periodo) < st.periodo / 2 ? 1 : 0; }
+
+    function simular(ate) {
+      var qn = 0, qb = 0, ant = 0, serie = [];
+      for (var t = 0; t <= ate; t++) {
+        var ck = relogioEm(t), d = dadoEm(t);
+        if (ck === 1) qn = d;                    // NÍVEL: transparente o tempo todo
+        if (ck === 1 && ant === 0) qb = d;       // BORDA: só no instante da subida
+        ant = ck;
+        serie.push([ck, d, qn, qb]);
+      }
+      return serie;
+    }
+
+    function desenhar() {
+      var c = ctx2d(cv), w = c.__w, jan = 560;
+      var t0 = Math.max(0, st.t - jan), s = simular(st.t);
+      var esq = 66, larg = w - esq - 16;
+      function X(t) { return esq + (t - t0) / jan * larg; }
+
+      var linhas = [
+        ["relógio", 0, COR.ouro],
+        ["dado",    1, COR.frio],
+        ["nível",   2, "#c1704f"],
+        ["borda",   3, COR.seq]
+      ];
+      linhas.forEach(function (L, i) {
+        var yb = 40 + i * 44, alt = 22;
+        txt(c, L[0], esq - 10, yb - alt / 2, L[2], 12, "right");
+        // faixa em que o relógio está ALTO — a janela do vazamento
+        if (i === 2) {
+          for (var t = t0; t <= st.t; t++) {
+            if (s[t] && s[t][0] === 1) {
+              c.fillStyle = "rgba(193,112,79,.10)";
+              c.fillRect(X(t), yb - alt - 3, Math.max(1, larg / jan + 0.6), alt + 6);
+            }
+          }
+        }
+        c.strokeStyle = L[2]; c.lineWidth = 1.8; c.beginPath();
+        var iniciou = false;
+        for (var t = t0; t <= st.t; t++) {
+          if (!s[t]) continue;
+          var y = yb - (s[t][L[1]] ? alt : 0);
+          if (!iniciou) { c.moveTo(X(t), y); iniciou = true; } else { c.lineTo(X(t), y); }
+        }
+        c.stroke();
+      });
+
+      // marcas nas bordas de subida
+      for (var t = t0; t <= st.t; t++) {
+        if (s[t] && s[t][0] === 1 && s[t-1] && s[t-1][0] === 0) {
+          c.strokeStyle = "rgba(201,162,102,.35)"; c.lineWidth = 1;
+          c.setLineDash([2, 4]); c.beginPath();
+          c.moveTo(X(t), 18); c.lineTo(X(t), 200); c.stroke(); c.setLineDash([]);
+        }
+      }
+
+      var ag = s[st.t] || [0,0,0,0];
+      var discorda = ag[2] !== ag[3];
+      txt(c, "o de NÍVEL copia o dado durante TODA a faixa clara. o de BORDA "
+           + "copia só na linha pontilhada.", esq, 218, COR.fraco, 11.5);
+      txt(c, discorda ? "agora eles discordam: nível = " + ag[2]
+                      + ", borda = " + ag[3]
+                      : "agora eles concordam — espere o dado mudar com o "
+                      + "relógio alto",
+          esq, 238, discorda ? COR.ouro : COR.fraco, 12);
+    }
+
+    function passo() {
+      if (st.tocando) { st.t += 2; desenhar(); }
+      requestAnimationFrame(passo);
+    }
+    raiz.querySelectorAll("[data-acao]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        if (b.dataset.acao === "playpause") {
+          st.tocando = !st.tocando;
+          b.textContent = st.tocando ? "pausar" : "continuar";
+        }
+        if (b.dataset.acao === "restart") { st.t = 0; }
+        desenhar();
+      });
+    });
+    desenhar(); requestAnimationFrame(passo);
+    window.addEventListener("resize", desenhar);
+  }
+
+  /* ------------------------------------------------------------------ *
+   * [3] O CIRCUITO QUE LEMBRA
+   * Prova a aresta  porta lógica → flip-flop de nível: dois NOR realimentados
+   * têm DOIS estados estáveis para a mesma entrada. A mesma entrada, duas
+   * saídas — que é a definição de lembrar.
+   * ------------------------------------------------------------------ */
+  function circuitoQueLembra(raiz) {
+    var cv = raiz.querySelector("canvas");
+    var st = { r: 0, s: 0, q: 0, hist: [] };
+
+    function passo() {
+      // NOR realimentado: Q = NOR(R, Qbarra) ; Qbarra = NOR(S, Q)
+      if (st.s && !st.r) st.q = 1;
+      else if (st.r && !st.s) st.q = 0;
+      // ambos 0: mantém — é aqui que ele lembra
+      st.hist.push([st.r, st.s, st.q]);
+      if (st.hist.length > 26) st.hist.shift();
+    }
+
+    function nor(c, x, y, entradaViva, saidaViva) {
+      c.fillStyle = "#132440";
+      c.strokeStyle = saidaViva ? COR.seq : COR.fio;
+      c.lineWidth = 1.7;
+      c.beginPath(); c.roundRect(x - 34, y - 17, 62, 34, 5); c.fill(); c.stroke();
+      txt(c, "NOR", x - 3, y, saidaViva ? COR.creme : COR.txt, 11.5, "center");
+      // a bolinha da negacao, que e o que faz NOR ser NOR
+      c.beginPath(); c.arc(x + 31, y, 3.6, 0, 6.284);
+      c.fillStyle = saidaViva ? COR.seq : "#1e3050"; c.fill();
+      c.strokeStyle = saidaViva ? COR.seq : COR.fio; c.lineWidth = 1.2; c.stroke();
+    }
+
+    function desenhar() {
+      var c = ctx2d(cv), w = c.__w, y = 84;
+      var xg = w * 0.30, xg2 = w * 0.30, xq = w * 0.60;
+      nor(c, xg, y - 30, st.r, st.q === 0);
+      nor(c, xg, y + 30, st.s, st.q === 1);
+      // realimentação cruzada
+      fio(c, [[xg + 34, y - 30], [xg + 52, y - 30], [xg + 52, y + 14],
+              [xg - 40, y + 14], [xg - 40, y + 22], [xg - 34, y + 22]], st.q === 0);
+      fio(c, [[xg + 34, y + 30], [xg + 62, y + 30], [xg + 62, y - 14],
+              [xg - 40, y - 14], [xg - 40, y - 22], [xg - 34, y - 22]], st.q === 1);
+      fio(c, [[xg + 34, y - 30], [xq, y - 30]], st.q === 0);
+      txt(c, "R", xg - 52, y - 38, st.r ? COR.creme : COR.fraco, 12, "right");
+      txt(c, "S", xg - 52, y + 38, st.s ? COR.creme : COR.fraco, 12, "right");
+      fio(c, [[xg - 48, y - 38], [xg - 34, y - 38]], st.r);
+      fio(c, [[xg - 48, y + 38], [xg - 34, y + 38]], st.s);
+
+      // a lâmpada da saída
+      c.beginPath(); c.arc(xq + 26, y - 30, 14, 0, 6.284);
+      c.fillStyle = st.q ? "rgba(79,179,165,.9)" : "#132440";
+      c.fill(); c.strokeStyle = st.q ? COR.seq : COR.fio; c.lineWidth = 1.7; c.stroke();
+      txt(c, "Q = " + st.q, xq + 48, y - 30, COR.creme, 13);
+
+      // a tira do histórico: prova que a MESMA entrada dá saídas diferentes
+      var x0 = 40, y0 = 176;
+      txt(c, "histórico — R e S soltos (0,0), e mesmo assim Q difere:",
+          x0, y0 - 16, COR.fraco, 11.5);
+      st.hist.forEach(function (h, i) {
+        var x = x0 + i * 17, ambos = (h[0] === 0 && h[1] === 0);
+        c.fillStyle = h[2] ? (ambos ? COR.seq : "rgba(79,179,165,.45)")
+                           : (ambos ? "#25405c" : "#1a2c45");
+        c.fillRect(x, y0, 13, 20);
+        if (ambos) { c.strokeStyle = COR.ouro; c.lineWidth = 1;
+                     c.strokeRect(x + .5, y0 + .5, 12, 19); }
+      });
+      txt(c, "contornado em ouro = entrada (0,0). Compare dois deles com Q "
+           + "diferente: é o circuito lembrando.", x0, y0 + 34, COR.fraco, 11.5);
+    }
+
+    raiz.querySelectorAll("[data-acao]").forEach(function (b) {
+      b.addEventListener("mousedown", function () {
+        if (b.dataset.acao === "setR") st.r = 1;
+        if (b.dataset.acao === "setS") st.s = 1;
+        passo(); desenhar();
+      });
+      b.addEventListener("mouseup", function () {
+        st.r = 0; st.s = 0; passo(); desenhar();
+      });
+      b.addEventListener("mouseleave", function () {
+        if (st.r || st.s) { st.r = 0; st.s = 0; passo(); desenhar(); }
+      });
+    });
+    // semente: S, solta, R, solta — a tira já abre PROVANDO a afirmação,
+    // com duas entradas (0,0) de saídas diferentes. Instrumento que abre
+    // neutro obriga o leitor a descobrir sozinho o que ele deveria mostrar.
+    [[0,0],[0,1],[0,0],[0,0],[1,0],[0,0],[0,0]].forEach(function (e) {
+      st.r = e[0]; st.s = e[1]; passo();
+    });
+    st.r = 0; st.s = 0;
+    desenhar();
+    window.addEventListener("resize", desenhar);
+  }
+
+  /* ------------------------------------------------------------------ *
+   * [4] A CONTAGEM APARECE
+   * Prova a aresta  flip-flop de borda → contador, e desarma a pergunta
+   * "onde está a peça que faz a conta": não há. Cada estágio vira na metade
+   * da frequência do anterior, e o binário É a fiação.
+   * ------------------------------------------------------------------ */
+  function contagemAparece(raiz) {
+    var cv = raiz.querySelector("canvas");
+    var st = { n: 0, bits: 4, tocando: false };
+
+    function desenhar() {
+      var c = ctx2d(cv), w = c.__w;
+      var esq = 56, larg = w - esq - 20, jan = 32;
+      // as ondas: cada estágio na metade da frequência do de cima
+      for (var b = 0; b < st.bits; b++) {
+        var yb = 40 + b * 38, alt = 20, div = Math.pow(2, b + 1);
+        txt(c, b === 0 ? "relógio" : ("bit " + (b - 1)), esq - 10, yb - alt / 2,
+            b === 0 ? COR.ouro : COR.seq, 11.5, "right");
+        c.strokeStyle = b === 0 ? COR.ouro : COR.seq; c.lineWidth = 1.7;
+        // A janela é [t0, n]. Quando ainda não houve n pulsos suficientes,
+        // ela encolhe em vez de sumir — antes, com n=0, TODO ponto caía no
+        // `continue` e a onda não era desenhada. O instrumento abria vazio.
+        var t0 = Math.max(0, st.n - jan), span = Math.max(1, st.n - t0);
+        c.beginPath();
+        for (var i = 0; i <= span; i++) {
+          var tt = t0 + i;
+          var v = Math.floor(tt / div) % 2;
+          var x = esq + i / span * larg, y = yb - (v ? alt : 0);
+          if (i === 0) c.moveTo(x, y); else { c.lineTo(x, y); }
+        }
+        c.stroke();
+      }
+      // o número, lido da fiação
+      var bits = [];
+      for (var k = st.bits - 2; k >= 0; k--) bits.push((st.n >> k) & 1);
+      var v = st.n % Math.pow(2, st.bits - 1);
+      txt(c, "os bits, lidos de cima para baixo:", esq, 196, COR.fraco, 11.5);
+      var xs = esq + 200;
+      bits.forEach(function (bit, i) {
+        c.fillStyle = bit ? COR.seq : "#1a2c45";
+        c.fillRect(xs + i * 26, 186, 20, 20);
+        txt(c, String(bit), xs + i * 26 + 10, 196, bit ? "#06231f" : COR.fraco,
+            12, "center");
+      });
+      txt(c, "= " + v + " em decimal", xs + bits.length * 26 + 14, 196,
+          COR.creme, 13);
+      txt(c, "ninguém projetou a contagem: cada estágio vira na METADE da "
+           + "frequência do anterior, e o binário é a fiação.",
+          esq, 226, COR.fraco, 11.5);
+    }
+
+    var alvo = null;
+    function tique() {
+      if (st.tocando) { st.n++; desenhar(); }
+      alvo = setTimeout(tique, 420);
+    }
+    raiz.querySelectorAll("[data-acao]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var a = b.dataset.acao;
+        if (a === "step") { st.n++; }
+        if (a === "autorun") { st.tocando = !st.tocando;
+          b.textContent = st.tocando ? "parar" : "automático"; }
+        if (a === "clear") { st.n = 0; }
+        desenhar();
+      });
+    });
+    desenhar(); tique();
+    window.addEventListener("resize", desenhar);
+  }
+
+  /* ------------------------------------------------------------------ *
+   * [5] DUAS PORTAS VIRAM UMA CONTA
+   * Prova a aresta  porta lógica → somador: XOR dá a soma, AND dá o vai-um.
+   * A conta binária aparece ao lado, para conferir que não é coincidência.
+   * ------------------------------------------------------------------ */
+  function portasViramConta(raiz) {
+    var cv = raiz.querySelector("canvas");
+    var st = { a: 0, b: 0 };
+    function desenhar() {
+      var c = ctx2d(cv), w = c.__w;
+      var s = st.a ^ st.b, co = st.a & st.b;
+      var xg = w * 0.34, y1 = 62, y2 = 128;
+      porta(c, xg, y1, "OU-excl.", s, COR.frio);
+      porta(c, xg, y2, "E", co, COR.frio);
+      fio(c, [[70, y1 - 10], [xg - 32, y1 - 10]], st.a);
+      fio(c, [[70, y1 + 10], [xg - 32, y1 + 10]], st.b);
+      fio(c, [[70, y2 - 10], [xg - 32, y2 - 10]], st.a);
+      fio(c, [[70, y2 + 10], [xg - 32, y2 + 10]], st.b);
+      txt(c, "A = " + st.a, 40, y1 - 10, st.a ? COR.creme : COR.fraco, 12);
+      txt(c, "B = " + st.b, 40, y1 + 10, st.b ? COR.creme : COR.fraco, 12);
+      fio(c, [[xg + 34, y1], [xg + 78, y1]], s);
+      fio(c, [[xg + 34, y2], [xg + 78, y2]], co);
+      txt(c, "soma  = " + s,   xg + 88, y1, s  ? COR.creme : COR.fraco, 13);
+      txt(c, "vai-um = " + co, xg + 88, y2, co ? COR.creme : COR.fraco, 13);
+      // a conta, para conferir
+      var x0 = w - 150;
+      txt(c, "a conta:", x0, 46, COR.fraco, 11.5);
+      txt(c, "  " + st.a, x0, 68, COR.creme, 15);
+      txt(c, "+ " + st.b, x0, 88, COR.creme, 15);
+      c.strokeStyle = COR.fio; c.lineWidth = 1;
+      c.beginPath(); c.moveTo(x0, 100); c.lineTo(x0 + 46, 100); c.stroke();
+      txt(c, (co ? "1" : "") + s, x0 + (co ? 6 : 18), 116, COR.ouro, 15);
+      txt(c, "o par (vai-um, soma) lido como número binário É a soma.",
+          40, 178, COR.fraco, 11.5);
+      txt(c, st.a && st.b ? "1 + 1 = 10 em binário: dois, não dez."
+                          : "experimente A = 1 e B = 1.",
+          40, 198, st.a && st.b ? COR.ouro : COR.fraco, 12);
+    }
+    function porta(c, x, y, nome, ligado, cor) {
+      c.fillStyle = "#132440"; c.strokeStyle = ligado ? COR.vivo : cor;
+      c.lineWidth = 1.7;
+      c.beginPath(); c.roundRect(x - 32, y - 22, 66, 44, 6); c.fill(); c.stroke();
+      txt(c, nome, x + 1, y, ligado ? COR.creme : COR.txt, 12.5, "center");
+    }
+    raiz.querySelectorAll("[data-acao]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        if (b.dataset.acao === "inA") st.a ^= 1;
+        if (b.dataset.acao === "inB") st.b ^= 1;
+        b.classList.toggle("on", !!(b.dataset.acao === "inA" ? st.a : st.b));
+        desenhar();
+      });
+    });
+    desenhar();
+    window.addEventListener("resize", desenhar);
+  }
+
+  // As chaves SAO os ids dos elementos, caractere a caractere. Isso nao e
+  // estilo: o portao de traducao protege literal que casa com id declarado no
+  // HTML, e um prefixo "i-" so no HTML fez o tradutor traduzir estas chaves e
+  // derrubar quatro instrumentos na pagina em ingles, em silencio.
+  var MONTA = {
+    "i-rele-vira-porta": releViraPorta,
+    "i-nivel-x-borda": nivelXBorda,
+    "i-circuito-que-lembra": circuitoQueLembra,
+    "i-contagem-aparece": contagemAparece,
+    "i-portas-viram-conta": portasViramConta
+  };
+
+  function iniciar() {
+    Object.keys(MONTA).forEach(function (id) {
+      var el = document.getElementById(id);
+      // uma seção escondida tem canvas de largura zero: só monta o que está à
+      // vista, e o visor chama de novo quando mostra a tela
+      if (el && !el.dataset.montado && el.offsetParent !== null) {
+        el.dataset.montado = "1";
+        try { MONTA[id](el); } catch (e) {
+        var av = document.createElement("p");
+        av.className = "aviso";
+        av.textContent = "o instrumento não subiu neste navegador (" + e.message
+                       + "). O texto e a citação acima continuam valendo.";
+        el.appendChild(av);
+      } }
+    });
+  }
+  window.ESCADA_MONTAR = iniciar;
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", iniciar);
+  else iniciar();
+})();
+</script>
+</body>
+</html>

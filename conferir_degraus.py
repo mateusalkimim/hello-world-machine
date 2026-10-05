@@ -16,7 +16,7 @@ import sys
 import tempfile
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
-ARQUIVOS = ["gerar_site.py", "degraus.py", "figuras.py", "pele.css", "visor.js"]
+ARQUIVOS = ["gerar_site.py", "degraus.py", "figuras.py", "pele.css", "visor.js", "barra.py"]
 PASTAS = ["maquina"]
 
 # (nome do defeito, função que muta o texto de degraus.py)

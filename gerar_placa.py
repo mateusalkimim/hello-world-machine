@@ -11,10 +11,12 @@ import os
 import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, AQUI)
+import barra as BARRA  # noqa: E402
 
 
 def main():
-    css = open(os.path.join(AQUI, "pele.css"), encoding="utf-8").read()
+    css = open(os.path.join(AQUI, "pele.css"), encoding="utf-8").read() + BARRA.CSS
     import json
     pasta = os.path.join(AQUI, "maquina", "programas")
     programas = []
@@ -67,6 +69,7 @@ ol#listagem li.atual{background:var(--card);color:var(--ink);box-shadow:inset 3p
 </head>
 <body>
 <div class="pagina" style="max-width:62em">
+{BARRA.barra("placa")}
 <div class="cab">
   <div><p class="eyebrow">hello-world-machine · instrumento</p><h1>Olá, Mundo! na placa</h1></div>
   <p class="nota"><a href="index.html">← os degraus</a> · ← → anda um ciclo · espaço toca e pausa · clicar num módulo abre o degrau que o explica</p>
