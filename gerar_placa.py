@@ -69,10 +69,14 @@ ol#listagem li.atual{background:var(--card);color:var(--ink);box-shadow:inset 3p
 html.figura body{{padding:0;margin:0;background:transparent}}
 html.figura .pagina{{max-width:none !important;gap:.5rem}}
 html.figura .partes,html.figura .cab,html.figura .tese,html.figura .lado,html.figura .rodape,html.figura .legenda{{display:none !important}}
-html.figura .quadro{{display:flex;justify-content:center;padding:.3rem}}
-html.figura canvas#placa{{width:auto !important;height:auto !important;max-width:100%;max-height:calc(100vh - 8.5rem)}}
-html.figura .placa-wrap{{gap:.5rem}}
+html.figura .pagina{{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0}}
+html.figura .quadro{{display:flex;justify-content:center;padding:0;border:none;background:transparent;overflow:visible}}
+html.figura canvas#placa{{width:auto !important;height:auto !important;max-width:100%;max-height:calc(100vh - 8.6rem)}}
+html.figura .placa-wrap{{gap:.6rem}}
+html.figura .controles{{justify-content:center}}
+html.figura .estado{{text-align:center}}
 html.figura .estado p{{margin:0}}
+html.figura #resumo{{display:none !important}}
 </style>
 <script>if(new URLSearchParams(location.search).has("figura")){{document.documentElement.classList.add("figura");var _t=new URLSearchParams(location.search).get("tema");if(_t==="claro"||_t==="escuro")document.documentElement.dataset.theme=(_t==="claro"?"light":"dark");}}</script>
 </head>
