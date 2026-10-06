@@ -159,7 +159,8 @@ html.figura #legend,html.figura #tools,html.figura #palette,html.figura .actions
 html.figura #done,html.figura #checklist,html.figura #liveNote,html.figura main>section.card:last-of-type{display:none !important}
 html.figura #wrap{grid-area:placa;justify-self:center;margin:0}
 html.figura #status{grid-area:status;min-height:2.2em;margin:0;font-size:1.15rem;text-align:center}
-html.figura #tableCard{grid-area:tabela;margin:0;padding:.6rem 1rem;max-width:24rem;align-self:center;font-size:1.2rem}
+html.figura #tableCard{grid-area:tabela;margin:0;padding:.6rem 1rem;max-width:24rem;min-width:0;overflow:hidden;align-self:center;font-size:1.2rem}
+html.figura #tableCard .readout{flex-wrap:wrap}
 html.figura #tableCard table{font-size:1.15rem}
 html.figura #tableCard h2{font-size:1.1rem}
 html.figura.sem-tabela #tableCard{display:none !important}
@@ -880,8 +881,8 @@ const _sel=selectMission; selectMission=function(i){ _sel(i); try{localStorage.s
   resize=function(){
     const main=document.querySelector("main"), wrap=document.getElementById("wrap"), tab=document.getElementById("tableCard");
     const semTabela=document.documentElement.classList.contains("sem-tabela");
-    const tw=semTabela?0:Math.min(400,Math.max(260,tab.getBoundingClientRect().width))+16;
-    const availW=main.clientWidth-tw-12, availH=window.innerHeight-document.getElementById("status").getBoundingClientRect().height-16;
+    const tw=semTabela?0:tab.getBoundingClientRect().width+16;   // a largura REAL do cartão, nunca um palpite
+    const availW=main.clientWidth-tw-12, availH=window.innerHeight-document.getElementById("status").getBoundingClientRect().height-30;
     S=Math.max(10,Math.floor(Math.min(availW/sim.W, availH/sim.H))); const dpr=window.devicePixelRatio||1;
     cv.width=S*sim.W*dpr; cv.height=S*sim.H*dpr; cv.style.width=(S*sim.W)+"px"; cv.style.height=(S*sim.H)+"px"; wrap.style.width=(S*sim.W+2)+"px";
     ctx.setTransform(dpr,0,0,dpr,0,0); draw();
