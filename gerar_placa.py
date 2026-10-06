@@ -65,7 +65,16 @@ ol#listagem li.atual{background:var(--card);color:var(--ink);box-shadow:inset 3p
 <style>
 {css}
 {extra}
+/* modo figura (?figura=1): a placa dentro do seminário, só o quadro e os controles */
+html.figura body{{padding:0;margin:0;background:transparent}}
+html.figura .pagina{{max-width:none !important;gap:.5rem}}
+html.figura .partes,html.figura .cab,html.figura .tese,html.figura .lado,html.figura .rodape,html.figura .legenda{{display:none !important}}
+html.figura .quadro{{display:flex;justify-content:center;padding:.3rem}}
+html.figura canvas#placa{{width:auto !important;height:auto !important;max-width:100%;max-height:calc(100vh - 8.5rem)}}
+html.figura .placa-wrap{{gap:.5rem}}
+html.figura .estado p{{margin:0}}
 </style>
+<script>if(new URLSearchParams(location.search).has("figura")){{document.documentElement.classList.add("figura");var _t=new URLSearchParams(location.search).get("tema");if(_t==="claro"||_t==="escuro")document.documentElement.dataset.theme=(_t==="claro"?"light":"dark");}}</script>
 </head>
 <body>
 <div class="pagina" style="max-width:62em">

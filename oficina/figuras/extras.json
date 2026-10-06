@@ -1,0 +1,13 @@
+{
+  "_": "Circuitos só de chaves para a estação 2 do seminário (antes do transistor). base = missão cuja tabela-verdade os confere.",
+  "sw-and": {"base": "g-and", "cells": [
+    {"t": "src", "x": 1, "y": 3}, {"t": "wire", "x": 2, "y": 3},
+    {"t": "sw", "x": 3, "y": 3, "lbl": "A", "r": 0}, {"t": "wire", "x": 4, "y": 3},
+    {"t": "sw", "x": 5, "y": 3, "lbl": "B", "r": 0}, {"t": "wire", "x": 6, "y": 3},
+    {"t": "lamp", "x": 7, "y": 3, "lbl": "S"}]},
+  "sw-or": {"base": "g-or", "cells": [
+    {"t": "src", "x": 1, "y": 3}, {"t": "wire", "x": 2, "y": 3}, {"t": "wire", "x": 2, "y": 2}, {"t": "wire", "x": 2, "y": 4},
+    {"t": "sw", "x": 3, "y": 2, "lbl": "A", "r": 0}, {"t": "sw", "x": 3, "y": 4, "lbl": "B", "r": 0},
+    {"t": "wire", "x": 4, "y": 2}, {"t": "wire", "x": 4, "y": 4}, {"t": "wire", "x": 4, "y": 3},
+    {"t": "wire", "x": 5, "y": 3}, {"t": "lamp", "x": 6, "y": 3, "lbl": "S"}]}
+}
