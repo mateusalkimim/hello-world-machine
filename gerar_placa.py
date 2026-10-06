@@ -66,7 +66,7 @@ ol#listagem li.atual{background:var(--card);color:var(--ink);box-shadow:inset 3p
 {css}
 {extra}
 /* modo figura (?figura=1): a placa dentro do seminário, só o quadro e os controles */
-html.figura body{{padding:0;margin:0;background:transparent}}
+html.figura body{{padding:0;margin:0;background:var(--bg)}}  /* o mesmo fundo que o canvas pinta: sem caixa visível */
 html.figura .pagina{{max-width:none !important;gap:.5rem}}
 html.figura .partes,html.figura .cab,html.figura .tese,html.figura .lado,html.figura .rodape,html.figura .legenda{{display:none !important}}
 html.figura .pagina{{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0}}
