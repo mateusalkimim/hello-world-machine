@@ -58,7 +58,9 @@ FIGURA_JS = r"""
   let minX=1e9,maxX=-1,minY=1e9,maxY=-1; for(const it of ex){ minX=Math.min(minX,it.x); maxX=Math.max(maxX,it.x); minY=Math.min(minY,it.y); maxY=Math.max(maxY,it.y); }
   const bw=maxX-minX+1, bh=maxY-minY+1;
   // a grade se recorta ao circuito (com uma célula de ar), para a figura encher a janela; a máquina de binário mantém a grade da missão por causa do mostrador
-  sim=mission.binary?new Sim(mission.cols,mission.rows):new Sim(Math.max(bw+2,6),Math.max(bh+2,4));
+  // folga PAR dos dois lados (mínimo 1 célula de ar; grade mínima 7×5), senão o circuito fica meia célula fora do centro
+  const par=n=>n+(n%2); const padW=par(Math.max(2,7-bw)), padH=par(Math.max(2,5-bh));
+  sim=mission.binary?new Sim(mission.cols,mission.rows):new Sim(bw+padW,bh+padH);
   let regionH=sim.H;
   if(mission.binary){ const lines=mission.numMode==="float"?3:(mission.outputs.length>8?3:2); regionH=mission.monitorY-(lines===3?2.7:2.1)/2; }
   const ox=Math.floor((sim.W-bw)/2)-minX, oy=Math.max(0,Math.round((regionH-bh)/2))-minY;
